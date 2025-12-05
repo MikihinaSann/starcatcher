@@ -125,8 +125,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         super(Component.empty());
 
-
-        Minecraft mc = this.minecraft;
+        Minecraft mc = Minecraft.getInstance();
         previousGuiScale = mc.options.guiScale().get();
         mc.options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
         mc.resizeDisplay();
@@ -471,7 +470,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             RenderSystem.enableBlend();
 
             //16 offset on y for texture centering
-            if (!bobber.is(ModItems.KIMBE_BOBBER.get())) {
+            if (!bobber.is(ModItems.KIMBE_BOBBER.get()))
+            {
                 guiGraphics.blit(
                         TEXTURE, width / 2 - 32, height / 2 - 32 - 16,
                         64, 64, 128, 128, 64, 64, 256, 256);
