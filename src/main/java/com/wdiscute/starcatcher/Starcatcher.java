@@ -37,6 +37,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -45,6 +46,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -69,7 +71,7 @@ public class Starcatcher
 
     public static ResourceLocation rl(String s)
     {
-        return ResourceLocation.fromNamespaceAndPath(Starcatcher.MOD_ID, s);
+        return new ResourceLocation(Starcatcher.MOD_ID, s);
     }
 
     public static final Random r = new Random();
@@ -106,9 +108,9 @@ public class Starcatcher
 
     }
 
-    public Starcatcher(FMLJavaModLoadingContext context)
+    public Starcatcher()
     {
-        IEventBus eventBus = context.getModEventBus();
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModCreativeModeTabs.register(eventBus);
         ModItems.register(eventBus);
@@ -121,8 +123,8 @@ public class Starcatcher
 
         Payloads.register();
 
-        context.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC_SERVER);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC_SERVER);
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)

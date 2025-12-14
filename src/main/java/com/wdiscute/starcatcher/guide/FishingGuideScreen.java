@@ -1604,7 +1604,7 @@ public class FishingGuideScreen extends Screen
             }
 
 
-            ResourceLocation rl = ResourceLocation.parse(level.getBiome(Minecraft.getInstance().player.blockPosition()).unwrapKey().get().location().toString());
+            ResourceLocation rl = new ResourceLocation(level.getBiome(Minecraft.getInstance().player.blockPosition()).unwrapKey().get().location().toString());
 
             comp = comp.copy().withStyle(Style.EMPTY.withColor(0x40752c));
 

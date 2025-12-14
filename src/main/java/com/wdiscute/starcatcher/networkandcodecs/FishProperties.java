@@ -343,7 +343,7 @@ public record FishProperties(
                 List.of(),
                 List.of(),
                 List.of(),
-                List.of(ResourceLocation.withDefaultNamespace("water")),
+                List.of(new ResourceLocation("water")),
                 List.of(Seasons.ALL),
                 Integer.MAX_VALUE,
                 Integer.MIN_VALUE);
@@ -529,13 +529,13 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_LAVA_SURFACE =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"))
+                        .withFluids(new ResourceLocation("lava"))
                         .withMustBeCaughtAboveY(50);
 
         public static final WorldRestrictions OVERWORLD_LAVA_UNDERGROUND =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"))
+                        .withFluids(new ResourceLocation("lava"))
                         .withMustBeCaughtBelowY(50);
 
         public static final WorldRestrictions OVERWORLD_UNDERGROUND =
@@ -546,37 +546,37 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_LAVA_DEEPSLATE =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"))
+                        .withFluids(new ResourceLocation("lava"))
                         .withMustBeCaughtBelowY(0);
 
         public static final WorldRestrictions NETHER_LAVA =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.NETHER.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"));
+                        .withFluids(new ResourceLocation("lava"));
 
         public static final WorldRestrictions NETHER_LAVA_CRIMSON_FOREST =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.NETHER.location())
                         .withBiomes(Biomes.CRIMSON_FOREST.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"));
+                        .withFluids(new ResourceLocation("lava"));
 
         public static final WorldRestrictions NETHER_LAVA_WARPED_FOREST =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.NETHER.location())
                         .withBiomes(Biomes.WARPED_FOREST.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"));
+                        .withFluids(new ResourceLocation("lava"));
 
         public static final WorldRestrictions NETHER_LAVA_SOUL_SAND_VALLEY =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.NETHER.location())
                         .withBiomes(Biomes.SOUL_SAND_VALLEY.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"));
+                        .withFluids(new ResourceLocation("lava"));
 
         public static final WorldRestrictions NETHER_LAVA_BASALT_DELTAS =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.NETHER.location())
                         .withBiomes(Biomes.BASALT_DELTAS.location())
-                        .withFluids(ResourceLocation.withDefaultNamespace("lava"));
+                        .withFluids(new ResourceLocation("lava"));
 
         public static final WorldRestrictions END =
                 WorldRestrictions.DEFAULT
@@ -1252,7 +1252,7 @@ public record FishProperties(
                 {
                     String biomeString = biomeHolder.unwrapKey().get().location().toString();
 
-                    rls.add(ResourceLocation.parse(biomeString));
+                    rls.add(new ResourceLocation(biomeString));
                 }
             }
         }
@@ -1284,7 +1284,7 @@ public record FishProperties(
                 {
                     String biomeString = biomeHolder.unwrapKey().get().location().toString();
 
-                    rls.add(ResourceLocation.parse(biomeString));
+                    rls.add(new ResourceLocation(biomeString));
                 }
             }
         }
