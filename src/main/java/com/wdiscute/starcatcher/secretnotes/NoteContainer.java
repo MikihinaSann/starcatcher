@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.secretnotes;
 
-import com.wdiscute.starcatcher.ModItems;
-import com.wdiscute.starcatcher.networkandcodecs.DataComponents;
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -40,8 +40,7 @@ public class NoteContainer extends Item
     {
         //give note
         ItemStack is = new ItemStack(ModItems.SECRET_NOTE.get());
-        DataComponents.setSecretNote(is, note);
-        //is.set(ModDataComponents.SECRET_NOTE, note);
+        ModDataComponents.set(is, ModDataComponents.SECRET_NOTE, note);
         player.addItem(is);
 
         //replace with broken bottle

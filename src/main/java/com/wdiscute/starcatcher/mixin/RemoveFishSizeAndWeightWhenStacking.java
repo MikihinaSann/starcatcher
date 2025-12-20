@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.mixin;
 
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -13,19 +14,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemStack.class)
 public class RemoveFishSizeAndWeightWhenStacking
 {
-    @Inject(at = @At("HEAD"), method = "overrideStackedOnOther", cancellable = true)
-    private void stackedOnOther(Slot slot, ClickAction action, Player player, CallbackInfoReturnable<Boolean> cir)
+
+    @Inject(at = @At("HEAD"), method = "overrideOtherStackedOnMe")
+    private void stackedOnMe(ItemStack stack, Slot slot, ClickAction action, Player player, SlotAccess access, CallbackInfoReturnable<Boolean> cir)
     {
-        ItemStack itemBeingClickedOn = slot.getItem();
+        ItemStack thisItem = (ItemStack) (Object)this;
+
+        if(stack.is(thisItem.getItem()))
+        {
+            ModDataComponents.remove(stack, ModDataComponents.SIZE_AND_WEIGHT);
+            ModDataComponents.remove(stack, ModDataComponents.FISH_PROPERTIES);
+            ModDataComponents.remove(thisItem, ModDataComponents.SIZE_AND_WEIGHT);
+            ModDataComponents.remove(thisItem, ModDataComponents.FISH_PROPERTIES);
+        }
+
+    }
+
+    @Inject(at = @At("HEAD"), method = "overrideStackedOnOther")
+    private void stackedOnMe(Slot slot, ClickAction action, Player player, CallbackInfoReturnable<Boolean> cir)
+    {
+        ItemStack itemBeingClickedOn = player.getSlot(slot.index).get();
         ItemStack itemInHand = (ItemStack) (Object)this;
 
         if(itemBeingClickedOn.is(itemInHand.getItem()))
         {
-            if(itemInHand.hasTag()) itemInHand.getTag().remove("starcatcher_size");
-            if(itemInHand.hasTag()) itemInHand.getTag().remove("starcatcher_weight");
-
-            if(itemBeingClickedOn.hasTag()) itemBeingClickedOn.getTag().remove("starcatcher_size");
-            if(itemBeingClickedOn.hasTag()) itemBeingClickedOn.getTag().remove("starcatcher_weight");
+            ModDataComponents.remove(itemInHand,  ModDataComponents.SIZE_AND_WEIGHT);
+            ModDataComponents.remove(itemInHand, ModDataComponents.FISH_PROPERTIES);
+            ModDataComponents.remove(itemBeingClickedOn,ModDataComponents.SIZE_AND_WEIGHT);
+            ModDataComponents.remove(itemBeingClickedOn, ModDataComponents.FISH_PROPERTIES);
         }
     }
 

@@ -1,0 +1,9 @@
+{
+  "type": "starcatcher:fishing_rod_smithing",
+  "rod": {
+    "tag": "starcatcher:rods"
+  },
+  "template": {
+    "tag": "starcatcher:templates"
+  }
+}

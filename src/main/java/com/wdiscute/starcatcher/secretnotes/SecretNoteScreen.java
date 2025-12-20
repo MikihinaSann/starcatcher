@@ -1,8 +1,8 @@
 package com.wdiscute.starcatcher.secretnotes;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.Tooltips;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
@@ -38,7 +38,7 @@ public class SecretNoteScreen extends Screen
             String key = translationKey + i;
             if (I18n.exists(key))
             {
-                guiGraphics.drawString(this.font, Tooltips.decodeTranslationKey(key), uiX + 140, uiY + 55 + 9 * i, 0x00000000, false);
+                guiGraphics.drawString(this.font, Tooltips.decodeTranslationKey(key), uiX + 140, uiY + 55 + 9 * i, 0x635040, false);
             }
             else
             {

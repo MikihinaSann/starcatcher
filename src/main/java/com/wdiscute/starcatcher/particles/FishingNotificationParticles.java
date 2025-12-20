@@ -4,6 +4,7 @@ package com.wdiscute.starcatcher.particles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class FishingNotificationParticles extends TextureSheetParticle
 {
@@ -63,6 +64,7 @@ public class FishingNotificationParticles extends TextureSheetParticle
             this.spriteSet = spriteSet;
         }
 
+        @Nullable
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {

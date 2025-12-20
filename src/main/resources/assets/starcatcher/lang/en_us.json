@@ -1,12 +1,7 @@
 {
-
-  "dimension.minecraft.overworld": "Overworld",
-  "dimension.minecraft.the_end": "The End",
-  "dimension.minecraft.the_nether": "The Nether",
+  "creativetab.starcatcher.starcatcher": "Starcatcher",
 
   "emi.category.starcatcher.fishing" : "Starcatcher's Fishing",
-
-  "creativetab.starcatcher.starcatcher": "Starcatcher",
 
   "tag.starcatcher.is_beach" : "Beaches",
   "tag.starcatcher.is_birch_forest" : "Birch Forests",
@@ -44,15 +39,97 @@
   "tag.starcatcher.hooks_survive_fire" : "Hooks that survive Fire",
 
 
+  "commands.starcatcher.fish_entry_not_found" : "Fish Entry %s not found",
+  "commands.starcatcher.modifier_not_found" : "Modifier %s not found",
+  "commands.starcatcher.rod_not_found" : "You must have a StarcatcherCompatible™ rod in your hand",
+  "commands.starcatcher.item_empty" : "You must have an item in your hand to apply the modifier to",
+
+
+
+
+  "tooltip.starcatcher.tournament_stand.0" : "still wip sorry :( couldn't make it in time for this release!",
+  "tooltip.starcatcher.tournament_stand.1" : "kinda somewhat not really works, I wouldnt recommend using it in",
+  "tooltip.starcatcher.tournament_stand.2" : "a world you care about...",
+
+
+
+  "tooltip.minecraft.fishing_rod.0": "A simple fishing rod used for catching",
+  "tooltip.minecraft.fishing_rod.1": "the most basic of fishes.",
+  "tooltip.minecraft.fishing_rod.2": "One can only dream of upgrading",
+  "tooltip.minecraft.fishing_rod.3": "it to a <gradient-67>Starcatcher's rod</gradient-90>.",
+
+
+
+
+  "tooltip.starcatcher.rod.netherite" : "<rgb>Netherite Upgraded</rgb>",
 
   "item.starcatcher.starcatcher_rod": "Starcatcher's Rod",
   "tooltip.starcatcher.starcatcher_rod.0": "A special fishing rod which allows",
-  "tooltip.starcatcher.starcatcher_rod.1": "for the use of bobbers, bait and hooks!",
+  "tooltip.starcatcher.starcatcher_rod.1": "for the use of bobbers, bait and hooks.",
   "tooltip.starcatcher.starcatcher_rod.2": "Who knows what you might catch",
   "tooltip.starcatcher.starcatcher_rod.3": "given the right conditions are met!",
   "tooltip.starcatcher.starcatcher_rod.4": "",
-  "tooltip.starcatcher.starcatcher_rod.5": "use whilst crouching to open",
-  "tooltip.starcatcher.starcatcher_rod.6": "bobber, bait and hook selection",
+  "tooltip.starcatcher.starcatcher_rod.5": "Right Click whilst crouching to open",
+  "tooltip.starcatcher.starcatcher_rod.6": "bobber, bait, and hook selection",
+
+  "item.starcatcher.naturalist_rod": "Naturalist Rod",
+  "tooltip.starcatcher.naturalist_rod.0": "A lost rod found very rarely in forests.",
+  "tooltip.starcatcher.naturalist_rod.1": "It appears to be nothing more than a",
+  "tooltip.starcatcher.naturalist_rod.2": "stick and a twine.",
+
+  "item.starcatcher.iceborn_rod": "Iceborn Rod",
+  "tooltip.starcatcher.iceborn_rod.0": "A frozen rod made by an Iceborn, left",
+  "tooltip.starcatcher.iceborn_rod.1": "behind in a cold ocean for you to find.",
+
+  "item.starcatcher.magmaforged_rod": "Magmaforged Rod",
+  "tooltip.starcatcher.magmaforged_rod.0": "A rod forged from magma.",
+  "tooltip.starcatcher.magmaforged_rod.1": "Found very rarely in the depths",
+  "tooltip.starcatcher.magmaforged_rod.2": "of The Nether lava oceans.",
+
+  "item.starcatcher.slimed_rod": "Slimed Rod",
+  "tooltip.starcatcher.slimed_rod.0": "A slimy rod found rarely in",
+  "tooltip.starcatcher.slimed_rod.1": "a waterlogged satchels.",
+
+  "item.starcatcher.sharktooth_rod": "Sharktooth Rod",
+  "tooltip.starcatcher.sharktooth_rod.0": "A toy rod crafted to look like a shark.",
+  "tooltip.starcatcher.sharktooth_rod.1": "Left behind inside a satchel by whoever owned in.",
+
+  "item.starcatcher.azure_crystal_rod": "Azure Crystal Rod",
+  "tooltip.starcatcher.azure_crystal_rod.0": "A <rgb>Legendary</rgb> rod made of pure azure crystals.",
+  "tooltip.starcatcher.azure_crystal_rod.1": "It's said the <gradient-30>Older Anglers</gradient-50> gift this rod",
+  "tooltip.starcatcher.azure_crystal_rod.2": "to those to manage to greed for a treasure whilst catching an <rgb>Aurora</rgb>",
+
+  "item.starcatcher.good_old_rod": "Good Ol' Rod",
+  "tooltip.starcatcher.good_old_rod.0": "A simple rod, now supportive of bobbers, hooks and baits.",
+  "tooltip.starcatcher.good_old_rod.1": "Found rarely in satchels.",
+
+  "item.starcatcher.bamboo_rod": "Bamboo Rod",
+  "tooltip.starcatcher.bamboo_rod.0": "A rod built of bamboo, found rarely in bamboo jungles.",
+
+  "item.starcatcher.obsidian_rod": "Obsidian Rod",
+  "tooltip.starcatcher.obsidian_rod.0": "A tough rod made of obsidian.",
+  "tooltip.starcatcher.obsidian_rod.1": "Found rarely in surface lava lakes,",
+  "tooltip.starcatcher.obsidian_rod.2": "was it purposely thrown in?",
+
+  "item.starcatcher.alpha_rod": "Alpha Rod",
+  "tooltip.starcatcher.alpha_rod.0": "A rod reminiscing of old times.",
+  "tooltip.starcatcher.alpha_rod.1": "Found inside satchels.",
+
+  "item.starcatcher.boner_rod": "Boner Rod",
+  "tooltip.starcatcher.boner_rod.0": "A rod made of bones...",
+  "tooltip.starcatcher.boner_rod.1": "Fished up in soulsand valleys...",
+
+  "item.starcatcher.sky_rod": "Sky Rod",
+  "tooltip.starcatcher.sky_rod.0": "A rod made amongst the clouds.",
+  "tooltip.starcatcher.sky_rod.1": "Found very rarely when fishing close to heaven",
+
+  "item.starcatcher.lush_glowberry_rod": "Lush Glowberry Rod",
+  "tooltip.starcatcher.lush_glowberry_rod.0": "A glowing glowberry rod that glows just like glowberries.",
+  "tooltip.starcatcher.lush_glowberry_rod.1": "Rarely fished up from lush caves.",
+
+  "item.starcatcher.humble_rod": "Humble Rod",
+  "tooltip.starcatcher.humble_rod.0": "A very humble rod found rarely in rivers.",
+
 
   "item.starcatcher.starcatcher_guide": "Starcatcher's Guide",
   "tooltip.starcatcher.starcatcher_guide.0": "An angler's best companion, keeping track",
@@ -63,102 +140,114 @@
   "tooltip.starcatcher.starcatcher_twine.0": "A delicate twine wrapped around a stick.",
   "tooltip.starcatcher.starcatcher_twine.1": "Vansire used these for string instruments once upon a time.",
 
+
+
+
+  "tooltip.starcatcher.modifiers": "Fishing Modifiers:",
+
+  "tooltip.modifier.starcatcher.freeze_on_miss.0": "Missing a sweet-spot will cause your",
+  "tooltip.modifier.starcatcher.freeze_on_miss.1": "reel to freeze up for a short period",
+
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.0": "Every so often a frozen sweet-spot",
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.1": "might show up which freezes your reel when hit",
+
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.0": "There is a low chance a treasure chest",
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.1": "might appear when hitting a sweet-spot",
+
+  "tooltip.modifier.starcatcher.spawn_tnt_sweet_spots.0": "Explosive sweet-spots might show up",
+
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.0": "Successfully hitting 3 sweet-spots in a row",
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.1": "will summon a treasure chest",
+
+  "tooltip.modifier.starcatcher.slower_moving_sweet_spots.0": "Slows down moving sweet-spots",
+
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.0": "Prevents your catch from swimming away",
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.1": "for a short period after hitting a sweet-spot",
+
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.0": "The catch will be harder than usual,",
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.1": "but a perfect catch awards a treasure",
+
+  "tooltip.modifier.starcatcher.no_flip.0": "Sweet-spots will no longer flip when hit",
+
+  "tooltip.modifier.starcatcher.slower_vanishing.0": "Vanishing sweet-spots will take longer to vanish",
+
+  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.0": "Green sweet-spots will be slightly bigger",
+
+  "tooltip.modifier.starcatcher.add_aqua_sweet_spot.0": "An extra aqua sweet-spot is added",
+
+  "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.0": "Three extra aqua sweet-spot are added",
+
+
+
+
+  "tooltip.modifier.starcatcher.ignore_daytime_and_weather_restrictions.0": "Ignores fish daytime & weather restrictions",
+
+  "tooltip.modifier.starcatcher.decrease_lure_time.0": "Decreases lure time",
+  "tooltip.modifier.starcatcher.big_decrease_lure_time.0": "Decreases lure time greatly",
+  "tooltip.modifier.starcatcher.increase_lure_time.0": "Increases lure time",
+
+
+
+
+  "tooltip.modifier.starcatcher.vanilla_loot.0": "Restores vanilla fishing behaviour and loot",
+
+  "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "Extra exp is awarded based on your performance",
+
+  "tooltip.modifier.starcatcher.fish_entity.0": "If available, will catch the live fish instead",
+
+  "tooltip.modifier.starcatcher.guarantee_new_fish_always.0": "If available, an undiscovered fish will bite",
+  "tooltip.modifier.starcatcher.guarantee_new_fish_half.0": "An undiscovered fish is more likely to bite",
+
+  "tooltip.modifier.starcatcher.extra_item.0": "An extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_two_item.0": "Two extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_three_item.0": "Three extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_five_item.0": "Five extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_ten_item.0": "A bunch of extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_thirty_two_item.0": "A whole school will come alongside your catch",
+
+
+
+
   "item.starcatcher.hook": "Iron Hook",
   "tooltip.starcatcher.hook.0": "A basic iron hook for your fishing rod.",
   "tooltip.starcatcher.hook.1": "Everyone starts somewhere.",
 
   "item.starcatcher.shiny_hook": "Shiny Hook",
-  "tooltip.starcatcher.shiny_hook.0": "A very shiny hook!",
-  "tooltip.starcatcher.shiny_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.shiny_hook.2": "hitting 3 consecutive sweet-spots on a",
-  "tooltip.starcatcher.shiny_hook.3": "not-common fish spawns a treasure!",
-
   "item.starcatcher.gold_hook": "Gold Hook",
-  "tooltip.starcatcher.gold_hook.0": "A glittering gold hook!",
-  "tooltip.starcatcher.gold_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.gold_hook.2": "it increases the experience you get from",
-  "tooltip.starcatcher.gold_hook.3": "fishing based on your performance.",
-
   "item.starcatcher.mossy_hook": "Mossy Hook",
-  "tooltip.starcatcher.mossy_hook.0": "A rusty hook covered in moss!",
-  "tooltip.starcatcher.mossy_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.mossy_hook.2": "it will increase the difficulty of fishes,",
-  "tooltip.starcatcher.mossy_hook.3": "but a perfect catch will award you a treasure.",
-
   "item.starcatcher.crystal_hook": "Crystal Hook",
-  "tooltip.starcatcher.crystal_hook.0": "An incredibly durable hook, perfect for lava fishing!",
-  "tooltip.starcatcher.crystal_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.crystal_hook.2": "allows you to fish in lava. Hot.",
-
   "item.starcatcher.stone_hook": "Stone Hook",
-  "tooltip.starcatcher.stone_hook.0": "An very sturdy hook!",
-  "tooltip.starcatcher.stone_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.stone_hook.2": "hitting a sweet-spot will lock the fish into",
-  "tooltip.starcatcher.stone_hook.3": "place for a moment, preventing it from escaping.",
-
   "item.starcatcher.split_hook": "Split Hook",
-  "tooltip.starcatcher.split_hook.0": "An elegantly designed split hook!",
-  "tooltip.starcatcher.split_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.split_hook.2": "completing a perfect catch will award 2 fishes.",
-
   "item.starcatcher.stabilizing_hook": "Stabilizing Hook",
-  "tooltip.starcatcher.stabilizing_hook.0": "A thin self-balancing hook!",
-  "tooltip.starcatcher.stabilizing_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.stabilizing_hook.2": "fishes won't turn around while being reeled in.",
-
   "item.starcatcher.heavy_hook": "Heavy Hook",
-  "tooltip.starcatcher.heavy_hook.0": "A rather heavy bobber.",
-  "tooltip.starcatcher.heavy_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.heavy_hook.2": "sweet-spots will move around slower.",
 
 
 
-
-  "item.starcatcher.creeper_bobber": "Creeper Bobber",
-  "tooltip.starcatcher.creeper_bobber.0": "A creeper shaped bobber.",
-  "tooltip.starcatcher.creeper_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>...",
-  "tooltip.starcatcher.creeper_bobber.2": "who knows what might happen?",
-
-  "item.starcatcher.glitter_bobber": "Glitter Bobber",
-  "tooltip.starcatcher.glitter_bobber.0": "A very sparkly bobber!",
-  "tooltip.starcatcher.glitter_bobber.1": "Feel the power of glitter.",
-
-  "item.starcatcher.colorful_bobber": "Colorful Bobber",
-  "tooltip.starcatcher.colorful_bobber.0": "A very colorful bobber!",
-  "tooltip.starcatcher.colorful_bobber.999": "It shines as if saying [click me]",
-
-  "item.starcatcher.frugal_bobber": "Frugal Bobber",
-  "tooltip.starcatcher.frugal_bobber.0": "A bobber with a unique bait-saving mechanism.",
-  "tooltip.starcatcher.frugal_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.frugal_bobber.2": "there is a chance fishes wont eat your bait away.",
+  "item.starcatcher.bobber": "Bobber",
+  "tooltip.starcatcher.bobber.0": "A basic bobber for your fishing rod.",
+  "tooltip.starcatcher.bobber.1": "Hook's best friend.",
 
   "item.starcatcher.steady_bobber": "Steady Bobber",
-  "tooltip.starcatcher.steady_bobber.0": "A stiff heavy bobber.",
-  "tooltip.starcatcher.steady_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.steady_bobber.2": "it will make fishing a lot easier.",
-
-  "item.starcatcher.impatient_bobber": "Impatient Bobber",
-  "tooltip.starcatcher.impatient_bobber.0": "A bobber specifically designed to attract fishes quicker.",
-  "tooltip.starcatcher.impatient_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.impatient_bobber.2": "fishes will be more likely to rush to bite.",
-
-  "item.starcatcher.frog_bobber": "Frog Bobber",
-  "tooltip.starcatcher.frog_bobber.0": "A frog-looking bobber.",
-  "tooltip.starcatcher.frog_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.frog_bobber.2": "it will behave like a frog. Somewhat.",
-
-  "item.starcatcher.kimbe_bobber": "Kimbe Bobber",
-  "tooltip.starcatcher.kimbe_bobber.0": "A weird looking bobber.",
-  "tooltip.starcatcher.kimbe_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.kimbe_bobber.2": "it will criticize you everytime you miss a sweet-spot,",
-  "tooltip.starcatcher.kimbe_bobber.3": "Without providing any help or explanation of why you missed.",
-
   "item.starcatcher.clear_bobber": "Clear Bobber",
-  "tooltip.starcatcher.clear_bobber.0": "A crystal clear bobber.",
-  "tooltip.starcatcher.clear_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.clear_bobber.2": "it will make vanishing sweet-spots easier to see.",
+  "item.starcatcher.aqua_bobber": "Aqua Bobber",
+  "item.starcatcher.vanilla_bobber": "Vanilla-flavoured Bobber",
 
 
+
+  "item.starcatcher.worm": "Worm",
+  "tooltip.starcatcher.worm.0": "A common worm found by bonemealing some farmland.",
+
+  "item.starcatcher.seeking_worm": "Seeking Worm",
+  "tooltip.starcatcher.seeking_worm.0": "A rare worm found by bonemealing some farmland.",
+
+  "item.starcatcher.almighty_worm": "Almighty Worm",
+  "tooltip.starcatcher.almighty_worm.0": "A rare worm found by bonemealing some farmland.",
+
+
+  "item.starcatcher.gunpowder_bait": "Gunpowder Bait",
+  "tooltip.starcatcher.gunpowder_bait.0": "An attempt at a bait made from gunpowder.",
+  "tooltip.starcatcher.gunpowder_bait.1": "No angler has attempted to use it before,",
+  "tooltip.starcatcher.gunpowder_bait.2": "probably for a good reason.",
 
   "item.starcatcher.cherry_bait": "Cherry Bait",
   "tooltip.starcatcher.cherry_bait.0": "A bait made of pink petals which fish",
@@ -191,13 +280,35 @@
   "tooltip.starcatcher.legendary_bait.1": "fish can't seem to swim past.",
 
 
+  "tooltip.starcatcher.templates": "Cosmetic Template:",
+
+  "item.starcatcher.kimbe_bobber_smithing_template": "Kimbe Bobber Smithing Template",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+
+  "item.starcatcher.pearl_bobber_smithing_template": "Pearl Bobber Smithing Template",
+  "tooltip.starcatcher.pearl_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.pearl_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+
+  "item.starcatcher.colorful_bobber_smithing_template": "Colorful Bobber Smithing Template",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.shines": "The Smithing Template shines differently...",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.click_me": "It shines as if saying [click me]",
+
+
+
+
+
 
 
   "item.starcatcher.missingno": "???",
+  "item.starcatcher.unknown_fish": "Unknown Fish",
+  "tooltips.starcatcher.unknown_fish.0": "template fish used in the minigame for entries which hide the item being fished",
 
-  "item.starcatcher.fish_spotter": "Fish Spotter",
-  "tooltip.starcatcher.fish_spotter.0": "A handy tool to any angler which",
-  "tooltip.starcatcher.fish_spotter.1": "displays the fishes around the area.",
+  "item.starcatcher.fish_radar": "Fish Radar",
+  "tooltip.starcatcher.fish_radar.0": "A handy radar which displays the fishes",
+  "tooltip.starcatcher.fish_radar.1": "around the area in a total futuristic way.",
 
   "item.starcatcher.fish_bones" : "Fish Bones",
   "item.starcatcher.fish_bones.0" : "Some fish bones. All that",
@@ -257,7 +368,30 @@
 
 
   "gui.guide.seasons" : "Seasons:",
+
   "gui.guide.seasons.all" : "All",
+
+  "gui.guide.seasons.spring" : "Spring",
+  "gui.guide.seasons.early_spring" : "Early Spring",
+  "gui.guide.seasons.mid_spring" : "Mid Spring",
+  "gui.guide.seasons.late_spring" : "Late Spring",
+
+  "gui.guide.seasons.summer" : "Summer",
+  "gui.guide.seasons.early_summer" : "Early Summer",
+  "gui.guide.seasons.mid_summer" : "Mid Summer",
+  "gui.guide.seasons.late_summer" : "Late Summer",
+
+  "gui.guide.seasons.autumn" : "Autumn",
+  "gui.guide.seasons.early_autumn" : "Early Autumn",
+  "gui.guide.seasons.mid_autumn" : "Mid Autumn",
+  "gui.guide.seasons.late_autumn" : "Late Autumn",
+
+  "gui.guide.seasons.winter" : "Winter",
+  "gui.guide.seasons.early_winter" : "Early Winter",
+  "gui.guide.seasons.mid_winter" : "Mid Winter",
+  "gui.guide.seasons.late_winter" : "Late Winter",
+
+
   "gui.guide.seasons.in_season" : "In season!",
   "gui.guide.seasons.not_in_season" : "Not in season",
 
@@ -406,15 +540,9 @@
   "gui.guide.page2.left.2" : "",
   "gui.guide.page2.left.3" : "",
   "gui.guide.page2.left.4" : "",
-  "gui.guide.page2.left.5" : "  Different hooks can be",
-  "gui.guide.page2.left.6" : "obtained through different",
-  "gui.guide.page2.left.7" : "means, but usually as loot",
-  "gui.guide.page2.left.8" : "from treasures!",
-  "gui.guide.page2.left.9" : "",
-  "gui.guide.page2.left.10" : "  They provide different",
-  "gui.guide.page2.left.11" : "perks and bonuses so use ",
-  "gui.guide.page2.left.12" : "the hook most appropriate",
-  "gui.guide.page2.left.13" : "for the task.",
+  "gui.guide.page2.left.5" : "  Hooks have special perks",
+  "gui.guide.page2.left.6" : "to aid you catching even",
+  "gui.guide.page2.left.7" : "the most challenging fish!",
 
   "gui.guide.page2.right.0" : "",
   "gui.guide.page2.right.1" : "",
@@ -422,28 +550,17 @@
   "gui.guide.page2.right.3" : "",
   "gui.guide.page2.right.4" : "",
   "gui.guide.page2.right.5" : "  Much like hooks, bobbers",
-  "gui.guide.page2.right.6" : "are found mostly through",
-  "gui.guide.page2.right.7" : "treasures.",
-  "gui.guide.page2.right.8" : "",
-  "gui.guide.page2.right.9" : "",
-  "gui.guide.page2.right.10" : "  Bobbers provide a variety",
-  "gui.guide.page2.right.11" : "of different modifications",
-  "gui.guide.page2.right.12" : "to your fishing experience.",
+  "gui.guide.page2.right.6" : "provide different perks.",
 
   "gui.guide.page3.left.0" : "",
   "gui.guide.page3.left.1" : "",
   "gui.guide.page3.left.2" : "",
   "gui.guide.page3.left.3" : "",
   "gui.guide.page3.left.4" : "",
-  "gui.guide.page3.left.5" : "Any experienced angler",
-  "gui.guide.page3.left.6" : "will tell you the importance",
-  "gui.guide.page3.left.7" : "of baits. Although they",
-  "gui.guide.page3.left.8" : "don't make fish bite faster,",
-  "gui.guide.page3.left.9" : "certain fish are attracted",
-  "gui.guide.page3.left.10" : "to specific baits which will",
-  "gui.guide.page3.left.11" : "make searching for them",
-  "gui.guide.page3.left.12" : "much easier! ",
-  "gui.guide.page3.left.13" : "Specially <rgb>legendary</rgb> fish.",
+  "gui.guide.page3.left.5" : "  Baits lure fish faster,",
+  "gui.guide.page3.left.6" : "reducing biting time.",
+  "gui.guide.page3.left.7" : "Some baits may also attract",
+  "gui.guide.page3.left.8" : "specific species.",
 
   "gui.guide.page3.right.0" : "",
   "gui.guide.page3.right.1" : "",
@@ -454,11 +571,6 @@
   "gui.guide.page3.right.6" : "inside treasures you",
   "gui.guide.page3.right.7" : "might come across some",
   "gui.guide.page3.right.8" : "old gadgets!",
-  "gui.guide.page3.right.9" : "",
-  "gui.guide.page3.right.10" : "  These are often also",
-  "gui.guide.page3.right.11" : "craftable and are helpful",
-  "gui.guide.page3.right.12" : "in several fish-related",
-  "gui.guide.page3.right.13" : "activities.",
 
   "gui.guide.page4.left.0" : "",
   "gui.guide.page4.left.1" : "",
@@ -503,6 +615,9 @@
   "gui.guide.available" : "Fishes in the area:",
   "gui.guide.all" : "All Fishes:",
 
+  "gui.guide.lakes" : "Lakes",
+  "gui.guide.lakes.hover" : "Surface biomes besides Rivers and Oceans",
+
   "gui.guide.dimension" : "Dimension: ",
   "gui.guide.dimensions" : "Dimensions: ",
   "gui.guide.biome" : "Biome: ",
@@ -542,6 +657,32 @@
 
 
 
+  "gui.starcatcher.tournament.organizer" : "Organizer",
+  "gui.starcatcher.tournament.prize_pool" : "Prize Pool",
+  "gui.starcatcher.tournament.entry_fee" : "Entry Fee",
+  "gui.starcatcher.tournament.inventory" : "Inventory",
+  "gui.starcatcher.tournament.sign_up" : "[Sign Up]",
+  "gui.starcatcher.tournament.signed_up" : "[Signed Up!]",
+  "gui.starcatcher.tournament.other" : "Others:",
+  "gui.starcatcher.tournament.status" : "Status",
+  "gui.starcatcher.tournament.scoring" : "Scoring",
+  "gui.starcatcher.tournament.duration" : "Duration",
+  "gui.starcatcher.tournament.start" : "[Start Tournament]",
+  "gui.starcatcher.tournament.cancel" : "[Cancel Tournament]",
+  "gui.starcatcher.tournament.waiting" : "Waiting on",
+
+  "gui.starcatcher.tournament.duration.days" : "Minecraft days",
+
+
+  "gui.starcatcher.tournament.status.setup" : "Preparing",
+  "gui.starcatcher.tournament.status.active" : "Ongoing",
+  "gui.starcatcher.tournament.status.finished" : "Complete",
+
+  "gui.starcatcher.tournament.scoring.simple" : "Simple",
+  "gui.starcatcher.tournament.scoring.weight" : "Weight",
+  "gui.starcatcher.tournament.scoring.rarity" : "Rarity",
+  "gui.starcatcher.tournament.scoring.golden" : "Golden",
+  "gui.starcatcher.tournament.scoring.advanced" : "Advanced",
 
 
   "gui.secret_note.sample_note.0" : "Hey how did you get this note??",
@@ -658,6 +799,24 @@
   "gui.secret_note.true_blue.14" : "   or your child's child,",
   "gui.secret_note.true_blue.15" : "   in dream or awake.",
 
+  "gui.secret_note.wither_note.0"  : "",
+  "gui.secret_note.wither_note.1"  : "",
+  "gui.secret_note.wither_note.2"  : "",
+  "gui.secret_note.wither_note.3"  : "",
+  "gui.secret_note.wither_note.4"  : "I would be more careful if I were you...",
+  "gui.secret_note.wither_note.5"  : "",
+  "gui.secret_note.wither_note.6"  : "",
+  "gui.secret_note.wither_note.7"  : "You never know what you might catch",
+  "gui.secret_note.wither_note.8"  : "drifting amid the oceans.",
+  "gui.secret_note.wither_note.9"  : "",
+  "gui.secret_note.wither_note.10" : "",
+  "gui.secret_note.wither_note.11" : "",
+  "gui.secret_note.wither_note.12" : "",
+  "gui.secret_note.wither_note.13" : "",
+  "gui.secret_note.wither_note.14" : "",
+  "gui.secret_note.wither_note.15" : "",
+
+
 
   "item.starcatcher.secret_note" : "Secret Note",
   "tooltip.starcatcher.secret_note.0" : "An old secret note almost lost to time.",
@@ -691,19 +850,28 @@
   "tooltip.starcatcher.hopeful_bottle.1" : "makes you hopeful of the future to come.",
 
   "item.starcatcher.true_blue_bottle" : "True Blue Bottle",
-  "tooltip.starcatcher.true_blue_bottle.0" : "A bottle glimmering a pale blue.",
-  "tooltip.starcatcher.true_blue_bottle.1" : "The purest version of yourself shines from inside.",
-  "tooltip.starcatcher.true_blue_bottle.2" : "",
-  "tooltip.starcatcher.true_blue_bottle.3" : "Instinctive, impatient, impossible.",
-  "tooltip.starcatcher.true_blue_bottle.4" : "In memory, mirror, and membrane.",
+  "tooltip.starcatcher.true_blue_bottle.0" : "Instinctive, impatient, impossible.",
+  "tooltip.starcatcher.true_blue_bottle.1" : "In memory, mirror, and membrane.",
 
+  "item.starcatcher.withered_bottle" : "Withered Bottle",
+  "tooltip.starcatcher.withered_bottle.0" : "An ominous dark bottle.",
+
+
+  "item.starcatcher.starcaught_bucket" : "Starcaught Bucket",
+  "tooltip.starcatcher.starcaught_bucket.before" : "Bucket of ",
+  "tooltip.starcatcher.starcaught_bucket.after" : "",
+  "tooltip.starcatcher.starcaught_bucket.creative.0" : "[CREATIVE MODE] This bucket will always spawn an Aurora. To get the corresponding [Bucket of X] you must catch it through normal means using a bucket as a bait.",
+  "tooltip.starcatcher.starcaught_bucket.creative.1" : "If you wish to summon the fish entity, you can right click on the ground with the fish item in creative mode.",
 
   "item.starcatcher.obidontiee" : "Obidontiee",
-  "tooltip.starcatcher.obidontiee.0" : "A small devious fish. Said to often mispronounce words.",
+  "tooltip.starcatcher.obidontiee.0" : "A small devious fish.",
+  "tooltip.starcatcher.obidontiee.1" : "Said to often mispronounce words.",
+
+  "item.starcatcher.morganite" : "Morganite",
+  "tooltip.starcatcher.morganite.0" : "An ocean fish resembling Morganite gemstones.",
 
   "item.starcatcher.silverveil_perch" : "Silverveil Perch",
-  "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scaled resembling silver.",
-  "tooltip.starcatcher.silverveil_perch.1" : "Most commonly found during rainy days.",
+  "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scales resembling silver.",
 
   "item.starcatcher.elderscale" : "Elderscale",
   "tooltip.starcatcher.elderscale.0" : "A deceiving fish often found in lakes.",
@@ -746,6 +914,7 @@
   "tooltip.starcatcher.crystalback_trout.1" : "back as a way to protect itself when attacked.",
 
   "item.starcatcher.aurora" : "Aurora",
+  "tooltip.starcatcher.aurora.name" : "<rgb>Aurora</rgb>",
   "tooltip.starcatcher.aurora.0" : "A beautiful <rgb>legendary</rgb> fish. It's size makes for an",
   "tooltip.starcatcher.aurora.1" : "incredibly hard and evasive catch, not letting the angler",
   "tooltip.starcatcher.aurora.2" : "rest if they wish to take it home as proof of their skills.",
@@ -759,11 +928,12 @@
 
   "item.starcatcher.sandtail" : "Sandtail",
   "tooltip.starcatcher.sandtail.0" : "A long sand-covered fish, which although mostly",
-  "tooltip.starcatcher.sandtail.1" : "found in warm climates, it prefers the cold so",
-  "tooltip.starcatcher.sandtail.2" : "it's only active during nighttime.",
+  "tooltip.starcatcher.sandtail.1" : "found in warm climates, prefers the cold of the night",
 
   "item.starcatcher.mirage_carp" : "Mirage Carp",
   "tooltip.starcatcher.mirage_carp.0" : "A carp species found during warm sunny days on warm climates.",
+  "tooltip.starcatcher.mirage_carp.1" : "Its said it got it's name from desert villagers,",
+  "tooltip.starcatcher.mirage_carp.2" : "as spotting one was often just a mirage.",
 
   "item.starcatcher.scorchfish" : "Scorchfish",
   "tooltip.starcatcher.scorchfish.0" : "A fish species which hates the rain,",
@@ -778,6 +948,7 @@
   "tooltip.starcatcher.agave_bream.0" : "A rare bream which only comes out at night",
   "tooltip.starcatcher.agave_bream.1" : "during clear weather. It's long fins help",
   "tooltip.starcatcher.agave_bream.2" : "navigating the dirty lakes of deserts.",
+  "tooltip.starcatcher.agave_bream.3" : "It is said this fish loves mangosteens",
 
 
 
@@ -842,6 +1013,12 @@
   "tooltip.starcatcher.blossomfish.0" : "A beautiful fish resembling the pink petals of Cherry Grooves.",
   "tooltip.starcatcher.blossomfish.1" : "It prefers to swim around in the warm sunlight.",
 
+  "item.starcatcher.vesani" : "Vesani",
+  "tooltip.starcatcher.vesani.0" : "This species of fish is really good",
+  "tooltip.starcatcher.vesani.1" : "at camouflaging as other species.",
+  "tooltip.starcatcher.vesani.2" : "It's unusual to see them out in the",
+  "tooltip.starcatcher.vesani.3" : "open with it's normal appearance.",
+
   "item.starcatcher.petaldrift_carp" : "Petaldrift Carp",
   "tooltip.starcatcher.petaldrift_carp.0" : "A pink carp common to Cherry Grooves which",
   "tooltip.starcatcher.petaldrift_carp.1" : "prefers to come out during the rain.",
@@ -849,9 +1026,6 @@
   "item.starcatcher.pink_koi" : "Pink Koi",
   "tooltip.starcatcher.pink_koi.0" : "A pink koi most commonly found in Cherry Grooves.",
   "tooltip.starcatcher.pink_koi.1" : "It comes out during rainy days to feed.",
-
-  "item.starcatcher.morganite" : "Morganite",
-  "tooltip.starcatcher.morganite.0" : "A fish resembling Morganite gemstones.",
 
   "item.starcatcher.rose_siamese_fish" : "Rose Siamese Fish",
   "tooltip.starcatcher.rose_siamese_fish.0" : "A rare gorgeous fish found during rainy days.",
@@ -903,6 +1077,10 @@
 
   "item.starcatcher.mistback_chub" : "Mistback Chub",
   "tooltip.starcatcher.mistback_chub.0" : "A river fish known for its silver colored scaled",
+
+  "item.starcatcher.bluegigi" : "Bluegigi",
+  "tooltip.starcatcher.bluegigi.0" : "Not to be confused with a bluegill,",
+  "tooltip.starcatcher.bluegigi.1" : "this small fish is rather common around rivers.",
 
   "item.starcatcher.dried_seaweed" : "Dried Seaweed",
   "tooltip.starcatcher.dried_seaweed.0" : "A piece of dead seaweed which got",
@@ -956,8 +1134,10 @@
   "tooltip.starcatcher.waterlogged_bottle.1" : "Whatever it once held, it's long gone by now.",
 
   "item.starcatcher.bigeye_tuna" : "Bigeye Tuna",
+  "tooltip.starcatcher.bigeye_tuna.name" : "<gradient-37>Bigeye Tuna</gradient-43>",
   "tooltip.starcatcher.bigeye_tuna.0" : "A big heavy fish known for it's big eye.",
   "tooltip.starcatcher.bigeye_tuna.1" : "This species is only found in deep ocean waters.",
+  "tooltip.starcatcher.bigeye_tuna.2" : "It's said to hang around other Kaupen fish.",
 
   "item.starcatcher.conch" : "Conch",
   "tooltip.starcatcher.conch.0" : "The remains of a mollusk with a spiral shell often used as an ornament.",
@@ -1048,11 +1228,11 @@
 
   "item.starcatcher.bright_amethyst_snapper" : "Bright Amethyst Snapper",
   "tooltip.starcatcher.bright_amethyst_snapper.0" : "A gorgeous pink colored fish found at deepslate level.",
-  "tooltip.starcatcher.bright_amethyst_snapper.1" : "It's said to swim around in pairs with a Dark Amethyst Snapper.",
+  "tooltip.starcatcher.bright_amethyst_snapper.1" : "It's said to always swim around with it's pair of Dark Amethyst Snapper.",
 
   "item.starcatcher.dark_amethyst_snapper" : "Dark Amethyst Snapper",
   "tooltip.starcatcher.dark_amethyst_snapper.0" : "A gorgeous dark blue colored fish found at deepslate level.",
-  "tooltip.starcatcher.dark_amethyst_snapper.1" : "It's said to swim around in pairs with a Dark Amethyst Snapper.",
+  "tooltip.starcatcher.dark_amethyst_snapper.1" : "It's said to always swim around with it's pair of Bright Amethyst Snapper.",
 
   "item.starcatcher.deepslatefish" : "Deepslatefish",
   "tooltip.starcatcher.deepslatefish.0" : "A hard to catch fish found high up in the mountains.",
@@ -1070,12 +1250,12 @@
 
   "item.starcatcher.glowing_dark" : "Glowing Dark",
   "tooltip.starcatcher.glowing_dark.0" : "A fast fish only found in the deep dark.",
-  "tooltip.starcatcher.glowing_dark.1" : "A fast fish only found in the deep dark.",
 
 
 
   "item.starcatcher.suneater" : "Suneater",
   "tooltip.starcatcher.suneater.0" : "A rare fish found in the lava lakes of the Overworld.",
+  "tooltip.starcatcher.suneater.1" : "It hunts down sunfishes for food.",
 
   "item.starcatcher.pyrotrout" : "Pyrotrout",
   "tooltip.starcatcher.pyrotrout.0" : "A trout adapted to live in the surface lava of the Overworld.",
@@ -1106,6 +1286,9 @@
 
 
 
+  "item.starcatcher.cerberay" : "Cerberay",
+  "tooltip.starcatcher.cerberay.0" : "A stinging fish with 3 heads.",
+  "tooltip.starcatcher.cerberay.1" : "The 2 smaller ones only share 1 brain",
 
   "item.starcatcher.embergill" : "Embergill",
   "tooltip.starcatcher.embergill.0" : "A fish found in the vast lava oceans of The Nether.",
@@ -1130,6 +1313,12 @@
   "item.starcatcher.glowstone_pufferfish" : "Glowstone Pufferfish",
   "tooltip.starcatcher.glowstone_pufferfish.0" : "A pufferfish glittering just like glowstone.",
 
+  "item.starcatcher.willish" : "Willish",
+  "tooltip.starcatcher.willish.0" : "A fish commonly known for scamming",
+  "tooltip.starcatcher.willish.1" : "other fishes out of their food.",
+  "tooltip.starcatcher.willish.2" : "It is incredibly ugly and should be",
+  "tooltip.starcatcher.willish.3" : "discarded back to The Nether where it belongs.",
+
   "item.starcatcher.lava_crab_claw" : "Lava Crab Claw",
   "tooltip.starcatcher.lava_crab_claw.0" : "A claw ripped off from a Lava Crab.",
   "tooltip.starcatcher.lava_crab_claw.1" : "Due to the aggressive nature of Lava Crabs,",
@@ -1152,5 +1341,10 @@
   "tooltip.starcatcher.voidbiter.0" : "A <rgb>legendary</rgb> fish found in outer islands of The End.",
   "tooltip.starcatcher.voidbiter.1" : "So few anglers have seen it that it's only rumored to exist.",
   "tooltip.starcatcher.voidbiter.2" : "It's said only <gradient-30>Older Anglers</gradient-50> have successfully",
-  "tooltip.starcatcher.voidbiter.3" : "caught it before."
+  "tooltip.starcatcher.voidbiter.3" : "caught it before.",
+  "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
+  "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
+  "fishing.combo": "%1$s COMBO",
+  "key.category.starcatcher.minigame": "Starcatcher Minigame",
+  "key.starcatcher.minigame_hit": "Minigame Hit"
 }

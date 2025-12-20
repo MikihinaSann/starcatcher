@@ -1,7 +1,6 @@
 package com.wdiscute.starcatcher.guide;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +17,7 @@ public class FishingGuideItem extends Item
 {
     public FishingGuideItem()
     {
-        super(new Properties().stacksTo(1).rarity(Rarity.EPIC));
+        super(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     @Override

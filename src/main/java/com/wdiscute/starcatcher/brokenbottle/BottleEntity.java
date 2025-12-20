@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.brokenbottle;
 
-import com.wdiscute.starcatcher.ModEntities;
-import com.wdiscute.starcatcher.ModItems;
+import com.wdiscute.starcatcher.registry.ModEntities;
+import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

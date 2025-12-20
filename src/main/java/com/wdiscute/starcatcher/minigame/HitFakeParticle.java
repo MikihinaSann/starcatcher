@@ -1,6 +1,9 @@
 package com.wdiscute.starcatcher.minigame;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wdiscute.starcatcher.Starcatcher;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2d;
 
@@ -8,6 +11,7 @@ import java.util.Random;
 
 public class HitFakeParticle
 {
+    public static final ResourceLocation TEXTURE = Starcatcher.rl("textures/gui/minigame/minigame.png");
 
     private static final Random random = new Random();
 
@@ -22,6 +26,21 @@ public class HitFakeParticle
     public int lifetime;
     public int maxLifetime;
     public ResourceLocation rl;
+
+    public void render(GuiGraphics guiGraphics, int width, int height)
+    {
+        PoseStack poseStack = guiGraphics.pose();
+        poseStack.pushPose();
+        poseStack.translate(pos.x, pos.y, 0);
+        RenderSystem.setShaderColor(r, g, b, a);
+
+        guiGraphics.blit(
+                TEXTURE, width / 2 - 8, height / 2 - 8,
+                16, 16, 80, 160, 16, 16, 256, 256);
+
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        poseStack.popPose();
+    }
 
     public HitFakeParticle(int x, int y, Vector2d vec)
     {

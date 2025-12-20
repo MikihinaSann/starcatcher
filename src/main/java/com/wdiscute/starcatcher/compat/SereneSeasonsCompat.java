@@ -1,8 +1,7 @@
 package com.wdiscute.starcatcher.compat;
 
-import com.wdiscute.starcatcher.ModItems;
-import com.wdiscute.starcatcher.networkandcodecs.FishProperties;
-import com.wdiscute.starcatcher.networkandcodecs.FishProperties.WorldRestrictions.Seasons;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.world.level.Level;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
@@ -12,7 +11,7 @@ public class SereneSeasonsCompat
 
     public static boolean canCatch(FishProperties fp, Level level)
     {
-        if (!fp.wr().seasons().contains(FishProperties.WorldRestrictions.Seasons.ALL))
+        if (!fp.wr().seasons().contains(Seasons.ALL))
         {
             return fp.wr().seasons().contains(getSeason(level)) || fp.wr().seasons().contains(getSubSeason(level));
         }

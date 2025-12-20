@@ -1,9 +1,11 @@
 package com.wdiscute.starcatcher;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
 
 public class StarcatcherTags
 {
@@ -14,7 +16,7 @@ public class StarcatcherTags
 
     public static final ResourceLocation IS_WARM_LAKE = Starcatcher.rl("is_warm");
     public static final ResourceLocation IS_WARM_RIVER = Starcatcher.rl("is_warm_river");
-    public static final ResourceLocation IS_WARM_OCEAN = Starcatcher.rl("is_warm_river");
+    public static final ResourceLocation IS_WARM_OCEAN = Starcatcher.rl("is_warm_ocean");
 
     public static final ResourceLocation IS_OCEAN = Starcatcher.rl("is_ocean");
     public static final ResourceLocation IS_DEEP_OCEAN = Starcatcher.rl("is_deep_ocean");
@@ -29,8 +31,14 @@ public class StarcatcherTags
 
     public static final TagKey<Item> HOOKS = ItemTags.create(Starcatcher.rl("hooks"));
     public static final TagKey<Item> BOBBERS = ItemTags.create(Starcatcher.rl("bobbers"));
-    public static final TagKey<Item> HOOKS_SURVIVE_FIRE = ItemTags.create(Starcatcher.rl("hooks_survive_fire"));
+    public static final TagKey<Item> BAITS = ItemTags.create(Starcatcher.rl("baits"));
+    public static final TagKey<Item> TEMPLATES = ItemTags.create(Starcatcher.rl("templates"));
 
-    public static final TagKey<Item> CURATED_TREASURE = ItemTags.create(Starcatcher.rl("curated_treasure"));
+    public static final TagKey<Item> RODS = ItemTags.create(Starcatcher.rl("rods"));
+
+    public static final TagKey<Item> BUCKETABLE_FISHES = ItemTags.create(Starcatcher.rl("bucketable_fishes"));
+
+
+    public static final TagKey<Fluid> NETHERITE_UPGRADE_SURVIVES = FluidTags.create(Starcatcher.rl("netherite_upgrade_survives"));
 
 }

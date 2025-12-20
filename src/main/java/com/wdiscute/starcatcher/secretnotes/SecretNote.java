@@ -1,8 +1,10 @@
 package com.wdiscute.starcatcher.secretnotes;
 
 import com.mojang.serialization.Codec;
-import com.wdiscute.starcatcher.networkandcodecs.DataComponents;
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.StreamCodec;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -12,20 +14,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 public class SecretNote extends Item
 {
     public SecretNote()
     {
-        super(new Properties().stacksTo(1));
+        super(new Properties().stacksTo(1).component(ModDataComponents.SECRET_NOTE, Note.SAMPLE_NOTE));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
-        if (level.isClientSide) openScreen(DataComponents.getSecretNote(player.getItemInHand(usedHand)));
+        if(level.isClientSide) openScreen(ModDataComponents.get(player.getItemInHand(usedHand), ModDataComponents.SECRET_NOTE));
         return super.use(level, player, usedHand);
     }
 
@@ -43,10 +44,11 @@ public class SecretNote extends Item
         ARNWULF_2("lava_proof_bottle_2"),
         HOPEFUL_NOTE("hopeful_note"),
         HOPELESS_NOTE("hopeless_note"),
+        WITHER("wither_note"),
         TRUE_BLUE("true_blue");
 
         public static final Codec<Note> CODEC = StringRepresentable.fromEnum(Note::values);
-        //public static final StreamCodec<FriendlyByteBuf, Note> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Note.class);
+        public static final StreamCodec< Note> STREAM_CODEC = StreamCodec.enumCodec(Note.class);
         private final String key;
 
         Note(String key)
@@ -54,16 +56,10 @@ public class SecretNote extends Item
             this.key = key;
         }
 
-        public String getSerializedName()
+        public @NotNull String getSerializedName()
         {
             return this.key;
         }
-
-        public static Note getBySerializedName(String s)
-        {
-            return Arrays.stream(Note.values()).filter(n -> n.getSerializedName().equals(s)).findFirst().orElse(SAMPLE_NOTE);
-        }
-
     }
 
 

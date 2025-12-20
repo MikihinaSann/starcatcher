@@ -1,16 +1,20 @@
 package com.wdiscute.starcatcher.fishentity;
 
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.registry.ModItems;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class FishEntity extends AbstractFish
 {
@@ -38,6 +42,12 @@ public class FishEntity extends AbstractFish
     }
 
     @Override
+    public @Nullable ItemStack getPickResult()
+    {
+        return getBodyArmorItem();
+    }
+
+    @Override
     protected SoundEvent getFlopSound()
     {
         return SoundEvents.TROPICAL_FISH_FLOP;
@@ -48,14 +58,29 @@ public class FishEntity extends AbstractFish
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0F);
     }
 
+    @Override
+    public void tick()
+    {
+        super.tick();
+        if(getBodyArmorItem().isEmpty()) kill();
+    }
+
+    @Override
+    protected void dropAllDeathLoot(ServerLevel p_level, DamageSource damageSource)
+    {
+        super.dropAllDeathLoot(p_level, damageSource);
+    }
+
     public void setFish(ItemStack is)
     {
-        setItemSlot(EquipmentSlot.CHEST, is);
+        setBodyArmorItem(is);
     }
 
     @Override
     public ItemStack getBucketItemStack()
     {
-        return getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack is = new ItemStack(ModItems.STARCAUGHT_BUCKET.get());
+        ModDataComponents.set(is, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(getBodyArmorItem().copy()));
+        return is;
     }
 }

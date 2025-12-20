@@ -1,21 +1,31 @@
 package com.wdiscute.starcatcher.rod;
 
-import com.wdiscute.starcatcher.ModItems;
-import com.wdiscute.starcatcher.ModMenuTypes;
+import com.mojang.datafixers.util.Pair;
+import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.networkandcodecs.DataComponents;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 public class FishingRodMenu extends AbstractContainerMenu
 {
+    private static final ResourceLocation BACKGROUND_BOBBER = Starcatcher.rl("item/background/bobber");
+    private static final ResourceLocation BACKGROUND_BAIT = Starcatcher.rl("item/background/bait");
+    private static final ResourceLocation BACKGROUND_HOOK = Starcatcher.rl("item/background/hook");
+
     public final ItemStackHandler inventory = new ItemStackHandler(3)
     {
         @Override
@@ -30,7 +40,8 @@ public class FishingRodMenu extends AbstractContainerMenu
 
     public FishingRodMenu(int containerId, Inventory inv, FriendlyByteBuf extraData)
     {
-        this(containerId, inv, inv.player.getMainHandItem());
+        this(containerId, inv, inv.player.getMainHandItem().is(StarcatcherTags.RODS) ? inv.player.getMainHandItem() : inv.player.getOffhandItem());
+
     }
 
     public FishingRodMenu(int containerId, Inventory inv, ItemStack itemStack)
@@ -39,7 +50,7 @@ public class FishingRodMenu extends AbstractContainerMenu
 
         is = itemStack;
 
-        //player inventory
+        //uuid inventory
         for (int i = 0; i < 3; ++i)
         {
             for (int l = 0; l < 9; ++l)
@@ -47,16 +58,17 @@ public class FishingRodMenu extends AbstractContainerMenu
                 this.addSlot(new Slot(inv, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
             }
         }
-        //player hotbar
+        //uuid hotbar
         for (int i = 0; i < 9; ++i)
         {
             this.addSlot(new Slot(inv, i, 8 + i * 18, 142));
         }
 
-        inventory.setStackInSlot(0, DataComponents.getItemInSlot(is, DataComponents.Slots.BOBBER).copy());
-        inventory.setStackInSlot(1, DataComponents.getItemInSlot(is, DataComponents.Slots.BAIT).copy());
-        inventory.setStackInSlot(2, DataComponents.getItemInSlot(is, DataComponents.Slots.HOOK).copy());
+        inventory.setStackInSlot(0, ModDataComponents.get(is, ModDataComponents.BOBBER).stack().copy());
+        inventory.setStackInSlot(1, ModDataComponents.get(is, ModDataComponents.BAIT).stack().copy());
+        inventory.setStackInSlot(2, ModDataComponents.get(is, ModDataComponents.HOOK).stack().copy());
 
+        //bobbers first slot
         this.addSlot(new SlotItemHandler(inventory, 0, 50, 35)
         {
             @Override
@@ -64,21 +76,43 @@ public class FishingRodMenu extends AbstractContainerMenu
             {
                 return stack.is(StarcatcherTags.BOBBERS);
             }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon()
+            {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_BOBBER);
+            }
         });
+
+        //baits second slot
         this.addSlot(new SlotItemHandler(inventory, 1, 80, 35)
         {
             @Override
             public boolean mayPlace(ItemStack stack)
             {
-                return !stack.is(StarcatcherTags.HOOKS) && !stack.is(StarcatcherTags.BOBBERS);
+                return stack.is(StarcatcherTags.BAITS);
+            }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon()
+            {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_BAIT);
             }
         });
+
+        //hooks third slot
         this.addSlot(new SlotItemHandler(inventory, 2, 110, 35)
         {
             @Override
             public boolean mayPlace(ItemStack stack)
             {
                 return stack.is(StarcatcherTags.HOOKS);
+            }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon()
+            {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_HOOK);
             }
         });
     }
@@ -92,7 +126,7 @@ public class FishingRodMenu extends AbstractContainerMenu
     @Override
     public void clicked(int slotId, int button, ClickType clickType, Player player)
     {
-        if(slotId >= 0 && this.getSlot(slotId).getItem().equals(is)) return;
+        if (slotId >= 0 && this.getSlot(slotId).getItem().equals(is)) return;
 
         if (clickType == ClickType.SWAP)
         {
@@ -114,19 +148,19 @@ public class FishingRodMenu extends AbstractContainerMenu
 
         if (!player.level().isClientSide)
         {
-            DataComponents.setItemInSlot(is, DataComponents.Slots.BOBBER, inventory.getStackInSlot(0));
-            DataComponents.setItemInSlot(is, DataComponents.Slots.BAIT, inventory.getStackInSlot(1));
-            DataComponents.setItemInSlot(is, DataComponents.Slots.HOOK, inventory.getStackInSlot(2));
+            ModDataComponents.set(is, ModDataComponents.BOBBER, new SingleStackContainer(inventory.getStackInSlot(0)));
+            ModDataComponents.set(is, ModDataComponents.BAIT, new SingleStackContainer(inventory.getStackInSlot(1)));
+            ModDataComponents.set(is, ModDataComponents.HOOK, new SingleStackContainer(inventory.getStackInSlot(2)));
         }
 
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
+    // For this container, we can see both the tile inventory's slots as well as the uuid inventory slots and the hotbar.
     // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
     //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
+    //  9 - 35 = uuid inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
     //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
@@ -160,7 +194,7 @@ public class FishingRodMenu extends AbstractContainerMenu
         }
         else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
         {
-            // This is a TE slot so merge the stack into the players inventory
+            // This is a TE slot so merge the stack into the playerScores inventory
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false))
             {
                 return ItemStack.EMPTY;
@@ -186,6 +220,7 @@ public class FishingRodMenu extends AbstractContainerMenu
     @Override
     public boolean stillValid(Player player)
     {
-        return player.getMainHandItem().is(ModItems.ROD.get());
+        return (player.getMainHandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty()) ||
+                (player.getOffhandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty());
     }
 }
