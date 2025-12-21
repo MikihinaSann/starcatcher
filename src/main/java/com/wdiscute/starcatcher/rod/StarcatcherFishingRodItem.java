@@ -34,12 +34,16 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
         super(new Item.Properties()
                 .rarity(Rarity.EPIC)
                 .fireResistant()
-                .stacksTo(1)
-                .component(ModDataComponents.BOBBER_SKIN.get(), SingleStackContainer.EMPTY)
-                .component(ModDataComponents.BOBBER.get(), new SingleStackContainer(new ItemStack(ModItems.BOBBER.get())))
-                .component(ModDataComponents.BAIT.get(), SingleStackContainer.EMPTY)
-                .component(ModDataComponents.HOOK.get(), new SingleStackContainer(new ItemStack(ModItems.HOOK.get())))
-        );
+                .stacksTo(1));
+
+        ModDataComponents.registerDefault(this, List.of(
+                new ModDataComponents.DataDefault<>(ModDataComponents.BOBBER_SKIN, SingleStackContainer.EMPTY),
+                new ModDataComponents.DataDefault<>(ModDataComponents.BOBBER, new SingleStackContainer(new ItemStack(ModItems.BOBBER.get()))),
+                new ModDataComponents.DataDefault<>(ModDataComponents.BAIT, SingleStackContainer.EMPTY),
+                new ModDataComponents.DataDefault<>(ModDataComponents.HOOK, new SingleStackContainer(new ItemStack(ModItems.HOOK.get())
+
+                ))
+        ));
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
@@ -47,7 +51,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
         if (!player.getItemInHand(hand).is(StarcatcherTags.RODS))
             return InteractionResultHolder.pass(player.getItemInHand(hand));
 
-        FishingBobAttachment fishingBobAttachment = ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB.get());
+        FishingBobAttachment fishingBobAttachment = ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB);
         if (player.isCrouching() && fishingBobAttachment.isEmpty())
         {
             player.openMenu(this);
@@ -71,7 +75,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 fishingBobAttachment.setUuid(entity.getUUID());
                 SingleStackContainer bobberSkin = ModDataComponents.get(player.getItemInHand(hand),ModDataComponents.BOBBER_SKIN);
                 if (bobberSkin != null)
-                    ModDataAttachments.set(entity, ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
+                    ModDataAttachments.set(entity, ModDataAttachments.BOBBER_SKIN, bobberSkin);
             }
         }
         else
@@ -96,7 +100,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                                 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
                         );
                         fbe.kill();
-                        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB.get());
+                        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
                     }
                 }
             }

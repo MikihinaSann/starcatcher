@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
@@ -21,33 +23,32 @@ public class ColorfulSmithingTemplate extends Item
 {
     public ColorfulSmithingTemplate()
     {
-        super(new Properties()
-                .component(ModDataComponents.BOBBER_COLOR, BobberColor.DEFAULT).stacksTo(1));
+        super(new Properties().stacksTo(1));
+
+        ModDataComponents.registerDefault(this, ModDataComponents.BOBBER_COLOR, BobberColor.DEFAULT);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
-    {
-        tooltipComponents.add(Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.click_me").withColor(ModDataComponents.get(stack, ModDataComponents.BOBBER_COLOR).getColorAsInt()));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
-    {
-
-        if (player instanceof ServerPlayer sp)
-        {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        if (player instanceof ServerPlayer sp) {
             BobberColor bobberColor = BobberColor.random();
-            ModDataComponents.set(player.getItemInHand(usedHand),ModDataComponents.BOBBER_COLOR, bobberColor);
+            ModDataComponents.set(player.getItemInHand(usedHand), ModDataComponents.BOBBER_COLOR, bobberColor);
             sp.displayClientMessage(
                     Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.shines")
-                            .withColor(bobberColor.getColorAsInt()), true);
+                            .withStyle(Style.EMPTY.withColor(bobberColor.getColorAsInt())), true);
         }
 
-        return InteractionResultHolder.success(player.getItemInHand(usedHand));
+        return super.use(level, player, usedHand);
     }
 
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        {
+            tooltipComponents.add(Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.click_me").withStyle(Style.EMPTY.withColor(ModDataComponents.get(stack, ModDataComponents.BOBBER_COLOR).getColorAsInt())));
+            super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+        }
+
+    }
 
     public record BobberColor(
             float r,

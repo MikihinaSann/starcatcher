@@ -1,16 +1,13 @@
 package com.wdiscute.starcatcher.event;
 
-import com.wdiscute.libtooltips.Tooltips;
-import com.wdiscute.starcatcher.Config;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.bob.FishingBobModel;
 import com.wdiscute.starcatcher.bob.FishingBobRenderer;
 import com.wdiscute.starcatcher.fishentity.FishRenderer;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
 import com.wdiscute.starcatcher.fishspotter.FishRadarLayer;
-import com.wdiscute.starcatcher.guide.SettingsScreen;
-import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
+import com.wdiscute.starcatcher.fishspotter.LayeredDraw;
 import com.wdiscute.starcatcher.items.BucketTooltipRenderer;
 import com.wdiscute.starcatcher.items.StarcaughtBucket;
 import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
@@ -18,31 +15,20 @@ import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
 import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.rod.FishingRodScreen;
-import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentOverlay;
-import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, value = Dist.CLIENT, bus =  Mod.EventBusSubscriber.Bus.FORGE)
 public class ModClientEvents
@@ -55,13 +41,16 @@ public class ModClientEvents
         EntityRenderers.register(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(ModEntities.FISH.get(), FishRenderer::new);
         ModItemProperties.addCustomItemProperties();
+
+        MenuScreens.register(ModMenuTypes.FISHING_ROD_MENU.get(), FishingRodScreen::new);
+        MenuScreens.register(ModMenuTypes.STAND_MENU.get(), StandScreen::new);
+        registerGuiLayers();
     }
 
-    @SubscribeEvent
-    public static void registerGuiLayers(RegisterGuiLayersEvent event)
+    public static void registerGuiLayers()
     {
-        event.registerAboveAll(Starcatcher.rl("fish_tracker"), new FishRadarLayer());
-        event.registerAboveAll(Starcatcher.rl("tournament"), new TournamentOverlay());
+        LayeredDraw.add(new FishRadarLayer());
+        LayeredDraw.add(new TournamentOverlay());
     }
 
     @SubscribeEvent
@@ -70,13 +59,6 @@ public class ModClientEvents
         event.registerSpriteSet(ModParticles.FISHING_NOTIFICATION.get(), FishingNotificationParticles.Provider::new);
         event.registerSpriteSet(ModParticles.FISHING_BITING.get(), FishingBitingParticles.Provider::new);
         event.registerSpriteSet(ModParticles.FISHING_BITING_LAVA.get(), FishingBitingLavaParticles.Provider::new);
-    }
-
-    @SubscribeEvent
-    public static void registerScreens(RegisterMenuScreensEvent event)
-    {
-        event.register(ModMenuTypes.FISHING_ROD_MENU.get(), FishingRodScreen::new);
-        event.register(ModMenuTypes.STAND_MENU.get(), StandScreen::new);
     }
 
     @SubscribeEvent

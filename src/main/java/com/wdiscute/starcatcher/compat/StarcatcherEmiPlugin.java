@@ -14,8 +14,8 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 
@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 public class StarcatcherEmiPlugin implements EmiPlugin
 {
     public static final ResourceLocation MY_SPRITE_SHEET = Starcatcher.rl("textures/gui/emi_simplified_textures.png");
-    public static final EmiStack MY_WORKSTATION = EmiStack.of(ModItems.ROD);
+    public static final EmiStack MY_WORKSTATION = EmiStack.of(ModItems.ROD.get());
     public static final EmiRecipeCategory STARCATCHER_CATEGORY
             = new EmiRecipeCategory(
             Starcatcher.rl("fishing"),
@@ -74,9 +74,9 @@ public class StarcatcherEmiPlugin implements EmiPlugin
         registry.addRecipe(supplier.get());
     }
 
-    private static <C extends RecipeInput, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type)
+    private static <C extends Container, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type)
     {
-        return registry.getRecipeManager().getAllRecipesFor(type).stream().map(e -> e.value())::iterator;
+        return registry.getRecipeManager().getAllRecipesFor(type).stream()::iterator;
     }
 
 }

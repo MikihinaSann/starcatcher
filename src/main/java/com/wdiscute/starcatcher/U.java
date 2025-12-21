@@ -2,7 +2,6 @@ package com.wdiscute.starcatcher;
 
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
-import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
@@ -22,6 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -30,8 +30,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class U
             {
                 FishProperties fp = fbe.fpToFish;
 
-                ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger(player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
+               // ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger(player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
 
                 //trigger modifiers
                 fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));
@@ -76,7 +77,7 @@ public class U
 
                 //play sound
                 Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
+                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
 
                 //award exp
                 int exp = fp.rarity().getXp();
@@ -95,9 +96,9 @@ public class U
                     double y = objPos.y / 20;
                     double z = objPos.z / 25;
 
-                    x = Math.clamp(x, -1, 1);
-                    y = Math.clamp(y, -1, 1);
-                    z = Math.clamp(z, -1, 1);
+                    x = Mth.clamp(x, -1, 1);
+                    y = Mth.clamp(y, -1, 1);
+                    z = Mth.clamp(z, -1, 1);
 
                     x *= 2.5;
                     y *= 2;
@@ -163,9 +164,9 @@ public class U
                     ItemEntity itemFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, is);
 
                     //assign delta movement so fish flies towards player
-                    double x = Math.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
-                    double y = Math.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
-                    double z = Math.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
+                    double x = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
+                    double y = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
+                    double z = Mth.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
                     Vec3 vec3 = new Vec3(x, 0.7 + y, z);
                     itemFished.setDeltaMovement(vec3);
 
@@ -178,9 +179,9 @@ public class U
                 {
                     ItemStack treasure = new ItemStack(fp.catchInfo().treasure());
                     ItemEntity treasureFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, treasure);
-                    double x = Math.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
-                    double y = Math.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
-                    double z = Math.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
+                    double x = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
+                    double y = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
+                    double z = Mth.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
                     Vec3 vec3 = new Vec3(x, 0.7 + y, z);
                     treasureFished.setDeltaMovement(vec3);
                     level.addFreshEntity(treasureFished);
@@ -192,13 +193,13 @@ public class U
                 //if fish minigame failed/canceled, play sound
                 fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
                 Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT);
+                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
             }
 
             fbe.kill();
         }
 
-        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB.get());
+        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
     }
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp)
@@ -455,15 +456,15 @@ public class U
 
     public static ResourceLocation rl(String ns, String path)
     {
-        return ResourceLocation.fromNamespaceAndPath(ns, path);
+        return new ResourceLocation(ns, path);
     }
 
     public static Holder<Item> holderItem(String ns, String path)
     {
-        return TrustedHolder.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, rl(ns, path)));
+        return ForgeRegistries.ITEMS.getHolder(new ResourceLocation(ns, path)).get();
     }
 
-    public static Holder<Item> holderItem(DeferredItem<Item> item)
+    public static Holder<Item> holderItem(RegistryObject<Item> item)
     {
         return Holder.direct(item.get());
     }
@@ -480,7 +481,7 @@ public class U
 
     public static Holder<EntityType<?>> holderEntity(String ns, String path)
     {
-        return TrustedHolder.createStandAlone(BuiltInRegistries.ENTITY_TYPE.holderOwner(), ResourceKey.create(Registries.ENTITY_TYPE, rl(ns, path)));
+        return ForgeRegistries.ENTITY_TYPES.getHolder(new ResourceLocation(ns, path)).get();
     }
 
     public static Holder<EntityType<?>> holderEntity(Supplier<EntityType<FishEntity>> entity)

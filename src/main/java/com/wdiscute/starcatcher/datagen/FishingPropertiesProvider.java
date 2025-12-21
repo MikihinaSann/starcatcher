@@ -24,7 +24,7 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
             .add(Starcatcher.FISH_REGISTRY, FishingPropertiesRegistry::bootstrap);
 
     public FishingPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, REGISTRY, FishingPropertiesProvider::addConditions, Set.of(
+        super(output, registries, REGISTRY, Set.of(
                 Starcatcher.MOD_ID,
                 "minecraft",
                 "tide",
@@ -46,6 +46,8 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
                 //That's a lot of compatibilities
         ));
     }
+
+
 
     private static void addConditions(final BiConsumer<ResourceKey<?>, ICondition> consumer) {
         FishingPropertiesRegistry.registerConditions(consumer);

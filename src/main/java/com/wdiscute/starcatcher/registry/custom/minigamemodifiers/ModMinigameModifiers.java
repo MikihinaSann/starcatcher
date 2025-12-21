@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 public interface ModMinigameModifiers
 {
     DeferredRegister<Supplier<AbstractMinigameModifier>> REGISTRY =
-            DeferredRegister.create(Starcatcher.MINIGAME_MODIFIERS_REGISTRY.key(), Starcatcher.MOD_ID);
+            DeferredRegister.create(Starcatcher.MINIGAME_MODIFIERS_REGISTRY, Starcatcher.MOD_ID);
 
     //ice fishes
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> FREEZE_ON_MISS = registerMinigameModifier("freeze_on_miss", FreezeOnMissModifier::new);

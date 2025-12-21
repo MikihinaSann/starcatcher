@@ -2,6 +2,8 @@ package com.wdiscute.starcatcher.event;
 
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.Tooltips;
+import com.wdiscute.starcatcher.fishspotter.LayeredDraw;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
@@ -14,9 +16,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,6 +29,11 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
 public class ForgeClientEvents {
+
+    @SubscribeEvent
+    public static void renderGuiOverlay(RenderGuiOverlayEvent.Post event) {
+        LayeredDraw.renderAll(event.getGuiGraphics(), event.getPartialTick());
+    }
 
     @SubscribeEvent
     public static void tooltipEvent(ItemTooltipEvent event)
@@ -155,7 +162,7 @@ public class ForgeClientEvents {
                     if (list.size() == 1)
                     {
                         comp.add(Component.translatable("tooltip.starcatcher.trophy.once")
-                                .append(list.getFirst())
+                                .append(list.get(0))
                                 .append(Component.translatable("tooltip.starcatcher.trophy.have_been_caught")));
                     }
                     else

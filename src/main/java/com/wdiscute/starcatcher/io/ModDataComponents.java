@@ -12,14 +12,21 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModDataComponents
 {
+
+    private static final Map<RegistryObject<Item>, List<DataDefault<?>>> DEFAULT_DATA_COMPONENTS = new HashMap<>();
+    private static Map<Item, List<DataDefault<?>>> DEFAULT_DATA_COMPONENTS_REGISTERED = new HashMap<>();
 
     //smithing templates
     public static final DataComponent<Boolean> NETHERITE_UPGRADE = new DataComponent<>("netherite_upgraded", Codec.BOOL);
@@ -58,10 +65,29 @@ public class ModDataComponents
 
     @Nullable
     public static <T> T get(ItemStack stack, DataComponent<T> component){
-        return component.getOn(stack);
+        T ret = component.getOn(stack);
+
+        if (ret == null && getDefaults().containsKey(stack.getItem())){
+            List<DataDefault<?>> dataDefaults = getDefaults().get(stack.getItem());
+
+            for (DataDefault<?> def : dataDefaults) {
+                if (def.component.equals(component)){
+                    ret = (T) def.data;
+                }
+            }
+        }
+
+        return ret;
     }
 
     public static <T> boolean has(ItemStack stack, DataComponent<T> component){
+        if (getDefaults().containsKey(stack.getItem())){
+
+            if (getDefaults().get(stack.getItem()).stream().anyMatch(def -> def.component.equals(component))){
+                return true;
+            }
+        }
+
         return component.isOn(stack);
     }
 
@@ -71,15 +97,40 @@ public class ModDataComponents
 
     @Nonnull
     public static <T> T getOrDefault(ItemStack stack, DataComponent<T> component, T defaultValue) {
-        T value = component.getOn(stack);
+        T value = get(stack, component);
         return value == null ? defaultValue : value;
+    }
+
+    public static Map<Item, List<DataDefault<?>>> getDefaults(){
+        if (DEFAULT_DATA_COMPONENTS_REGISTERED == null){
+            populateMap();
+        }
+
+        return DEFAULT_DATA_COMPONENTS_REGISTERED;
+    }
+
+    private static void populateMap(){
+        DEFAULT_DATA_COMPONENTS_REGISTERED = new HashMap<>();
+
+        DEFAULT_DATA_COMPONENTS.forEach((itemRegistryObject, dataComponent) ->
+                DEFAULT_DATA_COMPONENTS_REGISTERED.put(itemRegistryObject.get(), dataComponent));
+
+        DEFAULT_DATA_COMPONENTS.clear();
+    }
+
+    public static <T> void registerDefault(Item item, DataComponent<T> component, T data){
+        registerDefault(item, List.of(new DataDefault<>(component, data)));
+    }
+
+    public static void registerDefault(Item item, List<DataDefault<?>> dataDefault){
+        DEFAULT_DATA_COMPONENTS_REGISTERED.put(item, dataDefault);
     }
 
     public record DataComponent<T>(String name, Codec<T> codec){
 
         private void setOn(ItemStack stack, T data){
             CompoundTag compoundTag = stack.getOrCreateTag();
-            codec.encodeStart(NbtOps.INSTANCE, data).result().ifPresent(tag -> compoundTag.put(name, tag));
+            codec.encodeStart(NbtOps.INSTANCE, data).resultOrPartial(Starcatcher.LOGGER::warn).ifPresent(tag -> compoundTag.put(name, tag));
         }
 
         private void removeFrom(ItemStack stack){
@@ -104,6 +155,15 @@ public class ModDataComponents
                     .orElse(null);
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof DataComponent<?> dataComponent){
+                return dataComponent.name.equals(name);
+            }
+            return false;
+        }
     }
+
+    public record DataDefault<T>(DataComponent<T> component, T data){}
 
 }

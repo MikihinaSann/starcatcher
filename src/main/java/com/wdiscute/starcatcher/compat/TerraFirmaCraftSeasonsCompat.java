@@ -2,9 +2,11 @@ package com.wdiscute.starcatcher.compat;
 
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
+import net.dries007.tfc.TerraFirmaCraft;
+import net.dries007.tfc.util.calendar.Calendars;
+import net.dries007.tfc.util.calendar.Month;
+import net.dries007.tfc.util.calendar.Season;
 import net.minecraft.world.level.Level;
-
-import java.time.Month;
 
 public class TerraFirmaCraftSeasonsCompat
 {
@@ -22,9 +24,9 @@ public class TerraFirmaCraftSeasonsCompat
     {
         Season season;
         if (level.isClientSide)
-            season = Calendars.CLIENT.getAbsoluteCalendarMonthOfYear().getSeason();
+            season = Calendars.CLIENT.getCalendarMonthOfYear().getSeason();
         else
-            season = Calendars.SERVER.getAbsoluteCalendarMonthOfYear().getSeason();
+            season = Calendars.SERVER.getCalendarMonthOfYear().getSeason();
 
         return switch (season)
         {
@@ -39,9 +41,9 @@ public class TerraFirmaCraftSeasonsCompat
     {
         Month month;
         if (level.isClientSide)
-            month = Calendars.CLIENT.getAbsoluteCalendarMonthOfYear();
+            month = Calendars.CLIENT.getCalendarMonthOfYear();
         else
-            month = Calendars.SERVER.getAbsoluteCalendarMonthOfYear();
+            month = Calendars.SERVER.getCalendarMonthOfYear();
 
         return switch (month)
         {

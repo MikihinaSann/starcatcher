@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Map;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class AwardOneFish extends Item
 
             if(player instanceof ServerPlayer sp)
             {
-                PacketDistributor.sendToPlayer(sp, new FishCaughtPayload(fp, false, 0, 0));
+                ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp), new FishCaughtPayload(fp, false, 0, 0));
             }
         }
 

@@ -20,14 +20,14 @@ group = mod_group_id
 
 dependencies {
     //emi
-    compileOnly "dev.emi:emi-forge:${emi_version}:api"
-    //runtimeOnly "dev.emi:emi-forge:${emi_version}"
+    modCompileOnly("dev.emi:emi-forge:${emi_version}:api")
+    modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
 
 
 
     //Serene Seasons
-    compileOnly "maven.modrinth:serene-seasons:9.1.0.2"
-    compileOnly "maven.modrinth:glitchcore:0.0.1.1"
+    modCompileOnly("maven.modrinth:serene-seasons:9.1.0.2")
+    modCompileOnly("maven.modrinth:glitchcore:0.0.1.1")
 
     //runtimeOnly "maven.modrinth:serene-seasons:9.1.0.2"
     //runtimeOnly "maven.modrinth:glitchcore:0.0.1.1"
@@ -35,12 +35,13 @@ dependencies {
     //modImplementation("maven.modrinth:serene-seasons:9.1.0.2")
     //modImplementation("maven.modrinth:glitchcore:0.0.1.1")
 
-
+    modCompileOnly ("curse.maven:terrafirmacraft-302973:6990923")
 
 
     //Ecliptic Seasons
-    compileOnly files(".libs/EclipticSeasons-1.20.1-forge-0.12.5-all.jar")
-    //runtimeOnly files(".libs/EclipticSeasons-1.20.1-forge-0.12.5-all.jar")
+    modCompileOnly("curse.maven:ecliptic-seasons-1118306:7304569")
+
+    modImplementation ("curse.maven:ftb-teams-forge-404468:6130786")
 
 
 }
@@ -61,6 +62,19 @@ repositories
             //modrinth
             maven {
                 url = "https://api.modrinth.com/maven"
+            }
+
+            repositories {
+                exclusiveContent {
+                    forRepository {
+                        maven {
+                            url = "https://cursemaven.com"
+                        }
+                    }
+                    filter {
+                        includeGroup "curse.maven"
+                    }
+                }
             }
         }
 
@@ -161,12 +175,13 @@ obfuscation {
 
 // Uncomment the lines below if you wish to configure mixin. The mixin file should be named modid.mixins.json.
 mixin {
-    //add sourceSets.main, "${mod_id}.refmap.json"
+    add sourceSets.main, "${mod_id}.mixins.refmap.json"
     config "${mod_id}.mixins.json"
 }
 
 
-// This block of code expands all declared replace properties in the specified resource targets.
+// This block of code expands all declared replace properties
+// in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
@@ -180,7 +195,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
-            mod_description        : mod_description
+            mod_description        : mod_description,
+            MixinConfigs           : "${mod_id}.mixins.json",
     ]
     inputs.properties replaceProperties
     expand replaceProperties

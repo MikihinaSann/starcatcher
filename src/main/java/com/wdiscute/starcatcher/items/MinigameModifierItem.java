@@ -21,10 +21,8 @@ public class MinigameModifierItem extends Item
     @SafeVarargs
     public MinigameModifierItem(int maxStackSize, Pair<ResourceLocation, Supplier<AbstractMinigameModifier>>... modifiers)
     {
-        super(new Item.Properties()
-                .component(ModDataComponents.MINIGAME_MODIFIERS, getAsList(modifiers))
-                .stacksTo(maxStackSize)
-        );
+        super(new Item.Properties().stacksTo(maxStackSize));
+        ModDataComponents.registerDefault(this, ModDataComponents.MINIGAME_MODIFIERS, getAsList(modifiers));
     }
 
     @SafeVarargs

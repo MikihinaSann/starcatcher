@@ -3,9 +3,8 @@ package com.wdiscute.starcatcher.tournament;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
+import com.wdiscute.starcatcher.io.StreamCodec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 
 import java.util.List;
 
@@ -31,14 +30,14 @@ public class TournamentPlayerScore
             ).apply(instance, TournamentPlayerScore::new)
     );
 
-    public static final StreamCodec<ByteBuf, TournamentPlayerScore> STREAM_CODEC = ExtraComposites.composite(
-            ByteBufCodecs.INT, TournamentPlayerScore::getScore,
-            ByteBufCodecs.INT, TournamentPlayerScore::getMisses,
-            ByteBufCodecs.INT, TournamentPlayerScore::getCommon,
-            ByteBufCodecs.INT, TournamentPlayerScore::getUncommon,
-            ByteBufCodecs.INT, TournamentPlayerScore::getRare,
-            ByteBufCodecs.INT, TournamentPlayerScore::getEpic,
-            ByteBufCodecs.INT, TournamentPlayerScore::getLegendary,
+    public static final StreamCodec<TournamentPlayerScore> STREAM_CODEC = ExtraComposites.composite(
+            StreamCodec.INT, TournamentPlayerScore::getScore,
+            StreamCodec.INT, TournamentPlayerScore::getMisses,
+            StreamCodec.INT, TournamentPlayerScore::getCommon,
+            StreamCodec.INT, TournamentPlayerScore::getUncommon,
+            StreamCodec.INT, TournamentPlayerScore::getRare,
+            StreamCodec.INT, TournamentPlayerScore::getEpic,
+            StreamCodec.INT, TournamentPlayerScore::getLegendary,
             TournamentPlayerScore::new
     );
 

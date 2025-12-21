@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemProperties
 {
@@ -12,7 +12,7 @@ public class ModItemProperties
     public static void addCustomItemProperties()
     {
 
-        for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
+        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries())
         {
             ItemProperties.register(
                     item.get(),

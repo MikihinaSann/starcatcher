@@ -122,7 +122,7 @@ public class SettingsScreen extends Screen
 
         unitSelected = Config.UNIT.get();
 
-        hand = Minecraft.getInstance().player.getMainHandItem().is(ModItems.ROD) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        hand = Minecraft.getInstance().player.getMainHandItem().is(ModItems.ROD.get()) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
     }
 
     private int getRandomFreePosition()
@@ -485,7 +485,7 @@ public class SettingsScreen extends Screen
 
         for (int i = 0; i < count; i++)
         {
-            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
+            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE.get()))
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
@@ -497,7 +497,7 @@ public class SettingsScreen extends Screen
                 continue;
             }
 
-            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
+            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get()))
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),

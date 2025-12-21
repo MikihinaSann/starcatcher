@@ -1,5 +1,7 @@
 package com.wdiscute.starcatcher.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -11,35 +13,32 @@ import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModi
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ModifierShapedRecipe implements CraftingRecipe
+public class ModifierShapedRecipe extends ShapedRecipe
 {
-    public final ShapedRecipePattern pattern;
-    final ItemStack result;
-    final List<ResourceLocation> modifiers;
-    final String group;
-    final CraftingBookCategory category;
-    final boolean showNotification;
+   public List<ResourceLocation> modifiers;
 
-    public ModifierShapedRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result, boolean showNotification, List<ResourceLocation> modifiers)
-    {
-        this.group = group;
-        this.category = category;
-        this.pattern = pattern;
-        this.result = result;
-        this.showNotification = showNotification;
+    public ModifierShapedRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, List<ResourceLocation> modifiers) {
+        super(id, group, category, width, height, recipeItems, result);
+        this.modifiers = modifiers;
+    }
+
+    public ModifierShapedRecipe(ShapedRecipe recipe, List<ResourceLocation> modifiers) {
+        super(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getRecipeWidth(), recipe.getRecipeHeight(), recipe.getIngredients(), recipe.result);
         this.modifiers = modifiers;
     }
 
@@ -50,49 +49,8 @@ public class ModifierShapedRecipe implements CraftingRecipe
     }
 
     @Override
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    @Override
-    public CraftingBookCategory category()
-    {
-        return this.category;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries)
-    {
-        return this.result;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients()
-    {
-        return this.pattern.ingredients();
-    }
-
-    @Override
-    public boolean showNotification()
-    {
-        return this.showNotification;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height)
-    {
-        return width >= this.pattern.width() && height >= this.pattern.height();
-    }
-
-    public boolean matches(CraftingInput input, Level level)
-    {
-        return this.pattern.matches(input);
-    }
-
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries)
-    {
-        var itemstack = this.getResultItem(registries).copy();
+    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+        var itemstack = super.assemble(container, registryAccess);
 
         List<ResourceLocation> catchModifiers = new ArrayList<>();
         List<ResourceLocation> minigameModifiers = new ArrayList<>();
@@ -102,10 +60,10 @@ public class ModifierShapedRecipe implements CraftingRecipe
             ResourceKey<Supplier<AbstractCatchModifier>> catchRK = ResourceKey.create(Starcatcher.CATCH_MODIFIERS, rl);
             ResourceKey<Supplier<AbstractMinigameModifier>> minigameRK = ResourceKey.create(Starcatcher.MINIGAME_MODIFIERS, rl);
 
-            if(registries.lookupOrThrow(Starcatcher.CATCH_MODIFIERS).get(catchRK).isPresent())
+            if(registryAccess.lookupOrThrow(Starcatcher.CATCH_MODIFIERS).get(catchRK).isPresent())
                 catchModifiers.add(rl);
 
-            if(registries.lookupOrThrow(Starcatcher.MINIGAME_MODIFIERS).get(minigameRK).isPresent())
+            if(registryAccess.lookupOrThrow(Starcatcher.MINIGAME_MODIFIERS).get(minigameRK).isPresent())
                 minigameModifiers.add(rl);
         }
 
@@ -113,73 +71,41 @@ public class ModifierShapedRecipe implements CraftingRecipe
         if(!minigameModifiers.isEmpty()) ModDataComponents.set(itemstack, ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
 
         return itemstack;
-    }
 
-    public int getWidth()
-    {
-        return this.pattern.width();
-    }
-
-    public int getHeight()
-    {
-        return this.pattern.height();
-    }
-
-    @Override
-    public boolean isIncomplete()
-    {
-        NonNullList<Ingredient> nonnulllist = this.getIngredients();
-        return nonnulllist.isEmpty() || nonnulllist.stream().filter(p_151277_ -> !p_151277_.isEmpty()).anyMatch(Ingredient::hasNoItems);
     }
 
     public static class Serializer implements RecipeSerializer<ModifierShapedRecipe>
     {
-        public static final MapCodec<ModifierShapedRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                p_340778_ -> p_340778_.group(
-                                Codec.STRING.optionalFieldOf("group", "").forGetter(p_311729_ -> p_311729_.group),
-                                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(p_311732_ -> p_311732_.category),
-                                ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
-                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.result),
-                                Codec.BOOL.optionalFieldOf("show_notification", Boolean.TRUE).forGetter(p_311731_ -> p_311731_.showNotification),
-                                ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(p_311730_ -> p_311730_.modifiers)
-                        )
-                        .apply(p_340778_, ModifierShapedRecipe::new)
-        );
-        public static final StreamCodec<RegistryFriendlyByteBuf, ModifierShapedRecipe> STREAM_CODEC = StreamCodec.of(
-                Serializer::toNetwork, Serializer::fromNetwork
-        );
 
         @Override
-        public MapCodec<ModifierShapedRecipe> codec()
-        {
-            return CODEC;
+        public ModifierShapedRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
+            ShapedRecipe shapedRecipe = ShapedRecipe.Serializer.SHAPED_RECIPE.fromJson(recipeId, serializedRecipe);
+            var locs = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "modifiers"));
+
+            return new ModifierShapedRecipe(shapedRecipe, locs);
+        }
+
+        private static List<ResourceLocation> locsFromJson(JsonArray ingredientArray) {
+            List<ResourceLocation> list = new ArrayList<>();
+
+            for(int i = 0; i < ingredientArray.size(); ++i) {
+                ResourceLocation loc =  new ResourceLocation(ingredientArray.get(i).getAsString());
+                list.add(loc);
+            }
+
+            return list;
+        }
+
+
+        @Override
+        public @Nullable ModifierShapedRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            return new ModifierShapedRecipe(ShapedRecipe.Serializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer), StreamCodec.RESOURCE_LOCATION.list().decode(buffer));
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ModifierShapedRecipe> streamCodec()
-        {
-            return STREAM_CODEC;
-        }
-
-        private static ModifierShapedRecipe fromNetwork(RegistryFriendlyByteBuf buffer)
-        {
-            String s = buffer.readUtf();
-            CraftingBookCategory craftingbookcategory = buffer.readEnum(CraftingBookCategory.class);
-            ShapedRecipePattern shapedrecipepattern = ShapedRecipePattern.STREAM_CODEC.decode(buffer);
-            ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
-            boolean flag = buffer.readBoolean();
-            List<ResourceLocation> modifiers = ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-            return new ModifierShapedRecipe(s, craftingbookcategory, shapedrecipepattern, itemstack, flag, modifiers);
-        }
-
-        private static void toNetwork(RegistryFriendlyByteBuf buffer, ModifierShapedRecipe recipe)
-        {
-            buffer.writeUtf(recipe.group);
-            buffer.writeEnum(recipe.category);
-            ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
-            buffer.writeBoolean(recipe.showNotification);
-            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.modifiers);
+        public void toNetwork(FriendlyByteBuf buffer, ModifierShapedRecipe recipe) {
+            ShapedRecipe.Serializer.SHAPED_RECIPE.toNetwork(buffer, recipe);
+            StreamCodec.RESOURCE_LOCATION.list().encode(recipe.modifiers, buffer);
         }
     }
 

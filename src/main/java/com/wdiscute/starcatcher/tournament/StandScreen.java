@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.tournament;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -46,15 +46,9 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         nameEditBox.setBordered(false);
         nameEditBox.setMaxLength(20);
         nameEditBox.setValue("");
-        nameEditBox.setTextShadow(false);
+      //  nameEditBox.setTextShadow(false);
         nameEditBox.setEditable(false);
         addWidget(this.nameEditBox);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1)
-    {
-        this.renderBlurredBackground(i);
     }
 
     private void onFocusNameEditBox()
@@ -66,7 +60,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     private void onUnfocusNameEditBox()
     {
         //send packet
-        PacketDistributor.sendToServer(new SBStandTournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
+        ModNetworking.CHANNEL.sendToServer(new SBStandTournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
         tournamentCache.name = nameEditBox.getValue();
         nameEditBox.setValue("");
     }
@@ -314,6 +308,11 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY)
     {
+    }
+
+    @Override
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+
     }
 
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl)

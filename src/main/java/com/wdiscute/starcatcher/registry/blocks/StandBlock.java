@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.registry.blocks;
 
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import com.wdiscute.starcatcher.tournament.TournamentPlayerScore;
@@ -11,6 +12,7 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,8 +48,9 @@ public class StandBlock extends Block implements EntityBlock
         super(Properties.of().noOcclusion());
     }
 
+
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
     {
         if (level.isClientSide) return InteractionResult.SUCCESS;
 
@@ -64,23 +67,16 @@ public class StandBlock extends Block implements EntityBlock
                 sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
             }
 
-            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), pos);
+            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()));
 
-            //send payload to client with tournament info
-            PacketDistributor.sendToPlayer(((ServerPlayer) player), CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> ((ServerPlayer) player)), CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
-    {
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston)
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston)
     {
         super.onRemove(state, level, pos, newState, movedByPiston);
 
@@ -145,7 +141,7 @@ public class StandBlock extends Block implements EntityBlock
     {
         if (level.isClientSide) return;
         UUID uuid = UUID.randomUUID();
-        if (level.getBlockState(pos).is(ModBlocks.STAND))
+        if (level.getBlockState(pos).is(ModBlocks.STAND.get()))
         {
             Direction direction = level.getBlockState(pos).getValue(FACING);
 
@@ -190,7 +186,7 @@ public class StandBlock extends Block implements EntityBlock
     private static final VoxelShape TOP_RIGHT_WEST = Shapes.or(Block.box(7, 0, 15, 8, 16, 16), Block.box(7, 10, 0, 8, 16, 16));
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         StandPart part = state.getValue(PART);
         Direction facing = state.getValue(FACING);

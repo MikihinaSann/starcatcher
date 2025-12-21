@@ -1,6 +1,8 @@
 package com.wdiscute.starcatcher.registry.custom.catchmodifiers;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -34,11 +37,11 @@ public class VanillaLootModifier extends AbstractCatchModifier
                 .withParameter(LootContextParams.ORIGIN, instance.position())
                 .withParameter(LootContextParams.TOOL, instance.rod)
                 .withParameter(LootContextParams.THIS_ENTITY, instance)
-                .withParameter(LootContextParams.ATTACKING_ENTITY, instance.getOwner())
+                .withParameter(LootContextParams.KILLER_ENTITY, instance.getOwner())
                 .withLuck(player.getLuck())
                 .create(LootContextParamSets.FISHING);
 
-        LootTable table = level.getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
+        LootTable table = level.getServer().getLootData().getLootTable(BuiltInLootTables.FISHING);
         List<ItemStack> items = table.getRandomItems(lootparams);
 
         if (items.isEmpty()) return;
@@ -47,9 +50,9 @@ public class VanillaLootModifier extends AbstractCatchModifier
         ItemEntity itemFished = new ItemEntity(level, instance.position().x, instance.position().y + 1.2f, instance.position().z, items.get(0));
 
         //assign delta movement so fish flies towards player
-        double x = Math.clamp((player.position().x - instance.position().x) / 25, -1, 1);
-        double y = Math.clamp((player.position().y - instance.position().y) / 20, -1, 1);
-        double z = Math.clamp((player.position().z - instance.position().z) / 25, -1, 1);
+        double x = Mth.clamp((player.position().x - instance.position().x) / 25, -1, 1);
+        double y = Mth.clamp((player.position().y - instance.position().y) / 20, -1, 1);
+        double z = Mth.clamp((player.position().z - instance.position().z) / 25, -1, 1);
         Vec3 vec3 = new Vec3(x, 0.7 + y, z);
         itemFished.setDeltaMovement(vec3);
 

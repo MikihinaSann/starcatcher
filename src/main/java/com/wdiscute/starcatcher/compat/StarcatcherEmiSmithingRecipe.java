@@ -34,14 +34,14 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
 
         ItemStack stack = Arrays.stream(recipe.rod().getItems()).findFirst().get().copy();
 
-        if (template.getEmiStacks().getFirst().getItemStack().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
+        if (template.getEmiStacks().get(0).getItemStack().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
         {
             ModDataComponents.set(stack, ModDataComponents.NETHERITE_UPGRADE, true);
             isNetheriteUpgrade = true;
         }
         else
         {
-            ItemStack bobberSkin = template.getEmiStacks().getFirst().getItemStack();
+            ItemStack bobberSkin = template.getEmiStacks().get(0).getItemStack();
             ModDataComponents.set(stack, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(bobberSkin));
             isNetheriteUpgrade = false;
         }
@@ -59,7 +59,7 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
     @Override
     public ResourceLocation getId()
     {
-        return Starcatcher.rl("/" + BuiltInRegistries.ITEM.getKey(template.getEmiStacks().getFirst().getItemStack().getItem()).getPath());
+        return Starcatcher.rl("/" + BuiltInRegistries.ITEM.getKey(template.getEmiStacks().get(0).getItemStack().getItem()).getPath());
     }
 
     @Override

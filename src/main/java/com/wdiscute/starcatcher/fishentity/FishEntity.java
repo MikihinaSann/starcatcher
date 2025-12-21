@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FishEntity extends AbstractFish
 {
+    public ItemStack fishItem = ItemStack.EMPTY;
     public FishEntity(EntityType<? extends FishEntity> entityType, Level level)
     {
         super(entityType, level);
@@ -44,7 +45,7 @@ public class FishEntity extends AbstractFish
     @Override
     public @Nullable ItemStack getPickResult()
     {
-        return getBodyArmorItem();
+        return fishItem;
     }
 
     @Override
@@ -62,25 +63,19 @@ public class FishEntity extends AbstractFish
     public void tick()
     {
         super.tick();
-        if(getBodyArmorItem().isEmpty()) kill();
-    }
-
-    @Override
-    protected void dropAllDeathLoot(ServerLevel p_level, DamageSource damageSource)
-    {
-        super.dropAllDeathLoot(p_level, damageSource);
+        if(fishItem.isEmpty()) kill();
     }
 
     public void setFish(ItemStack is)
     {
-        setBodyArmorItem(is);
+        fishItem = is ;
     }
 
     @Override
     public ItemStack getBucketItemStack()
     {
         ItemStack is = new ItemStack(ModItems.STARCAUGHT_BUCKET.get());
-        ModDataComponents.set(is, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(getBodyArmorItem().copy()));
+        ModDataComponents.set(is, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(fishItem.copy()));
         return is;
     }
 }

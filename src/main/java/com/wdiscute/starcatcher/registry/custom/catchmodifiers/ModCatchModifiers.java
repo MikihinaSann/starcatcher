@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 public interface ModCatchModifiers
 {
     DeferredRegister<Supplier<AbstractCatchModifier>> REGISTRY =
-            DeferredRegister.create(Starcatcher.CATCH_MODIFIERS_REGISTRY.key(), Starcatcher.MOD_ID);
+            DeferredRegister.create(Starcatcher.CATCH_MODIFIERS_REGISTRY, Starcatcher.MOD_ID);
 
     //todo built-in modifiers to skip minigame for low rarity or something, using AbstractCatchModifier#forceSkipMinigame
 

@@ -1,110 +1,74 @@
 package com.wdiscute.starcatcher.io;
 
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.guide.FishingGuideItem;
+import com.wdiscute.starcatcher.io.attachments.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID)
 public class ModDataAttachments
 {
-    /*private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(
-            NeoForgeRegistries.ATTACHMENT_TYPES, Starcatcher.MOD_ID);
 
+    public static final DataAttachmentType<SingleStackContainer> BOBBER_SKIN = DataAttachmentType.register(
+            Starcatcher.rl("bobber_skin"), SingleStackContainer.STREAM_CODEC, SingleStackContainer.CODEC, false, new SingleStackContainer());
 
-    public static final Supplier<AttachmentType<FishingBobAttachment>> FISHING_BOB = ATTACHMENT_TYPES.register(
-            "fishing_bob", () -> AttachmentType.builder(() -> new FishingBobAttachment(""))
-                    .sync(FishingBobAttachment.STREAM_CODEC)
-                    .build()
-    );
+    public static final DataAttachmentType<FishingBobAttachment> FISHING_BOB = DataAttachmentType.register(
+            Starcatcher.rl("fishing_bob"), FishingBobAttachment.STREAM_CODEC, null, false, new FishingBobAttachment());
 
+    public static final DataAttachmentType<FishingGuideAttachment> FISHING_GUIDE = DataAttachmentType.register(
+            Starcatcher.rl("fishing_guide"), FishingGuideAttachment.STREAM_CODEC, FishingGuideAttachment.CODEC, true, FishingGuideAttachment.createDefault());
 
-    public static final Supplier<AttachmentType<FishingGuideAttachment>> FISHING_GUIDE = ATTACHMENT_TYPES.register(
-            "fishing_guide", () -> AttachmentType.builder(FishingGuideAttachment::createDefault)
-                    .serialize(FishingGuideAttachment.CODEC)
-                    .sync(FishingGuideAttachment.STREAM_CODEC)
-                    .copyOnDeath()
-                    .build()
-    );
+    @SubscribeEvent
+    public static void attachCapabilitiesPlayer(AttachCapabilitiesEvent<Player> event) {
+        DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                .filter(attachment -> attachment.defaultValue().getPotentialHolders().contains(CapabilityType.PLAYER))
+                .forEach(attachments -> event.addCapability(attachments.name(), attachments.defaultValue()));
+    }
 
+    @SubscribeEvent
+    public static void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event) {
+        DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                .filter(attachment -> attachment.defaultValue().getPotentialHolders().contains(CapabilityType.ENTITY))
+                .forEach(attachments -> event.addCapability(attachments.name(), attachments.defaultValue()));
+    }
 
-    @Deprecated // use FISHING_GUIDE attachment!!!
-    public static final Supplier<AttachmentType<Boolean>> RECEIVED_GUIDE = ATTACHMENT_TYPES.register(
-            "received_guide", () -> AttachmentType.builder(() -> false)
-                    .serialize(Codec.BOOL)
-                    .sync(ByteBufCodecs.BOOL)
-                    .build()
-    );
-
-    @Deprecated // use FISHING_GUIDE attachment!!!
-    public static final Supplier<AttachmentType<List<LegacyFishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
-            "fishes_caught", () ->
-                    AttachmentType.builder(() -> List.<LegacyFishCaughtCounter>of())
-                            .serialize(LegacyFishCaughtCounter.LIST_CODEC)
-                            .sync(LegacyFishCaughtCounter.LIST_STREAM_CODEC)
-                            .copyOnDeath()
-                            .build()
-    );
-
-    @Deprecated  // use FISHING_GUIDE attachment!!!
-    public static final Supplier<AttachmentType<List<ResourceLocation>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
-            "trophies_caught", () ->
-                    AttachmentType.builder(() -> List.<ResourceLocation>of())
-                            .serialize(ResourceLocation.CODEC.listOf())
-                            .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
-                            .copyOnDeath()
-                            .build()
-    );
-
-    @Deprecated // use FISHING_GUIDE attachment!!!
-    public static final Supplier<AttachmentType<List<ResourceLocation>>> FISHES_NOTIFICATION = ATTACHMENT_TYPES.register(
-            "fishes_notification", () ->
-                    AttachmentType.builder(() -> List.<ResourceLocation>of())
-                            .serialize(ResourceLocation.CODEC.listOf())
-                            .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
-                            .copyOnDeath()
-                            .build()
-    );
-
-
-    public static final Supplier<AttachmentType<SingleStackContainer>> BOBBER_SKIN = ATTACHMENT_TYPES.register(
-            "bobber_skin", () ->
-                    AttachmentType.builder(() -> SingleStackContainer.EMPTY)
-                            .serialize(SingleStackContainer.CODEC)
-                            .sync(SingleStackContainer.STREAM_CODEC)
-                            .build()
-    );
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((loc, attachments) -> event.register(attachments.defaultValue().getClass()));
+    }
 
 
     // sets the value to default
-    public static <T> T remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+    public static <T extends NeoCapability<T>> void remove(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        return holder.removeData(attachmentType);
+        holder.getCapability(attachmentType.capability()).ifPresent(cap -> cap.setDefault(holder));
     }
 
-    // sets the value to default
-    public static <T> T remove(Entity holder, AttachmentType<T> attachmentType)
+    public static <T extends NeoCapability<T>> void set(ICapabilityProvider holder, DataAttachmentType<T> attachmentType, T data)
     {
-        return holder.removeData(attachmentType);
+        holder.getCapability(attachmentType.capability()).orElseGet(attachmentType::defaultValue).setAndSync(holder, data);
     }
 
-    public static <T> T set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
+    public static <T extends NeoCapability<T>> void setFrom(ICapabilityProvider holder, NeoCapability<T> capability)
     {
-        return holder.setData(attachmentType, data);
+        holder.getCapability(capability.getAttachment().capability()).ifPresent(oldCap -> oldCap.setNoSync(capability.getThis()));
     }
 
-    public static <T> T set(Entity holder, AttachmentType<T> attachmentType, T data)
+
+    public static <T extends NeoCapability<T>> T get(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        return holder.setData(attachmentType, data);
+        return holder.getCapability(attachmentType.capability()).orElseGet(attachmentType::defaultValue);
     }
 
-    public static <T> T get(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+    public static <T extends NeoCapability<T>> void sync(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        return holder.getData(attachmentType);
+        holder.getCapability(attachmentType.capability()).orElseGet(attachmentType::defaultValue).sync(holder);
     }
 
-    public static <T> T get(Entity holder, AttachmentType<T> attachmentType)
-    {
-        return holder.getData(attachmentType);
-    }
-
-    public static void register(IEventBus eventBus)
-    {
-        ATTACHMENT_TYPES.register(eventBus);
-    }*/
 
 }

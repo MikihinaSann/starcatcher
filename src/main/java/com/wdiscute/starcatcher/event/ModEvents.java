@@ -15,6 +15,7 @@ import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpd
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.AbstractSweetSpotBehaviour;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
@@ -35,8 +36,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DataPackRegistryEvent;
-import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.*;
+import org.apache.logging.log4j.util.Supplier;
 
 @Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEvents
@@ -74,9 +75,14 @@ public class ModEvents
     @SubscribeEvent
     public static void addRegistry(NewRegistryEvent event)
     {
-        event.create(Starcatcher.SWEET_SPOT_BEHAVIOUR_REGISTRY);
-        event.create(Starcatcher.MINIGAME_MODIFIERS_REGISTRY);
-        event.create(Starcatcher.CATCH_MODIFIERS_REGISTRY);
+        event.create(RegistryBuilder.of(Starcatcher.SWEET_SPOT_BEHAVIOUR.location())
+                .setDefaultKey(Starcatcher.rl("normal")));
+
+        event.create(RegistryBuilder.of(Starcatcher.MINIGAME_MODIFIERS.location())
+                .setDefaultKey(Starcatcher.rl("no_flip")));
+
+        event.create(RegistryBuilder.of(Starcatcher.CATCH_MODIFIERS.location())
+                .setDefaultKey(Starcatcher.rl("no_flip")));
     }
 
     @SubscribeEvent

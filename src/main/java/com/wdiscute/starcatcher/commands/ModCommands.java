@@ -10,6 +10,7 @@ import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -32,19 +33,19 @@ import java.util.function.Supplier;
 public class ModCommands
 {
     private static final DynamicCommandExceptionType ERROR_ROD = new DynamicCommandExceptionType(
-            o -> Component.translatableEscape("commands.starcatcher.rod_not_found", o)
+            o -> Component.translatable("commands.starcatcher.rod_not_found", o)
     );
 
     private static final DynamicCommandExceptionType ERROR_EMPTY = new DynamicCommandExceptionType(
-            o -> Component.translatableEscape("commands.starcatcher.rod_not_found", o)
+            o -> Component.translatable("commands.starcatcher.rod_not_found", o)
     );
 
     private static final DynamicCommandExceptionType ERROR_FISH_ENTRY_INVALID = new DynamicCommandExceptionType(
-            o -> Component.translatableEscape("commands.starcatcher.fish_entry_not_found", o)
+            o -> Component.translatable("commands.starcatcher.fish_entry_not_found", o)
     );
 
     private static final DynamicCommandExceptionType ERROR_MODIFIER_INVALID = new DynamicCommandExceptionType(
-            o -> Component.translatableEscape("commands.starcatcher.modifier_not_found", o)
+            o -> Component.translatable("commands.starcatcher.modifier_not_found", o)
     );
 
 
@@ -283,7 +284,7 @@ public class ModCommands
 
         if (optional.isPresent())
         {
-            PacketDistributor.sendToPlayer(player, new FishingStartedPayload(optional.get(), player.getMainHandItem()));
+            ModNetworking.sendToPlayer(player, new FishingStartedPayload(optional.get(), player.getMainHandItem()));
             return 1;
         }
         else

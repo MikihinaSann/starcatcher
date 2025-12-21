@@ -41,11 +41,13 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 //      <><|    <- fish
 public record FishProperties(
@@ -146,25 +148,25 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withFish(Holder<Item> fish)
+        public Builder withFish(Supplier<Item> fish)
         {
             this.catchInfo.withFish(fish);
             return this;
         }
 
-        public Builder withTreasure(Holder<Item> treasure)
+        public Builder withTreasure(Supplier<Item> treasure)
         {
             this.catchInfo.treasure = treasure;
             return this;
         }
 
-        public Builder withBucketedFish(Holder<Item> bucketedFish)
+        public Builder withBucketedFish(Supplier<Item> bucketedFish)
         {
             this.catchInfo.withBucketedFish(bucketedFish);
             return this;
         }
 
-        public Builder withEntityToSpawn(Holder<EntityType<?>> entity)
+        public Builder withEntityToSpawn(Supplier<EntityType<?>> entity)
         {
             this.catchInfo.withEntityToSpawn(entity);
             return this;
@@ -176,7 +178,7 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withItemToOverrideWith(Holder<Item> itemToOverrideWith)
+        public Builder withItemToOverrideWith(Supplier<Item> itemToOverrideWith)
         {
             this.catchInfo.withOverrideMinigameWith(itemToOverrideWith);
             return this;
@@ -313,26 +315,26 @@ public record FishProperties(
 
         public static class Builder
         {
-            private Holder<Item> fish = ModItems.MISSINGNO.getHolder().get();
-            private Holder<Item> bucketedFish = ModItems.MISSINGNO.getHolder().get();
-            private Holder<EntityType<?>> entityToSpawn = U.holderEntity("starcatcher", "fish");
+            private Supplier<Item> fish = ModItems.MISSINGNO;
+            private Supplier<Item> bucketedFish = ModItems.MISSINGNO;
+            private Supplier<EntityType<?>> entityToSpawn = U.holderEntity("starcatcher", "fish");
             private boolean alwaysSpawnEntity = false;
-            private Holder<Item> itemToOverrideWith = ModItems.MISSINGNO.getHolder().get();
-            private Holder<Item> treasure = ModItems.WATERLOGGED_SATCHEL.getHolder().get();
+            private Supplier<Item> itemToOverrideWith = ModItems.MISSINGNO;
+            private Supplier<Item> treasure = ModItems.WATERLOGGED_SATCHEL;
 
-            public Builder withFish(Holder<Item> fish)
+            public Builder withFish(Supplier<Item> fish)
             {
                 this.fish = fish;
                 return this;
             }
 
-            public Builder withBucketedFish(Holder<Item> bucketedFish)
+            public Builder withBucketedFish(Supplier<Item> bucketedFish)
             {
                 this.bucketedFish = bucketedFish;
                 return this;
             }
 
-            public Builder withEntityToSpawn(Holder<EntityType<?>> entityToSpawn)
+            public Builder withEntityToSpawn(Supplier<EntityType<?>> entityToSpawn)
             {
                 this.entityToSpawn = entityToSpawn;
                 return this;
@@ -344,7 +346,7 @@ public record FishProperties(
                 return this;
             }
 
-            public Builder withOverrideMinigameWith(Holder<Item> itemToOverrideWith)
+            public Builder withOverrideMinigameWith(Supplier<Item> itemToOverrideWith)
             {
                 this.itemToOverrideWith = itemToOverrideWith;
                 return this;
@@ -352,8 +354,17 @@ public record FishProperties(
 
             public CatchInfo build()
             {
-                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, itemToOverrideWith, treasure);
+                return new CatchInfo(wrapAsHolder(fish), wrapAsHolder(bucketedFish), wrapAsHolderEntity(entityToSpawn), alwaysSpawnEntity, wrapAsHolder(itemToOverrideWith), wrapAsHolder(treasure));
             }
+
+            private @NotNull Holder<Item> wrapAsHolder(Supplier<Item> supplier) {
+                return ForgeRegistries.ITEMS.getHolder(supplier.get()).get();
+            }
+
+            private @NotNull Holder<EntityType<?>> wrapAsHolderEntity(Supplier<EntityType<?>> supplier) {
+                return ForgeRegistries.ENTITY_TYPES.getHolder(supplier.get()).get();
+            }
+
         }
     }
 

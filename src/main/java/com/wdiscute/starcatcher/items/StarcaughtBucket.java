@@ -7,6 +7,7 @@ import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -52,7 +53,7 @@ public class StarcaughtBucket extends BucketItem
         if(ModDataComponents.has(bucketedMobStack, ModDataComponents.BUCKETED_FISH))
             fishEntity.setFish(getFish(bucketedMobStack));
         else
-            fishEntity.setFish(ModItems.AURORA.toStack());
+            fishEntity.setFish(ModItems.AURORA.get().getDefaultInstance());
     }
 
     private static ItemStack getFish(ItemStack bucket) {
@@ -60,14 +61,13 @@ public class StarcaughtBucket extends BucketItem
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
-    {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
         ItemStack fish = getFish(stack);
         if (fish.isEmpty())
         {
-            tooltipComponents.add(1, Component.translatable("tooltip.starcatcher.starcaught_bucket.creative.1").withColor(0x888888));
-            tooltipComponents.add(1, Component.translatable("tooltip.starcatcher.starcaught_bucket.creative.0").withColor(0x888888));
+            tooltipComponents.add(1, Component.translatable("tooltip.starcatcher.starcaught_bucket.creative.1").withStyle(Style.EMPTY.withColor(0x888888)));
+            tooltipComponents.add(1, Component.translatable("tooltip.starcatcher.starcaught_bucket.creative.0").withStyle(Style.EMPTY.withColor(0x888888)));
         }
     }
 

@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -21,10 +22,8 @@ public class CatchModifierItem extends Item
     @SafeVarargs
     public CatchModifierItem(int maxStackSize, Pair<ResourceLocation, Supplier<AbstractCatchModifier>>... modifiers)
     {
-        super(new Item.Properties()
-                .component(ModDataComponents.CATCH_MODIFIERS, getAsList(modifiers))
-                .stacksTo(maxStackSize)
-        );
+        super(new Item.Properties().stacksTo(maxStackSize));
+        ModDataComponents.registerDefault(this, ModDataComponents.CATCH_MODIFIERS, getAsList(modifiers));
     }
 
     @SafeVarargs

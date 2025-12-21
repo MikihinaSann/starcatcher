@@ -3,11 +3,10 @@ package com.wdiscute.starcatcher.tournament;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
-import net.minecraft.client.DeltaTracker;
+import com.wdiscute.starcatcher.fishspotter.LayeredDraw;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +45,7 @@ public class TournamentOverlay implements LayeredDraw.Layer
     ClientLevel level;
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker)
+    public void render(GuiGraphics guiGraphics, float partialTicks)
     {
         if (tournament == null) return;
         if (Minecraft.getInstance().level == null) return;

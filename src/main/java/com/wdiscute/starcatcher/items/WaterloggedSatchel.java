@@ -4,6 +4,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -26,9 +27,9 @@ public class WaterloggedSatchel extends Item
     {
         if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(usedHand));
 
-        ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, Starcatcher.rl("waterlogged_satchel/waterlogged_satchel"));
+        ResourceLocation lootTable = Starcatcher.rl("waterlogged_satchel/waterlogged_satchel");
         LootParams params = new LootParams.Builder((ServerLevel) level).create(LootContextParamSets.EMPTY);
-        ObjectArrayList<ItemStack> arrayOfItemStacks = level.getServer().reloadableRegistries().getLootTable(lootTable).getRandomItems(params);
+        ObjectArrayList<ItemStack> arrayOfItemStacks = level.getServer().getLootData().getLootTable(lootTable).getRandomItems(params);
         player.setItemInHand(usedHand, arrayOfItemStacks.get(level.random.nextIntBetweenInclusive(0, arrayOfItemStacks.size() - 1)));
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

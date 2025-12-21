@@ -24,8 +24,8 @@ public class StarcatcherEmiRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final TrophyProperties tp;
     private final List<EmiIngredient> input = List.of(
-            EmiIngredient.of(Ingredient.of(ModItems.GUIDE)),
-            EmiIngredient.of(Ingredient.of(ModItems.ROD)));
+            EmiIngredient.of(Ingredient.of(ModItems.GUIDE.get())),
+            EmiIngredient.of(Ingredient.of(ModItems.ROD.get())));
     private final ItemStack is;
 
     public StarcatcherEmiRecipe(ResourceLocation id, FishProperties fp) {

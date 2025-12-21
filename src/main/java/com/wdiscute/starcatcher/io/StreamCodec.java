@@ -4,15 +4,14 @@ import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.datafixers.util.Function6;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import com.sun.jna.platform.win32.LMAccess;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ChunkPos;
 import org.joml.Vector3f;
@@ -29,6 +28,8 @@ public abstract class StreamCodec<A> {
     public static StreamCodec<ItemStack> ITEM_STACK = of(FriendlyByteBuf::writeItem, FriendlyByteBuf::readItem);
     public static StreamCodec<Float> FLOAT = of(FriendlyByteBuf::writeFloat, FriendlyByteBuf::readFloat);
     public static StreamCodec<Double> DOUBLE = of(FriendlyByteBuf::writeDouble, FriendlyByteBuf::readDouble);
+    public static StreamCodec<Long> LONG = of(FriendlyByteBuf::writeLong, FriendlyByteBuf::readLong);
+
     public static StreamCodec<CompoundTag> NBT = of(FriendlyByteBuf::writeNbt, FriendlyByteBuf::readNbt);
     public static StreamCodec<ResourceLocation> RESOURCE_LOCATION = of(FriendlyByteBuf::writeResourceLocation, FriendlyByteBuf::readResourceLocation);
 
@@ -36,6 +37,7 @@ public abstract class StreamCodec<A> {
     public static StreamCodec<String> STRING = of(FriendlyByteBuf::writeUtf, FriendlyByteBuf::readUtf);
     public static final StreamCodec<Ingredient> INGREDIENT = StreamCodec.of((friendlyByteBuf, ingredient) -> ingredient.toNetwork(friendlyByteBuf), Ingredient::fromNetwork);
     public static StreamCodec<UUID> UUID = STRING.remap(java.util.UUID::fromString, java.util.UUID::toString);
+    public static StreamCodec<CraftingBookCategory> CRAFTING_BOOK_CATEGORY = enumCodec(CraftingBookCategory.class);
 
     public abstract A decode(FriendlyByteBuf buf);
     public abstract void encode(FriendlyByteBuf buf, A value);
@@ -92,6 +94,11 @@ public abstract class StreamCodec<A> {
     public<LIST extends Collection<A>> StreamCodec<LIST> collection(IntFunction<LIST> function) {
         return collection(function, this);
     }
+
+    public StreamCodec<NonNullList<A>> nonNullList(A defaultValue) {
+        return collection((size) -> NonNullList.withSize(size, defaultValue), this);
+    }
+
 
     public StreamCodec<List<A>> list() {
         return collection(ArrayList::new, this);

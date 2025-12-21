@@ -5,12 +5,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import com.mojang.math.Axis;
-import com.wdiscute.starcatcher.Config;
-import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.*;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
@@ -592,7 +590,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                 //if completed treasure minigame, or is a perfect catch with the mossy hook
                 boolean awardTreasure = treasureProgress > 100 || modifiers.stream().anyMatch(AbstractMinigameModifier::forceAwardTreasure);
 
-                PacketDistributor.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
+                ModNetworking.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
                 this.onClose();
             }
         }
@@ -608,7 +606,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         if (!hasDistantHorizons())
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 
-        PacketDistributor.sendToServer(new FishingCompletedPayload(-1, false, false, consecutiveHits));
+        ModNetworking.sendToServer(new FishingCompletedPayload(-1, false, false, consecutiveHits));
         this.minecraft.popGuiLayer();
     }
 

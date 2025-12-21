@@ -6,8 +6,11 @@ import com.wdiscute.starcatcher.io.StreamNetworkingUtils;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.BiConsumer;
@@ -15,7 +18,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class ModNetworking {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             Starcatcher.rl("channel"),
             () -> PROTOCOL_VERSION,
@@ -85,5 +88,18 @@ public class ModNetworking {
                 consumer
         );
 
+    }
+
+    public static void sendToAllPlayers(Object message){
+        CHANNEL.send(PacketDistributor.PLAYER.noArg(), message);
+    }
+
+    public static void sendToServer(Object message){
+        CHANNEL.sendToServer(message);
+    }
+    public static void sendToPlayer(Player player, Object message){
+     if (!(player instanceof ServerPlayer serverPlayer))  throw new IllegalArgumentException("player is not a server player");
+
+     CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), message);
     }
 }

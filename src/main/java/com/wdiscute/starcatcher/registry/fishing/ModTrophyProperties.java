@@ -5,11 +5,15 @@ import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Objects;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
@@ -18,22 +22,22 @@ public class ModTrophyProperties
 
     private static ResourceKey<TrophyProperties> createKey(TrophyProperties tp)
     {
-        return ResourceKey.create(Starcatcher.TROPHY_REGISTRY, tp.fish().getKey().location());
+        return ResourceKey.create(Starcatcher.TROPHY_REGISTRY, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(tp.fish().get())));
     }
 
-    private static void register(BootstrapContext<TrophyProperties> context, TrophyProperties.Builder builder)
+    private static void register(BootstapContext<TrophyProperties> context, TrophyProperties.Builder builder)
     {
         TrophyProperties entry = builder.build();
         context.register(createKey(entry), entry);
     }
 
     @SuppressWarnings("deprecation")
-    public static void bootstrap(BootstrapContext<TrophyProperties> context)
+    public static void bootstrap(BootstapContext<TrophyProperties> context)
     {
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_BRONZE.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_BRONZE.get().asItem().builtInRegistryHolder())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(50, 20))
@@ -41,7 +45,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_SILVER.get().asItem().builtInRegistryHolder())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(100, 50))
@@ -49,7 +53,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_GOLD.get().asItem().builtInRegistryHolder())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(200, 0))

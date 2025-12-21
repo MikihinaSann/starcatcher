@@ -20,7 +20,9 @@ public class SecretNote extends Item
 {
     public SecretNote()
     {
-        super(new Properties().stacksTo(1).component(ModDataComponents.SECRET_NOTE, Note.SAMPLE_NOTE));
+        super(new Properties().stacksTo(1));
+
+        ModDataComponents.registerDefault(this, ModDataComponents.SECRET_NOTE, Note.SAMPLE_NOTE);
     }
 
     @Override

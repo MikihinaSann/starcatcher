@@ -29,7 +29,6 @@ public class BucketTooltipRenderer implements ClientTooltipComponent {
         }
 
     }
-
     @Override
     public int getHeight() {
         return isEmpty() ? 0 : 18;

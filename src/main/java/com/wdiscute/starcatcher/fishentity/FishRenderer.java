@@ -75,15 +75,15 @@ public class FishRenderer extends EntityRenderer<FishEntity>
             poseStack.mulPose(Axis.ZP.rotationDegrees(f));
         }
 
-        if (!fish.getBodyArmorItem().isEmpty())
+        if (!fish.fishItem.isEmpty())
         {
-            if (!renderCustomModel(fish.getBodyArmorItem().getItem(), poseStack, buffer, packedLight))
+            if (!renderCustomModel(fish.fishItem.getItem(), poseStack, buffer, packedLight))
             {
                 poseStack.translate(0F, 1F, 0.0F);
                 poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
                 poseStack.mulPose(Axis.ZP.rotationDegrees(45.0F));
                 this.itemRenderer.renderStatic(
-                        fish.getBodyArmorItem(), ItemDisplayContext.FIXED, packedLight,
+                        fish.fishItem, ItemDisplayContext.FIXED, packedLight,
                         OverlayTexture.NO_OVERLAY, poseStack, buffer, fish.level(), fish.getId());
             }
 
@@ -112,7 +112,7 @@ public class FishRenderer extends EntityRenderer<FishEntity>
     private void renderModel(String rl, EntityModel<FishEntity> model, MultiBufferSource buffer, PoseStack poseStack, int packedLight)
     {
         VertexConsumer vertexconsumer = buffer.getBuffer(model.renderType(Starcatcher.rl("textures/entity/fishes/" + rl + ".png")));
-        model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
+        model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
 

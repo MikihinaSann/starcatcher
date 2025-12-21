@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.compat.FTBTeamsCompat;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -129,7 +130,7 @@ public record FishCaughtCounter(
 
         //send packet to client to display message above exp bar and fish caught toast, unless it alwaysSpawnEntity() (where sw and caught doesn't make sense)
         if (!fpCaught.catchInfo().alwaysSpawnEntity())
-            PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));
+            ModNetworking.sendToPlayer(player, new FishCaughtPayload(fpCaught, newFish, size, weight));
 
         FishingGuideAttachment.setFishesCaught(player, fishesCaught);
     }

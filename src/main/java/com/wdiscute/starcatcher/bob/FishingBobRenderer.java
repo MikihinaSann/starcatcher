@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
@@ -47,13 +48,18 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         int color = 0xffff9999;
         ItemStack bobber = ModDataAttachments.get(fishingBobEntity ,ModDataAttachments.BOBBER_SKIN).stack().copy();
-        if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
+        if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get()))
         {
             //why is rendering so annoying
             color = ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).getColorAsInt();
         }
         VertexConsumer vertexbobber = buffer.getBuffer(this.model.renderType(this.getTextureLocation(fishingBobEntity)));
-        this.model.renderToBuffer(poseStack, vertexbobber, packedLight, OverlayTexture.NO_OVERLAY, color);
+        this.model.renderToBuffer(poseStack, vertexbobber, packedLight, OverlayTexture.NO_OVERLAY,
+                FastColor.ABGR32.red(color) / 255f,
+                FastColor.ABGR32.green(color) / 255f,
+                FastColor.ABGR32.blue(color) / 255f,
+                FastColor.ABGR32.alpha(color) / 255f);
+
         poseStack.popPose();
 
 
@@ -73,11 +79,12 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
 
             for (int j = 0 ; j <= 16; j++)
             {
+                // rendering so ass he made a method for division?
                 stringVertex(color, f2, f3, f4, vertexconsumer1, posestack$pose1, fraction(j, 16), fraction(j + 1, 16));
             }
 
             //PLEASE FOR THE LOVE OF GOD DONT REMOVE THIS LINE JUST DONT PLEASE THIS TOOK TOO FUCKING LONG DONT YOU DARE TOUCH IT
-            vertexconsumer1.addVertex(NaN, NaN, NaN).setColor(color).setNormal(posestack$pose1, 0, 0, 0);
+            vertexconsumer1.vertex(NaN, NaN, NaN).color(color).normal(posestack$pose1.normal(), 0, 0, 0);
 
             poseStack.popPose();
             super.render(fishingBobEntity, entityYaw, partialTicks, poseStack, buffer, packedLight);
@@ -101,7 +108,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         f3 /= f6;
         f4 /= f6;
         f5 /= f6;
-        consumer.addVertex(pose, f, f1, f2).setColor(color).setNormal(pose, f3, f4, f5);
+        consumer.vertex(pose.pose(), f, f1, f2).color(color).normal(pose.normal(), f3, f4, f5);
     }
 
     private static float fraction(int numerator, int denominator) {

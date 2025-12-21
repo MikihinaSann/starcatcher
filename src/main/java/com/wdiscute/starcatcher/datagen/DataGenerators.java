@@ -44,6 +44,6 @@ public class DataGenerators
         ItemTagsProvider itp = new ModItemsTagProvider(output, registries, btp.contentsGetter(), existingFileHelper);
         gen.addProvider(event.includeServer(), itp);
 
-        gen.addProvider(event.includeServer(), new ModAdvancementProvider(output, registries, existingFileHelper));
+       //  gen.addProvider(event.includeServer(), new ModAdvancementProvider(output, registries, existingFileHelper));
     }
 }

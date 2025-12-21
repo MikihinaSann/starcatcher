@@ -4,10 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.wdiscute.starcatcher.Config;
-import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.*;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
@@ -15,6 +12,7 @@ import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
@@ -462,14 +460,14 @@ public class FishingGuideScreen extends Screen
         for (int i = 0; i < 40; i++)
         {
             if (!I18n.exists("gui.guide.page" + page + ".left." + i)) break;
-            Component comp = Tooltips.decodeTranslationKey("gui.guide.page" + page + ".left." + i).copy().withColor(0x635040);
+            Component comp = Tooltips.decodeTranslationKey("gui.guide.page" + page + ".left." + i).copy().withStyle(Style.EMPTY.withColor(0x635040));
             guiGraphics.drawString(this.font, comp, uiX + 52, uiY + 10 * i + 13, 0xff000000, false);
         }
 
         for (int i = 0; i < 40; i++)
         {
             if (!I18n.exists("gui.guide.page" + page + ".right." + i)) break;
-            Component comp = Tooltips.decodeTranslationKey("gui.guide.page" + page + ".right." + i).copy().withColor(0x635040);
+            Component comp = Tooltips.decodeTranslationKey("gui.guide.page" + page + ".right." + i).copy().withStyle(Style.EMPTY.withColor(0x635040));
             guiGraphics.drawString(this.font, comp, uiX + 213, uiY + 10 * i + 13, 0xff000000, false);
         }
     }
@@ -896,11 +894,11 @@ public class FishingGuideScreen extends Screen
         //glow color
         int color = switch (fp.rarity())
         {
-            case FishProperties.Rarity.COMMON -> FastColor.ARGB32.color(0, -1);
-            case FishProperties.Rarity.UNCOMMON -> FastColor.ARGB32.color(255, 0x92f28d);
-            case FishProperties.Rarity.RARE -> FastColor.ARGB32.color(255, 0x78c8ff);
-            case FishProperties.Rarity.EPIC -> FastColor.ARGB32.color(255, 0xc060ff);
-            case FishProperties.Rarity.LEGENDARY -> FastColor.ARGB32.color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
+            case COMMON -> color(0, -1);
+            case UNCOMMON -> color(255, 0x92f28d);
+            case RARE -> color(255, 0x78c8ff);
+            case EPIC -> color(255, 0xc060ff);
+            case LEGENDARY -> color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
         };
 
         float red = FastColor.ARGB32.red(color) / 255f;
@@ -938,7 +936,7 @@ public class FishingGuideScreen extends Screen
             {
                 components.add(Component.translatable("gui.guide.not_caught_fish_name"));
                 components.add(Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()));
-                components.add(Component.translatable("gui.guide.not_caught_yet").withColor(0xa34536));
+                components.add(Component.translatable("gui.guide.not_caught_yet").withStyle(Style.EMPTY.withColor(0xa34536)));
             }
             else
             {
@@ -1126,11 +1124,11 @@ public class FishingGuideScreen extends Screen
 
         int color = switch (fp.rarity())
         {
-            case FishProperties.Rarity.COMMON -> FastColor.ARGB32.color(0, -1);
-            case FishProperties.Rarity.UNCOMMON -> FastColor.ARGB32.color(200, 0x92f28d);
-            case FishProperties.Rarity.RARE -> FastColor.ARGB32.color(200, 0x78c8ff);
-            case FishProperties.Rarity.EPIC -> FastColor.ARGB32.color(200, 0xc060ff);
-            case FishProperties.Rarity.LEGENDARY -> FastColor.ARGB32.color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
+            case COMMON -> color(0, -1);
+            case UNCOMMON -> color(200, 0x92f28d);
+            case RARE -> color(200, 0x78c8ff);
+            case EPIC -> color(200, 0xc060ff);
+            case LEGENDARY -> color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
         };
 
         float red = FastColor.ARGB32.red(color) / 255f;
@@ -1664,10 +1662,15 @@ public class FishingGuideScreen extends Screen
         }
     }
 
+    public static int color(int alpha, int packedColor) {
+        return alpha << 24 | packedColor & 16777215;
+    }
+
+
     @Override
     public void onClose()
     {
-        PacketDistributor.sendToServer(new FPsSeenPayload(fpsSeen));
+        ModNetworking.CHANNEL.sendToServer(new FPsSeenPayload(fpsSeen));
         super.onClose();
     }
 

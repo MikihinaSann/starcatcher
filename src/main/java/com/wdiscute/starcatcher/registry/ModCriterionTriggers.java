@@ -9,13 +9,15 @@ import net.minecraftforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public interface ModCriterionTriggers {
-    DeferredRegister<CriterionTrigger<?>> REGISTRY = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, Starcatcher.MOD_ID);
+    //TODO: fix all of this
+
+   // DeferredRegister<CriterionTrigger<?>> REGISTRY = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, Starcatcher.MOD_ID);
 
    // Supplier<MinigameCompletedTrigger> MINIGAME_COMPLETED = REGISTRY.register("minigame_completed", MinigameCompletedTrigger::new);
 
 
     static void register(IEventBus eventBus)
     {
-        REGISTRY.register(eventBus);
+      //  REGISTRY.register(eventBus);
     }
 }

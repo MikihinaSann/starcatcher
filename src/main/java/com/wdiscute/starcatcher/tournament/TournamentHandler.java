@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -10,8 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -61,7 +61,7 @@ public class TournamentHandler
     public static void sendActiveTournamentUpdateToClient(ServerPlayer sp, Tournament tournament)
     {
         if(sp == null || tournament == null) return;
-        PacketDistributor.sendToPlayer(sp, CBActiveTournamentUpdatePayload.helper(sp, tournament));
+        ModNetworking.sendToPlayer(sp, CBActiveTournamentUpdatePayload.helper(sp, tournament));
     }
 
     public static void startTournament(Player playerWhoStartedTheTournament, Tournament tournament)
@@ -75,7 +75,7 @@ public class TournamentHandler
         }
 
         //send to all players to update stand screens
-        PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(playerWhoStartedTheTournament, tournament));
+        ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(playerWhoStartedTheTournament, tournament));
 
         activeTournaments.add(tournament);
         setupTournaments.remove(tournament);
@@ -97,7 +97,7 @@ public class TournamentHandler
         finishedTournaments.add(tournament);
         tournament.status = Tournament.Status.CANCELLED;
 
-        PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(ownerPlayer, tournament));
+        ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(ownerPlayer, tournament));
     }
 
 
@@ -146,7 +146,7 @@ public class TournamentHandler
             if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.name = name;
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
             }
         }
     }

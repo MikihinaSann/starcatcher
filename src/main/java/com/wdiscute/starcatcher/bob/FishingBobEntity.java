@@ -9,6 +9,7 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
@@ -191,9 +192,9 @@ public class FishingBobEntity extends Projectile
                         level(), position().x, position().y + 1.2f, position().z, is);
 
                 Vec3 vec3 = new Vec3(
-                        Math.clamp((player.position().x - position().x) / 25, -1, 1),
-                        0.7 + Math.clamp((player.position().y - position().y) / 20, -1, 1),
-                        Math.clamp((player.position().z - position().z) / 25, -1, 1));
+                        Mth.clamp((player.position().x - position().x) / 25, -1, 1),
+                        0.7 + Mth.clamp((player.position().y - position().y) / 20, -1, 1),
+                        Mth.clamp((player.position().z - position().z) / 25, -1, 1));
 
                 itemFished.setDeltaMovement(vec3);
                 level().addFreshEntity(itemFished);
@@ -253,9 +254,7 @@ public class FishingBobEntity extends Projectile
         else
         {
             //otherwise send fishing minigame payload to client
-            PacketDistributor.sendToPlayer(
-                    ((ServerPlayer) player),
-                    new FishingStartedPayload(fpToFish, rod)
+            ModNetworking.sendToPlayer(player, new FishingStartedPayload(fpToFish, rod)
             );
         }
 

@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.tournament;
 
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
@@ -81,7 +82,7 @@ public class StandMenu extends AbstractContainerMenu
             if (sbe.tournament.settings.duration > 1200)
             {
                 sbe.tournament.settings.duration -= 1200;
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
 
@@ -91,7 +92,7 @@ public class StandMenu extends AbstractContainerMenu
             if (sbe.tournament.settings.duration > 12000)
             {
                 sbe.tournament.settings.duration -= 12000;
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
 
@@ -99,14 +100,14 @@ public class StandMenu extends AbstractContainerMenu
         if (id == 103)
         {
             sbe.tournament.settings.duration += 1200;
-            PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         //duration ++
         if (id == 104)
         {
             sbe.tournament.settings.duration += 12000;
-            PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         //start
@@ -135,7 +136,7 @@ public class StandMenu extends AbstractContainerMenu
             {
                 //sign up player with empty score
                 sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
 
                 List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
 

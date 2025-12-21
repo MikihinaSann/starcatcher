@@ -125,7 +125,7 @@ public class NewSettingsScreen extends FishingMinigameScreen {
         this.minecraft.popGuiLayer();
     }
 
-    public class LeftRightButtonWidget extends AbstractWidget {
+    public class LeftRightButtonWidget extends BetterAbstractWidget {
         int uOffset, vOffset, textureWidth, textureHeight, buttonWidth;
         ResourceLocation texture;
         Supplier<?> value;
@@ -195,7 +195,7 @@ public class NewSettingsScreen extends FishingMinigameScreen {
     }
 
 
-    public class GuiScaleWidget extends AbstractWidget {
+    public class GuiScaleWidget extends BetterAbstractWidget {
         public GuiScaleWidget(int x, int y, int width, int height) {
             super(x, y, width, height, Component.empty());
 

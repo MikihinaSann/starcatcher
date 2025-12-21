@@ -12,10 +12,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
 
-public class BrokenBottle extends Item implements ProjectileItem
+public class BrokenBottle extends Item
 {
 
     public BrokenBottle()
@@ -56,15 +56,7 @@ public class BrokenBottle extends Item implements ProjectileItem
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
-        itemstack.consume(1, player);
+        itemstack.shrink(1);
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
-
-    @Override
-    public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
-        BottleEntity bottleEntity = new BottleEntity(level, pos.x(), pos.y(), pos.z());
-        bottleEntity.setItem(stack);
-        return bottleEntity;
-    }
-
 }

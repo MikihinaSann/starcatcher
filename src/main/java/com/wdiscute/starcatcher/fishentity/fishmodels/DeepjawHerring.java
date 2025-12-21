@@ -47,10 +47,10 @@ public class DeepjawHerring<T extends Entity> extends EntityModel<T>
 
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, int i2)
-	{
-		fish.render(poseStack, vertexConsumer, i, i1, i2);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		fish.render(poseStack,  buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
+
 
 	@Override
 	public void setupAnim(T fishEntity, float v, float v1, float v2, float v3, float v4)

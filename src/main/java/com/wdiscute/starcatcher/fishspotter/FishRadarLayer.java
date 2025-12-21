@@ -56,7 +56,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker)
+    public void render(GuiGraphics guiGraphics, float partialTicks)
     {
         font = Minecraft.getInstance().font;
         uiX = Minecraft.getInstance().getWindow().getGuiScaledWidth() - imageWidth;
@@ -67,19 +67,19 @@ public class FishRadarLayer implements LayeredDraw.Layer
         if (Minecraft.getInstance().player == null) return;
         else player = Minecraft.getInstance().player;
 
-        boolean shouldShow = player.getMainHandItem().is(ModItems.FISH_RADAR) || player.getOffhandItem().is(ModItems.FISH_RADAR);
+        boolean shouldShow = player.getMainHandItem().is(ModItems.FISH_RADAR.get()) || player.getOffhandItem().is(ModItems.FISH_RADAR.get());
 
         //smoothly moves ui in and out of screen
         if (!shouldShow)
             if (offScreen > -150)
-                offScreen -= 15 * deltaTracker.getGameTimeDeltaTicks();
+                offScreen -= 15 * partialTicks;
             else
             {
                 offScreen = -150;
                 return;
             }
         else if (offScreen < 0)
-            offScreen += 15 * deltaTracker.getGameTimeDeltaTicks();
+            offScreen += 15 * partialTicks;
         else
             offScreen = 0;
 
@@ -117,7 +117,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
         renderImage(guiGraphics, Starcatcher.rl("textures/gui/fish_radar/radar_animation" + animationFrame + ".png"));
 
         //recalculate every 100 ticks?
-        counterSinceLastRefresh += 1 * deltaTracker.getGameTimeDeltaTicks();
+        counterSinceLastRefresh += 1 * partialTicks;
         if (counterSinceLastRefresh > 100) recalculate();
 
         for (int i = 0; i < fpsInArea.size(); i++)

@@ -21,12 +21,14 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 public record FishingRodSmithingRecipe(
+        ResourceLocation id,
         Ingredient template,
         Ingredient rod
 )
@@ -36,37 +38,50 @@ public record FishingRodSmithingRecipe(
     @Override
     public boolean matches(Container container, Level level) {
         //netherite upgrade
-        if(input.template().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-                && !ModDataComponents.has(input.base(), ModDataComponents.NETHERITE_UPGRADE)
-                && input.addition().is(Items.NETHERITE_INGOT)
+        if(template(container).is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+                && !ModDataComponents.has(base(container), ModDataComponents.NETHERITE_UPGRADE)
+                && addition(container).is(Items.NETHERITE_INGOT)
         ) return true;
 
         //bobber skins
-        if(input.template().is(StarcatcherTags.TEMPLATES) && input.addition().isEmpty())
+        if(template(container).is(StarcatcherTags.TEMPLATES) && addition(container).isEmpty())
         {
-            SingleStackContainer singleStackContainer = ModDataComponents.get(input.base(), ModDataComponents.BOBBER_SKIN);
+            SingleStackContainer singleStackContainer = ModDataComponents.get(base(container), ModDataComponents.BOBBER_SKIN);
             if(singleStackContainer == null) return true;
 
             //if bobber skin is the template, can not craft
-            return !singleStackContainer.stack().is(input.template().getItem()) || singleStackContainer.stack().is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE);
+            return !singleStackContainer.stack().is(template(container).getItem()) || singleStackContainer.stack().is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get());
         }
 
         return false;
     }
 
+    private static @NotNull ItemStack template(Container container) {
+        return container.getItem(0);
+    }
+
+    private static @NotNull ItemStack addition(Container container) {
+        return container.getItem(2);
+    }
+
+    private static @NotNull ItemStack base(Container container) {
+        return container.getItem(1);
+    }
+
+
     @Override
     public ItemStack assemble(Container container, RegistryAccess registryAccess) {
-        ItemStack newRod = input.base().copy();
+        ItemStack newRod = base(container).copy();
 
-        if(input.template().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE) && input.addition().is(Items.NETHERITE_INGOT))
+        if(template(container).is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE) && addition(container).is(Items.NETHERITE_INGOT))
         {
             ModDataComponents.set(newRod, ModDataComponents.NETHERITE_UPGRADE, true);
             return newRod;
         }
 
-        if(input.template().is(StarcatcherTags.TEMPLATES))
+        if(template(container).is(StarcatcherTags.TEMPLATES))
         {
-            ModDataComponents.set(newRod, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(input.template().copy()));
+            ModDataComponents.set(newRod, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(container.getItem(0).copy()));
             return newRod;
         }
 
@@ -82,12 +97,12 @@ public record FishingRodSmithingRecipe(
 
     @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
-        return null;
+        return Arrays.stream(this.rod.getItems()).findFirst().get();
     }
 
     @Override
     public ResourceLocation getId() {
-        return null;
+        return id;
     }
 
     @Override
@@ -109,12 +124,6 @@ public record FishingRodSmithingRecipe(
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries)
-    {
-        return Arrays.stream(this.rod.getItems()).findFirst().get();
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer()
     {
         return ModRecipes.FISHING_ROD_SMITHING.get();
@@ -129,19 +138,13 @@ public record FishingRodSmithingRecipe(
     @Override
     public boolean isIncomplete()
     {
-        return Stream.of(this.template, this.rod).anyMatch(Ingredient::hasNoItems);
+        return Stream.of(this.template, this.rod).anyMatch(Ingredient::isEmpty);
     }
 
     public static class Serializer implements RecipeSerializer<FishingRodSmithingRecipe>
     {
-        private static final MapCodec<FishingRodSmithingRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                instance -> instance.group(
-                        Ingredient.CODEC.fieldOf("template").forGetter(FishingRodSmithingRecipe::template),
-                        Ingredient.CODEC.fieldOf("rod").forGetter(FishingRodSmithingRecipe::rod)
-                ).apply(instance, FishingRodSmithingRecipe::new)
-        );
-
         public static final StreamCodec<FishingRodSmithingRecipe> STREAM_CODEC = StreamCodec.composite(
+                StreamCodec.RESOURCE_LOCATION, FishingRodSmithingRecipe::id,
                 StreamCodec.INGREDIENT, FishingRodSmithingRecipe::template,
                 StreamCodec.INGREDIENT, FishingRodSmithingRecipe::rod,
                 FishingRodSmithingRecipe::new
@@ -149,7 +152,10 @@ public record FishingRodSmithingRecipe(
 
         @Override
         public FishingRodSmithingRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
-            return null;
+            Ingredient template = Ingredient.fromJson(serializedRecipe.getAsJsonObject("template"));
+            Ingredient rod = Ingredient.fromJson(serializedRecipe.getAsJsonObject("rod"));
+
+            return new FishingRodSmithingRecipe(recipeId, template, rod);
         }
 
         @Override

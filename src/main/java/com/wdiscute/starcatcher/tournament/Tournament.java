@@ -4,13 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.StreamCodec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,15 +48,15 @@ public class Tournament
             ).apply(instance, Tournament::new)
     );
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, Tournament> STREAM_CODEC = ExtraComposites.composite(
-            UUIDUtil.STREAM_CODEC, Tournament::getTournamentUUID,
-            ByteBufCodecs.STRING_UTF8, Tournament::getName,
+    public static final StreamCodec<Tournament> STREAM_CODEC = ExtraComposites.composite(
+            StreamCodec.UUID, Tournament::getTournamentUUID,
+            StreamCodec.STRING, Tournament::getName,
             Status.STREAM_CODEC, Tournament::getStatus,
-            UUIDUtil.STREAM_CODEC, Tournament::getOwner,
-            ByteBufCodecs.map(Object2ObjectOpenHashMap::new, UUIDUtil.STREAM_CODEC, TournamentPlayerScore.STREAM_CODEC), Tournament::getPlayerScores,
+            StreamCodec.UUID, Tournament::getOwner,
+            StreamCodec.map(Object2ObjectOpenHashMap::new, StreamCodec.UUID, TournamentPlayerScore.STREAM_CODEC), Tournament::getPlayerScores,
             TournamentSettings.STREAM_CODEC, Tournament::getSettings,
             SingleStackContainer.STREAM_CODEC_LIST, Tournament::getLootPool,
-            ByteBufCodecs.VAR_LONG, Tournament::getLastsUntil,
+            StreamCodec.LONG, Tournament::getLastsUntil,
             Tournament::new
     );
 
@@ -142,8 +139,8 @@ public class Tournament
 
         public static final Codec<Status> CODEC = StringRepresentable.fromEnum(Status::values);
         public static final Codec<List<Status>> LIST_CODEC = Status.CODEC.listOf();
-        public static final StreamCodec<RegistryFriendlyByteBuf, Status> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Status.class);
-        public static final StreamCodec<RegistryFriendlyByteBuf, List<Status>> LIST_STREAM_CODEC = STREAM_CODEC.apply(ByteBufCodecs.list());
+        public static final StreamCodec<Status> STREAM_CODEC = StreamCodec.enumCodec(Status.class);
+        public static final StreamCodec<List<Status>> LIST_STREAM_CODEC = STREAM_CODEC.list();
         private final String key;
 
         @Override

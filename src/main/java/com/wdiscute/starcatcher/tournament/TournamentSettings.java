@@ -3,12 +3,9 @@ package com.wdiscute.starcatcher.tournament;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import com.wdiscute.starcatcher.io.StreamCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
 
@@ -85,7 +82,7 @@ public class TournamentSettings
         }
 
         public static final Codec<Scoring> CODEC = StringRepresentable.fromEnum(Scoring::values);
-        public static final StreamCodec<RegistryFriendlyByteBuf, Scoring> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Scoring.class);
+        public static final StreamCodec<Scoring> STREAM_CODEC = StreamCodec.enumCodec(Scoring.class);
         private final String key;
 
         @Override
@@ -127,11 +124,11 @@ public class TournamentSettings
             ).apply(instance, TournamentSettings::new)
     );
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, TournamentSettings> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<TournamentSettings> STREAM_CODEC = StreamCodec.composite(
             Scoring.STREAM_CODEC, TournamentSettings::getScoring,
-            ByteBufCodecs.VAR_LONG, TournamentSettings::getDuration,
-            ByteBufCodecs.FLOAT, TournamentSettings::getPerfectCatchMultiplier,
-            ByteBufCodecs.VAR_INT, TournamentSettings::getMissPenalty,
+            StreamCodec.LONG, TournamentSettings::getDuration,
+            StreamCodec.FLOAT, TournamentSettings::getPerfectCatchMultiplier,
+            StreamCodec.INT, TournamentSettings::getMissPenalty,
             SingleStackContainer.STREAM_CODEC_LIST, TournamentSettings::getEntryCost,
             TournamentSettings::new
     );

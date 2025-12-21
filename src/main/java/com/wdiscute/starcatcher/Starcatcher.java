@@ -1,10 +1,8 @@
 package com.wdiscute.starcatcher;
 
-import com.wdiscute.starcatcher.datagen.TrustedHolder;
+import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
-import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
@@ -18,23 +16,22 @@ import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpots
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.RegistryManager;
+import org.slf4j.Logger;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -43,6 +40,7 @@ import java.util.function.Supplier;
 public class Starcatcher
 {
     public static final String MOD_ID = "starcatcher";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceKey<Registry<FishProperties>> FISH_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("fish"));
@@ -59,17 +57,11 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
-    public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = RegistryBuilder.of(SWEET_SPOT_BEHAVIOUR.location())
-            .setDefaultKey(Starcatcher.rl("normal"))
-            .create();
+    public static IForgeRegistry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = RegistryManager.ACTIVE.getRegistry(SWEET_SPOT_BEHAVIOUR);
 
-    public static final Registry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryBuilder.of(MINIGAME_MODIFIERS.location())
-            .setDefaultKey(Starcatcher.rl("no_flip"))
-            .create();
+    public static final IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(MINIGAME_MODIFIERS);
 
-    public static final Registry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryBuilder.of(CATCH_MODIFIERS.location())
-            .setDefaultKey(Starcatcher.rl("no_flip"))
-            .create();
+    public static final IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry((CATCH_MODIFIERS));
 
     public static final Random r = new Random();
 

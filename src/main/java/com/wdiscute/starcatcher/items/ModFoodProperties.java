@@ -7,8 +7,7 @@ public class ModFoodProperties
 {
     public static final FoodProperties BASIC_RAW_FISH = new FoodProperties.Builder()
             .nutrition(2)
-            .saturationModifier(0.1f)
-            .usingConvertsTo(ModItems.FISH_BONES.get())
+            .saturationMod(0.1f)
             .build();
 
 }
