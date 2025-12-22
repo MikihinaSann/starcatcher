@@ -37,7 +37,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_BRONZE.get().asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_BRONZE.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(50, 20))
@@ -45,7 +45,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_SILVER.get().asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_SILVER.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(100, 50))
@@ -53,7 +53,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_GOLD.get().asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_GOLD.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(200, 0))
@@ -72,14 +72,14 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE))
+                        .setFishProperties(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(6, 15))
         );
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldSurfaceLava(ModItems.SCALDING_BOTTLE))
+                        .setFishProperties(overworldSurfaceLava(ModItems.SCALDING_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(0, 27))
                         .setChanceToCatch(33)
@@ -87,7 +87,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldSurfaceLava(ModItems.BURNING_BOTTLE))
+                        .setFishProperties(overworldSurfaceLava(ModItems.BURNING_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(0, 42))
                         .setChanceToCatch(33)
@@ -95,7 +95,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE))
+                        .setFishProperties(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .setChanceToCatch(33)
@@ -103,7 +103,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE))
+                        .setFishProperties(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .setChanceToCatch(33)
@@ -111,7 +111,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFishProperties(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE))
+                        .setFishProperties(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(1, 0))
                         .setChanceToCatch(1)
@@ -120,7 +120,7 @@ public class ModTrophyProperties
         register(
                 context, TrophyProperties.builder()
                         .setFishProperties(
-                                fish(ModItems.WITHERED_BOTTLE)
+                                fish(ModItems.WITHERED_BOTTLE.getId())
                                         .withBaseChance(0)
                                         .withBaitRestrictions(
                                                 FishProperties.BaitRestrictions.DEFAULT
@@ -140,14 +140,14 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)))
+                                overworldDeepslateFish(BuiltInRegistries.ITEM.getKey(Items.DIAMOND)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withProgress(FishProperties.Rarity.RARE, new TrophyProperties.RarityProgress(1, 4))
         );
 
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.GOLD_BLOCK)))
+                                netherLavaFish(BuiltInRegistries.ITEM.getKey(Items.GOLD_BLOCK)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(3, 0))
                         .setChanceToCatch(33)
@@ -155,7 +155,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)))
+                                netherLavaFish(BuiltInRegistries.ITEM.getKey(Items.NETHERITE_SCRAP)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(0, 10))
                         .setChanceToCatch(5)
@@ -164,7 +164,7 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
+                                netherLavaFish(BuiltInRegistries.ITEM.getKey(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -174,7 +174,7 @@ public class ModTrophyProperties
         //naturalist
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldForestFish(ModItems.NATURALIST_ROD))
+                                overworldForestFish(ModItems.NATURALIST_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -183,7 +183,7 @@ public class ModTrophyProperties
         //iceborn rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldColdOceanFish(ModItems.ICEBORN_ROD))
+                                overworldColdOceanFish(ModItems.ICEBORN_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -192,7 +192,7 @@ public class ModTrophyProperties
         //magma forged
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                netherLavaBasaltDeltasFish(ModItems.MAGMAFORGED_ROD))
+                                netherLavaBasaltDeltasFish(ModItems.MAGMAFORGED_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -201,7 +201,7 @@ public class ModTrophyProperties
         //bamboo rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldFish(ModItems.BAMBOO_ROD)
+                                overworldFish(ModItems.BAMBOO_ROD.getId())
                                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                                                 .withBiomes(Biomes.BAMBOO_JUNGLE.location())))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
@@ -212,7 +212,7 @@ public class ModTrophyProperties
         //bamboo rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldSurfaceLava(ModItems.OBSIDIAN_ROD))
+                                overworldSurfaceLava(ModItems.OBSIDIAN_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -221,7 +221,7 @@ public class ModTrophyProperties
         //boner rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                netherLavaSoulSandValleyFish(ModItems.BONER_ROD))
+                                netherLavaSoulSandValleyFish(ModItems.BONER_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -230,7 +230,7 @@ public class ModTrophyProperties
         //sky rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldFish(ModItems.SKY_ROD)
+                                overworldFish(ModItems.SKY_ROD.getId())
                                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                                                 .withMustBeCaughtAboveY(300)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
@@ -241,7 +241,7 @@ public class ModTrophyProperties
         //lush glowberry
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldLushCavesFish(ModItems.LUSH_GLOWBERRY_ROD))
+                                overworldLushCavesFish(ModItems.LUSH_GLOWBERRY_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
@@ -250,7 +250,7 @@ public class ModTrophyProperties
         //humble rod
         register(
                 context, TrophyProperties.builder().setFishProperties(
-                                overworldRiverFish(ModItems.HUMBLE_ROD))
+                                overworldRiverFish(ModItems.HUMBLE_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)

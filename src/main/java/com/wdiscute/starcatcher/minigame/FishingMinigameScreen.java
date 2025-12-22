@@ -121,7 +121,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.difficulty = fp.dif();
 
         //if override is not missingno (default) then use the override item set
-        if (!fp.catchInfo().overrideMinigameWith().equals(ModItems.MISSINGNO.get()))
+        if (!fp.catchInfo().overrideMinigameWith().get().equals(ModItems.MISSINGNO.get()))
             this.itemBeingFished = new ItemStack(fp.catchInfo().overrideMinigameWith().get());
         else
             this.itemBeingFished = new ItemStack(fp.catchInfo().fish().get());
@@ -175,6 +175,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
         {
             var newSweetSpot = new ActiveSweetSpot(this, ss, bobber, bait, hook);
+            if (newSweetSpot.removed) continue;
+
             addSweetSpot(newSweetSpot);
         }
 

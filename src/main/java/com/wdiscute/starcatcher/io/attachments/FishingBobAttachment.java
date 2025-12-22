@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.StreamCodec;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +44,7 @@ public class FishingBobAttachment extends NeoCapability<FishingBobAttachment> {
     }
 
     @Override
-    public DataAttachmentType<FishingBobAttachment> getAttachment() {
+    public @NotNull DataAttachmentType<FishingBobAttachment> getAttachment() {
         return ModDataAttachments.FISHING_BOB;
     }
 

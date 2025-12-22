@@ -14,23 +14,23 @@ public class MinecraftFishingProperties {
     public static void bootstrap() {
 
         //ocean
-        register(overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD))
+        register(overworldOceanFish(BuiltInRegistries.ITEM.getKey(Items.COD))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000)));
 
-        register(overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH))
+        register(overworldOceanFish(BuiltInRegistries.ITEM.getKey(Items.PUFFERFISH))
                 .withSizeAndWeight(FishProperties.sizeWeight(70, 20, 10000, 3000))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(4));
 
         //river
-        register(overworldRiverFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.SALMON))
+        register(overworldRiverFish(BuiltInRegistries.ITEM.getKey(Items.SALMON))
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 10000, 8000)));
 
 
         //mobs
-        register(fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHER_STAR))
+        register(fish(BuiltInRegistries.ITEM.getKey(Items.NETHER_STAR))
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(U.holderEntity("minecraft", "wither"))
                 .withBaseChance(0)
@@ -40,11 +40,11 @@ public class MinecraftFishingProperties {
                                 .withCorrectBaitChanceAdded(200)
                 )
                 .withDifficulty(FishProperties.Difficulty.WITHER)
-                .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                .withItemToOverrideWith(ModItems.UNKNOWN_FISH.getId())
                 .withRarity(FishProperties.Rarity.LEGENDARY)
         );
 
-        register(fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.CREEPER_HEAD))
+        register(fish(BuiltInRegistries.ITEM.getKey(Items.CREEPER_HEAD))
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(U.holderEntity("minecraft", "creeper"))
                 .withBaseChance(0)
@@ -54,11 +54,11 @@ public class MinecraftFishingProperties {
                                 .withCorrectBaitChanceAdded(100)
                 )
                 .withDifficulty(FishProperties.Difficulty.CREEPER)
-                .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                .withItemToOverrideWith(ModItems.UNKNOWN_FISH.getId())
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(overworldSurfaceFish(U.holderItem("minecraft", "rotten_flesh"))
+        register(overworldSurfaceFish(U.locItem("minecraft", "rotten_flesh"))
                 .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                 .withBaseChance(1)
                 .withDaytime(FishProperties.Daytime.NIGHT)

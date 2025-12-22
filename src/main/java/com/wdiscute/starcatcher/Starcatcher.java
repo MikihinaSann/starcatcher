@@ -57,6 +57,12 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
+/*
+    public static final IForgeRegistry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.SWEET_SPOT_BEHAVIOUR);
+    public static final IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.MINIGAME_MODIFIERS);
+    public static final IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.CATCH_MODIFIERS);
+*/
+
     public static final Random r = new Random();
 
     public static double truncatedNormal(double mean, double deviation)

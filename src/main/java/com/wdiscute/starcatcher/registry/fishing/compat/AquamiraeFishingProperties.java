@@ -16,8 +16,8 @@ public class AquamiraeFishingProperties extends FishingPropertiesRegistry
         // `--`--'  `-|  |  `----'   `--`--' `--`--`--' `--' `--'     `--`--'  `----'
         //            `--'
 
-        register(fish(U.holderItem("aquamirae", "spinefish"))
-                .withBucketedFish(U.holderItem("aquamirae", "spinefish_bucket"))
+        register(fish(U.locItem("aquamirae", "spinefish"))
+                .withBucketedFish(U.locItem("aquamirae", "spinefish_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquamirae", "spinefish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 500, 300))
                 .withRarity(FishProperties.Rarity.UNCOMMON)

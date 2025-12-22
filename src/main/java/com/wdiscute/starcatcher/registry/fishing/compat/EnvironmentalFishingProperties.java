@@ -18,8 +18,8 @@ public class EnvironmentalFishingProperties extends FishingPropertiesRegistry
         //`------' `--''--'    `--'    `--' `--'     `---'  `--''--' `--`--`--'  `----' `--''--'   `--'    `--`--' `--'
         //
 
-        register(fish(U.holderItem("environmental", "koi"))
-                .withBucketedFish(U.holderItem("environmental", "koi_bucket"))
+        register(fish(U.locItem("environmental", "koi"))
+                .withBucketedFish(U.locItem("environmental", "koi_bucket"))
                 .withEntityToSpawn(U.holderEntity("environmental", "koi"))
                 .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 3000, 2000))
                 .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
@@ -28,9 +28,9 @@ public class EnvironmentalFishingProperties extends FishingPropertiesRegistry
                         .withBiomes(U.rl("environmental", "blossom_woods"), U.rl("environmental", "blossom_valleys")))
         );
 
-        register(fish(U.holderItem("environmental", "slabfish_bucket"))
+        register(fish(U.locItem("environmental", "slabfish_bucket"))
                 .withAlwaysSpawnEntity(true)
-                .withBucketedFish(U.holderItem("environmental", "slabfish_bucket"))
+                .withBucketedFish(U.locItem("environmental", "slabfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("environmental", "slabfish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(120, 40, 20000, 10000))
                 .withDifficulty(FishProperties.Difficulty.HARD)

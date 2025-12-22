@@ -27,56 +27,56 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         //
 
 
-        register(overworldLakeFish(U.holderItem("tfc", "food/bluegill"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/bluegill"))
+        register(overworldLakeFish(U.locItem("tfc", "food/bluegill"))
+                .withBucketedFish(U.locItem("tfc", "bucket/bluegill"))
                 .withEntityToSpawn(U.holderEntity("tfc", "bluegill"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldRiverFish(U.holderItem("tfc", "food/lake_trout"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/lake_trout"))
+        register(overworldRiverFish(U.locItem("tfc", "food/lake_trout"))
+                .withBucketedFish(U.locItem("tfc", "bucket/lake_trout"))
                 .withEntityToSpawn(U.holderEntity("tfc", "lake_trout"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldLakeFish(U.holderItem("tfc", "food/largemouth_bass"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/bluegill"))
+        register(overworldLakeFish(U.locItem("tfc", "food/largemouth_bass"))
+                .withBucketedFish(U.locItem("tfc", "bucket/bluegill"))
                 .withEntityToSpawn(U.holderEntity("tfc", "bluegill"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldRiverFish(U.holderItem("tfc", "food/rainbow_trout"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/rainbow_trout"))
+        register(overworldRiverFish(U.locItem("tfc", "food/rainbow_trout"))
+                .withBucketedFish(U.locItem("tfc", "bucket/rainbow_trout"))
                 .withEntityToSpawn(U.holderEntity("tfc", "rainbow_trout"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldLakeFish(U.holderItem("tfc", "food/smallmouth_bass"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/smallmouth_bass"))
+        register(overworldLakeFish(U.locItem("tfc", "food/smallmouth_bass"))
+                .withBucketedFish(U.locItem("tfc", "bucket/smallmouth_bass"))
                 .withEntityToSpawn(U.holderEntity("tfc", "smallmouth_bass"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldLakeFish(U.holderItem("tfc", "food/salmon"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/salmon"))
+        register(overworldLakeFish(U.locItem("tfc", "food/salmon"))
+                .withBucketedFish(U.locItem("tfc", "bucket/salmon"))
                 .withEntityToSpawn(U.holderEntity("tfc", "salmon"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldOceanFish(U.holderItem("tfc", "food/cod"))
-                .withBucketedFish(U.holderItem("tfc", "bucket/cod"))
+        register(overworldOceanFish(U.locItem("tfc", "food/cod"))
+                .withBucketedFish(U.locItem("tfc", "bucket/cod"))
                 .withEntityToSpawn(U.holderEntity("tfc", "cod"))
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -86,7 +86,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
 
         //dolphin
         //todo change baits to use tag #tfc:large_fishing_bait and #tfc:small_fishing_bait
-        register(overworldOceanFish(U.holderItem("tfc", "blubber"))
+        register(overworldOceanFish(U.locItem("tfc", "blubber"))
                 .withEntityToSpawn(U.holderEntity("tfc", "dolphin"))
                 .withBaseChance(0)
                 .withAlwaysSpawnEntity(true)
@@ -112,32 +112,32 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
 
 
         //trash
-        register(overworldOceanFish(U.holderItem("tfc", "food/fresh_seaweed"))
+        register(overworldOceanFish(U.locItem("tfc", "food/fresh_seaweed"))
                 .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false)
         );
 
-        register(overworldRiverFish(U.holderItem("tfc", "food/shellfish"))
+        register(overworldRiverFish(U.locItem("tfc", "food/shellfish"))
                 .withEntityToSpawn(U.holderEntity("tfc", "crayfish"))
                 .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false)
         );
 
-        register(overworldOceanFish(U.holderItem("tfc", "groundcover/sea_urchin"))
+        register(overworldOceanFish(U.locItem("tfc", "groundcover/sea_urchin"))
                 .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false)
         );
 
-        register(overworldBeachFish(U.holderItem("tfc", "groundcover/clam"))
+        register(overworldBeachFish(U.locItem("tfc", "groundcover/clam"))
                 .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false)
         );
 
-        register(overworldFish(U.holderItem("tfc", "groundcover/driftwood"))
+        register(overworldFish(U.locItem("tfc", "groundcover/driftwood"))
                 .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false)

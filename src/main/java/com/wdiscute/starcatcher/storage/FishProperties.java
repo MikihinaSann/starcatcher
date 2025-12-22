@@ -33,11 +33,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -146,25 +148,25 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withFish(Supplier<Item> fish)
+        public Builder withFish(ResourceLocation fish)
         {
             this.catchInfo.withFish(fish);
             return this;
         }
 
-        public Builder withTreasure(Supplier<Item> treasure)
+        public Builder withTreasure(ResourceLocation treasure)
         {
             this.catchInfo.treasure = treasure;
             return this;
         }
 
-        public Builder withBucketedFish(Supplier<Item> bucketedFish)
+        public Builder withBucketedFish(ResourceLocation bucketedFish)
         {
             this.catchInfo.withBucketedFish(bucketedFish);
             return this;
         }
 
-        public Builder withEntityToSpawn(Supplier<EntityType<?>> entity)
+        public Builder withEntityToSpawn(ResourceLocation entity)
         {
             this.catchInfo.withEntityToSpawn(entity);
             return this;
@@ -176,7 +178,7 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withItemToOverrideWith(Supplier<Item> itemToOverrideWith)
+        public Builder withItemToOverrideWith(ResourceLocation itemToOverrideWith)
         {
             this.catchInfo.withOverrideMinigameWith(itemToOverrideWith);
             return this;
@@ -268,80 +270,92 @@ public record FishProperties(
 
     //region CatchInfo
     public record CatchInfo(
-            Supplier<Item> fish,
-            Supplier<Item> bucketedFish,
-            Supplier< EntityType<?>> entityToSpawn,
+            ResourceLocation fishLoc,
+            ResourceLocation bucketedFishLoc,
+            ResourceLocation entityToSpawnLoc,
             boolean alwaysSpawnEntity,
-            Supplier<Item> overrideMinigameWith,
-            Supplier<Item> treasure
+            ResourceLocation overrideMinigameWithLoc,
+            ResourceLocation treasureLoc
     )
     {
         public static final Codec<CatchInfo> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).fieldOf("item").forGetter(CatchInfo::fish),
-                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
-                        BuiltInRegistries.ENTITY_TYPE.byNameCodec().xmap(CatchInfo::entityToSupplier, Supplier::get).fieldOf("entity").forGetter(CatchInfo::entityToSpawn),
+                        ResourceLocation.CODEC.fieldOf("item").forGetter(CatchInfo::fishLoc),
+                        ResourceLocation.CODEC.fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFishLoc),
+                        ResourceLocation.CODEC.fieldOf("entity").forGetter(CatchInfo::entityToSpawnLoc),
                         Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::alwaysSpawnEntity),
-                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::overrideMinigameWith),
-                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).optionalFieldOf("treasure", ModItems.MISSINGNO).forGetter(CatchInfo::treasure)
+                        ResourceLocation.CODEC.optionalFieldOf("override_minigame_item", Starcatcher.rl("missingno")).forGetter(CatchInfo::overrideMinigameWithLoc),
+                        ResourceLocation.CODEC.optionalFieldOf("treasure", Starcatcher.rl("missingno")).forGetter(CatchInfo::treasureLoc)
                 ).apply(instance, CatchInfo::new));
 
         public static final StreamCodec<CatchInfo> STREAM_CODEC = StreamCodec.composite(
-                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::fish,
-                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::bucketedFish,
-                StreamCodec.registry(BuiltInRegistries.ENTITY_TYPE).toSupplier(), CatchInfo::entityToSpawn,
+                StreamCodec.RESOURCE_LOCATION, CatchInfo::fishLoc,
+                StreamCodec.RESOURCE_LOCATION, CatchInfo::bucketedFishLoc,
+                StreamCodec.RESOURCE_LOCATION, CatchInfo::entityToSpawnLoc,
                 StreamCodec.BOOL, CatchInfo::alwaysSpawnEntity,
-                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::overrideMinigameWith,
-                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::treasure,
+                StreamCodec.RESOURCE_LOCATION, CatchInfo::overrideMinigameWithLoc,
+                StreamCodec.RESOURCE_LOCATION, CatchInfo::treasureLoc,
                 CatchInfo::new
         );
 
         public static final CatchInfo DEFAULT = new CatchInfo(
-                ModItems.MISSINGNO,
-                ModItems.MISSINGNO,
-                //cant use entity reference as its not registered for the psf
-                //Watch and learn, NERD
-                ModEntities.FISH::get,
+                Starcatcher.rl("missingno"),
+                Starcatcher.rl("missingno"),
+                Starcatcher.rl("fish"),
                 false,
-                ModItems.MISSINGNO,
-                ModItems.WATERLOGGED_SATCHEL
+                Starcatcher.rl("missingno"),
+                Starcatcher.rl("missingno")
         );
 
-        public static <T> Supplier<T> toSupplier(T value){
-            return () -> value;
+        public Holder<Item> fish(){
+            return ForgeRegistries.ITEMS.getHolder(fishLoc).orElseGet(Items.AIR::builtInRegistryHolder);
         }
 
-        public static Supplier<EntityType<?>> entityToSupplier(EntityType<?> entity){
-            return () -> entity;
+        public Holder<Item> bucketedFish(){
+            return ForgeRegistries.ITEMS.getHolder(bucketedFishLoc).orElseGet(Items.AIR::builtInRegistryHolder);
         }
 
-        public CatchInfo withItemToOverrideWith(Holder<Item> itemToOverrideWith)
+        public Holder<EntityType<?>> entityToSpawn(){
+            return ForgeRegistries.ENTITY_TYPES.getHolder(entityToSpawnLoc).orElseGet(EntityType.PIG::builtInRegistryHolder);
+        }
+
+        public Holder<Item> overrideMinigameWith(){
+            return ForgeRegistries.ITEMS.getHolder(overrideMinigameWithLoc).orElseGet(Items.AIR::builtInRegistryHolder);
+        }
+
+        public Holder<Item> treasure(){
+            return ForgeRegistries.ITEMS.getHolder(treasureLoc).orElseGet(Items.AIR::builtInRegistryHolder);
+        }
+
+
+        public CatchInfo withItemToOverrideWith(ResourceLocation itemToOverrideWith)
         {
-            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, itemToOverrideWith, this.treasure);
+            return new CatchInfo(this.fishLoc, this.bucketedFishLoc, this.entityToSpawnLoc, alwaysSpawnEntity, itemToOverrideWith, this.treasureLoc);
         }
+
 
         public static class Builder
         {
-            private Supplier<Item> fish = ModItems.MISSINGNO;
-            private Supplier<Item> bucketedFish = ModItems.MISSINGNO;
-            private Supplier<EntityType<?>> entityToSpawn = ModEntities.FISH::get;
+            private ResourceLocation fish = ModItems.MISSINGNO.getId();
+            private ResourceLocation bucketedFish = ModItems.MISSINGNO.getId();
+            private ResourceLocation entityToSpawn = ModEntities.FISH.getId();
             private boolean alwaysSpawnEntity = false;
-            private Supplier<Item> itemToOverrideWith = ModItems.MISSINGNO;
-            private Supplier<Item> treasure = ModItems.WATERLOGGED_SATCHEL;
+            private ResourceLocation itemToOverrideWith = ModItems.MISSINGNO.getId();
+            private ResourceLocation treasure = ModItems.WATERLOGGED_SATCHEL.getId();
 
-            public Builder withFish(Supplier<Item> fish)
+            public Builder withFish(ResourceLocation fish)
             {
                 this.fish = fish;
                 return this;
             }
 
-            public Builder withBucketedFish(Supplier<Item> bucketedFish)
+            public Builder withBucketedFish(ResourceLocation bucketedFish)
             {
                 this.bucketedFish = bucketedFish;
                 return this;
             }
 
-            public Builder withEntityToSpawn(Supplier<EntityType<?>> entityToSpawn)
+            public Builder withEntityToSpawn(ResourceLocation entityToSpawn)
             {
                 this.entityToSpawn = entityToSpawn;
                 return this;
@@ -353,7 +367,7 @@ public record FishProperties(
                 return this;
             }
 
-            public Builder withOverrideMinigameWith(Supplier<Item> itemToOverrideWith)
+            public Builder withOverrideMinigameWith(ResourceLocation itemToOverrideWith)
             {
                 this.itemToOverrideWith = itemToOverrideWith;
                 return this;

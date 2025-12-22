@@ -20,13 +20,13 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
         //                                                                                                                              `--'
 
 
-        register(overworldBeachFish(U.holderItem("crittersandcompanions", "clam"))  //no mini game
+        register(overworldBeachFish(U.locItem("crittersandcompanions", "clam"))  //no mini game
                 .withSkipMinigame(true)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
         );
 
-        register(overworldRiverFish(U.holderItem("crittersandcompanions", "koi_fish"))
-                .withBucketedFish(U.holderItem("crittersandcompanions", "koi_fish_bucket"))
+        register(overworldRiverFish(U.locItem("crittersandcompanions", "koi_fish"))
+                .withBucketedFish(U.locItem("crittersandcompanions", "koi_fish_bucket"))
                 .withEntityToSpawn(U.holderEntity("crittersandcompanions", "koi_fish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 3000, 2000))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
@@ -34,9 +34,9 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
         );
 
-        register(overworldDeepOceanFish(U.holderItem("crittersandcompanions", "dumbo_octopus_bucket"))
+        register(overworldDeepOceanFish(U.locItem("crittersandcompanions", "dumbo_octopus_bucket"))
                 .withAlwaysSpawnEntity(true)
-                .withBucketedFish(U.holderItem("crittersandcompanions", "dumbo_octopus_bucket"))
+                .withBucketedFish(U.locItem("crittersandcompanions", "dumbo_octopus_bucket"))
                 .withEntityToSpawn(U.holderEntity("crittersandcompanions", "dumbo_octopus"))
                 .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1000, 300))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
@@ -44,9 +44,9 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
         );
 
-        register(overworldDeepOceanFish(U.holderItem("crittersandcompanions", "sea_bunny_bucket"))
+        register(overworldDeepOceanFish(U.locItem("crittersandcompanions", "sea_bunny_bucket"))
                 .withAlwaysSpawnEntity(true)
-                .withBucketedFish(U.holderItem("crittersandcompanions", "sea_bunny_bucket"))
+                .withBucketedFish(U.locItem("crittersandcompanions", "sea_bunny_bucket"))
                 .withEntityToSpawn(U.holderEntity("crittersandcompanions", "sea_bunny"))
                 .withSizeAndWeight(FishProperties.sizeWeight(40, 10, 200, 60))
                 .withDifficulty(FishProperties.Difficulty.HARD)

@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.io.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +84,7 @@ public class FishingGuideAttachment extends NeoCapability<FishingGuideAttachment
     }
 
     @Override
-    public DataAttachmentType<FishingGuideAttachment> getAttachment() {
+    public @NotNull DataAttachmentType<FishingGuideAttachment> getAttachment() {
         return ModDataAttachments.FISHING_GUIDE;
     }
 

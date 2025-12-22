@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class NeoCapability<C extends NeoCapability<C>> implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public abstract DataAttachmentType<C> getAttachment();
+    public abstract @NotNull DataAttachmentType<C> getAttachment();
     protected final LazyOptional<C> optional = LazyOptional.of(this::getThis);
 
     public void setDefault(ICapabilityProvider holder){

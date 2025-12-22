@@ -6,6 +6,7 @@ import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.NeoCapability;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +62,8 @@ public class SingleStackContainer extends NeoCapability<SingleStackContainer> {
     public static final List<SingleStackContainer> EMPTY_LIST = List.of();
 
     @Override
-    public DataAttachmentType<SingleStackContainer> getAttachment() {
-        return null;
+    public @NotNull DataAttachmentType<SingleStackContainer> getAttachment() {
+        return ModDataAttachments.BOBBER_SKIN;
     }
 
     @Override

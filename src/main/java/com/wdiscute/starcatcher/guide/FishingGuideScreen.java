@@ -397,7 +397,7 @@ public class FishingGuideScreen extends Screen
             {
                 Minecraft.getInstance().setScreen(
                         new NewSettingsScreen(
-                                FishProperties.builder().withFish(ModItems.AURORA.getHolder().get()).build(),
+                                FishProperties.builder().withFish(ModItems.AURORA.getId()).build(),
                                 new ItemStack(ModItems.ROD.get()
                                 )
                         ));
@@ -1778,7 +1778,7 @@ public class FishingGuideScreen extends Screen
 
             for (FishProperties fp : entries)
             {
-                String path = ForgeRegistries.ITEMS.getKey(fp.catchInfo().fish().get()).getPath();
+                String path = fp.catchInfo().fishLoc().getPath();
                 map.put(path, fp);
                 entriesString.add(path);
             }

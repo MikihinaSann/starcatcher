@@ -21,6 +21,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -37,15 +39,21 @@ public class ModClientEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-        EntityRenderers.register(ModEntities.FISHING_BOB.get(), FishingBobRenderer::new);
-        EntityRenderers.register(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
-        EntityRenderers.register(ModEntities.FISH.get(), FishRenderer::new);
         ModItemProperties.addCustomItemProperties();
 
         MenuScreens.register(ModMenuTypes.FISHING_ROD_MENU.get(), FishingRodScreen::new);
         MenuScreens.register(ModMenuTypes.STAND_MENU.get(), StandScreen::new);
         registerGuiLayers();
     }
+
+
+    @SubscribeEvent
+    public static void onRegisterBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.FISHING_BOB.get(), FishingBobRenderer::new);
+        event.registerEntityRenderer(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.FISH.get(), FishRenderer::new);
+    }
+
 
     public static void registerGuiLayers()
     {

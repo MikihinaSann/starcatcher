@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
-import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -459,9 +458,9 @@ public class U
         return new ResourceLocation(ns, path);
     }
 
-    public static Supplier<Item> holderItem(String ns, String path)
+    public static ResourceLocation locItem(String ns, String path)
     {
-        return Holder.Reference.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, rl(ns, path)));
+        return rl(ns, path);
     }
 
     public static Supplier<Item> holderItem(RegistryObject<Item> item)
@@ -479,9 +478,9 @@ public class U
         return Holder.direct(entityType);
     }
 
-    public static Supplier<EntityType<?>> holderEntity(String ns, String path)
+    public static ResourceLocation holderEntity(String ns, String path)
     {
-        return ForgeRegistries.ENTITY_TYPES.getHolder(new ResourceLocation(ns, path)).get();
+        return rl(ns, path);
     }
 
     public static Holder<EntityType<?>> holderEntity(Supplier<EntityType<FishEntity>> entity)

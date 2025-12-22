@@ -23,8 +23,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
         //   `--'   `--' `--' `--'  `----'    `--'     `----' `----'
         //
 
-        register(overworldOceanFish(U.holderItem("fishofthieves", "splashtail"))
-                .withBucketedFish(U.holderItem("fishofthieves", "splashtail_bucket"))
+        register(overworldOceanFish(U.locItem("fishofthieves", "splashtail"))
+                .withBucketedFish(U.locItem("fishofthieves", "splashtail_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "splashtail"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(250, 70, 7600, 2000))
@@ -32,8 +32,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
 
-        register(overworldLakeFish(U.holderItem("fishofthieves", "pondie"))
-                .withBucketedFish(U.holderItem("fishofthieves", "pondie_bucket"))
+        register(overworldLakeFish(U.locItem("fishofthieves", "pondie"))
+                .withBucketedFish(U.locItem("fishofthieves", "pondie_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "pondie"))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sizeWeight(190, 30, 9000, 3600))
@@ -42,8 +42,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldRiverFish(U.holderItem("fishofthieves", "islehopper"))
-                .withBucketedFish(U.holderItem("fishofthieves", "islehopper_bucket"))
+        register(overworldRiverFish(U.locItem("fishofthieves", "islehopper"))
+                .withBucketedFish(U.locItem("fishofthieves", "islehopper_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "islehopper"))
                 .withSizeAndWeight(FishProperties.sizeWeight(300, 20, 23000, 3600))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.FISH_OF_THIEVES)
@@ -51,8 +51,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldWarmOceanFish(U.holderItem("fishofthieves", "ancientscale"))
-                .withBucketedFish(U.holderItem("fishofthieves", "ancientscale_bucket"))
+        register(overworldWarmOceanFish(U.locItem("fishofthieves", "ancientscale"))
+                .withBucketedFish(U.locItem("fishofthieves", "ancientscale_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "ancientscale"))
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sizeWeight(70, 10, 4000, 2000))
@@ -61,8 +61,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldWarmOceanFish(U.holderItem("fishofthieves", "plentifin"))
-                .withBucketedFish(U.holderItem("fishofthieves", "plentifin_bucket"))
+        register(overworldWarmOceanFish(U.locItem("fishofthieves", "plentifin"))
+                .withBucketedFish(U.locItem("fishofthieves", "plentifin_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "plentifin"))
                 .withSizeAndWeight(FishProperties.sizeWeight(90, 10, 4300, 2500))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.FISH_OF_THIEVES)
@@ -70,8 +70,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldLushCavesFish(U.holderItem("fishofthieves", "wildsplash"))
-                .withBucketedFish(U.holderItem("fishofthieves", "wildsplash_bucket"))
+        register(overworldLushCavesFish(U.locItem("fishofthieves", "wildsplash"))
+                .withBucketedFish(U.locItem("fishofthieves", "wildsplash_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "wildsplash"))
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sizeWeight(120, 30, 8000, 2200))
@@ -80,8 +80,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldDeepslateFish(U.holderItem("fishofthieves", "devilfish"))
-                .withBucketedFish(U.holderItem("fishofthieves", "devilfish_bucket"))
+        register(overworldDeepslateFish(U.locItem("fishofthieves", "devilfish"))
+                .withBucketedFish(U.locItem("fishofthieves", "devilfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "devilfish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(180, 80, 20000, 2200))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.FISH_OF_THIEVES)
@@ -89,8 +89,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldColdOceanFish(U.holderItem("fishofthieves", "battlegill"))
-                .withBucketedFish(U.holderItem("fishofthieves", "battlegill_bucket"))
+        register(overworldColdOceanFish(U.locItem("fishofthieves", "battlegill"))
+                .withBucketedFish(U.locItem("fishofthieves", "battlegill_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "battlegill"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 10, 19000, 4200))
@@ -99,8 +99,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(endFish(U.holderItem("fishofthieves", "wrecker"))
-                .withBucketedFish(U.holderItem("fishofthieves", "wrecker_bucket"))
+        register(endFish(U.locItem("fishofthieves", "wrecker"))
+                .withBucketedFish(U.locItem("fishofthieves", "wrecker_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "wrecker"))
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 10, 19000, 4200))
@@ -109,8 +109,8 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(overworldOceanFish(U.holderItem("fishofthieves", "stormfish"))
-                .withBucketedFish(U.holderItem("fishofthieves", "stormfish_bucket"))
+        register(overworldOceanFish(U.locItem("fishofthieves", "stormfish"))
+                .withBucketedFish(U.locItem("fishofthieves", "stormfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "stormfish"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sizeWeight(150, 30, 14000, 2000))
