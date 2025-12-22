@@ -33,6 +33,7 @@ public class StarcatcherTags
     public static final TagKey<Item> BOBBERS = ItemTags.create(Starcatcher.rl("bobbers"));
     public static final TagKey<Item> BAITS = ItemTags.create(Starcatcher.rl("baits"));
     public static final TagKey<Item> TEMPLATES = ItemTags.create(Starcatcher.rl("templates"));
+    public static final TagKey<Item> GADGETS = ItemTags.create(Starcatcher.rl("gadgets"));
 
     public static final TagKey<Item> RODS = ItemTags.create(Starcatcher.rl("rods"));
 

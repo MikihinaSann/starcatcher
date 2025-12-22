@@ -62,7 +62,6 @@ public interface ModCatchModifiers
     Pair<ResourceLocation, Supplier<AbstractCatchModifier>> IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS = registerCatchModifier("ignore_daytime_and_weather_restrictions", IgnoreDaytimeWeatherRestrictions::new);
 
 
-
     static Pair<ResourceLocation, Supplier<AbstractCatchModifier>> registerCatchModifier(String name, Supplier<AbstractCatchModifier> sup)
     {
         REGISTRY.register(name, () -> sup);
@@ -86,7 +85,6 @@ public interface ModCatchModifiers
 
         if (is.is(StarcatcherTags.RODS) && checkRodItemStack)
         {
-            modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BOBBER_SKIN).stack(), false));
             modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BOBBER).stack(), false));
             modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BAIT).stack(), false));
             modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.HOOK).stack(), false));
@@ -116,8 +114,7 @@ public interface ModCatchModifiers
         if (is.is(StarcatcherTags.RODS) && checkRodItemStack)
         {
             return (
-                    hasModifier(ModDataComponents.get(is, ModDataComponents.BOBBER_SKIN).stack(), rl) ||
-                            hasModifier(ModDataComponents.get(is, ModDataComponents.BOBBER).stack(), rl) ||
+                    hasModifier(ModDataComponents.get(is, ModDataComponents.BOBBER).stack(), rl) ||
                             hasModifier(ModDataComponents.get(is, ModDataComponents.BAIT).stack(), rl) ||
                             hasModifier(ModDataComponents.get(is, ModDataComponents.HOOK).stack(), rl) ||
                             hasModifier(is, rl, false)

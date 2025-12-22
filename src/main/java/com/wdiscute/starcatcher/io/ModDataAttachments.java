@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.io;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.attachments.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.*;
@@ -15,6 +16,7 @@ public class ModDataAttachments {
     public static final Capability<DataAttachmentBobberSkin> BOOKER_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
     public static final Capability<DataAttachmentFishingBob> FISHING_BOB_CAP = CapabilityManager.get(new CapabilityToken<>() {});
     public static final Capability<DataAttachmentFishingGuide> FISHING_GUIDE_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<DataAttachmentTackleSkin> TACKLE_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
 
     // Attaching capabilities to anything other than entities (like levels, chunks, BEs) isn't set up yet since it isn't needed
     public static final DataAttachmentType<SingleStackContainer> BOBBER_SKIN = DataAttachmentType.register(
@@ -37,6 +39,15 @@ public class ModDataAttachments {
                     .serialize(FishingGuideAttachment.CODEC)
                     .canAttachTo(CapabilityType.PLAYER)
                     .copyOnDeath());
+
+    public static final DataAttachmentType<ResourceLocation> TACKLE_SKIN = DataAttachmentType.register(
+            TACKLE_SKIN_CAP, Starcatcher.rl("tackle_skin"),
+            DataAttachmentType.builder(() -> Starcatcher.rl("base"))
+                    .sync(StreamCodec.RESOURCE_LOCATION)
+                    .serialize(ResourceLocation.CODEC)
+                    .canAttachTo(CapabilityType.ENTITY));
+
+
 
     // sets the value to default
     public static <T> void remove(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
@@ -122,5 +133,6 @@ public class ModDataAttachments {
     public static abstract class DataAttachmentBobberSkin extends DataAttachment<SingleStackContainer>{}
     public static abstract class DataAttachmentFishingBob extends DataAttachment<FishingBobAttachment>{}
     public static abstract class DataAttachmentFishingGuide extends DataAttachment<FishingGuideAttachment>{}
+    public static abstract class DataAttachmentTackleSkin extends DataAttachment<ResourceLocation>{}
 
 }

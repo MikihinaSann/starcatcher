@@ -6,15 +6,23 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "starcatcher:colorful_bobber_smithing_template"
+          "name": "starcatcher:pearl_smithing_template"
         },
         {
           "type": "minecraft:item",
-          "name": "starcatcher:pearl_bobber_smithing_template"
+          "name": "starcatcher:kimbe_smithing_template"
         },
         {
           "type": "minecraft:item",
-          "name": "starcatcher:kimbe_bobber_smithing_template"
+          "name": "starcatcher:colorful_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "starcatcher:clear_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "starcatcher:frog_smithing_template"
         },
         {
           "type": "minecraft:item",

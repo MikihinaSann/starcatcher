@@ -31,15 +31,18 @@ import java.util.function.Supplier;
 public class ModifierShapedRecipe extends ShapedRecipe
 {
    public List<ResourceLocation> modifiers;
+   public final ResourceLocation bobberSkin;
 
-    public ModifierShapedRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, List<ResourceLocation> modifiers) {
+    public ModifierShapedRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, List<ResourceLocation> modifiers, ResourceLocation bobberSkin) {
         super(id, group, category, width, height, recipeItems, result);
         this.modifiers = modifiers;
+        this.bobberSkin = bobberSkin;
     }
 
-    public ModifierShapedRecipe(ShapedRecipe recipe, List<ResourceLocation> modifiers) {
+    public ModifierShapedRecipe(ShapedRecipe recipe, List<ResourceLocation> modifiers, ResourceLocation bobberSkin) {
         super(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getRecipeWidth(), recipe.getRecipeHeight(), recipe.getIngredients(), recipe.result);
         this.modifiers = modifiers;
+        this.bobberSkin = bobberSkin;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class ModifierShapedRecipe extends ShapedRecipe
         List<ResourceLocation> catchModifiers = new ArrayList<>();
         List<ResourceLocation> minigameModifiers = new ArrayList<>();
 
-        for (ResourceLocation rl : modifiers)
+        for (ResourceLocation rl : this.minigameModifiers)
         {
             ResourceKey<Supplier<AbstractCatchModifier>> catchRK = ResourceKey.create(Starcatcher.CATCH_MODIFIERS, rl);
             ResourceKey<Supplier<AbstractMinigameModifier>> minigameRK = ResourceKey.create(Starcatcher.MINIGAME_MODIFIERS, rl);
@@ -67,8 +70,10 @@ public class ModifierShapedRecipe extends ShapedRecipe
                 minigameModifiers.add(rl);
         }
 
-        if(!catchModifiers.isEmpty()) ModDataComponents.set(itemstack, ModDataComponents.CATCH_MODIFIERS, catchModifiers);
-        if(!minigameModifiers.isEmpty()) ModDataComponents.set(itemstack, ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
+        if (!catchModifiers.isEmpty())
+            ModDataComponents.set(itemstack, ModDataComponents.CATCH_MODIFIERS, catchModifiers);
+        if (!minigameModifiers.isEmpty())
+            ModDataComponents.set(itemstack, ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
 
         return itemstack;
 
@@ -81,8 +86,9 @@ public class ModifierShapedRecipe extends ShapedRecipe
         public ModifierShapedRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
             ShapedRecipe shapedRecipe = ShapedRecipe.Serializer.SHAPED_RECIPE.fromJson(recipeId, serializedRecipe);
             var locs = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "modifiers"));
+            ResourceLocation bobber = new ResourceLocation(GsonHelper.getAsString(serializedRecipe, "bobber_skin"));
 
-            return new ModifierShapedRecipe(shapedRecipe, locs);
+            return new ModifierShapedRecipe(shapedRecipe, locs, bobber);
         }
 
         private static List<ResourceLocation> locsFromJson(JsonArray ingredientArray) {
@@ -99,13 +105,14 @@ public class ModifierShapedRecipe extends ShapedRecipe
 
         @Override
         public @Nullable ModifierShapedRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return new ModifierShapedRecipe(ShapedRecipe.Serializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer), StreamCodec.RESOURCE_LOCATION.list().decode(buffer));
+            return new ModifierShapedRecipe(ShapedRecipe.Serializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer), StreamCodec.RESOURCE_LOCATION.list().decode(buffer), StreamCodec.RESOURCE_LOCATION.decode(buffer));
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, ModifierShapedRecipe recipe) {
             ShapedRecipe.Serializer.SHAPED_RECIPE.toNetwork(buffer, recipe);
             StreamCodec.RESOURCE_LOCATION.list().encode(recipe.modifiers, buffer);
+            StreamCodec.RESOURCE_LOCATION.encode(recipe.bobberSkin, buffer);
         }
     }
 

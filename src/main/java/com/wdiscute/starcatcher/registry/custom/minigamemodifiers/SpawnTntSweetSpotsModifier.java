@@ -1,13 +1,11 @@
 package com.wdiscute.starcatcher.registry.custom.minigamemodifiers;
 
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-import java.util.Random;
-
 public class SpawnTntSweetSpotsModifier extends AbstractMinigameModifier
 {
-    private final Random r = new Random();
     float chance;
     int cooldown;
 
@@ -24,7 +22,7 @@ public class SpawnTntSweetSpotsModifier extends AbstractMinigameModifier
     public void tick()
     {
         super.tick();
-        if (tickCount % 4 == 0  &&  r.nextFloat() < chance)
+        if (tickCount % 4 == 0  &&  U.r.nextFloat() < chance)
         {
             ActiveSweetSpot activeSweetSpot = new ActiveSweetSpot(instance, FishProperties.SweetSpot.TNT);
             instance.addSweetSpot(activeSweetSpot);

@@ -63,11 +63,10 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
-/*
-    public static final IForgeRegistry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.SWEET_SPOT_BEHAVIOUR);
-    public static final IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.MINIGAME_MODIFIERS);
-    public static final IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.CATCH_MODIFIERS);
-*/
+    public static final ResourceKey<Registry<Supplier<AbstractTackleSkin>>> TACKLE_SKIN =
+            ResourceKey.createRegistryKey(Starcatcher.rl("bobber_skin"));
+
+
     public static <T> IForgeRegistry<T> getRegistry(ResourceKey<Registry<T>> resourceKey){
         return RegistryManager.ACTIVE.getRegistry(resourceKey);
     }
@@ -81,13 +80,11 @@ public class Starcatcher
     }
 
 
-    public static final Random r = new Random();
-
     public static double truncatedNormal(double mean, double deviation)
     {
         while (true)
         {
-            double value = mean + deviation * r.nextGaussian();
+            double value = mean + deviation * U.r.nextGaussian();
             if (value >= mean - deviation && value <= mean + deviation)
             {
                 return value;
@@ -153,9 +150,12 @@ public class Starcatcher
         ModSweetSpotsBehaviour.register(modEventBus);
         ModMinigameModifiers.register(modEventBus);
         ModCatchModifiers.register(modEventBus);
+        ModTackleSkins.register(modEventBus);
         ModCriterionTriggers.register(modEventBus);
 
         ModNetworking.init();
         ModDataAttachments.init();
+
+        ModItems.registerExtra();
     }
 }

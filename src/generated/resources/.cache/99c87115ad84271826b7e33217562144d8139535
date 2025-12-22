@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-22T17:09:41.7588937	Item Models: starcatcher
+// 1.21.1	2025-12-24T16:33:31.6852504	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -22,6 +22,7 @@ ff350c277dd34a5e1f58bef63243dfdc703f052c assets/starcatcher/models/item/bobber.j
 5becb58593d2ba6ec1da2dab7983c07b6ffd0c56 assets/starcatcher/models/item/broken_bottle.json
 62ceb251bfbc13f7cb95f66013984bdea191c2e5 assets/starcatcher/models/item/burning_bottle.json
 4f3eb43e292dace969f2c5503fb98cb88e976f33 assets/starcatcher/models/item/cactifish.json
+e6bf88f4693fafe7f7cb0197127007bf88246aad assets/starcatcher/models/item/carpenjoe.json
 f6383369cb097a667f5406f76a8ecd9ec0bd23ce assets/starcatcher/models/item/cerberay.json
 79b5cc1a5234adfd11b11def8c91364aa4a44655 assets/starcatcher/models/item/charfish.json
 0c77190e961a836d737046d35796897c2585f4fd assets/starcatcher/models/item/cherry_bait.json
@@ -29,7 +30,8 @@ f6383369cb097a667f5406f76a8ecd9ec0bd23ce assets/starcatcher/models/item/cerberay
 3bb359940e775f1b106d2866999ccd8768a094ad assets/starcatcher/models/item/cinder_squid.json
 466ccba57f59a2202e00d64369b6d8f2f72fcc66 assets/starcatcher/models/item/clam.json
 413dc56c829ae02782003df0fd89bc51a45b17da assets/starcatcher/models/item/clear_bobber.json
-5294e8c9ef8bcc499c84aafd80cf4683f1aab44a assets/starcatcher/models/item/colorful_bobber_smithing_template.json
+7624bdc48e8cebe54bdeed194657679e0e27a0a7 assets/starcatcher/models/item/clear_smithing_template.json
+ae2c1d929a5ea501d66d5340bfc9b4657db9b199 assets/starcatcher/models/item/colorful_smithing_template.json
 c21ddccb5dd997a4a4d122dfb83dabfe68c27dd5 assets/starcatcher/models/item/conch.json
 2539cea75231a8b810564fdabdfb2171b913fc1b assets/starcatcher/models/item/crystalback_boreal.json
 9b01c43443918c6c7f85436a99bc899f988bc332 assets/starcatcher/models/item/crystalback_minnow.json
@@ -52,6 +54,7 @@ b13c0cc1ac8ef6b72efff35fd4de5bbe793ddfb3 assets/starcatcher/models/item/end_glow
 7178137e3dbe1272eda1d5c209e3324463d3b3d5 assets/starcatcher/models/item/fish_bones.json
 ea7cb3b764fcb56465379e525adbff10855b276d assets/starcatcher/models/item/fish_radar.json
 b4badb601775c09e84ff979e9397cccf32f7e7b5 assets/starcatcher/models/item/fossilized_angelfish.json
+92d8eeef664e1cbf5aa121e8532dff7f977fb810 assets/starcatcher/models/item/frog_smithing_template.json
 a485d704f4434a0b0e10e7f14b8d2f8aa476bf1e assets/starcatcher/models/item/frostgill_chub.json
 d81451127a31e3e14f3db6f481f38a53b910239f assets/starcatcher/models/item/frostjaw_trout.json
 0d86806c40dd51e2a4d155449b5d7f4cdc2206d6 assets/starcatcher/models/item/garnet_mackerel.json
@@ -71,7 +74,8 @@ d4ef58b79b88f3995d547d4571fbc502b5a0590f assets/starcatcher/models/item/hook.jso
 d2723d60eb3f0c4b23296d49fcb9a2d5ea8bca65 assets/starcatcher/models/item/icetooth_sturgeon.json
 6962ffb2b3b432228587826f936b584ce25897b7 assets/starcatcher/models/item/ironjaw_herring.json
 824082875c064e8e1c55748d4533b8a36e8d1ea5 assets/starcatcher/models/item/joel.json
-edfcd89945a27243095488da0963cb914b7cff47 assets/starcatcher/models/item/kimbe_bobber_smithing_template.json
+9d6d60827d3114051d142d88bf21c450379559f2 assets/starcatcher/models/item/kimbe_smithing_template.json
+205dd1f76d30b485ad5e6e587217109ef94d23da assets/starcatcher/models/item/king_smithing_template.json
 557dfad2f30d8351f8afac8bee9b522c6661e067 assets/starcatcher/models/item/lava_crab.json
 961d2b08e8de7e237fbe484215421e546eeb6bfd assets/starcatcher/models/item/lava_crab_claw.json
 3b6d5de0002cd1ed1f9d41702ae943b21953db21 assets/starcatcher/models/item/legendary_bait.json
@@ -96,7 +100,7 @@ a7f1f64d2fa0d02b33ca86786c89635b32586b84 assets/starcatcher/models/item/obsidian
 3ea0bf60cf9ba92db35d3726ded71838e8de735a assets/starcatcher/models/item/pale_carp.json
 175bdef8bb5d5fbbcd5bf40422528df2aa447cef assets/starcatcher/models/item/pale_pinfish.json
 f03df0085ca72f8e6b99ee8170144ec41fc4c357 assets/starcatcher/models/item/peakdweller.json
-a05eb0baa67bf5bcc3d614d2c03fa8102d1ae6b1 assets/starcatcher/models/item/pearl_bobber_smithing_template.json
+4b718f5bc360344ece03347659be3349071fa77a assets/starcatcher/models/item/pearl_smithing_template.json
 1c347b5111e4d05d07f04b8a6f1d5c05def1b973 assets/starcatcher/models/item/petaldrift_carp.json
 2d6e48df616372258bc4a7b0aa18266971189927 assets/starcatcher/models/item/pinfish.json
 9d9af629ceab2b9158a92968a9483373aba1eef2 assets/starcatcher/models/item/pink_koi.json

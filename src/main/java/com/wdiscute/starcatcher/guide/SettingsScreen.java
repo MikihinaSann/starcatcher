@@ -42,7 +42,6 @@ public class SettingsScreen extends Screen
     final FishProperties fp;
     final ItemStack itemBeingFished;
     final ItemStack bobber;
-    final ItemStack bobberSkin;
     final ItemStack bait;
     final ItemStack hook;
 
@@ -114,7 +113,6 @@ public class SettingsScreen extends Screen
         this.fp = fp;
         this.itemBeingFished = new ItemStack(fp.catchInfo().fish().get());
         this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
-        this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
         this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
         this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 

@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
@@ -42,8 +41,6 @@ public class ModDataComponents
 
     public static final DataComponent<SingleStackContainer> HOOK = register("hook", SingleStackContainer.CODEC);
 
-    public static final DataComponent<ColorfulSmithingTemplate.BobberColor> BOBBER_COLOR = register("color", ColorfulSmithingTemplate.BobberColor.CODEC);
-
     public static final DataComponent<TrophyProperties> TROPHY = register("trophy", TrophyProperties.CODEC);
 
     public static final DataComponent<FishProperties> FISH_PROPERTIES = register("fish_properties", FishProperties.CODEC);
@@ -55,6 +52,14 @@ public class ModDataComponents
     public static final DataComponent<List<ResourceLocation>> MINIGAME_MODIFIERS = register("minigame_modifiers", ResourceLocation.CODEC.listOf());
 
     public static final DataComponent<List<ResourceLocation>> CATCH_MODIFIERS = register("catch_modifiers", ResourceLocation.CODEC.listOf());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> TACKLE_SKIN = register(
+            "tackle_skin",
+            builder -> builder.persistent(ResourceLocation.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(
+            "netherite_upgraded",
+            builder -> builder.persistent(Codec.BOOL));
 
 
     public static <T> DataComponent<T> register(String name, Codec<T> codec){

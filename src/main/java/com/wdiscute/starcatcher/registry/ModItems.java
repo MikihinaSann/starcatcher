@@ -7,8 +7,12 @@ import com.wdiscute.starcatcher.items.cheater.*;
 import com.wdiscute.starcatcher.items.helper.BasicItem;
 import com.wdiscute.starcatcher.items.helper.FireResistantBasicItem;
 import com.wdiscute.starcatcher.items.helper.SingleStackBasicItem;
+import com.wdiscute.starcatcher.items.modifieritem.CatchModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.MinigameModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.TackleSkinItem;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.rod.StarcatcherFishingRodItem;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
@@ -21,11 +25,21 @@ import net.minecraftforge.registries.RegistryObject;
 public interface ModItems
 {
 
-    DeferredRegister<Item> ITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
-    DeferredRegister<Item> RODS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
-    DeferredRegister<Item> BAITS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
-    DeferredRegister<Item> HOOKS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
-    DeferredRegister<Item> BOBBERS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    static void registerExtra()
+    {
+        //this works!
+        if (ModList.get().isLoaded("tide"))
+        {
+            //DeferredItem<Item> FISH = ITEMS_REGISTRY.register("fish", FishItem::new);
+        }
+    }
+
+
+    DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items BAITS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items HOOKS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items BOBBERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
     //fishes which have a model and swim in water
     DeferredRegister<Item> FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
@@ -85,12 +99,13 @@ public interface ModItems
     RegistryObject<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME,  ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
 
 
-
-
     //bobber skin templates
-    RegistryObject<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", ColorfulSmithingTemplate::new);
-    RegistryObject<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", BasicItem::new);
-    RegistryObject<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_bobber_smithing_template", BasicItem::new);
+    RegistryObject<Item> PEARL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_smithing_template", () -> new TackleSkinItem(ModTackleSkins.PEARL_TACKLE_SKIN));
+    RegistryObject<Item> KIMBE_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KIMBE_TACKLE_SKIN));
+    RegistryObject<Item> COLORFUL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_smithing_template", () -> new TackleSkinItem(ModTackleSkins.COLORFUL_TACKLE_SKIN));
+    RegistryObject<Item> CLEAR_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("clear_smithing_template", () -> new TackleSkinItem(ModTackleSkins.CLEAR_TACKLE_SKIN));
+    RegistryObject<Item> FROG_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("frog_smithing_template", () -> new TackleSkinItem(ModTackleSkins.FROG_TACKLE_SKIN));
+    RegistryObject<Item> KING_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("king_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KING_TACKLE_SKIN));
 
     //rods
     RegistryObject<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRodItem::new);
@@ -213,6 +228,7 @@ public interface ModItems
 
     //rivers
     RegistryObject<Item> SILVERFIN_PIKE = FISH_REGISTRY.register("silverfin_pike", FishItem::new);
+    RegistryObject<Item> CARPENJOE = FISH_REGISTRY.register("carpenjoe", FishItem::new);
     RegistryObject<Item> WILLOW_BREAM = FISH_REGISTRY.register("willow_bream", FishItem::new);
     RegistryObject<Item> DRIFTING_BREAM = FISH_REGISTRY.register("drifting_bream", FishItem::new);
     RegistryObject<Item> DOWNFALL_BREAM = FISH_REGISTRY.register("downfall_bream", FishItem::new);

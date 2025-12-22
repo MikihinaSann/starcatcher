@@ -389,6 +389,7 @@ public class FishingBobEntity extends Projectile
             if (timeBiting > 80)
             {
                 ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
+                ModTackleSkins.get(level(), rod).onMissed(player);
                 kill();
             }
         }

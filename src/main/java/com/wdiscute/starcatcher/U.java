@@ -60,6 +60,9 @@ public class U
                 //trigger modifiers
                 fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));
 
+                //play sound
+                ModTackleSkins.get(level, fbe.rod).onSuccessfulMinigame(player);
+
                 //if should cancel because of modifier, return
                 if(fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
                         player, time, completedTreasure, perfectCatch, hits))) return;
@@ -144,12 +147,10 @@ public class U
                         //store fp in itemstack for name color change
                         ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
 
-                        //split hook double drops unless it's going to be converted to a starcaught bucket
-                        for (AbstractCatchModifier acm : fbe.modifiers)
-                        {
-                            is = acm.modifyItemStack(is);
-                        }
+                        //call modify stack on modifiers (split hook behaviour)
+                        for (AbstractCatchModifier acm : fbe.modifiers) is = acm.modifyItemStack(is);
 
+                        //set starcaught bucket data stuff
                         if (isStarcaught)
                         {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish().get());
@@ -189,10 +190,11 @@ public class U
             }
             else
             {
-                //if fish minigame failed/canceled, play sound
+                //if fish minigame failed/canceled
                 fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
+
+                //play sound from tackle skin
+                ModTackleSkins.get(level, fbe.rod).onFailedMinigame(player);
             }
 
             fbe.kill();

@@ -21,18 +21,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 import static java.lang.Float.NaN;
 
 public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
 {
-    protected FishingBobModel<FishingBobEntity> model;
+    final EntityRendererProvider.Context context;
 
     public FishingBobRenderer(EntityRendererProvider.Context context)
     {
         super(context);
-        this.model = new FishingBobModel<>(context.bakeLayer(FishingBobModel.LAYER_LOCATION));
+        this.context = context;
     }
-
 
     @Override
     public ResourceLocation getTextureLocation(FishingBobEntity fishingBobEntity)
@@ -46,26 +49,20 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         poseStack.pushPose();
         poseStack.translate(0.0F, 1.5F, 0.0F);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
-        int color = 0xffff9999;
-        ItemStack bobber = ModDataAttachments.get(fishingBobEntity ,ModDataAttachments.BOBBER_SKIN).stack().copy();
-        if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get()))
-        {
-            //why is rendering so annoying
-            color = ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).getColorAsInt();
-        }
-        VertexConsumer vertexbobber = buffer.getBuffer(this.model.renderType(this.getTextureLocation(fishingBobEntity)));
-        this.model.renderToBuffer(poseStack, vertexbobber, packedLight, OverlayTexture.NO_OVERLAY,
-                FastColor.ABGR32.red(color) / 255f,
-                FastColor.ABGR32.green(color) / 255f,
-                FastColor.ABGR32.blue(color) / 255f,
-                FastColor.ABGR32.alpha(color) / 255f);
 
+        poseStack.mulPose(Axis.YP.rotationDegrees(180));
+        poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
+
+        //render tackle based on tackle skin, defaults to BaseTackleSkin
+        ResourceLocation tackleRl = ModDataAttachments.get(fishingBobEntity, ModDataAttachments.TACKLE_SKIN);
+        Optional<Supplier<AbstractTackleSkin>> optional = fishingBobEntity.level().registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(tackleRl);
+        optional.ifPresent(supplier -> supplier.get().renderTackle(context, fishingBobEntity, entityYaw, partialTicks, poseStack, buffer, packedLight));
         poseStack.popPose();
 
 
+        //render fishing line from bobber to player
         if (fishingBobEntity.getOwner() instanceof Player player)
         {
-
             poseStack.pushPose();
             float f = player.getAttackAnim(partialTicks);
             float f1 = Mth.sin(Mth.sqrt(f) * (float) Math.PI);
@@ -77,7 +74,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
             VertexConsumer vertexconsumer1 = buffer.getBuffer(RenderType.lineStrip());
             PoseStack.Pose posestack$pose1 = poseStack.last();
 
-            for (int j = 0 ; j <= 16; j++)
+            for (int j = 0; j <= 16; j++)
             {
                 // rendering so ass he made a method for division?
                 stringVertex(color, f2, f3, f4, vertexconsumer1, posestack$pose1, fraction(j, 16), fraction(j + 1, 16));
@@ -97,8 +94,9 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
     }
 
     private static void stringVertex(int color, float x, float y, float z, VertexConsumer consumer, PoseStack.Pose pose, float stringFraction, float nextStringFraction
-    ) {
-        if(color == 0xffff9999) color = -16777216;
+    )
+    {
+        if (color == 0xffff9999) color = -16777216;
 
         float f = x * stringFraction;
         float f1 = y * (stringFraction * stringFraction + stringFraction) * 0.5F + 0.25F;
@@ -113,36 +111,42 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         consumer.vertex(pose.pose(), f, f1, f2).color(color).normal(pose.normal(), f3, f4, f5).endVertex();
     }
 
-    private static float fraction(int numerator, int denominator) {
-        return (float)numerator / (float)denominator;
+    private static float fraction(int numerator, int denominator)
+    {
+        return (float) numerator / (float) denominator;
     }
 
-    private Vec3 getPlayerHandPos(Player player, float p_340872_, float partialTick) {
+    private Vec3 getPlayerHandPos(Player player, float p_340872_, float partialTick)
+    {
         int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
         ItemStack itemstack = player.getMainHandItem();
-        if (!itemstack.is(StarcatcherTags.RODS)) {
+        if (!itemstack.is(StarcatcherTags.RODS))
+        {
             i = -i;
         }
 
-        if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && player == Minecraft.getInstance().player) {
-            double d4 = 960.0 / (double)this.entityRenderDispatcher.options.fov().get().intValue();
+        if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && player == Minecraft.getInstance().player)
+        {
+            double d4 = 960.0 / (double) this.entityRenderDispatcher.options.fov().get().intValue();
             Vec3 vec3 = this.entityRenderDispatcher
                     .camera
                     .getNearPlane()
-                    .getPointOnPlane((float)i * 0.525F, -0.1F)
+                    .getPointOnPlane((float) i * 0.525F, -0.1F)
                     .scale(d4)
                     .yRot(p_340872_ * 0.5F)
                     .xRot(-p_340872_ * 0.7F);
             return player.getEyePosition(partialTick).add(vec3);
-        } else {
+        }
+        else
+        {
             float f = Mth.lerp(partialTick, player.yBodyRotO, player.yBodyRot) * (float) (Math.PI / 180.0);
-            double d0 = (double)Mth.sin(f);
-            double d1 = (double)Mth.cos(f);
+            double d0 = (double) Mth.sin(f);
+            double d1 = (double) Mth.cos(f);
             float f1 = player.getScale();
-            double d2 = (double)i * 0.35 * (double)f1;
-            double d3 = 0.8 * (double)f1;
+            double d2 = (double) i * 0.35 * (double) f1;
+            double d3 = 0.8 * (double) f1;
             float f2 = player.isCrouching() ? -0.1875F : 0.0F;
-            return player.getEyePosition(partialTick).add(-d1 * d2 - d0 * d3, (double)f2 - 0.45 * (double)f1, -d0 * d2 + d1 * d3);
+            return player.getEyePosition(partialTick).add(-d1 * d2 - d0 * d3, (double) f2 - 0.45 * (double) f1, -d0 * d2 + d1 * d3);
         }
     }
 

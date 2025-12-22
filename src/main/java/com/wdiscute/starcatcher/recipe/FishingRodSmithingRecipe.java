@@ -3,12 +3,13 @@ package com.wdiscute.starcatcher.recipe;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModRecipes;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public record FishingRodSmithingRecipe(
@@ -44,13 +47,14 @@ public record FishingRodSmithingRecipe(
         ) return true;
 
         //bobber skins
-        if(template(container).is(StarcatcherTags.TEMPLATES) && addition(container).isEmpty())
+        if(ModDataComponents.has(template(container), ModDataComponents.TACKLE_SKIN) && addition(container).isEmpty())
         {
-            SingleStackContainer singleStackContainer = ModDataComponents.get(base(container), ModDataComponents.BOBBER_SKIN);
-            if(singleStackContainer == null) return true;
+            ResourceLocation rl = ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN);
+
+            Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
 
             //if bobber skin is the template, can not craft
-            return !singleStackContainer.stack().is(template(container).getItem()) || singleStackContainer.stack().is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get());
+            return optional.isPresent();
         }
 
         return false;
@@ -79,9 +83,10 @@ public record FishingRodSmithingRecipe(
             return newRod;
         }
 
-        if(template(container).is(StarcatcherTags.TEMPLATES))
+        //assemble bobber skin
+        if (ModDataComponents.has(input.template(), ModDataComponents.TACKLE_SKIN) && input.addition().isEmpty())
         {
-            ModDataComponents.set(newRod, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(container.getItem(0).copy()));
+            ModDataComponents.set(newRod, ModDataComponents.TACKLE_SKIN, ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN));
             return newRod;
         }
 

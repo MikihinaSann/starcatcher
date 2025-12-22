@@ -1,12 +1,10 @@
 package com.wdiscute.starcatcher.particles;
 
-
+import com.wdiscute.starcatcher.U;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class FishingBitingLavaParticles extends TextureSheetParticle
 {
@@ -16,14 +14,11 @@ public class FishingBitingLavaParticles extends TextureSheetParticle
     {
         super(level, x, y, z);
 
+        this.xd = 0f + U.r.nextFloat(0.2f) - 0.1f;
+        this.yd = 0f + U.r.nextFloat(0.2f) + 0.1f;
+        this.zd = 0f + U.r.nextFloat(0.2f) - 0.1f;
 
-        Random r = new Random();
-
-        this.xd = 0f + r.nextFloat(0.2f) - 0.1f;
-        this.yd = 0f + r.nextFloat(0.2f) + 0.1f;
-        this.zd = 0f + r.nextFloat(0.2f) - 0.1f;
-
-        this.quadSize = r.nextFloat(0.2f) + 0.05f;
+        this.quadSize = U.r.nextFloat(0.2f) + 0.05f;
 
         this.lifetime = 20;
 

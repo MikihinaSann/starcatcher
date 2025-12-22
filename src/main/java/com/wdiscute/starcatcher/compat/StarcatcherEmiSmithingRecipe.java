@@ -1,9 +1,11 @@
 package com.wdiscute.starcatcher.compat;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.recipe.FishingRodSmithingRecipe;
+import com.wdiscute.starcatcher.registry.ModItems;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
@@ -13,8 +15,10 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,20 +38,25 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
 
         ItemStack stack = Arrays.stream(recipe.rod().getItems()).findFirst().get().copy();
 
-        if (template.getEmiStacks().get(0).getItemStack().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
-        {
-            ModDataComponents.set(stack, ModDataComponents.NETHERITE_UPGRADE, true);
-            isNetheriteUpgrade = true;
-        }
-        else
-        {
-            ItemStack bobberSkin = template.getEmiStacks().get(0).getItemStack();
-            ModDataComponents.set(stack, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(bobberSkin));
-            isNetheriteUpgrade = false;
-        }
-
+        ModDataComponents.set(stack, ModDataComponents.NETHERITE_UPGRADE, true);
+        isNetheriteUpgrade = true;
 
         this.output = EmiStack.of(stack);
+    }
+
+    public StarcatcherEmiSmithingRecipe(Item item)
+    {
+        this.template = EmiIngredient.of(Ingredient.of(item));
+        this.input = EmiIngredient.of(Ingredient.of(StarcatcherTags.RODS));
+
+        ItemStack is = ModItems.ROD.get().getDefaultInstance();
+
+        ResourceLocation wadd = ModDataComponents.get(item.getDefaultInstance(), ModDataComponents.TACKLE_SKIN);
+
+        ModDataComponents.set(is, ModDataComponents.TACKLE_SKIN, wadd);
+        isNetheriteUpgrade = false;
+
+        this.output = EmiStack.of(is);
     }
 
     @Override
@@ -92,7 +101,7 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 62, 1);
         widgets.addSlot(template, 0, 0);
         widgets.addSlot(input, 18, 0);
-        if(isNetheriteUpgrade) widgets.addSlot(netheriteIngot, 36, 0);
+        if (isNetheriteUpgrade) widgets.addSlot(netheriteIngot, 36, 0);
         widgets.addSlot(output, 94, 0).recipeContext(this);
     }
 }

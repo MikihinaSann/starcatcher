@@ -64,10 +64,6 @@ public class TournamentOverlay implements LayeredDraw.Layer
         else
             offsetScreen = Math.max(offsetScreen - 15, -150);
 
-//        firstPlace = Pair.of(Component.literal("player1"), firstPlace.getSecond());
-//        secondPlace = Pair.of(Component.literal("player1"), secondPlace.getSecond());
-//        thirdPlace = Pair.of(Component.literal("player1"), thirdPlace.getSecond());
-
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(offsetScreen, 0, 0);
 
@@ -89,7 +85,6 @@ public class TournamentOverlay implements LayeredDraw.Layer
         guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 93, uiY + 64, 0x635040, false);
 
         guiGraphics.pose().popPose();
-
     }
 
     public static void onTournamentReceived(Tournament t, List<GameProfile> list)
@@ -97,9 +92,9 @@ public class TournamentOverlay implements LayeredDraw.Layer
         //add entries to cached game profile
         list.forEach(e -> gameProfilesCache.put(e.getId(), e.getName()));
 
-        firstPlace = Pair.of(Component.literal("[empty]"), 0);
-        secondPlace = Pair.of(Component.literal("[empty]"), 0);
-        thirdPlace = Pair.of(Component.literal("[empty]"), 0);
+        firstPlace = Pair.of(Component.literal(""), 0);
+        secondPlace = Pair.of(Component.literal(""), 0);
+        thirdPlace = Pair.of(Component.literal(""), 0);
 
         if (t.status.equals(Tournament.Status.ACTIVE))
         {

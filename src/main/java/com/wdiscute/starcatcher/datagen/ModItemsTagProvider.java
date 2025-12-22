@@ -48,6 +48,9 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(StarcatcherTags.TEMPLATES).add(item.get());
         }
 
+        //gadgets
+        tag(StarcatcherTags.GADGETS).add(ModItems.FISH_RADAR.get());
+
         //extra baits
         tag(StarcatcherTags.BAITS).add(Items.BUCKET);
         tag(StarcatcherTags.BAITS).add(Items.WITHER_SKELETON_SKULL);

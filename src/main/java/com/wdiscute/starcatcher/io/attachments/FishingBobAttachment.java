@@ -3,22 +3,20 @@ package com.wdiscute.starcatcher.io.attachments;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
-import com.wdiscute.starcatcher.io.StreamCodec;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.neoforged.neoforge.attachment.AttachmentHolder;
 
-import java.util.List;
 import java.util.UUID;
 
-public class FishingBobAttachment{
+public class FishingBobAttachment
+{
     private String uuid;
 
-    public FishingBobAttachment(String uuid) {
+    public FishingBobAttachment(String uuid)
+    {
         this.uuid = uuid;
-    }
-
-    public FishingBobAttachment() {
-        this.uuid = "";
     }
 
     public static final Codec<FishingBobAttachment> CODEC = RecordCodecBuilder.create(instance ->
@@ -27,21 +25,24 @@ public class FishingBobAttachment{
             ).apply(instance, FishingBobAttachment::new)
     );
 
-    public static final StreamCodec<FishingBobAttachment> STREAM_CODEC = StreamCodec.composite(
-            StreamCodec.STRING, data -> data.uuid,
+    public static final StreamCodec<RegistryFriendlyByteBuf, FishingBobAttachment> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, data -> data.uuid,
             FishingBobAttachment::new
     );
 
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return uuid.isEmpty();
     }
 
-    public void setUuid(ICapabilityProvider holder, UUID uuid) {
-        ModDataAttachments.set(holder, ModDataAttachments.FISHING_BOB, new FishingBobAttachment(uuid.toString()));
+    public void setUuid(AttachmentHolder holder, UUID uuid) {
+        this.uuid = uuid.toString();
+        holder.syncData(ModDataAttachments.FISHING_BOB);
     }
 
-    public UUID getUuid() {
-        if (isEmpty()) return UUID.randomUUID();
+    public UUID getUuid()
+    {
+        if(uuid.isEmpty()) return UUID.randomUUID();
         return UUID.fromString(uuid);
     }
 

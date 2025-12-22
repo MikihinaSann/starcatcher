@@ -16,6 +16,10 @@ public class ModSounds
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Starcatcher.MOD_ID);
 
 
+    public static final Supplier<SoundEvent> KING_HEHEHA = registerSoundEvent("king_heheha");
+    public static final Supplier<SoundEvent> KING_CRY = registerSoundEvent("king_cry");
+    public static final Supplier<SoundEvent> KING_GRR = registerSoundEvent("king_grr");
+
 
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {

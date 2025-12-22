@@ -281,9 +281,13 @@ public class StarcatcherFishingProperties
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.SILVERFIN_PIKE.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(75, 20, 5000, 3000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
+
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.CARPENJOE.getId())
+                .withSizeAndWeight(FishProperties.sizeWeight(178, 0, 72000, 0))
+                .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
+                .withRarity(FishProperties.Rarity.EPIC));
 
         register(overworldRiverFish(ModItems.DRIED_SEAWEED.getId())
                 .withDifficulty(FishProperties.Difficulty.TRASH)
