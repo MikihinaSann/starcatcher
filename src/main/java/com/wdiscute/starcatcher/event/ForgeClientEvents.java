@@ -45,10 +45,14 @@ public class ForgeClientEvents {
         {
             List<ResourceLocation> modifiers = new ArrayList<>();
 
-            if (ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS)));
-            if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS)));
+            if (ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS)) {
+                List<ResourceLocation> list = ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS);
+                modifiers.addAll(list);
+            }
+            if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS)) {
+                List<ResourceLocation> list = (ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS));
+                modifiers.addAll(list);
+            }
 
             if (!modifiers.isEmpty())
             {

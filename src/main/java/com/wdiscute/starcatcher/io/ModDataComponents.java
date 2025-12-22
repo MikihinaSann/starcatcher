@@ -18,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,34 +30,43 @@ public class ModDataComponents
     private static Map<Item, List<DataDefault<?>>> DEFAULT_DATA_COMPONENTS_REGISTERED = new HashMap<>();
 
     //smithing templates
-    public static final DataComponent<Boolean> NETHERITE_UPGRADE = new DataComponent<>("netherite_upgraded", Codec.BOOL);
+    public static final DataComponent<Boolean> NETHERITE_UPGRADE = register("netherite_upgraded", Codec.BOOL);
 
-    public static final DataComponent<SingleStackContainer> BOBBER_SKIN = new DataComponent<>("bobber_skin", SingleStackContainer.CODEC);
+    public static final DataComponent<SingleStackContainer> BOBBER_SKIN = register("bobber_skin", SingleStackContainer.CODEC);
 
     //bucketed fish
-    public static final DataComponent<SingleStackContainer> BUCKETED_FISH = new DataComponent<>("bucketed_fish", SingleStackContainer.CODEC);
+    public static final DataComponent<SingleStackContainer> BUCKETED_FISH = register("bucketed_fish", SingleStackContainer.CODEC);
 
     //rod menu
-    public static final DataComponent<SingleStackContainer> BOBBER = new DataComponent<>("bobber", SingleStackContainer.CODEC);
+    public static final DataComponent<SingleStackContainer> BOBBER = register("bobber", SingleStackContainer.CODEC);
 
-    public static final DataComponent<SingleStackContainer> BAIT = new DataComponent<>("bait", SingleStackContainer.CODEC);
+    public static final DataComponent<SingleStackContainer> BAIT = register("bait", SingleStackContainer.CODEC);
 
-    public static final DataComponent<SingleStackContainer> HOOK = new DataComponent<>("hook", SingleStackContainer.CODEC);
+    public static final DataComponent<SingleStackContainer> HOOK = register("hook", SingleStackContainer.CODEC);
 
-    public static final DataComponent<ColorfulSmithingTemplate.BobberColor> BOBBER_COLOR = new DataComponent<>("color", ColorfulSmithingTemplate.BobberColor.CODEC);
+    public static final DataComponent<ColorfulSmithingTemplate.BobberColor> BOBBER_COLOR = register("color", ColorfulSmithingTemplate.BobberColor.CODEC);
 
-    public static final DataComponent<TrophyProperties> TROPHY = new DataComponent<>("trophy", TrophyProperties.CODEC);
+    public static final DataComponent<TrophyProperties> TROPHY = register("trophy", TrophyProperties.CODEC);
 
-    public static final DataComponent<FishProperties> FISH_PROPERTIES = new DataComponent<>("fish_properties", FishProperties.CODEC);
+    public static final DataComponent<FishProperties> FISH_PROPERTIES = register("fish_properties", FishProperties.CODEC);
 
-    public static final DataComponent<SecretNote.Note> SECRET_NOTE = new DataComponent<>("fish_properties", SecretNote.Note.CODEC);
+    public static final DataComponent<SecretNote.Note> SECRET_NOTE = register("secret", SecretNote.Note.CODEC);
 
-    public static final DataComponent<SizeAndWeightInstance> SIZE_AND_WEIGHT = new DataComponent<>("fish_properties", SizeAndWeightInstance.CODEC);
+    public static final DataComponent<SizeAndWeightInstance> SIZE_AND_WEIGHT = register("size_weight", SizeAndWeightInstance.CODEC);
 
-    public static final DataComponent<List<ResourceLocation>> MINIGAME_MODIFIERS = new DataComponent<>("fish_properties", ResourceLocation.CODEC.listOf());
+    public static final DataComponent<List<ResourceLocation>> MINIGAME_MODIFIERS = register("minigame_modifiers", ResourceLocation.CODEC.listOf());
 
-    public static final DataComponent<List<ResourceLocation>> CATCH_MODIFIERS = new DataComponent<>("fish_properties", ResourceLocation.CODEC.listOf());
+    public static final DataComponent<List<ResourceLocation>> CATCH_MODIFIERS = register("catch_modifiers", ResourceLocation.CODEC.listOf());
 
+
+    public static <T> DataComponent<T> register(String name, Codec<T> codec){
+        if (DataComponent.NAMES.contains(name)){
+            throw new IllegalArgumentException("Tried registering a DataComponent with a duplicate name " + name);
+        }
+
+        DataComponent.NAMES.add(name);
+        return new DataComponent<>(name, codec);
+    }
 
 
     public static  <T> void set(ItemStack stack, DataComponent<T> component, T data){
@@ -73,6 +83,7 @@ public class ModDataComponents
             for (DataDefault<?> def : dataDefaults) {
                 if (def.component.equals(component)){
                     ret = (T) def.data;
+                    break;
                 }
             }
         }
@@ -126,7 +137,9 @@ public class ModDataComponents
         DEFAULT_DATA_COMPONENTS_REGISTERED.put(item, dataDefault);
     }
 
+
     public record DataComponent<T>(String name, Codec<T> codec){
+        public static final List<String> NAMES = new ArrayList<>();
 
         private void setOn(ItemStack stack, T data){
             CompoundTag compoundTag = stack.getOrCreateTag();

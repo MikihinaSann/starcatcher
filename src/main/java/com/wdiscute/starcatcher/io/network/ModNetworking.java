@@ -79,6 +79,13 @@ public class ModNetworking {
                 CBActiveTournamentUpdatePayload.STREAM_CODEC,
                 CBActiveTournamentUpdatePayload::handle
         );
+
+        register(
+                SyncCapabilityPayload.class,
+                SyncCapabilityPayload.STREAM_CODEC,
+                SyncCapabilityPayload::handle
+        );
+
     }
 
     private static <T> void register(Class<T> msg, StreamCodec<T> streamCodec, BiConsumer<T, Supplier<NetworkEvent.Context>> consumer){
