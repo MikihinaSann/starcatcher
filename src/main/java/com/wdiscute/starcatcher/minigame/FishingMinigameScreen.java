@@ -32,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.network.PacketDistributor;
 import org.joml.Quaternionf;
 import org.joml.Vector2d;
 
@@ -122,17 +121,17 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.difficulty = fp.dif();
 
         //if override is not missingno (default) then use the override item set
-        if (!fp.catchInfo().overrideMinigameWith().is(ModItems.MISSINGNO.getKey()))
-            this.itemBeingFished = new ItemStack(fp.catchInfo().overrideMinigameWith());
+        if (!fp.catchInfo().overrideMinigameWith().equals(ModItems.MISSINGNO.get()))
+            this.itemBeingFished = new ItemStack(fp.catchInfo().overrideMinigameWith().get());
         else
-            this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
+            this.itemBeingFished = new ItemStack(fp.catchInfo().fish().get());
 
         this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
         this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
         this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
         this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 
-        this.treasureIS = new ItemStack(fp.catchInfo().treasure());
+        this.treasureIS = new ItemStack(fp.catchInfo().treasure().get());
 
         //tank texture change
         ClientLevel level = Minecraft.getInstance().level;

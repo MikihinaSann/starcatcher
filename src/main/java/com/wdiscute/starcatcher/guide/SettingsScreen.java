@@ -112,7 +112,7 @@ public class SettingsScreen extends Screen
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
         this.fp = fp;
-        this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
+        this.itemBeingFished = new ItemStack(fp.catchInfo().fish().get());
         this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
         this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
         this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();

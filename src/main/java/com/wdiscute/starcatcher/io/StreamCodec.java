@@ -60,6 +60,44 @@ public abstract class StreamCodec<A> {
         };
     }
 
+    public static <OUTPUT> StreamCodec<OUTPUT> registry(Registry<OUTPUT> registry){
+        return new StreamCodec<>() {
+            @Override
+            public OUTPUT decode(FriendlyByteBuf buf) {
+                return registry.getHolder(buf.readInt()).get().get();
+            }
+
+            @Override
+            public void encode(FriendlyByteBuf buf, OUTPUT value) {
+                buf.writeInt(registry.getId(value));
+            }
+        };
+    }
+
+    public static <OUTPUT> StreamCodec<OUTPUT> byNameRegistry(Registry<OUTPUT> registry){
+        return new StreamCodec<>() {
+            @Override
+            public OUTPUT decode(FriendlyByteBuf buf) {
+                return registry.get(buf.readResourceLocation());
+            }
+
+            @Override
+            public void encode(FriendlyByteBuf buf, OUTPUT value) {
+                buf.writeResourceLocation(Objects.requireNonNull(registry.getKey(value)));
+            }
+        };
+    }
+
+
+
+    public StreamCodec<Supplier<A>> toSupplier(){
+        return this.remap(StreamCodec::toSupplier, Supplier::get);
+    }
+
+    private static <T> Supplier<T> toSupplier(T data){
+        return () -> data;
+    }
+
     public static <OUTPUT extends Enum<OUTPUT>> StreamCodec<OUTPUT> enumCodec(Class<OUTPUT> enumClass){
         return new StreamCodec<>() {
             @Override

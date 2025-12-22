@@ -25,11 +25,10 @@ public record DataAttachmentType<T extends NeoCapability<T>>(
 
 
     public static <R extends NeoCapability<R>> DataAttachmentType<R> register(
-            ResourceLocation name,
+            Capability<R> capability, ResourceLocation name,
             @Nullable StreamCodec<R> streamCodec, @Nullable Codec<R> codec,
             boolean copyOnDeath, R defaultValue
     ) {
-        Capability<R> capability = CapabilityManager.get(new CapabilityToken<>() {});
         DataAttachmentType<R> dataAttachment = new DataAttachmentType<>(capability, name, streamCodec, codec, copyOnDeath, defaultValue);
 
         if (streamCodec != null) {

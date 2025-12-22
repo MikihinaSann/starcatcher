@@ -29,19 +29,19 @@ public class StarcatcherEmiRecipe implements EmiRecipe {
     private final ItemStack is;
 
     public StarcatcherEmiRecipe(ResourceLocation id, FishProperties fp) {
-        this.output = List.of(EmiStack.of(fp.catchInfo().fish().value()));
+        this.output = List.of(EmiStack.of(fp.catchInfo().fish().get()));
         this.id = id;
         this.tp = null;
-        this.is = new ItemStack(fp.catchInfo().fish());
+        this.is = new ItemStack(fp.catchInfo().fish().get());
 
     }
 
     public StarcatcherEmiRecipe(ResourceLocation id, TrophyProperties tp) {
-        this.output = List.of(EmiStack.of(tp.fish().value()));
+        this.output = List.of(EmiStack.of(tp.fish().get()));
         this.id = id;
         this.tp = tp;
 
-        this.is = new ItemStack(tp.fish());
+        this.is = new ItemStack(tp.fish().get());
 
         ModDataComponents.set(is, ModDataComponents.TROPHY, this.tp);
     }

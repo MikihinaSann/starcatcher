@@ -18,6 +18,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +58,7 @@ public class ModCommands
 
                 //starcatcher simulate_fish starcatcher:aurora
                 .then(Commands.literal("simulate_fish")
-                        .then(Commands.argument("fish_entry", ResourceArgument.resource(context, Starcatcher.FISH_REGISTRY))
+                        .then(Commands.argument("fish_entry", ResourceLocationArgument.id())
                                 .executes(c ->
                                         startMinigame(
                                                 c.getSource().getPlayerOrException(),
@@ -70,7 +71,7 @@ public class ModCommands
 
                 //starcatcher add_modifier starcatcher:freeze_on_miss
                 .then(Commands.literal("add_minigame_modifier")
-                        .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.MINIGAME_MODIFIERS))
+                        .then(Commands.argument("modifier", ResourceLocationArgument.id())
                                 .executes(c ->
                                         addMinigameModifier(
                                                 c.getSource().getPlayerOrException(),
@@ -81,7 +82,7 @@ public class ModCommands
 
                 //starcatcher add_modifier starcatcher:ignore_daytime_and_weather_restrictions
                 .then(Commands.literal("add_catch_modifier")
-                        .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.CATCH_MODIFIERS))
+                        .then(Commands.argument("modifier", ResourceLocationArgument.id())
                                 .executes(c ->
                                         addCatchModifier(
                                                 c.getSource().getPlayerOrException(),

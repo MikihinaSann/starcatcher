@@ -104,7 +104,7 @@ public class U
                     y *= 2;
                     z *= 2.5;
 
-                    Entity entity = fp.catchInfo().entityToSpawn().value().create(level);
+                    Entity entity = fp.catchInfo().entityToSpawn().get().create(level);
 
                     if (entity == null)
                     {
@@ -125,19 +125,19 @@ public class U
                 {
                     //SPAWN ITEMSTACK
                     ItemStack bait = ModDataComponents.get(fbe.rod, ModDataComponents.BAIT).stack().copy();
-                    boolean isStarcaught = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey()) && bait.is(Items.BUCKET);
-                    boolean isBucketed = !fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && !isStarcaught && bait.is(Items.BUCKET);
+                    boolean isStarcaught = fp.catchInfo().bucketedFish().get().equals(ModItems.STARCAUGHT_BUCKET.get()) && bait.is(Items.BUCKET);
+                    boolean isBucketed = !fp.catchInfo().bucketedFish().get().equals(ModItems.MISSINGNO.get()) && !isStarcaught && bait.is(Items.BUCKET);
 
                     ItemStack is;
                     //create itemStack
                     if (isBucketed)
                     {
-                        is = new ItemStack(fp.catchInfo().bucketedFish());
+                        is = new ItemStack(fp.catchInfo().bucketedFish().get());
                     }
                     else
                     {
                         //make fish itemstack
-                        is = new ItemStack(fp.catchInfo().fish());
+                        is = new ItemStack(fp.catchInfo().fish().get());
 
                         //store size and weight data component
                         ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
@@ -153,7 +153,7 @@ public class U
 
                         if (isStarcaught)
                         {
-                            ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
+                            ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish().get());
                             ModDataComponents.set(starcaughtBucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
                             is = starcaughtBucket;
                         }
@@ -177,7 +177,7 @@ public class U
                 //spawn treasure item
                 if (completedTreasure || fbe.modifiers.stream().anyMatch(m -> m.forceAwardTreasure(fbe, time, completedTreasure, perfectCatch, hits)))
                 {
-                    ItemStack treasure = new ItemStack(fp.catchInfo().treasure());
+                    ItemStack treasure = new ItemStack(fp.catchInfo().treasure().get());
                     ItemEntity treasureFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, treasure);
                     double x = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
                     double y = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
@@ -224,7 +224,7 @@ public class U
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
     {
-        ItemStack is = new ItemStack(fp.catchInfo().fish());
+        ItemStack is = new ItemStack(fp.catchInfo().fish().get());
         ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
         ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
         return is;
@@ -459,27 +459,27 @@ public class U
         return new ResourceLocation(ns, path);
     }
 
-    public static Holder<Item> holderItem(String ns, String path)
+    public static Supplier<Item> holderItem(String ns, String path)
     {
-        return ForgeRegistries.ITEMS.getHolder(new ResourceLocation(ns, path)).get();
+        return Holder.Reference.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, rl(ns, path)));
     }
 
-    public static Holder<Item> holderItem(RegistryObject<Item> item)
+    public static Supplier<Item> holderItem(RegistryObject<Item> item)
     {
         return Holder.direct(item.get());
     }
 
-    public static Holder<Item> holderItem(Item item)
+    public static Supplier<Item> holderItem(Item item)
     {
         return Holder.direct(item);
     }
 
-    public static Holder<EntityType<?>> holderEntity(EntityType<?> entityType)
+    public static Supplier<EntityType<?>> holderEntity(EntityType<?> entityType)
     {
         return Holder.direct(entityType);
     }
 
-    public static Holder<EntityType<?>> holderEntity(String ns, String path)
+    public static Supplier<EntityType<?>> holderEntity(String ns, String path)
     {
         return ForgeRegistries.ENTITY_TYPES.getHolder(new ResourceLocation(ns, path)).get();
     }

@@ -126,7 +126,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
 
             if (fishesCaught.contains(fpsInArea.get(i)))
             {
-                is = new ItemStack(fpsInArea.get(i).catchInfo().fish());
+                is = new ItemStack(fpsInArea.get(i).catchInfo().fish().get());
             }
 
             guiGraphics.renderItem(

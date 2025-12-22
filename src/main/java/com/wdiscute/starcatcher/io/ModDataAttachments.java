@@ -13,15 +13,19 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID)
 public class ModDataAttachments
 {
+    public static final Capability<SingleStackContainer> BOOKER_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<FishingBobAttachment> FISHING_BOB_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<FishingGuideAttachment> FISHING_GUIDE_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+
 
     public static final DataAttachmentType<SingleStackContainer> BOBBER_SKIN = DataAttachmentType.register(
-            Starcatcher.rl("bobber_skin"), SingleStackContainer.STREAM_CODEC, SingleStackContainer.CODEC, false, new SingleStackContainer());
+            BOOKER_SKIN_CAP, Starcatcher.rl("bobber_skin"), SingleStackContainer.STREAM_CODEC, SingleStackContainer.CODEC, false, new SingleStackContainer());
 
     public static final DataAttachmentType<FishingBobAttachment> FISHING_BOB = DataAttachmentType.register(
-            Starcatcher.rl("fishing_bob"), FishingBobAttachment.STREAM_CODEC, null, false, new FishingBobAttachment());
+            FISHING_BOB_CAP, Starcatcher.rl("fishing_bob"), FishingBobAttachment.STREAM_CODEC, null, false, new FishingBobAttachment());
 
     public static final DataAttachmentType<FishingGuideAttachment> FISHING_GUIDE = DataAttachmentType.register(
-            Starcatcher.rl("fishing_guide"), FishingGuideAttachment.STREAM_CODEC, FishingGuideAttachment.CODEC, true, FishingGuideAttachment.createDefault());
+            FISHING_GUIDE_CAP, Starcatcher.rl("fishing_guide"), FishingGuideAttachment.STREAM_CODEC, FishingGuideAttachment.CODEC, true, FishingGuideAttachment.createDefault());
 
     @SubscribeEvent
     public static void attachCapabilitiesPlayer(AttachCapabilitiesEvent<Player> event) {

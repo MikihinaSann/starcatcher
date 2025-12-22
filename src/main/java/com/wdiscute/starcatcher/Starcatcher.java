@@ -57,12 +57,6 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
-    public static IForgeRegistry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = RegistryManager.ACTIVE.getRegistry(SWEET_SPOT_BEHAVIOUR);
-
-    public static final IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(MINIGAME_MODIFIERS);
-
-    public static final IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry((CATCH_MODIFIERS));
-
     public static final Random r = new Random();
 
     public static double truncatedNormal(double mean, double deviation)
@@ -94,7 +88,7 @@ public class Starcatcher
 
         Minecraft.getInstance().player.displayClientMessage(
                 Component.literal("")
-                        .append(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()))
+                        .append(Component.translatable(fp.catchInfo().fish().get().getDescriptionId()))
                         .append(Component.literal(" - " + size + " - " + weight))
                 , true);
 

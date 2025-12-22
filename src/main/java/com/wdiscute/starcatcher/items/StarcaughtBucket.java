@@ -24,17 +24,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class StarcaughtBucket extends BucketItem
 {
-    EntityType<FishEntity> entity;
+   Supplier<EntityType<FishEntity>> entity;
 
     public StarcaughtBucket(Fluid fluid)
     {
-        super(
-                fluid, new Item.Properties().stacksTo(16));
+        super(fluid, new Item.Properties().stacksTo(16));
 
-        entity = ModEntities.FISH.get();
+        entity = ModEntities.FISH;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class StarcaughtBucket extends BucketItem
 
     private void spawn(ServerLevel serverLevel, ItemStack bucketedMobStack, BlockPos pos)
     {
-        FishEntity fishEntity = this.entity.spawn(serverLevel, bucketedMobStack, null, pos, MobSpawnType.BUCKET, true, false);
+        FishEntity fishEntity = this.entity.get().spawn(serverLevel, bucketedMobStack, null, pos, MobSpawnType.BUCKET, true, false);
         if(ModDataComponents.has(bucketedMobStack, ModDataComponents.BUCKETED_FISH))
             fishEntity.setFish(getFish(bucketedMobStack));
         else

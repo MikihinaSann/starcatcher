@@ -41,7 +41,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.awt.*;
@@ -499,7 +498,7 @@ public class FishingGuideScreen extends Screen
 
             ItemStack is;
 
-            is = new ItemStack(tp.fish());
+            is = new ItemStack(tp.fish().get());
             ModDataComponents.set(is, ModDataComponents.TROPHY, tp);
 
             guiGraphics.renderOutline(xrender - 10, y - 2, 20, 20, 0xff000000);
@@ -542,7 +541,7 @@ public class FishingGuideScreen extends Screen
             //if caught
             if (FishingGuideAttachment.getTrophiesCaught(player).containsKey(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
             {
-                is = new ItemStack(tp.fish());
+                is = new ItemStack(tp.fish().get());
                 ModDataComponents.set(is, ModDataComponents.TROPHY, tp);
                 if (isMouseOnTop)
                 {
@@ -870,7 +869,7 @@ public class FishingGuideScreen extends Screen
     {
         Map<ResourceLocation, FishCaughtCounter> fishesCaught = FishingGuideAttachment.getFishesCaught(player);
         FishCaughtCounter fishCaughtCounter = FishCaughtCounter.get(player, fp);
-        ItemStack is = new ItemStack(fp.catchInfo().fish());
+        ItemStack is = new ItemStack(fp.catchInfo().fish().get());
 
         //calculate caught counter
         int caught = fishCaughtCounter == null ? 0 : fishCaughtCounter.count();
@@ -940,7 +939,7 @@ public class FishingGuideScreen extends Screen
             }
             else
             {
-                components.add(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()));
+                components.add(Component.translatable(fp.catchInfo().fish().get().getDescriptionId()));
 
                 components.add(Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()));
                 components.add(Component.translatable("gui.guide.caught").append(Component.literal(" [" + caught + "]")).setStyle(Style.EMPTY.withColor(0x40752c)));
@@ -1008,7 +1007,7 @@ public class FishingGuideScreen extends Screen
 
         if (entries.size() <= entry) return;
 
-        ItemStack is = new ItemStack(entries.get(entry).catchInfo().fish());
+        ItemStack is = new ItemStack(entries.get(entry).catchInfo().fish().get());
         FishProperties fp = entries.get(entry);
 
         ResourceLocation loc = fp.toLoc(level);
@@ -1110,7 +1109,7 @@ public class FishingGuideScreen extends Screen
         }
         else
         {
-            MutableComponent compName = Component.translatable(fp.catchInfo().fish().value().getDescriptionId());
+            MutableComponent compName = Component.translatable(fp.catchInfo().fish().get().getDescriptionId());
 
             //todo fix this holy shit this has to be the worse hard coded offset possible omg wd why did you code it like this
             if (xOffset > 200)
@@ -1779,7 +1778,7 @@ public class FishingGuideScreen extends Screen
 
             for (FishProperties fp : entries)
             {
-                String path = fp.catchInfo().fish().unwrapKey().get().location().getPath();
+                String path = ForgeRegistries.ITEMS.getKey(fp.catchInfo().fish().get()).getPath();
                 map.put(path, fp);
                 entriesString.add(path);
             }
@@ -1809,7 +1808,8 @@ public class FishingGuideScreen extends Screen
 
             for (FishProperties fp : entries)
             {
-                String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
+
+                String namespace = ForgeRegistries.ITEMS.getKey(fp.catchInfo().fish().get()).getNamespace();
                 if (!allNamespaces.contains(namespace)) allNamespaces.add(namespace);
             }
 
@@ -1817,7 +1817,7 @@ public class FishingGuideScreen extends Screen
             {
                 for (FishProperties fp : entries)
                 {
-                    String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
+                    String namespace = ForgeRegistries.ITEMS.getKey(fp.catchInfo().fish().get()).getNamespace();
                     if (namespace.equals(s)) entriesSorted.add(fp);
                 }
 

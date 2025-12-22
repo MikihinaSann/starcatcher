@@ -11,10 +11,8 @@ import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import java.util.Map;

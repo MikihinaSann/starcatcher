@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public interface ModSweetSpotsBehaviour
 {
     DeferredRegister<Supplier<? extends AbstractSweetSpotBehaviour>> REGISTRY =
-            DeferredRegister.create(Starcatcher.SWEET_SPOT_BEHAVIOUR_REGISTRY, Starcatcher.MOD_ID);
+            DeferredRegister.create(Starcatcher.SWEET_SPOT_BEHAVIOUR, Starcatcher.MOD_ID);
 
     ResourceLocation NORMAL = registerSweetspot("normal", () -> NormalSweetSpotBehaviour::new);
     ResourceLocation FROZEN = registerSweetspot("freeze", () -> FreezeSweetSpotBehaviour::new);

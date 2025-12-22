@@ -17,6 +17,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public record TrophyProperties(
         FishProperties fp,
@@ -39,7 +40,7 @@ public record TrophyProperties(
      */
     @Deprecated(forRemoval = true)
     public static final TrophyProperties DEFAULT = new TrophyProperties(
-            FishProperties.builder().withFish(ModItems.MISSINGNO.getHolder().get()).build(),
+            FishProperties.builder().withFish(ModItems.MISSINGNO).build(),
             false,
             TrophyType.EXTRA,
             RarityProgress.DEFAULT,
@@ -84,7 +85,7 @@ public record TrophyProperties(
         return new Builder();
     }
 
-    public Holder<Item> fish()
+    public Supplier<Item> fish()
     {
         return this.fp.catchInfo().fish();
     }

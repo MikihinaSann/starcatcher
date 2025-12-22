@@ -21,8 +21,13 @@ group = mod_group_id
 dependencies {
     //emi
     modCompileOnly("dev.emi:emi-forge:${emi_version}:api")
-    modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
+   //  modLocalRuntime("dev.emi:emi-forge:${emi_version}")
 
+
+    //mixin
+   //  annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+   // implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
+   // compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
 
 
     //Serene Seasons
@@ -41,7 +46,7 @@ dependencies {
     //Ecliptic Seasons
     modCompileOnly("curse.maven:ecliptic-seasons-1118306:7304569")
 
-    modImplementation ("curse.maven:ftb-teams-forge-404468:6130786")
+    modCompileOnly("curse.maven:ftb-teams-forge-404468:6130786")
 
 
 }

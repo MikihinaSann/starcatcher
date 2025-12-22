@@ -40,7 +40,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.minecraftforge.network.PacketDistributor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,7 +183,7 @@ public class FishingBobEntity extends Projectile
             )
             {
 
-                ItemStack is = new ItemStack(tp.fish().value());
+                ItemStack is = new ItemStack(tp.fish().get());
 
                 ModDataComponents.set(is, ModDataComponents.TROPHY, tp);
 
@@ -269,7 +268,7 @@ public class FishingBobEntity extends Projectile
                 return;
             }
 
-            if (bait.is(Items.BUCKET) && !fpToFish.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()))
+            if (bait.is(Items.BUCKET) && !fpToFish.catchInfo().bucketedFish().get().equals((ModItems.MISSINGNO.get())))
             {
                 bait.shrink(1);
                 ModDataComponents.set(rod, ModDataComponents.BAIT, new SingleStackContainer(bait));

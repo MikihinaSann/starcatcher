@@ -13,17 +13,16 @@ import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.StreamCodec;
+import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
 import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +40,6 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -270,43 +268,52 @@ public record FishProperties(
 
     //region CatchInfo
     public record CatchInfo(
-            Holder<Item> fish,
-            Holder<Item> bucketedFish,
-            Holder<EntityType<?>> entityToSpawn,
+            Supplier<Item> fish,
+            Supplier<Item> bucketedFish,
+            Supplier< EntityType<?>> entityToSpawn,
             boolean alwaysSpawnEntity,
-            Holder<Item> overrideMinigameWith,
-            Holder<Item> treasure
+            Supplier<Item> overrideMinigameWith,
+            Supplier<Item> treasure
     )
     {
         public static final Codec<CatchInfo> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter(CatchInfo::fish),
-                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
-                        BuiltInRegistries.ENTITY_TYPE.holderByNameCodec().fieldOf("entity").forGetter(CatchInfo::entityToSpawn),
+                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).fieldOf("item").forGetter(CatchInfo::fish),
+                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
+                        BuiltInRegistries.ENTITY_TYPE.byNameCodec().xmap(CatchInfo::entityToSupplier, Supplier::get).fieldOf("entity").forGetter(CatchInfo::entityToSpawn),
                         Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::alwaysSpawnEntity),
-                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO.getHolder().get()).forGetter(CatchInfo::overrideMinigameWith),
-                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("treasure", ModItems.MISSINGNO.getHolder().get()).forGetter(CatchInfo::treasure)
+                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::overrideMinigameWith),
+                        BuiltInRegistries.ITEM.byNameCodec().xmap(CatchInfo::toSupplier, Supplier::get).optionalFieldOf("treasure", ModItems.MISSINGNO).forGetter(CatchInfo::treasure)
                 ).apply(instance, CatchInfo::new));
 
         public static final StreamCodec<CatchInfo> STREAM_CODEC = StreamCodec.composite(
-                StreamCodec.holderRegistry(BuiltInRegistries.ITEM), CatchInfo::fish,
-                StreamCodec.holderRegistry(BuiltInRegistries.ITEM), CatchInfo::bucketedFish,
-                StreamCodec.holderRegistry(BuiltInRegistries.ENTITY_TYPE), CatchInfo::entityToSpawn,
+                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::fish,
+                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::bucketedFish,
+                StreamCodec.registry(BuiltInRegistries.ENTITY_TYPE).toSupplier(), CatchInfo::entityToSpawn,
                 StreamCodec.BOOL, CatchInfo::alwaysSpawnEntity,
-                StreamCodec.holderRegistry(BuiltInRegistries.ITEM), CatchInfo::overrideMinigameWith,
-                StreamCodec.holderRegistry(BuiltInRegistries.ITEM), CatchInfo::treasure,
+                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::overrideMinigameWith,
+                StreamCodec.registry(BuiltInRegistries.ITEM).toSupplier(), CatchInfo::treasure,
                 CatchInfo::new
         );
 
         public static final CatchInfo DEFAULT = new CatchInfo(
-                ModItems.MISSINGNO.getHolder().get(),
-                ModItems.MISSINGNO.getHolder().get(),
+                ModItems.MISSINGNO,
+                ModItems.MISSINGNO,
                 //cant use entity reference as its not registered for the psf
-                U.holderEntity("starcatcher", "fish"),
+                //Watch and learn, NERD
+                ModEntities.FISH::get,
                 false,
-                ModItems.MISSINGNO.getHolder().get(),
-                ModItems.WATERLOGGED_SATCHEL.getHolder().get()
+                ModItems.MISSINGNO,
+                ModItems.WATERLOGGED_SATCHEL
         );
+
+        public static <T> Supplier<T> toSupplier(T value){
+            return () -> value;
+        }
+
+        public static Supplier<EntityType<?>> entityToSupplier(EntityType<?> entity){
+            return () -> entity;
+        }
 
         public CatchInfo withItemToOverrideWith(Holder<Item> itemToOverrideWith)
         {
@@ -317,7 +324,7 @@ public record FishProperties(
         {
             private Supplier<Item> fish = ModItems.MISSINGNO;
             private Supplier<Item> bucketedFish = ModItems.MISSINGNO;
-            private Supplier<EntityType<?>> entityToSpawn = U.holderEntity("starcatcher", "fish");
+            private Supplier<EntityType<?>> entityToSpawn = ModEntities.FISH::get;
             private boolean alwaysSpawnEntity = false;
             private Supplier<Item> itemToOverrideWith = ModItems.MISSINGNO;
             private Supplier<Item> treasure = ModItems.WATERLOGGED_SATCHEL;
@@ -354,17 +361,8 @@ public record FishProperties(
 
             public CatchInfo build()
             {
-                return new CatchInfo(wrapAsHolder(fish), wrapAsHolder(bucketedFish), wrapAsHolderEntity(entityToSpawn), alwaysSpawnEntity, wrapAsHolder(itemToOverrideWith), wrapAsHolder(treasure));
+                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, itemToOverrideWith, treasure);
             }
-
-            private @NotNull Holder<Item> wrapAsHolder(Supplier<Item> supplier) {
-                return ForgeRegistries.ITEMS.getHolder(supplier.get()).get();
-            }
-
-            private @NotNull Holder<EntityType<?>> wrapAsHolderEntity(Supplier<EntityType<?>> supplier) {
-                return ForgeRegistries.ENTITY_TYPES.getHolder(supplier.get()).get();
-            }
-
         }
     }
 
