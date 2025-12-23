@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FishingGuideAttachment extends NeoCapability<FishingGuideAttachment> {
+public class FishingGuideAttachment{
     public Map<ResourceLocation, FishCaughtCounter> fishesCaught;
     public Map<ResourceLocation, Integer> trophiesCaught;
     public boolean receivedGuide;
@@ -81,27 +81,5 @@ public class FishingGuideAttachment extends NeoCapability<FishingGuideAttachment
 
     public static void sync(Player player){
         ModDataAttachments.sync(player, ModDataAttachments.FISHING_GUIDE);
-    }
-
-    @Override
-    public @NotNull DataAttachmentType<FishingGuideAttachment> getAttachment() {
-        return ModDataAttachments.FISHING_GUIDE;
-    }
-
-    @Override
-    public void setNoSync(FishingGuideAttachment capNew) {
-        this.fishesCaught = capNew.fishesCaught;
-        this.trophiesCaught = capNew.trophiesCaught;
-        this.receivedGuide = capNew.receivedGuide;
-    }
-
-    @Override
-    public FishingGuideAttachment getDefault() {
-        return createDefault();
-    }
-
-    @Override
-    public List<CapabilityType> getPotentialHolders() {
-        return List.of(CapabilityType.PLAYER);
     }
 }

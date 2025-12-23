@@ -385,8 +385,4 @@ public abstract class StreamCodec<A> {
             }
         };
     }
-
-
-
-
 }

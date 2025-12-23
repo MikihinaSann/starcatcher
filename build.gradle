@@ -34,6 +34,11 @@ dependencies {
     modCompileOnly("maven.modrinth:serene-seasons:9.1.0.2")
     modCompileOnly("maven.modrinth:glitchcore:0.0.1.1")
 
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+
+
     //runtimeOnly "maven.modrinth:serene-seasons:9.1.0.2"
     //runtimeOnly "maven.modrinth:glitchcore:0.0.1.1"
 

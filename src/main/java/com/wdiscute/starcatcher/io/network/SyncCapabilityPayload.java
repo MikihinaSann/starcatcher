@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.attachments.CapabilityType;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
-import com.wdiscute.starcatcher.io.attachments.NeoCapability;
+import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -13,15 +13,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.network.NetworkEvent;
 
-public record SyncCapabilityPayload(CapabilityType type, long holderId, NeoCapability<?> capability) implements ToClientPacket{
-    public static final StreamCodec<NeoCapability<?>> CAPABILITY_STREAM_CODEC =
+public record SyncCapabilityPayload(CapabilityType type, long holderId, DataAttachment<?> capability) implements ToClientPacket{
+
+    public static final StreamCodec<DataAttachment<?>> CAPABILITY_STREAM_CODEC =
             StreamCodec.of((buf, cap) -> {
-                StreamCodec<NeoCapability<?>> streamCodec = (StreamCodec<NeoCapability<?>>) cap.getAttachment().streamCodec();
-                DataAttachmentType.STREAM_CODEC_CODEC.encode(buf, streamCodec);
-                streamCodec.encode(buf, cap);
+                DataAttachmentType.STREAM_CODEC_CODEC.encode(buf,  cap);
+
+                ((DataAttachment<Object>)cap).getStreamCodec().encode(buf, cap.getData());
+
             }, buf -> {
-                StreamCodec<? extends NeoCapability<?>> codec = DataAttachmentType.STREAM_CODEC_CODEC.decode(buf);
-                return codec.decode(buf);
+                DataAttachment<Object> attachment = (DataAttachment<Object>) DataAttachmentType.STREAM_CODEC_CODEC.decode(buf);
+                Object data = attachment.getStreamCodec().decode(buf);
+
+                attachment.setData(data);
+
+                return attachment;
             });
 
 

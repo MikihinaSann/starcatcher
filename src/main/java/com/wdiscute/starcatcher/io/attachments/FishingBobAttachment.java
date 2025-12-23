@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-public class FishingBobAttachment extends NeoCapability<FishingBobAttachment> {
+public class FishingBobAttachment{
     private String uuid;
 
     public FishingBobAttachment(String uuid) {
@@ -38,32 +38,12 @@ public class FishingBobAttachment extends NeoCapability<FishingBobAttachment> {
 
     public void setUuid(ICapabilityProvider holder, UUID uuid) {
         this.uuid = uuid.toString();
-        ModDataAttachments.sync(holder, getAttachment());
+        ModDataAttachments.sync(holder, ModDataAttachments.FISHING_BOB);
     }
 
     public UUID getUuid() {
         if (isEmpty()) return UUID.randomUUID();
         return UUID.fromString(uuid);
-    }
-
-    @Override
-    public @NotNull DataAttachmentType<FishingBobAttachment> getAttachment() {
-        return ModDataAttachments.FISHING_BOB;
-    }
-
-    @Override
-    public void setNoSync(FishingBobAttachment capNew) {
-        uuid = capNew.uuid;
-    }
-
-    @Override
-    public FishingBobAttachment getDefault() {
-        return new FishingBobAttachment();
-    }
-
-    @Override
-    public List<CapabilityType> getPotentialHolders() {
-        return List.of(CapabilityType.PLAYER);
     }
 
 }

@@ -5,9 +5,9 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
-import com.wdiscute.starcatcher.io.attachments.NeoCapability;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import net.minecraft.core.BlockPos;
@@ -23,14 +23,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.HashSet;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
 public class ForgeEvents {
@@ -106,20 +105,27 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void onPlayerLoad(PlayerEvent.LoadFromFile event) {
-        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
-            if (attachment.codec() == null) return;
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, type) -> {
+            if (type.attachment().getCodec() == null) return;
+
+            LazyOptional<? extends DataAttachment<?>> capability = event.getEntity().getCapability(type.attachment().getCapabilityKey());
+            if (!capability.isPresent()) return;
+
 
             CompoundTag tag = event.getEntity().getPersistentData().getCompound(key.getPath());
-            ModDataAttachments.get(event.getEntity(), attachment).deserializeNBT(tag);
+            capability.orElseThrow(IllegalStateException::new).deserializeNBT(tag);
         });
     }
 
     @SubscribeEvent
     public static void onPlayerSave(PlayerEvent.SaveToFile event) {
-        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
-            if (attachment.codec() == null) return;
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, type) -> {
+            if (type.attachment().getCodec() == null) return;
 
-            CompoundTag tag = ModDataAttachments.get(event.getEntity(), attachment).serializeNBT();
+            LazyOptional<? extends DataAttachment<?>> capability = event.getEntity().getCapability(type.attachment().getCapabilityKey());
+            if (!capability.isPresent()) return;
+
+            CompoundTag tag = capability.orElseThrow(IllegalStateException::new).serializeNBT();
             event.getEntity().getPersistentData().put(key.getPath(), tag);
         });
     }
@@ -133,14 +139,18 @@ public class ForgeEvents {
 
         oldPlayer.reviveCaps();
 
-        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
-            if (!attachment.copyOnDeath()) return;
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, type) -> {
+            if (!type.attachment().isCopyOnDeath()) return;
 
-            //This is hacky but avoids messing with the generics
-            var tag = ModDataAttachments.get(oldPlayer, attachment).serializeNBT();
-            ModDataAttachments.get(newPlayer, attachment).deserializeNBT(tag);
+            LazyOptional<? extends DataAttachment<?>> capNew = newPlayer.getCapability(type.attachment().getCapabilityKey());
+            LazyOptional<? extends DataAttachment<?>> capOld = oldPlayer.getCapability(type.attachment().getCapabilityKey());
+            if (!capNew.isPresent() || !capOld.isPresent()) return;
 
-            ModDataAttachments.sync(newPlayer, attachment);
+            //avoids messing with the generics
+            CompoundTag tag = capOld.orElseThrow(IllegalStateException::new).serializeNBT();
+            capNew.orElseThrow(IllegalStateException::new).deserializeNBT(tag);
+
+            ModDataAttachments.sync(newPlayer, type);
         });
 
         oldPlayer.invalidateCaps();

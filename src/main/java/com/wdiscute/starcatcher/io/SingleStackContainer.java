@@ -2,8 +2,8 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.io.attachments.CapabilityType;
+import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
-import com.wdiscute.starcatcher.io.attachments.NeoCapability;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleStackContainer extends NeoCapability<SingleStackContainer> {
+public class SingleStackContainer{
     ItemStack stack;
 
     public SingleStackContainer(ItemStack stack) {
@@ -60,24 +60,4 @@ public class SingleStackContainer extends NeoCapability<SingleStackContainer> {
 
     public static final SingleStackContainer EMPTY = new SingleStackContainer(ItemStack.EMPTY);
     public static final List<SingleStackContainer> EMPTY_LIST = List.of();
-
-    @Override
-    public @NotNull DataAttachmentType<SingleStackContainer> getAttachment() {
-        return ModDataAttachments.BOBBER_SKIN;
-    }
-
-    @Override
-    public void setNoSync(SingleStackContainer capNew) {
-        this.stack = capNew.stack;
-    }
-
-    @Override
-    public SingleStackContainer getDefault() {
-        return new SingleStackContainer();
-    }
-
-    @Override
-    public List<CapabilityType> getPotentialHolders() {
-        return List.of(CapabilityType.PLAYER);
-    }
 }

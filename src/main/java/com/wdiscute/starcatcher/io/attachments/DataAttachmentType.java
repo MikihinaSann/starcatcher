@@ -4,35 +4,77 @@ import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import org.checkerframework.checker.units.qual.A;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Supplier;
 
-public record DataAttachmentType<T extends NeoCapability<T>>(
-        Capability<T> capability, ResourceLocation name,
-        @Nullable StreamCodec<T> streamCodec, @Nullable Codec<T> codec,
-        boolean copyOnDeath, T defaultValue
+public record DataAttachmentType<T>(
+        ResourceLocation name,
+        DataAttachment<T> attachment
 ) {
 
-    public static Map<ResourceLocation, DataAttachmentType<? extends NeoCapability<?>>> DATA_ATTACHMENTS = new HashMap<>();
-    public static Map<StreamCodec<? extends NeoCapability<?>>, ResourceLocation> DATA_ATTACHMENTS_CODECS = new HashMap<>();
+    public static Map<ResourceLocation, DataAttachmentType<?>> DATA_ATTACHMENTS = new HashMap<>();
     public static List<String> NAMES = new ArrayList<>();
 
-    public static StreamCodec<StreamCodec<? extends NeoCapability<?>>> STREAM_CODEC_CODEC =
-            StreamCodec.RESOURCE_LOCATION.remap(loc -> DataAttachmentType.DATA_ATTACHMENTS.get(loc).streamCodec, streamCodec -> DataAttachmentType.DATA_ATTACHMENTS_CODECS.get(streamCodec));
+    public static StreamCodec<DataAttachment<?>> STREAM_CODEC_CODEC =
+            StreamCodec.RESOURCE_LOCATION.remap(
+                    loc -> DataAttachmentType.DATA_ATTACHMENTS.get(loc).attachment,
+                    DataAttachment::getId);
 
 
-    public static <R extends NeoCapability<R>> DataAttachmentType<R> register(
-            Capability<R> capability, ResourceLocation name,
-            @Nullable StreamCodec<R> streamCodec, @Nullable Codec<R> codec,
-            boolean copyOnDeath, R defaultValue
+    public <B extends DataAttachment<?>> B getAttachment(){
+        return (B) attachment;
+    }
+
+    public static <R> DataAttachmentType<R> register(
+            Capability<? extends DataAttachment<R>> capability,
+            ResourceLocation name,
+            Builder<R> builder
     ) {
-        DataAttachmentType<R> dataAttachment = new DataAttachmentType<>(capability, name, streamCodec, codec, copyOnDeath, defaultValue);
+
+        if (builder.validHolders.isEmpty()){
+            throw new IllegalStateException("Tried registering a DataAttachmentType without a any Holders!");
+        }
+
+        DataAttachmentType<R> dataAttachment = new DataAttachmentType<>(name, new DataAttachment<>() {
+            @Override
+            public @NotNull Supplier<R> getDefault() {
+                return builder.defaultValue;
+            }
+
+            @Override
+            public @Nullable StreamCodec<R> getStreamCodec() {
+                return builder.streamCodec;
+            }
+
+            @Override
+            public @Nullable Codec<R> getCodec() {
+                return builder.codec;
+            }
+
+            @Override
+            public boolean isCopyOnDeath() {
+                return builder.copyOnDeath;
+            }
+
+            @Override
+            public ResourceLocation getId() {
+                return name;
+            }
+
+            @Override
+            public Capability<? extends DataAttachment<R>> getCapabilityKey() {
+                return capability;
+            }
+
+            @Override
+            public List<CapabilityType> getPotentialHolders() {
+                return builder.validHolders;
+            }
+        });
 
         if (NAMES.contains(name.getPath())){
             // not even 2 mods with different namespaces can have the same name (for easier saving/loading)
@@ -41,11 +83,52 @@ public record DataAttachmentType<T extends NeoCapability<T>>(
 
         NAMES.add(name.getPath());
 
-        if (streamCodec != null) {
+        if (builder.streamCodec != null) {
             DATA_ATTACHMENTS.put(name, dataAttachment);
-            DATA_ATTACHMENTS_CODECS.put(streamCodec, name);
         }
 
         return dataAttachment;
+    }
+
+    public static <D> Builder<D> builder(Supplier<D> defaultValue){
+        Builder<D> builder = new Builder<>();
+        builder.defaultValue = defaultValue;
+        return builder;
+    }
+
+
+    public static class Builder<B> {
+        @Nullable StreamCodec<B> streamCodec = null;
+        @Nullable Codec<B> codec = null;
+        boolean copyOnDeath = false;
+        Supplier<B> defaultValue;
+        List<CapabilityType> validHolders = new ArrayList<>();
+
+        public static <D> Builder<D> of(Supplier<D> defaultValue){
+            Builder<D> builder = new Builder<>();
+            builder.defaultValue = defaultValue;
+            return builder;
+        }
+
+        public Builder<B> serialize(Codec<B> codec){
+            this.codec = codec;
+            return this;
+        }
+
+        public Builder<B> sync(StreamCodec<B> streamCodec){
+            this.streamCodec = streamCodec;
+            return this;
+        }
+
+        public Builder<B> copyOnDeath(){
+            this.copyOnDeath = true;
+            return this;
+        }
+
+        public Builder<B> canAttachTo(CapabilityType... holders){
+            validHolders.addAll(Arrays.asList(holders));
+            return this;
+        }
+
     }
 }
