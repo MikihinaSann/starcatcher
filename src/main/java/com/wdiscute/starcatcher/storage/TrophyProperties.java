@@ -28,7 +28,7 @@ public record TrophyProperties(
         Map<FishProperties.Rarity, RarityProgress> progress,
         int chanceToCatch,
         boolean repeatable
-)
+) implements UnloadedModRegistry
 {
 
     public RarityProgress getProgress(FishProperties.Rarity rarity)
@@ -49,6 +49,12 @@ public record TrophyProperties(
             100,
             false
     );
+
+
+    @Override
+    public boolean isPresent(){
+        return fp.isPresent();
+    }
 
     //region codec
 

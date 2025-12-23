@@ -96,9 +96,10 @@ public interface ModCatchModifiers
         {
             for (ResourceLocation rl : Objects.requireNonNull(ModDataComponents.get(is, ModDataComponents.CATCH_MODIFIERS)))
             {
-                Optional<Supplier<AbstractCatchModifier>> optional = level.registryAccess().registryOrThrow(Starcatcher.CATCH_MODIFIERS).getOptional(rl);
+                Supplier<AbstractCatchModifier> mod = Starcatcher.getRegistry(Starcatcher.CATCH_MODIFIERS).getValue(rl);
 
-                optional.ifPresent(abstractCatchModifierSupplier -> modifiers.add(abstractCatchModifierSupplier.get()));
+                if (mod != null)
+                    modifiers.add(mod.get());
             }
         }
         return modifiers;

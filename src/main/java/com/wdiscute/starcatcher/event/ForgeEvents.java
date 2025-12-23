@@ -5,14 +5,18 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
+import com.wdiscute.starcatcher.io.attachments.NeoCapability;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -25,6 +29,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.HashSet;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
 public class ForgeEvents {
@@ -92,7 +98,52 @@ public class ForgeEvents {
                 serverPlayer.addItem(new ItemStack(ModItems.GUIDE.get()));
                 fishingGuideAttachment.receivedGuide = true;
             }
+
+            DataAttachmentType.DATA_ATTACHMENTS.values().forEach(attachment -> ModDataAttachments.sync(serverPlayer, attachment));
         }
+    }
+
+
+    @SubscribeEvent
+    public static void onPlayerLoad(PlayerEvent.LoadFromFile event) {
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
+            if (attachment.codec() == null) return;
+
+            CompoundTag tag = event.getEntity().getPersistentData().getCompound(key.getPath());
+            ModDataAttachments.get(event.getEntity(), attachment).deserializeNBT(tag);
+        });
+    }
+
+    @SubscribeEvent
+    public static void onPlayerSave(PlayerEvent.SaveToFile event) {
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
+            if (attachment.codec() == null) return;
+
+            CompoundTag tag = ModDataAttachments.get(event.getEntity(), attachment).serializeNBT();
+            event.getEntity().getPersistentData().put(key.getPath(), tag);
+        });
+    }
+
+
+    @SubscribeEvent
+    public static void onPlayerClone(PlayerEvent.Clone event) {
+
+        Player oldPlayer = event.getOriginal();
+        Player newPlayer = event.getEntity();
+
+        oldPlayer.reviveCaps();
+
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((key, attachment) -> {
+            if (!attachment.copyOnDeath()) return;
+
+            //This is hacky but avoids messing with the generics
+            var tag = ModDataAttachments.get(oldPlayer, attachment).serializeNBT();
+            ModDataAttachments.get(newPlayer, attachment).deserializeNBT(tag);
+
+            ModDataAttachments.sync(newPlayer, attachment);
+        });
+
+        oldPlayer.invalidateCaps();
     }
 
 }

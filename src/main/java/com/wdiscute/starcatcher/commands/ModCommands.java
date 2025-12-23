@@ -1,9 +1,11 @@
 package com.wdiscute.starcatcher.commands;
 
+import com.google.common.collect.Iterables;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
@@ -17,14 +19,18 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.ResourceArgument;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,13 @@ public class ModCommands
             o -> Component.translatable("commands.starcatcher.modifier_not_found", o)
     );
 
+    public static <T> Iterable<ResourceLocation> getRegistryIterable(ResourceKey<Registry<T>> resourceKey){
+        if (!Starcatcher.isRegistryPresent(resourceKey)){
+            return List.of();
+        }
+
+        return Starcatcher.getRegistry(resourceKey).getEntries().stream().map(entry -> entry.getKey().location()).toList();
+    }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context)
     {
@@ -58,7 +71,7 @@ public class ModCommands
 
                 //starcatcher simulate_fish starcatcher:aurora
                 .then(Commands.literal("simulate_fish")
-                        .then(Commands.argument("fish_entry", ResourceLocationArgument.id())
+                        .then(Commands.argument("fish_entry", ResourceArgument.resource(context, Starcatcher.FISH_REGISTRY))
                                 .executes(c ->
                                         startMinigame(
                                                 c.getSource().getPlayerOrException(),
@@ -72,6 +85,8 @@ public class ModCommands
                 //starcatcher add_modifier starcatcher:freeze_on_miss
                 .then(Commands.literal("add_minigame_modifier")
                         .then(Commands.argument("modifier", ResourceLocationArgument.id())
+                                .suggests((ctx, builder) ->
+                                        SharedSuggestionProvider.suggestResource(getRegistryIterable(Starcatcher.MINIGAME_MODIFIERS), builder))
                                 .executes(c ->
                                         addMinigameModifier(
                                                 c.getSource().getPlayerOrException(),
@@ -83,6 +98,8 @@ public class ModCommands
                 //starcatcher add_modifier starcatcher:ignore_daytime_and_weather_restrictions
                 .then(Commands.literal("add_catch_modifier")
                         .then(Commands.argument("modifier", ResourceLocationArgument.id())
+                                .suggests((ctx, builder) ->
+                                        SharedSuggestionProvider.suggestResource(getRegistryIterable(Starcatcher.CATCH_MODIFIERS), builder))
                                 .executes(c ->
                                         addCatchModifier(
                                                 c.getSource().getPlayerOrException(),
@@ -191,7 +208,7 @@ public class ModCommands
 
     private static int awardAllFish(ServerPlayer player, int ticks, int size, int weight)
     {
-        for (FishProperties fp : player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+        for (FishProperties fp : Starcatcher.getAllRegistryValues(player.level(), Starcatcher.FISH_REGISTRY))
             FishCaughtCounter.awardFishCaughtCounter(fp, player, ticks, size, weight, false, false);
 
         return 0;
@@ -199,7 +216,7 @@ public class ModCommands
 
     private static int awardAllFish(ServerPlayer player)
     {
-        for (FishProperties fp : player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+        for (FishProperties fp : Starcatcher.getAllRegistryValues(player.level(),Starcatcher.FISH_REGISTRY))
             FishCaughtCounter.awardFishCaughtCounter(fp, player, 0, 0, 0, false, false);
 
         return 0;

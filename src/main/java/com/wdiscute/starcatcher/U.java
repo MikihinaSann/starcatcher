@@ -261,7 +261,7 @@ public class U
         for (FishProperties fp : fishProperties)
         {
             ResourceLocation resourceLocation = registry.getKey(fp);
-            if (resourceLocation != null) rls.add(resourceLocation);
+            if (resourceLocation != null && fp.isPresent()) rls.add(resourceLocation);
         }
         return rls;
     }

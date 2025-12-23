@@ -62,7 +62,7 @@ public record FishProperties(
         Weather weather,
         boolean skipMinigame,
         boolean hasGuideEntry
-)
+) implements UnloadedModRegistry
 {
     public static final Codec<FishProperties> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -102,6 +102,11 @@ public record FishProperties(
 
     public ResourceLocation toLoc(Level level){
         return U.getRlFromFp(level, this);
+    }
+
+    @Override
+    public boolean isPresent(){
+        return isValidItem(catchInfo.fish().get());
     }
 
     /**
@@ -1592,7 +1597,11 @@ public record FishProperties(
 
     public static List<FishProperties> getFPs(RegistryAccess registryAccess)
     {
-        return registryAccess.registryOrThrow(Starcatcher.FISH_REGISTRY).stream().toList();
+        return registryAccess.registryOrThrow(Starcatcher.FISH_REGISTRY).stream().filter(FishProperties::isPresent).toList();
+    }
+
+    public static boolean isValidItem(Item item){
+        return !(item.equals(Items.AIR) || item.equals(ModItems.MISSINGNO.get()));
     }
 
     public static int getChance(FishProperties fp, Entity entity, ItemStack rod)
@@ -1633,7 +1642,7 @@ public record FishProperties(
     {
         List<FishProperties> list = new ArrayList<>();
 
-        for (FishProperties fp : entity.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+        for (FishProperties fp : Starcatcher.getAllRegistryValues(entity.level() ,Starcatcher.FISH_REGISTRY))
             if (isDimensionCorrect(entity, fp) && isBiomeCorrect(entity, fp) && isElevationCorrect(entity, fp) && fp.hasGuideEntry) list.add(fp);
 
         return list;

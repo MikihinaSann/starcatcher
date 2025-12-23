@@ -137,7 +137,7 @@ public class FishingGuideScreen extends Screen
     LocalPlayer player;
 
     List<ResourceLocation> fpsSeen = new ArrayList<>();
-    List<FishProperties> entries = new ArrayList<>(999);
+    List<FishProperties> entries = new ArrayList<>();
     List<TrophyProperties> trophiesTps = new ArrayList<>();
     List<TrophyProperties> secretsTps = new ArrayList<>();
     List<FishProperties> fishInArea = new ArrayList<>();
@@ -1881,7 +1881,7 @@ public class FishingGuideScreen extends Screen
             entriesSorted.addAll(entries); // since it's a set, only the not caught ones should get added
 
 
-            List<FishProperties> entryList = entriesSorted.stream().toList();
+            List<FishProperties> entryList = new ArrayList<>(entriesSorted.stream().toList());
 
             if (sort.equals(Sort.CAUGHT_UP)){
                 Collections.reverse(entryList);
@@ -1977,9 +1977,17 @@ public class FishingGuideScreen extends Screen
         super(Component.empty());
 
         //get all items in bobbers/hooks/baits tags
-        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BOBBERS).get().stream().forEach(i -> bobbers.add(i.value().getDefaultInstance()));
-        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BAITS).get().stream().forEach(i -> baits.add(i.value().getDefaultInstance()));
-        BuiltInRegistries.ITEM.getTag(StarcatcherTags.HOOKS).get().stream().forEach(i -> hooks.add(i.value().getDefaultInstance()));
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BOBBERS)
+                .ifPresent(items -> items.stream()
+                        .forEach(i -> bobbers.add(i.value().getDefaultInstance())));
+
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BAITS)
+                .ifPresent(items -> items.stream()
+                        .forEach(i -> baits.add(i.value().getDefaultInstance())));
+
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.HOOKS)
+                .ifPresent(items -> items.stream()
+                        .forEach(i -> hooks.add(i.value().getDefaultInstance())));
 
         basicsIcon = new ItemStack(ModItems.ROD.get());
         treasuresIcon = new ItemStack(ModItems.WATERLOGGED_SATCHEL.get());

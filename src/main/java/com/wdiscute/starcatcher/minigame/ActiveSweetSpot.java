@@ -50,7 +50,7 @@ public class ActiveSweetSpot
     public ActiveSweetSpot(FishingMinigameScreen instance, FishProperties.SweetSpot ss, ItemStack bobber, ItemStack bait, ItemStack hook)
     {
         //get sweet spot type from rl
-        Supplier<? extends AbstractSweetSpotBehaviour> behaviour = RegistryManager.ACTIVE.getRegistry(Starcatcher.SWEET_SPOT_BEHAVIOUR).getValue(ss.sweetSpotType());
+        Supplier<? extends AbstractSweetSpotBehaviour> behaviour = Starcatcher.getRegistry(Starcatcher.SWEET_SPOT_BEHAVIOUR).getValue(ss.sweetSpotType());
 
         //if sweet spot type is registered then continue, otherwise set as removed
         if(behaviour != null)

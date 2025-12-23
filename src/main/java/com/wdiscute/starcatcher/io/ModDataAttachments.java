@@ -50,7 +50,7 @@ public class ModDataAttachments
     // sets the value to default
     public static <T extends NeoCapability<T>> void remove(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        holder.getCapability(attachmentType.capability()).ifPresent(cap -> cap.setDefault(holder));
+        holder.getCapability(attachmentType.capability()).orElseGet(attachmentType::defaultValue).setDefault(holder);
     }
 
     public static <T extends NeoCapability<T>> void set(ICapabilityProvider holder, DataAttachmentType<T> attachmentType, T data)

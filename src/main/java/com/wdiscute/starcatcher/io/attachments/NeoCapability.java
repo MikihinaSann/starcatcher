@@ -57,34 +57,47 @@ public abstract class NeoCapability<C extends NeoCapability<C>> implements ICapa
     public abstract List<CapabilityType> getPotentialHolders();
 
     public void sync(ICapabilityProvider holder){
+        if (getAttachment().streamCodec() == null) return;
+
         CapabilityType capabilityType = CapabilityType.fromHolder(holder);
-        long data = switch (capabilityType) {
-            case ENTITY,PLAYER -> ((Entity) holder).getId();
+        boolean isClient = true;
+        long data = 0;
+        PacketDistributor.PacketTarget packetDistributor = null;
 
-            case BLOCK_ENTITY -> ((BlockEntity) holder).getBlockPos().asLong();
+         switch (capabilityType) {
+            case ENTITY,PLAYER -> {
+                Entity entity = (Entity) holder;
+                data = entity.getId();
+                isClient = entity.level().isClientSide();
+                packetDistributor = PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity);
+            }
 
-            case CHUNK -> ((LevelChunk) holder).getPos().getWorldPosition().asLong();
-
-            case LEVEL -> 0;
-
-        };
-
-        PacketDistributor.PacketTarget packetDistributor = switch (capabilityType){
-            case ENTITY,PLAYER -> PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> (Entity) holder);
-
-            case BLOCK_ENTITY -> PacketDistributor.TRACKING_CHUNK.with(() -> {
+            case BLOCK_ENTITY -> {
                 BlockEntity blockEntity = (BlockEntity) holder;
-               return blockEntity.getLevel().getChunkAt(blockEntity.getBlockPos());
-            });
+                data = blockEntity.getBlockPos().asLong();
+                isClient = blockEntity.getLevel().isClientSide();
+                packetDistributor = PacketDistributor.TRACKING_CHUNK.with(() -> blockEntity.getLevel().getChunkAt(blockEntity.getBlockPos()));
+            }
 
-            case CHUNK -> PacketDistributor.TRACKING_CHUNK.with(() -> (LevelChunk) holder);
+            case CHUNK -> {
+                LevelChunk chunk = (LevelChunk) holder;
+                data = chunk.getPos().getWorldPosition().asLong();
+                isClient = chunk.getLevel().isClientSide();
+                packetDistributor = PacketDistributor.TRACKING_CHUNK.with(() -> chunk);
+            }
 
-            case LEVEL -> PacketDistributor.DIMENSION.with(() -> ((Level) holder).dimension());
-        };
+            case LEVEL -> {
+                Level level = (Level) holder;
+                // data isn't needed since clients have only 1 level
+                isClient = level.isClientSide();
+                packetDistributor = PacketDistributor.DIMENSION.with(level::dimension);
+            }
 
-        if (getAttachment().streamCodec() != null){
-            ModNetworking.CHANNEL.send(packetDistributor, new SyncCapabilityPayload(capabilityType, data, this));
         }
+
+        if (isClient || packetDistributor == null) return;
+
+        ModNetworking.CHANNEL.send(packetDistributor, new SyncCapabilityPayload(capabilityType, data, this));
     };
 
     @Override
@@ -112,11 +125,10 @@ public abstract class NeoCapability<C extends NeoCapability<C>> implements ICapa
         Tag tag = compoundTag.get(attachment.name().getPath());
         DataResult<Pair<C, Tag>> decode = attachment.codec().decode(NbtOps.INSTANCE, tag);
 
-        C toReplace = decode.result()
+        decode.result()
                 .map(Pair::getFirst)
-                .orElse(null);
+                .ifPresent(this::setNoSync);
 
-        setNoSync(toReplace);
     }
 
     public C getThis(){

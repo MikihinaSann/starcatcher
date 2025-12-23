@@ -134,7 +134,7 @@ public class FishingBobEntity extends Projectile
         this.xRotO = this.getXRot();
 
         if (!level.isClientSide)
-            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(this.uuid);
+            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(player, this.getUUID());
 
         currentState = FishHookState.FLYING;
     }
@@ -211,7 +211,7 @@ public class FishingBobEntity extends Projectile
         modifiers.forEach(AbstractCatchModifier::onReelAfterTreasureCheck);
 
         //if no trophy is available, get chances of getting each fish
-        for (FishProperties fp : level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+        for (FishProperties fp : Starcatcher.getAllRegistryValues(level(), Starcatcher.FISH_REGISTRY))
         {
             int chance = FishProperties.getChance(fp, this, rod);
 

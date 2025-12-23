@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.StreamCodec;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -35,11 +36,13 @@ public class FishingBobAttachment extends NeoCapability<FishingBobAttachment> {
         return uuid.isEmpty();
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(ICapabilityProvider holder, UUID uuid) {
         this.uuid = uuid.toString();
+        ModDataAttachments.sync(holder, getAttachment());
     }
 
     public UUID getUuid() {
+        if (isEmpty()) return UUID.randomUUID();
         return UUID.fromString(uuid);
     }
 

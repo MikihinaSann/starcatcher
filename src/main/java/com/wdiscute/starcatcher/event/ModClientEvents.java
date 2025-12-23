@@ -32,7 +32,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, value = Dist.CLIENT, bus =  Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, value = Dist.CLIENT, bus =  Mod.EventBusSubscriber.Bus.MOD)
 public class ModClientEvents
 {
 
@@ -48,7 +48,7 @@ public class ModClientEvents
 
 
     @SubscribeEvent
-    public static void onRegisterBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
+    public static void onRegisterEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.FISHING_BOB.get(), FishingBobRenderer::new);
         event.registerEntityRenderer(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntities.FISH.get(), FishRenderer::new);

@@ -41,7 +41,6 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 new ModDataComponents.DataDefault<>(ModDataComponents.BOBBER, new SingleStackContainer(new ItemStack(ModItems.BOBBER.get()))),
                 new ModDataComponents.DataDefault<>(ModDataComponents.BAIT, SingleStackContainer.EMPTY),
                 new ModDataComponents.DataDefault<>(ModDataComponents.HOOK, new SingleStackContainer(new ItemStack(ModItems.HOOK.get())
-
                 ))
         ));
     }
@@ -58,7 +57,8 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
 
-        if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(hand));
+        if (!(level instanceof ServerLevel serverLevel))
+            return InteractionResultHolder.success(player.getItemInHand(hand));
 
 
         if (fishingBobAttachment.isEmpty())
@@ -72,7 +72,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 Entity entity = new FishingBobEntity(level, player, player.getItemInHand(hand));
                 level.addFreshEntity(entity);
 
-                fishingBobAttachment.setUuid(entity.getUUID());
+                fishingBobAttachment.setUuid(entity, entity.getUUID());
                 SingleStackContainer bobberSkin = ModDataComponents.get(player.getItemInHand(hand),ModDataComponents.BOBBER_SKIN);
                 if (bobberSkin != null)
                     ModDataAttachments.set(entity, ModDataAttachments.BOBBER_SKIN, bobberSkin);
@@ -80,31 +80,21 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
         }
         else
         {
-
-            List<Entity> entities = level.getEntities(null, new AABB(-25, -65, -25, 25, 65, 25).move(player.position()));
-
-            for (Entity entity : entities)
-            {
-                if (entity.getUUID().equals(fishingBobAttachment.getUuid()))
-                {
-                    if (entity instanceof FishingBobEntity fbe && !fbe.checkBiting())
-                    {
-                        level.playSound(
-                                null,
-                                player.getX(),
-                                player.getY(),
-                                player.getZ(),
-                                SoundEvents.FISHING_BOBBER_RETRIEVE,
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
-                        );
-                        fbe.kill();
-                        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
-                    }
-                }
+            if (serverLevel.getEntity(fishingBobAttachment.getUuid()) instanceof FishingBobEntity fbe && !fbe.checkBiting()) {
+                level.playSound(
+                        null,
+                        player.getX(),
+                        player.getY(),
+                        player.getZ(),
+                        SoundEvents.FISHING_BOBBER_RETRIEVE,
+                        SoundSource.NEUTRAL,
+                        1.0F,
+                        0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
+                );
+                fbe.kill();
             }
 
+            ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         }
 
 

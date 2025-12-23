@@ -15,11 +15,13 @@ import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.AbstractSweet
 import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import com.wdiscute.starcatcher.storage.UnloadedModRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,14 +29,14 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryManager;
 import org.slf4j.Logger;
 
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Mod(Starcatcher.MOD_ID)
 public class Starcatcher
@@ -42,6 +44,9 @@ public class Starcatcher
     public static final String MOD_ID = "starcatcher";
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    /**
+     * For some reason this now contains entries from ALL mods, meaning you have to filter it first
+     */
     public static final ResourceKey<Registry<FishProperties>> FISH_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("fish"));
 
@@ -62,6 +67,18 @@ public class Starcatcher
     public static final IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.MINIGAME_MODIFIERS);
     public static final IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = RegistryManager.ACTIVE.getRegistry(Starcatcher.CATCH_MODIFIERS);
 */
+    public static <T> IForgeRegistry<T> getRegistry(ResourceKey<Registry<T>> resourceKey){
+        return RegistryManager.ACTIVE.getRegistry(resourceKey);
+    }
+
+    public static <T> boolean isRegistryPresent(ResourceKey<Registry<T>> resourceKey){
+        return RegistryManager.ACTIVE.getRegistry(resourceKey) != null;
+    }
+
+    public static <T extends UnloadedModRegistry> Set<T> getAllRegistryValues(Level level, ResourceKey<Registry<T>> resourceKey){
+        return level.registryAccess().registryOrThrow(resourceKey).stream().filter(UnloadedModRegistry::isPresent).collect(Collectors.toSet());
+    }
+
 
     public static final Random r = new Random();
 

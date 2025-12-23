@@ -15,9 +15,11 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,19 +38,19 @@ public class AwardOneFish extends Item
 
         Map<ResourceLocation, FishCaughtCounter> fishesCaught = FishingGuideAttachment.getFishesCaught(player);
 
-        Optional<Holder.Reference<FishProperties>> optional = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getRandom(level.random);
+        List<FishProperties> fishies = FishProperties.getFPs(level);
+        FishProperties fish = fishies.get(level.random.nextInt(fishies.size() - 1));
 
-        if(optional.isPresent())
+        if(fish.isPresent())
         {
-            if(optional.get().is(U.rl("minecraft", "nether_star"))) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
-            FishProperties fp = optional.get().value();
+            if(fish.catchInfo().fish().equals(Items.NETHER_STAR)) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
 
             //todo fix this awarding repeated entries. It should check which entries the player doesnt have to award a new one instead
-            fishesCaught.putIfAbsent(U.getRlFromFp(level, fp), FishCaughtCounter.createHacked());
+            fishesCaught.putIfAbsent(U.getRlFromFp(level, fish), FishCaughtCounter.createHacked());
 
             if(player instanceof ServerPlayer sp)
             {
-                ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp), new FishCaughtPayload(fp, false, 0, 0));
+                ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp), new FishCaughtPayload(fish, false, 0, 0));
             }
         }
 
