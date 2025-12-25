@@ -163,7 +163,6 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject().level().isClientSide()) return;
       //  System.out.println("attaching capabilities for entity:" + event.getObject().getClass().getName());
 
         if (event.getObject() instanceof Player) {

@@ -1,6 +1,9 @@
 package com.wdiscute.starcatcher.fishspotter;
 
+import com.wdiscute.starcatcher.minigame.PartialTickHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -17,8 +20,11 @@ public class LayeredDraw {
     }
 
     public static void renderAll(GuiGraphics guiGraphics, float partialTicks) {
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) return;
+
         guiGraphics.pose().pushPose();
-        renderInner(guiGraphics, partialTicks);
+        renderInner(guiGraphics, PartialTickHelper.INSTANCE.getPartialTicks(level));
         guiGraphics.pose().popPose();
     }
 

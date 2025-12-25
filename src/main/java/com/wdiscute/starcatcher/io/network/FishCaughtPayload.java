@@ -6,6 +6,8 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
 public record FishCaughtPayload(FishProperties fp, boolean newFish, int size, int weight) implements ToClientPacket {
@@ -18,6 +20,7 @@ public record FishCaughtPayload(FishProperties fp, boolean newFish, int size, in
     );
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void handleClient(NetworkEvent.Context context, ClientLevel level, LocalPlayer player) {
         Starcatcher.fishCaughtToast(fp(), newFish(), size(), weight());
     }

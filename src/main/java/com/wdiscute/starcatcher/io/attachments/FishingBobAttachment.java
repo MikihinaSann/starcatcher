@@ -37,8 +37,7 @@ public class FishingBobAttachment{
     }
 
     public void setUuid(ICapabilityProvider holder, UUID uuid) {
-        this.uuid = uuid.toString();
-        ModDataAttachments.sync(holder, ModDataAttachments.FISHING_BOB);
+        ModDataAttachments.set(holder, ModDataAttachments.FISHING_BOB, new FishingBobAttachment(uuid.toString()));
     }
 
     public UUID getUuid() {

@@ -12,6 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
 public record SyncCapabilityPayload(CapabilityType type, long holderId, DataAttachment<?> capability) implements ToClientPacket{
@@ -42,6 +44,7 @@ public record SyncCapabilityPayload(CapabilityType type, long holderId, DataAtta
 
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void handleClient(NetworkEvent.Context context, ClientLevel level, LocalPlayer player) {
         switch (type) {
             case ENTITY,PLAYER -> {
