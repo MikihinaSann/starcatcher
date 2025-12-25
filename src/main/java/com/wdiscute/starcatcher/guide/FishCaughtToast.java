@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class FishCaughtToast implements Toast
 {
-    private static final ResourceLocation BACKGROUND_SPRITE = Starcatcher.rl("textures/gui/toast/fish_caught.png");
+    private static final ResourceLocation BACKGROUND_SPRITE = Starcatcher.rl("textures/gui/sprites/toast/fish_caught.png");
     private final Component title;
     private final String description;
     private static final String gibberish = "§kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -53,7 +53,7 @@ public class FishCaughtToast implements Toast
 
     public Visibility render(GuiGraphics guiGraphics, ToastComponent toastComponent, long timeSinceLastVisible)
     {
-        guiGraphics.blit(BACKGROUND_SPRITE, 0, 0, 0, 0, width(), height());
+        guiGraphics.blit(BACKGROUND_SPRITE, 0, 0, 164, 51, 0, 0, 164, 51, 164, 51);
 
         guiGraphics.renderItem(is, 6, 29);
 

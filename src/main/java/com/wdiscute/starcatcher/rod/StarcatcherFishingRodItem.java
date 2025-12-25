@@ -80,21 +80,24 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
         }
         else
         {
-            if (serverLevel.getEntity(fishingBobAttachment.getUuid()) instanceof FishingBobEntity fbe && !fbe.checkBiting()) {
-                level.playSound(
-                        null,
-                        player.getX(),
-                        player.getY(),
-                        player.getZ(),
-                        SoundEvents.FISHING_BOBBER_RETRIEVE,
-                        SoundSource.NEUTRAL,
-                        1.0F,
-                        0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
-                );
-                fbe.kill();
+            if (serverLevel.getEntity(fishingBobAttachment.getUuid()) instanceof FishingBobEntity fbe) {
+                if (!fbe.checkBiting()) {
+                    level.playSound(
+                            null,
+                            player.getX(),
+                            player.getY(),
+                            player.getZ(),
+                            SoundEvents.FISHING_BOBBER_RETRIEVE,
+                            SoundSource.NEUTRAL,
+                            1.0F,
+                            0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
+                    );
+                    ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
+                    fbe.kill();
+                }
+            } else {
+                ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
             }
-
-            ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         }
 
 

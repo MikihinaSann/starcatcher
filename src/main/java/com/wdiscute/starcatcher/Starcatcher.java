@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher;
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
@@ -155,5 +156,6 @@ public class Starcatcher
         ModCriterionTriggers.register(modEventBus);
 
         ModNetworking.init();
+        ModDataAttachments.init();
     }
 }

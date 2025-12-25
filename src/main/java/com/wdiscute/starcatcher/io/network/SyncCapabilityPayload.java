@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.attachments.CapabilityType;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.DataAttachment;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 public record SyncCapabilityPayload(CapabilityType type, long holderId, DataAttachment<?> capability) implements ToClientPacket{
 
+    @SuppressWarnings({"unchecked"})
     public static final StreamCodec<DataAttachment<?>> CAPABILITY_STREAM_CODEC =
             StreamCodec.of((buf, cap) -> {
                 DataAttachmentType.STREAM_CODEC_CODEC.encode(buf,  cap);

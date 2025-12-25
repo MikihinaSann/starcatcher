@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.CapabilityType;
 import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
@@ -15,6 +16,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +26,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -31,7 +36,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID)
 public class ForgeEvents {
 
     @SubscribeEvent
@@ -155,5 +160,38 @@ public class ForgeEvents {
 
         oldPlayer.invalidateCaps();
     }
+
+    @SubscribeEvent
+    public static void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject().level().isClientSide()) return;
+        System.out.println("attaching capabilities for entity:" + event.getObject().getClass().getName());
+
+        if (event.getObject() instanceof Player) {
+            DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                    .filter(type -> type.attachment().getPotentialHolders().contains(CapabilityType.PLAYER))
+                    .forEach(type -> event.addCapability(type.name(), type.attachment()));
+
+        }
+        if (event.getObject() instanceof LivingEntity) {
+            DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                    .filter(type -> type.attachment().getPotentialHolders().contains(CapabilityType.LIVING_ENTITY))
+                    .forEach(type -> event.addCapability(type.name(), type.attachment()));
+        } else {
+            DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                    .filter(type -> type.attachment().getPotentialHolders().contains(CapabilityType.NON_LIVING_ENTITY))
+                    .forEach(type -> event.addCapability(type.name(), type.attachment()));
+        }
+
+
+        DataAttachmentType.DATA_ATTACHMENTS.values().stream()
+                .filter(type -> type.attachment().getPotentialHolders().stream().anyMatch(type1 -> type1.getWithSubtypes().contains(CapabilityType.ENTITY)))
+                .forEach(type -> event.addCapability(type.name(), type.attachment()));
+    }
+
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        DataAttachmentType.DATA_ATTACHMENTS.forEach((loc, attachments) -> event.register(attachments.attachment().getClass()));
+    }
+
 
 }

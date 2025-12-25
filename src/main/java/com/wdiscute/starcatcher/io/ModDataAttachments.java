@@ -10,19 +10,19 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID)
-public class ModDataAttachments
-{
-    public static final Capability<DataAttachment<SingleStackContainer>> BOOKER_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
-    public static final Capability<DataAttachment<FishingBobAttachment>> FISHING_BOB_CAP = CapabilityManager.get(new CapabilityToken<>() {});
-    public static final Capability<DataAttachment<FishingGuideAttachment>> FISHING_GUIDE_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+public class ModDataAttachments {
+    //Don't do this wrong, read the comment at the bottom of this class
+    public static final Capability<DataAttachmentBobberSkin> BOOKER_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<DataAttachmentFishingBob> FISHING_BOB_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<DataAttachmentFishingGuide> FISHING_GUIDE_CAP = CapabilityManager.get(new CapabilityToken<>() {});
 
+    // Attaching capabilities to anything other than entities (like levels, chunks, BEs) isn't set up yet since it isn't needed
     public static final DataAttachmentType<SingleStackContainer> BOBBER_SKIN = DataAttachmentType.register(
             BOOKER_SKIN_CAP, Starcatcher.rl("bobber_skin"),
             DataAttachmentType.builder(SingleStackContainer::new)
                     .sync(SingleStackContainer.STREAM_CODEC)
                     .serialize(SingleStackContainer.CODEC)
-                    .canAttachTo(CapabilityType.ENTITY));
+                    .canAttachTo(CapabilityType.NON_LIVING_ENTITY));
 
     public static final DataAttachmentType<FishingBobAttachment> FISHING_BOB = DataAttachmentType.register(
             FISHING_BOB_CAP, Starcatcher.rl("fishing_bob"),
@@ -38,45 +38,46 @@ public class ModDataAttachments
                     .canAttachTo(CapabilityType.PLAYER)
                     .copyOnDeath());
 
-    @SubscribeEvent
-    public static void attachCapabilitiesPlayer(AttachCapabilitiesEvent<Player> event) {
-        DataAttachmentType.DATA_ATTACHMENTS.values().stream()
-                .filter(type -> type.attachment().getPotentialHolders().contains(CapabilityType.PLAYER))
-                .forEach(type -> event.addCapability(type.name(), type.attachment()));
-    }
-
-    @SubscribeEvent
-    public static void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event) {
-        DataAttachmentType.DATA_ATTACHMENTS.values().stream()
-                .filter(type -> type.attachment().getPotentialHolders().contains(CapabilityType.ENTITY))
-                .forEach(type -> event.addCapability(type.name(), type.attachment()));
-    }
-
-    @SubscribeEvent
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        DataAttachmentType.DATA_ATTACHMENTS.forEach((loc, attachments) -> event.register(attachments.attachment().getClass()));
-    }
-
-
     // sets the value to default
     public static <T> void remove(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        holder.getCapability(attachmentType.attachment().getCapabilityKey()).orElseGet(attachmentType.getAttachment()).setDefault(holder);
+        if (holder == null) return;
+        if (CapabilityType.checkWithHolder(holder, attachmentType)) return;
+
+        LazyOptional<? extends DataAttachment<T>> capability = holder.getCapability(attachmentType.attachment().getCapabilityKey());
+        if (!capability.isPresent())
+            System.out.println("can't remove capability: " + attachmentType.name().toString() + " as it is not present for some reason?");
+
+        capability.ifPresent(cap -> cap.setDefault(holder));
     }
 
     public static <T> void set(ICapabilityProvider holder, DataAttachmentType<T> attachmentType, T data)
     {
-        holder.getCapability(attachmentType.attachment().getCapabilityKey()).orElseGet(attachmentType::getAttachment).setAndSync(holder, data);
+        if (holder == null) return;
+        if (CapabilityType.checkWithHolder(holder, attachmentType)) return;
+
+        LazyOptional<? extends DataAttachment<T>> capability = holder.getCapability(attachmentType.attachment().getCapabilityKey());
+        if (!capability.isPresent())
+            System.out.println("can't set capability: " + attachmentType.name().toString() + " as it is not present for some reason?");
+
+        capability.ifPresent(cap -> cap.setAndSync(holder, data));
     }
 
     public static <T> T get(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
+        if (holder == null)
+            throw new NullPointerException("tried to get capability: " + attachmentType.name().toString() + " for a null holder");
+
+        CapabilityType.checkWithHolder(holder, attachmentType);
+
         return holder.getCapability(attachmentType.attachment().getCapabilityKey()).orElseGet(attachmentType::getAttachment).getData();
     }
 
     public static <T> void sync(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
-        holder.getCapability(attachmentType.attachment().getCapabilityKey()).orElseGet(attachmentType::getAttachment).sync(holder);
+        if (holder == null) return;
+
+        holder.getCapability(attachmentType.attachment().getCapabilityKey()).ifPresent(cap -> cap.sync(holder));
     }
 
 
@@ -108,10 +109,18 @@ public class ModDataAttachments
     }
 
 
-    public static abstract class DataAttachment1<T> extends DataAttachment<T> {}
-    public static abstract class DataAttachment2<T> extends DataAttachment<T> {}
-    public static abstract class DataAttachment3<T> extends DataAttachment<T> {}
-    public static abstract class DataAttachment4<T> extends DataAttachment<T> {}
-    public static abstract class DataAttachment5<T> extends DataAttachment<T> {}
+    public static void init(){
+
+    }
+
+    /**
+     * For some ungodly reason, forge doesn't actually register capabilities under the resourceLocation you give them.
+     * Instead, it registers them as their "real name" - meaning the name of the data type they hold.
+     * <p>
+     * For example, my DataAttachment<> type would always be named as wdiscute/starcatcher/DataAttachment, and they would conflict (generics get ignored too)
+     */
+    public static abstract class DataAttachmentBobberSkin extends DataAttachment<SingleStackContainer>{}
+    public static abstract class DataAttachmentFishingBob extends DataAttachment<FishingBobAttachment>{}
+    public static abstract class DataAttachmentFishingGuide extends DataAttachment<FishingGuideAttachment>{}
 
 }

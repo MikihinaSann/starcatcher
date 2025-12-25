@@ -86,7 +86,7 @@ public abstract class DataAttachment<C> implements ICapabilityProvider, INBTSeri
     public void sync(ICapabilityProvider holder){
         if (getStreamCodec() == null) return;
 
-        CapabilityType capabilityType = CapabilityType.fromHolder(holder);
+        CapabilityType capabilityType = CapabilityType.fromHolderSimple(holder);
         boolean isClient = true;
         long data = 0;
         PacketDistributor.PacketTarget packetDistributor = null;
@@ -129,7 +129,7 @@ public abstract class DataAttachment<C> implements ICapabilityProvider, INBTSeri
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side){
-        return cap == getCapabilityKey() ? optional.cast() : LazyOptional.empty() ;
+        return getCapabilityKey().orEmpty(cap, optional.cast()) ;
     };
 
     @Override

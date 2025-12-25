@@ -127,6 +127,9 @@ public record DataAttachmentType<T>(
 
         public Builder<B> canAttachTo(CapabilityType... holders){
             validHolders.addAll(Arrays.asList(holders));
+            for (CapabilityType holder : holders) {
+                holder.validateRepeats(validHolders);
+            }
             return this;
         }
 

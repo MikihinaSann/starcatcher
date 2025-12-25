@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class AwardOneFish extends Item
         if(!player.isCreative()) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
         if (level.isClientSide()) return InteractionResultHolder.success(player.getItemInHand(usedHand));
 
-        Map<ResourceLocation, FishCaughtCounter> fishesCaught = FishingGuideAttachment.getFishesCaught(player);
+        Map<ResourceLocation, FishCaughtCounter> fishesCaught = new HashMap<>(FishingGuideAttachment.getFishesCaught(player));
 
         List<FishProperties> fishies = FishProperties.getFPs(level);
         FishProperties fish = fishies.get(level.random.nextInt(fishies.size() - 1));
@@ -54,7 +55,7 @@ public class AwardOneFish extends Item
             }
         }
 
-        FishingGuideAttachment.sync(player);
+        FishingGuideAttachment.setFishesCaught(player, fishesCaught);
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

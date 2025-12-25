@@ -234,8 +234,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float badPartialTick) {
+        super.render(guiGraphics, mouseX, mouseY, badPartialTick);
+        final float partialTick = PartialTickHelper.INSTANCE.getPartialTicks(minecraft.level);
 
         PoseStack poseStack = guiGraphics.pose();
         partial = partialTick;
