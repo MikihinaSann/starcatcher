@@ -57,7 +57,7 @@ public interface ModTackleSkins
         {
             ResourceLocation rl = ModDataComponents.get(itemInHand, ModDataComponents.TACKLE_SKIN);
 
-            Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
+            Optional<Supplier<AbstractTackleSkin>> optional = Optional.ofNullable(Starcatcher.getRegistry(Starcatcher.TACKLE_SKIN).getValue(rl));
             if (optional.isPresent()) return optional.get().get();
         }
         return new BaseTackleSkin();

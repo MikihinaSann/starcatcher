@@ -32,7 +32,9 @@ public class ForgeClientEvents {
 
     @SubscribeEvent
     public static void renderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        LayeredDraw.renderAll(event.getGuiGraphics(), event.getPartialTick());
+        //they all render after experience bars bcs IDK
+        if (event.getOverlay().id().equals(new ResourceLocation(ResourceLocation.DEFAULT_NAMESPACE, "experience_bar")))
+            LayeredDraw.renderAll(event.getGuiGraphics(), event.getPartialTick());
     }
 
     @SubscribeEvent
