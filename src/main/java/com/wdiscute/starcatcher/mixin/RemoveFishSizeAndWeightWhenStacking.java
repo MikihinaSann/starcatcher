@@ -1,6 +1,5 @@
 package com.wdiscute.starcatcher.mixin;
 
-import com.wdiscute.starcatcher.io.ItemStackDataComponentExtension;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
-public class RemoveFishSizeAndWeightWhenStacking implements ItemStackDataComponentExtension
+public class RemoveFishSizeAndWeightWhenStacking
 {
 
     @Inject(at = @At("HEAD"), method = "overrideOtherStackedOnMe")
@@ -46,29 +45,5 @@ public class RemoveFishSizeAndWeightWhenStacking implements ItemStackDataCompone
             ModDataComponents.remove(itemBeingClickedOn,ModDataComponents.SIZE_AND_WEIGHT);
             ModDataComponents.remove(itemBeingClickedOn, ModDataComponents.FISH_PROPERTIES);
         }
-    }
-
-    @Override
-    public <T> void set(ModDataComponents.DataComponent<T> component, T data) {
-        ModDataComponents.set(self(), component, data);
-    }
-
-    @Override
-    public @Nullable <T> T get(ModDataComponents.DataComponent<T> component) {
-        return ModDataComponents.get(self(), component);
-    }
-
-    @Override
-    public @NotNull <T> T getOrDefault(ModDataComponents.DataComponent<T> component, T defaultValue) {
-        return ModDataComponents.getOrDefault(self(), component, defaultValue);
-    }
-
-    @Override
-    public <T> boolean has(ModDataComponents.DataComponent<T> component) {
-        return ModDataComponents.has(self(), component);
-    }
-
-    private ItemStack self(){
-       return ((ItemStack) ((Object) this));
     }
 }
