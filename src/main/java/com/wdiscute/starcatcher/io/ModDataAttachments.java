@@ -46,7 +46,7 @@ public class ModDataAttachments {
 
         LazyOptional<? extends DataAttachment<T>> capability = holder.getCapability(attachmentType.attachment().getCapabilityKey());
         if (!capability.isPresent())
-            System.out.println("can't remove capability: " + attachmentType.name().toString() + " as it is not present for some reason?");
+            Starcatcher.LOGGER.error("can't remove capability: {} as it is not present for some reason?", attachmentType.name().toString());
 
         capability.ifPresent(cap -> cap.setDefault(holder));
     }
@@ -58,7 +58,7 @@ public class ModDataAttachments {
 
         LazyOptional<? extends DataAttachment<T>> capability = holder.getCapability(attachmentType.attachment().getCapabilityKey());
         if (!capability.isPresent())
-            System.out.println("can't set capability: " + attachmentType.name().toString() + " as it is not present for some reason?");
+            Starcatcher.LOGGER.error("can't set capability: {} as it is not present for some reason?", attachmentType.name().toString());
 
         capability.ifPresent(cap -> cap.setAndSync(holder, data));
     }

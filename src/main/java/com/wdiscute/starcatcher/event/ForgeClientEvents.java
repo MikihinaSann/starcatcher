@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.Tooltips;
 import com.wdiscute.starcatcher.fishspotter.LayeredDraw;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
+import com.wdiscute.starcatcher.io.ItemStackDataComponentExtension;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -125,7 +126,7 @@ public class ForgeClientEvents {
         //trophy stuff
         if (ModDataComponents.has(stack,ModDataComponents.TROPHY))
         {
-            TrophyProperties tp = ModDataComponents.get(stack, ModDataComponents.TROPHY);
+            TrophyProperties tp = stack.get(ModDataComponents.TROPHY);
 
             if (tp.trophyType() == TrophyProperties.TrophyType.TROPHY)
                 if (Minecraft.getInstance().player.isShiftKeyDown())
@@ -135,7 +136,7 @@ public class ForgeClientEvents {
                     comp.add(Component.translatable("tooltip.starcatcher.trophy.0"));
                     comp.add(Component.translatable("tooltip.starcatcher.trophy.1"));
 
-                    List<Component> list = new java.util.ArrayList<>();
+                    List<Component> list = new ArrayList<>();
 
                     //all
                     if (tp.all().total() != 0) list.add(Tooltips.decodeString(

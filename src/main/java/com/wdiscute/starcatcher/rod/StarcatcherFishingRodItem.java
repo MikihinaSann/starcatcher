@@ -22,7 +22,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -36,13 +35,10 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 .fireResistant()
                 .stacksTo(1));
 
-        ModDataComponents.registerDefault(this, List.of(
-                new ModDataComponents.DataDefault<>(ModDataComponents.BOBBER_SKIN, SingleStackContainer.EMPTY),
-                new ModDataComponents.DataDefault<>(ModDataComponents.BOBBER, new SingleStackContainer(new ItemStack(ModItems.BOBBER.get()))),
-                new ModDataComponents.DataDefault<>(ModDataComponents.BAIT, SingleStackContainer.EMPTY),
-                new ModDataComponents.DataDefault<>(ModDataComponents.HOOK, new SingleStackContainer(new ItemStack(ModItems.HOOK.get())
-                ))
-        ));
+                ModDataComponents.registerDefault(this, ModDataComponents.BOBBER_SKIN, SingleStackContainer.EMPTY);
+                ModDataComponents.registerDefault(this, ModDataComponents.BOBBER, new SingleStackContainer(new ItemStack(ModItems.BOBBER.get())));
+                ModDataComponents.registerDefault(this,ModDataComponents.BAIT, SingleStackContainer.EMPTY);
+                ModDataComponents.registerDefault(this,ModDataComponents.HOOK, new SingleStackContainer(new ItemStack(ModItems.HOOK.get())));
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
@@ -75,7 +71,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 fishingBobAttachment.setUuid(entity, entity.getUUID());
                 SingleStackContainer bobberSkin = ModDataComponents.get(player.getItemInHand(hand),ModDataComponents.BOBBER_SKIN);
                 if (bobberSkin != null)
-                    ModDataAttachments.set(entity, ModDataAttachments.BOBBER_SKIN, bobberSkin);
+                    entity.setData(ModDataAttachments.BOBBER_SKIN, bobberSkin);
             }
         }
         else
@@ -96,7 +92,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                     fbe.kill();
                 }
             } else {
-                ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
+                player.removeData(ModDataAttachments.FISHING_BOB);
             }
         }
 
