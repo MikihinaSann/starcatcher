@@ -111,7 +111,9 @@ public class ModCommands
 
                 //starcatcher add_tackle_skin starcatcher:ignore_daytime_and_weather_restrictions
                 .then(Commands.literal("add_tackle_skin")
-                        .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.TACKLE_SKIN))
+                        .then(Commands.argument("modifier", ResourceLocationArgument.id())
+                                .suggests((ctx, builder) ->
+                                        SharedSuggestionProvider.suggestResource(getRegistryIterable(Starcatcher.TACKLE_SKIN), builder))
                                 .executes(c ->
                                         addTackleSkin(
                                                 c.getSource().getPlayerOrException(),

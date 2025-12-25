@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.*;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
@@ -1834,13 +1835,13 @@ public class FishingGuideScreen extends Screen
                 entriesString.add(path);
             }
 
-            List<FishProperties> entriesSorted = entries.stream().sorted(Comparator.comparing(o -> o.catchInfo().fish().unwrapKey().get().location().getPath())).toList();
+            List<FishProperties> entriesSorted1 = new ArrayList<>(entries.stream().filter(FishProperties::isPresent).sorted(Comparator.comparing(o -> o.catchInfo().fish().unwrapKey().get().location().getPath())).toList());
 
             if (sort.equals(Sort.ALPHABETICAL_UP)){
-                Collections.reverse(entriesSorted);
+                Collections.reverse(entriesSorted1);
             }
 
-            entries =  entriesSorted;
+            entries =  entriesSorted1;
         }
 
         //mod
@@ -2028,7 +2029,7 @@ public class FishingGuideScreen extends Screen
         //get all items in bobbers/hooks/baits tags
         BuiltInRegistries.ITEM.getTag(StarcatcherTags.BOBBERS)
                 .ifPresent(items -> items.stream()
-                        .forEach(i -> bobbers.add(i.value().getDefaultInstance())));
+                        .forEach(i -> hooksAndBobbers.add(i.value().getDefaultInstance())));
 
         BuiltInRegistries.ITEM.getTag(StarcatcherTags.BAITS)
                 .ifPresent(items -> items.stream()
@@ -2036,7 +2037,7 @@ public class FishingGuideScreen extends Screen
 
         BuiltInRegistries.ITEM.getTag(StarcatcherTags.HOOKS)
                 .ifPresent(items -> items.stream()
-                        .forEach(i -> hooks.add(i.value().getDefaultInstance())));
+                        .forEach(i -> hooksAndBobbers.add(i.value().getDefaultInstance())));
 
         BuiltInRegistries.ITEM.getTag(StarcatcherTags.GADGETS)
                 .ifPresent(items -> items.stream()

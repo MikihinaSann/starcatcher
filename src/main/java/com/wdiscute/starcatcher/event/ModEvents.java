@@ -46,7 +46,7 @@ public class ModEvents
         event.create(RegistryBuilder.of(Starcatcher.CATCH_MODIFIERS.location())
                 .setDefaultKey(Starcatcher.rl("no_flip")));
 
-        event.create(RegistryBuilder.of(Starcatcher.TACKLE_SKIN_REGISTRY.location())
+        event.create(RegistryBuilder.of(Starcatcher.TACKLE_SKIN.location())
                 .setDefaultKey(Starcatcher.rl("pearl")));
 
     }

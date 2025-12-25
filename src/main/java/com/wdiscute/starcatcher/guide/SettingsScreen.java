@@ -483,30 +483,6 @@ public class SettingsScreen extends Screen
 
         for (int i = 0; i < count; i++)
         {
-            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE.get()))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        r.nextFloat(),
-                        r.nextFloat(),
-                        r.nextFloat(),
-                        1
-                ));
-                continue;
-            }
-
-            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE.get()))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).r(),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).g(),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).b(),
-                        1
-                ));
-                continue;
-            }
-
             if (treasure)
             {
                 //red particles if treasure sweet spot was hit

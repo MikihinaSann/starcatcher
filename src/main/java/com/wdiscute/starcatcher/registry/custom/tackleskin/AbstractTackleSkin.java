@@ -29,7 +29,7 @@ public abstract class AbstractTackleSkin
             this.model = new FishingBobModel<>(context.bakeLayer(getLayerLocation()));
             this.renderType = RenderType.entityCutout(getTexture());
         }
-        this.model.renderToBuffer(poseStack, buffer.getBuffer(renderType), packedLight, OverlayTexture.NO_OVERLAY, -1);
+        this.model.renderToBuffer(poseStack, buffer.getBuffer(renderType), packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1.0F);
     }
 
     public void onCast(Player player)
@@ -50,12 +50,12 @@ public abstract class AbstractTackleSkin
     public void onSuccessfulMinigame(Player player)
     {
         Vec3 p = player.position();
-        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
+        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
     }
 
     public void onFailedMinigame(Player player)
     {
         Vec3 p = player.position();
-        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT);
+        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
     }
 }

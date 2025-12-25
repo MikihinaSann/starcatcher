@@ -18,6 +18,7 @@ import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -35,18 +36,17 @@ public interface ModItems
     }
 
 
-    DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-    DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-    DeferredRegister.Items BAITS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-    DeferredRegister.Items HOOKS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-    DeferredRegister.Items BOBBERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-
     //fishes which have a model and swim in water
     DeferredRegister<Item> FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> TRASH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> ITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
 
     DeferredRegister<Item> TEMPLATES_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> HOOKS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> BLOCKITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> BOBBERS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> BAITS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> RODS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
 
     DeferredRegister<Item> DEV_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
 

@@ -41,18 +41,14 @@ public class ForgeClientEvents {
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS) || ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS) || ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
         {
             List<ResourceLocation> modifiers = new ArrayList<>();
 
-            if (ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS)) {
-                List<ResourceLocation> list = ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS);
-                modifiers.addAll(list);
-            }
-            if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS)) {
-                List<ResourceLocation> list = (ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS));
-                modifiers.addAll(list);
-            }
+            if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS)));
+            if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS)));
 
             if (!modifiers.isEmpty())
             {
@@ -77,7 +73,7 @@ public class ForgeClientEvents {
         }
 
         //size and weight
-        if (ModDataComponents.has(stack,ModDataComponents.SIZE_AND_WEIGHT))
+        if (ModDataComponents.has(stack, ModDataComponents.SIZE_AND_WEIGHT))
         {
             SizeAndWeightInstance sw = ModDataComponents.get(stack, ModDataComponents.SIZE_AND_WEIGHT);
 
@@ -89,15 +85,20 @@ public class ForgeClientEvents {
             comp.add(1, Component.literal(size + " - " + weight).setStyle(Style.EMPTY.withColor(0x888888)));
         }
 
-        //Cosmetic
-        if (ModDataComponents.has(stack,ModDataComponents.BOBBER_SKIN))
+        //tackle skin
+        if (ModDataComponents.has(stack, ModDataComponents.TACKLE_SKIN))
         {
-            ItemStack copy = ModDataComponents.get(stack, ModDataComponents.BOBBER_SKIN).stack().copy();
+            ResourceLocation rl = ModDataComponents.get(stack, ModDataComponents.TACKLE_SKIN);
+            comp.add(Component.translatable("tooltip.starcatcher.tackle").withStyle(ChatFormatting.GRAY));
 
-            if(!copy.isEmpty())
+            for (int i = 0; i < 100; i++)
             {
-                comp.add(1, copy.getDisplayName().copy().setStyle(Style.EMPTY.withColor(0x888888)));
-                comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.templates"));
+                if (I18n.exists("tooltip.tackle." + rl.toLanguageKey() + "." + i))
+                {
+                    MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
+                    comp.add(start.append(Component.translatable("tooltip.tackle." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                }
+                else break;
             }
         }
 
@@ -110,9 +111,8 @@ public class ForgeClientEvents {
             }
         }
 
-
         //rarity name color
-        if (ModDataComponents.has(stack,ModDataComponents.FISH_PROPERTIES))
+        if (ModDataComponents.has(stack, ModDataComponents.FISH_PROPERTIES))
         {
             FishProperties fp = ModDataComponents.get(stack, ModDataComponents.FISH_PROPERTIES);
 
@@ -123,7 +123,7 @@ public class ForgeClientEvents {
         }
 
         //trophy stuff
-        if (ModDataComponents.has(stack,ModDataComponents.TROPHY))
+        if (ModDataComponents.has(stack, ModDataComponents.TROPHY))
         {
             TrophyProperties tp = ModDataComponents.get(stack, ModDataComponents.TROPHY);
 
@@ -135,7 +135,7 @@ public class ForgeClientEvents {
                     comp.add(Component.translatable("tooltip.starcatcher.trophy.0"));
                     comp.add(Component.translatable("tooltip.starcatcher.trophy.1"));
 
-                    List<Component> list = new ArrayList<>();
+                    List<Component> list = new java.util.ArrayList<>();
 
                     //all
                     if (tp.all().total() != 0) list.add(Tooltips.decodeString(

@@ -14,6 +14,8 @@ import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMiniga
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
 import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.AbstractSweetSpotBehaviour;
 import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.storage.UnloadedModRegistry;

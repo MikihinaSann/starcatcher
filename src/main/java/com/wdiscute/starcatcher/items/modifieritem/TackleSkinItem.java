@@ -14,8 +14,9 @@ public class TackleSkinItem extends Item
     public TackleSkinItem(int maxStackSize, ResourceLocation rl)
     {
         super(new Item.Properties()
-                .component(ModDataComponents.TACKLE_SKIN, rl)
                 .stacksTo(maxStackSize)
         );
+
+        ModDataComponents.registerDefault(this, ModDataComponents.TACKLE_SKIN, rl);
     }
 }

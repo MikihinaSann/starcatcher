@@ -1,6 +1,8 @@
 package com.wdiscute.starcatcher.guide;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.Tooltips;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

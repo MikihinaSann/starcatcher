@@ -76,7 +76,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
 
                 fishingBobAttachment.setUuid(player, entity.getUUID());
                 if(ModDataComponents.has(is, ModDataComponents.TACKLE_SKIN))
-                    ModDataAttachments.set(entity, ModDataAttachments.TACKLE_SKIN.get(), ModDataComponents.get(is, ModDataComponents.TACKLE_SKIN));
+                    ModDataAttachments.set(entity, ModDataAttachments.TACKLE_SKIN, ModDataComponents.get(is, ModDataComponents.TACKLE_SKIN));
             }
         }
         else

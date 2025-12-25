@@ -2,11 +2,13 @@ package com.wdiscute.starcatcher.bob;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -55,7 +57,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
 
         //render tackle based on tackle skin, defaults to BaseTackleSkin
         ResourceLocation tackleRl = ModDataAttachments.get(fishingBobEntity, ModDataAttachments.TACKLE_SKIN);
-        Optional<Supplier<AbstractTackleSkin>> optional = fishingBobEntity.level().registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(tackleRl);
+        Optional<Supplier<AbstractTackleSkin>> optional = Optional.ofNullable(Starcatcher.getRegistry(Starcatcher.TACKLE_SKIN).getValue(tackleRl));
         optional.ifPresent(supplier -> supplier.get().renderTackle(context, fishingBobEntity, entityYaw, partialTicks, poseStack, buffer, packedLight));
         poseStack.popPose();
 
@@ -77,13 +79,12 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
             for (int j = 0; j <= 16; j++)
             {
                 // rendering so ass he made a method for division?
-                stringVertex(color, f2, f3, f4, vertexconsumer1, posestack$pose1, fraction(j, 16), fraction(j + 1, 16));
+                stringVertex(0xff000000, f2, f3, f4, vertexconsumer1, posestack$pose1, fraction(j, 16), fraction(j + 1, 16));
             }
 
             //PLEASE FOR THE LOVE OF GOD DONT REMOVE THIS LINE JUST DONT PLEASE THIS TOOK TOO FUCKING LONG DONT YOU DARE TOUCH IT
             // I will do what I want, nerd
-
-             vertexconsumer1.vertex(NaN, NaN, NaN).color(color).normal(posestack$pose1.normal(), 0, 0, 0).endVertex();;
+             vertexconsumer1.vertex(NaN, NaN, NaN).color(0).normal(posestack$pose1.normal(), 0, 0, 0).endVertex();;
 
             poseStack.popPose();
             super.render(fishingBobEntity, entityYaw, partialTicks, poseStack, buffer, packedLight);

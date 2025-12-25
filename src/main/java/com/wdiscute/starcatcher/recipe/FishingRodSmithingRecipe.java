@@ -49,7 +49,7 @@ public record FishingRodSmithingRecipe(
         //bobber skins
         if(ModDataComponents.has(template(container), ModDataComponents.TACKLE_SKIN) && addition(container).isEmpty())
         {
-            ResourceLocation rl = ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN);
+            ResourceLocation rl = ModDataComponents.get(template(container), ModDataComponents.TACKLE_SKIN);
 
             Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
 
@@ -84,9 +84,9 @@ public record FishingRodSmithingRecipe(
         }
 
         //assemble bobber skin
-        if (ModDataComponents.has(input.template(), ModDataComponents.TACKLE_SKIN) && input.addition().isEmpty())
+        if (ModDataComponents.has(template(container), ModDataComponents.TACKLE_SKIN) && addition(container).isEmpty())
         {
-            ModDataComponents.set(newRod, ModDataComponents.TACKLE_SKIN, ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN));
+            ModDataComponents.set(newRod, ModDataComponents.TACKLE_SKIN, ModDataComponents.get(template(container), ModDataComponents.TACKLE_SKIN));
             return newRod;
         }
 

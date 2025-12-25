@@ -29,7 +29,7 @@ public class ModDataComponents
     //smithing templates
     public static final DataComponent<Boolean> NETHERITE_UPGRADE = register("netherite_upgraded", Codec.BOOL);
 
-    public static final DataComponent<SingleStackContainer> BOBBER_SKIN = register("bobber_skin", SingleStackContainer.CODEC);
+    public static final DataComponent<ResourceLocation> TACKLE_SKIN = register("tackle_skin", ResourceLocation.CODEC);
 
     //bucketed fish
     public static final DataComponent<SingleStackContainer> BUCKETED_FISH = register("bucketed_fish", SingleStackContainer.CODEC);
@@ -52,14 +52,6 @@ public class ModDataComponents
     public static final DataComponent<List<ResourceLocation>> MINIGAME_MODIFIERS = register("minigame_modifiers", ResourceLocation.CODEC.listOf());
 
     public static final DataComponent<List<ResourceLocation>> CATCH_MODIFIERS = register("catch_modifiers", ResourceLocation.CODEC.listOf());
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> TACKLE_SKIN = register(
-            "tackle_skin",
-            builder -> builder.persistent(ResourceLocation.CODEC));
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(
-            "netherite_upgraded",
-            builder -> builder.persistent(Codec.BOOL));
 
 
     public static <T> DataComponent<T> register(String name, Codec<T> codec){

@@ -58,7 +58,7 @@ public class ModifierShapedRecipe extends ShapedRecipe
         List<ResourceLocation> catchModifiers = new ArrayList<>();
         List<ResourceLocation> minigameModifiers = new ArrayList<>();
 
-        for (ResourceLocation rl : this.minigameModifiers)
+        for (ResourceLocation rl : this.modifiers)
         {
             ResourceKey<Supplier<AbstractCatchModifier>> catchRK = ResourceKey.create(Starcatcher.CATCH_MODIFIERS, rl);
             ResourceKey<Supplier<AbstractMinigameModifier>> minigameRK = ResourceKey.create(Starcatcher.MINIGAME_MODIFIERS, rl);
