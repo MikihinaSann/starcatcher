@@ -1,11 +1,9 @@
-// 1.21.1	2025-12-24T16:33:31.6882499	Tags for minecraft:item mod id starcatcher
-ba5a0657031782ccdba88d37fe09875c8d8c683d data/c/tags/item/foods/raw_fish.json
-cd76b40635f273884aec7b0f26a351a83f76fed5 data/c/tags/item/tools/fishing_rod.json
-ba5a0657031782ccdba88d37fe09875c8d8c683d data/minecraft/tags/item/cat_food.json
-ba5a0657031782ccdba88d37fe09875c8d8c683d data/minecraft/tags/item/fishes.json
-d08559bf7b581b347694be057e916605a023f190 data/starcatcher/tags/item/baits.json
-afda5aa678adf37b89c8ba7412779d97403a0fde data/starcatcher/tags/item/bobbers.json
-de6377a3a15fcc745a25e8d8e40184200ee10c90 data/starcatcher/tags/item/gadgets.json
-c013e006aa98d36df5ce2dec95a74bd899ff881d data/starcatcher/tags/item/hooks.json
-cd76b40635f273884aec7b0f26a351a83f76fed5 data/starcatcher/tags/item/rods.json
-c4587353669bb3edd7d9acaa9727dd8dcca56dd9 data/starcatcher/tags/item/templates.json
+// 1.20.1	2025-12-25T21:28:13.3082454	Tags for minecraft:item mod id starcatcher
+cd76b40635f273884aec7b0f26a351a83f76fed5 data/forge/tags/items/tools/fishing_rods.json
+ba5a0657031782ccdba88d37fe09875c8d8c683d data/minecraft/tags/items/fishes.json
+d08559bf7b581b347694be057e916605a023f190 data/starcatcher/tags/items/baits.json
+afda5aa678adf37b89c8ba7412779d97403a0fde data/starcatcher/tags/items/bobbers.json
+de6377a3a15fcc745a25e8d8e40184200ee10c90 data/starcatcher/tags/items/gadgets.json
+c013e006aa98d36df5ce2dec95a74bd899ff881d data/starcatcher/tags/items/hooks.json
+cd76b40635f273884aec7b0f26a351a83f76fed5 data/starcatcher/tags/items/rods.json
+c4587353669bb3edd7d9acaa9727dd8dcca56dd9 data/starcatcher/tags/items/templates.json

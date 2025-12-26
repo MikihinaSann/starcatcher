@@ -10,6 +10,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ModDataAttachments {
     //Don't do this wrong, read the comment at the bottom of this class
@@ -30,7 +32,7 @@ public class ModDataAttachments {
             FISHING_BOB_CAP, Starcatcher.rl("fishing_bob"),
             DataAttachmentType.builder(FishingBobAttachment::new)
                     .sync(FishingBobAttachment.STREAM_CODEC)
-                    .canAttachTo(CapabilityType.PLAYER));
+                    .canAttachTo(CapabilityType.LIVING_ENTITY));
 
     public static final DataAttachmentType<FishingGuideAttachment> FISHING_GUIDE = DataAttachmentType.register(
             FISHING_GUIDE_CAP, Starcatcher.rl("fishing_guide"),
@@ -45,7 +47,7 @@ public class ModDataAttachments {
             DataAttachmentType.builder(() -> Starcatcher.rl("base"))
                     .sync(StreamCodec.RESOURCE_LOCATION)
                     .serialize(ResourceLocation.CODEC)
-                    .canAttachTo(CapabilityType.ENTITY));
+                    .canAttachTo(CapabilityType.LIVING_ENTITY));
 
 
 
@@ -74,13 +76,13 @@ public class ModDataAttachments {
         capability.ifPresent(cap -> cap.setAndSync(holder, data));
     }
 
+    @NotNull
     public static <T> T get(ICapabilityProvider holder, DataAttachmentType<T> attachmentType)
     {
         if (holder == null)
             throw new NullPointerException("tried to get capability: " + attachmentType.name().toString() + " for a null holder");
 
-        CapabilityType.checkWithHolder(holder, attachmentType);
-
+        //Removed the error checking since just getting the default value should be fine
         return holder.getCapability(attachmentType.attachment().getCapabilityKey()).orElseGet(attachmentType::getAttachment).getData();
     }
 

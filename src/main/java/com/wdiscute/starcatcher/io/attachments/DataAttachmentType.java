@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public record DataAttachmentType<T>(
         ResourceLocation name,
-        DataAttachment<T> attachment
+        Supplier<DataAttachment<T>> attachmentSupplier
 ) {
 
     public static Map<ResourceLocation, DataAttachmentType<?>> DATA_ATTACHMENTS = new HashMap<>();
@@ -21,12 +21,17 @@ public record DataAttachmentType<T>(
 
     public static StreamCodec<DataAttachment<?>> STREAM_CODEC_CODEC =
             StreamCodec.RESOURCE_LOCATION.remap(
-                    loc -> DataAttachmentType.DATA_ATTACHMENTS.get(loc).attachment,
+                    loc -> DataAttachmentType.DATA_ATTACHMENTS.get(loc).attachment(),
                     DataAttachment::getId);
 
 
+    @SuppressWarnings("unchecked")
     public <B extends DataAttachment<?>> B getAttachment(){
-        return (B) attachment;
+        return (B) attachmentSupplier.get();
+    }
+
+    public DataAttachment<T> attachment(){
+        return attachmentSupplier.get();
     }
 
     public static <R> DataAttachmentType<R> register(
@@ -39,7 +44,7 @@ public record DataAttachmentType<T>(
             throw new IllegalStateException("Tried registering a DataAttachmentType without a any Holders!");
         }
 
-        DataAttachmentType<R> dataAttachment = new DataAttachmentType<>(name, new DataAttachment<>() {
+        DataAttachmentType<R> dataAttachment = new DataAttachmentType<>(name, () -> new DataAttachment<>() {
             @Override
             public @NotNull Supplier<R> getDefault() {
                 return builder.defaultValue;

@@ -2,16 +2,12 @@ package com.wdiscute.starcatcher.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.StreamCodec;
-import com.wdiscute.starcatcher.registry.ModRecipes;
+import com.wdiscute.starcatcher.registry.ModRecipeSerializers;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,7 +17,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -30,25 +25,29 @@ import java.util.function.Supplier;
 
 public class ModifierShapedRecipe extends ShapedRecipe
 {
-   public List<ResourceLocation> modifiers;
-   public final ResourceLocation bobberSkin;
+    public List<ResourceLocation> modifiers;
+    public List<ResourceLocation> catchModifiers;
 
-    public ModifierShapedRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, List<ResourceLocation> modifiers, ResourceLocation bobberSkin) {
+    public final ResourceLocation bobberSkin;
+
+    public ModifierShapedRecipe(ResourceLocation id, String group, CraftingBookCategory category,
+                                int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result,
+                                List<ResourceLocation> modifiers, List<ResourceLocation> catchModifiers, ResourceLocation bobberSkin) {
         super(id, group, category, width, height, recipeItems, result);
         this.modifiers = modifiers;
         this.bobberSkin = bobberSkin;
+        this.catchModifiers = catchModifiers;
     }
 
-    public ModifierShapedRecipe(ShapedRecipe recipe, List<ResourceLocation> modifiers, ResourceLocation bobberSkin) {
-        super(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getRecipeWidth(), recipe.getRecipeHeight(), recipe.getIngredients(), recipe.result);
-        this.modifiers = modifiers;
-        this.bobberSkin = bobberSkin;
+    public ModifierShapedRecipe(ShapedRecipe recipe, List<ResourceLocation> modifiers, List<ResourceLocation> catchModifiers, ResourceLocation bobberSkin) {
+        this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getRecipeWidth(), recipe.getRecipeHeight(), recipe.getIngredients(), recipe.result,
+                modifiers, catchModifiers, bobberSkin);
     }
 
     @Override
     public RecipeSerializer<?> getSerializer()
     {
-        return ModRecipes.MODIFIER_SHAPED_RECIPE.get();
+        return ModRecipeSerializers.MODIFIER_SHAPED_RECIPE.get();
     }
 
     @Override
@@ -85,10 +84,12 @@ public class ModifierShapedRecipe extends ShapedRecipe
         @Override
         public ModifierShapedRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
             ShapedRecipe shapedRecipe = ShapedRecipe.Serializer.SHAPED_RECIPE.fromJson(recipeId, serializedRecipe);
-            var locs = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "modifiers"));
-            ResourceLocation bobber = new ResourceLocation(GsonHelper.getAsString(serializedRecipe, "bobber_skin"));
+            var modifiers = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "minigame_modifiers", new JsonArray()));
+            var catchModifiers = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "catch_modifiers",  new JsonArray()));
 
-            return new ModifierShapedRecipe(shapedRecipe, locs, bobber);
+            ResourceLocation bobber = new ResourceLocation(GsonHelper.getAsString(serializedRecipe, "bobber_skin",  Starcatcher.rl("missingno").toString()));
+
+            return new ModifierShapedRecipe(shapedRecipe, modifiers, catchModifiers, bobber);
         }
 
         private static List<ResourceLocation> locsFromJson(JsonArray ingredientArray) {
@@ -105,13 +106,15 @@ public class ModifierShapedRecipe extends ShapedRecipe
 
         @Override
         public @Nullable ModifierShapedRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return new ModifierShapedRecipe(ShapedRecipe.Serializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer), StreamCodec.RESOURCE_LOCATION.list().decode(buffer), StreamCodec.RESOURCE_LOCATION.decode(buffer));
+            return new ModifierShapedRecipe(ShapedRecipe.Serializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer),
+                    StreamCodec.RESOURCE_LOCATION.list().decode(buffer), StreamCodec.RESOURCE_LOCATION.list().decode(buffer), StreamCodec.RESOURCE_LOCATION.decode(buffer));
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, ModifierShapedRecipe recipe) {
             ShapedRecipe.Serializer.SHAPED_RECIPE.toNetwork(buffer, recipe);
             StreamCodec.RESOURCE_LOCATION.list().encode(recipe.modifiers, buffer);
+            StreamCodec.RESOURCE_LOCATION.list().encode(recipe.catchModifiers, buffer);
             StreamCodec.RESOURCE_LOCATION.encode(recipe.bobberSkin, buffer);
         }
     }

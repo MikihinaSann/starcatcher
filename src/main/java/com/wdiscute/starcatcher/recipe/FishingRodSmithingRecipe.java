@@ -1,16 +1,11 @@
 package com.wdiscute.starcatcher.recipe;
 
 import com.google.gson.JsonObject;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.StreamCodec;
-import com.wdiscute.starcatcher.registry.ModItems;
-import com.wdiscute.starcatcher.registry.ModRecipes;
+import com.wdiscute.starcatcher.registry.ModRecipeSerializers;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -51,7 +46,7 @@ public record FishingRodSmithingRecipe(
         {
             ResourceLocation rl = ModDataComponents.get(template(container), ModDataComponents.TACKLE_SKIN);
 
-            Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
+            Optional<Supplier<AbstractTackleSkin>> optional = Starcatcher.getOptionalFromRegistry(Starcatcher.TACKLE_SKIN, rl);
 
             //if bobber skin is the template, can not craft
             return optional.isPresent();
@@ -125,19 +120,13 @@ public record FishingRodSmithingRecipe(
     @Override
     public boolean isAdditionIngredient(ItemStack stack)
     {
-        return true;
+        return false;
     }
 
     @Override
     public RecipeSerializer<?> getSerializer()
     {
-        return ModRecipes.FISHING_ROD_SMITHING.get();
-    }
-
-    @Override
-    public RecipeType<?> getType()
-    {
-        return RecipeType.SMITHING;
+        return ModRecipeSerializers.FISHING_ROD_SMITHING.get();
     }
 
     @Override
@@ -148,29 +137,26 @@ public record FishingRodSmithingRecipe(
 
     public static class Serializer implements RecipeSerializer<FishingRodSmithingRecipe>
     {
-        public static final StreamCodec<FishingRodSmithingRecipe> STREAM_CODEC = StreamCodec.composite(
-                StreamCodec.RESOURCE_LOCATION, FishingRodSmithingRecipe::id,
-                StreamCodec.INGREDIENT, FishingRodSmithingRecipe::template,
-                StreamCodec.INGREDIENT, FishingRodSmithingRecipe::rod,
-                FishingRodSmithingRecipe::new
-        );
 
         @Override
         public FishingRodSmithingRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
-            Ingredient template = Ingredient.fromJson(serializedRecipe.getAsJsonObject("template"));
             Ingredient rod = Ingredient.fromJson(serializedRecipe.getAsJsonObject("rod"));
+            Ingredient template = Ingredient.fromJson(serializedRecipe.getAsJsonObject("template"));
 
             return new FishingRodSmithingRecipe(recipeId, template, rod);
         }
 
         @Override
         public @Nullable FishingRodSmithingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return STREAM_CODEC.decode(buffer);
+            Ingredient template = StreamCodec.INGREDIENT.decode(buffer);
+            Ingredient rod = StreamCodec.INGREDIENT.decode(buffer);
+            return new FishingRodSmithingRecipe(recipeId, template, rod);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, FishingRodSmithingRecipe recipe) {
-            STREAM_CODEC.encode(buffer, recipe);
+            StreamCodec.INGREDIENT.encode(buffer, recipe.template);
+            StreamCodec.INGREDIENT.encode(buffer, recipe.rod);
         }
     }
 }

@@ -36,7 +36,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 import org.slf4j.Logger;
 
-import java.util.Random;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -75,6 +75,10 @@ public class Starcatcher
 
     public static <T> boolean isRegistryPresent(ResourceKey<Registry<T>> resourceKey){
         return RegistryManager.ACTIVE.getRegistry(resourceKey) != null;
+    }
+
+    public static <T> Optional<T> getOptionalFromRegistry(ResourceKey<Registry<T>> resourceKey, ResourceLocation loc){
+        return Optional.ofNullable(getRegistry(resourceKey).getValue(loc));
     }
 
     public static <T extends UnloadedModRegistry> Set<T> getAllRegistryValues(Level level, ResourceKey<Registry<T>> resourceKey){
@@ -147,7 +151,7 @@ public class Starcatcher
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
         ModParticles.register(modEventBus);
-        ModRecipes.register(modEventBus);
+        ModRecipeSerializers.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModSweetSpotsBehaviour.register(modEventBus);
         ModMinigameModifiers.register(modEventBus);
@@ -157,7 +161,5 @@ public class Starcatcher
 
         ModNetworking.init();
         ModDataAttachments.init();
-
-        ModItems.registerExtra();
     }
 }

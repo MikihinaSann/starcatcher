@@ -2,21 +2,13 @@ package com.wdiscute.starcatcher.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.wdiscute.starcatcher.io.ExtraComposites;
+import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.StreamCodec;
-import com.wdiscute.starcatcher.registry.ModRecipes;
-import net.minecraft.core.HolderLookup;
+import com.wdiscute.starcatcher.registry.ModRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -29,63 +21,31 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModifierShapelessRecipe implements CraftingRecipe
+public class ModifierShapelessRecipe extends ShapelessRecipe
 {
-    final String group;
-    final CraftingBookCategory category;
-    final ItemStack result;
-    final NonNullList<Ingredient> ingredients;
-    private final boolean isSimple;
     private final List<ResourceLocation> modifiers;
+    private final List<ResourceLocation> catchModifiers;
+    private final ResourceLocation bobberSkin;
+    private final boolean isSimple;
 
-    public ModifierShapelessRecipe(String group, CraftingBookCategory category, ItemStack result, NonNullList<Ingredient> ingredients, List<ResourceLocation> modifiers)
-    {
-        this.group = group;
-        this.category = category;
-        this.result = result;
-        this.ingredients = ingredients;
-        this.isSimple = ingredients.stream().allMatch(Ingredient::isSimple);
+    public ModifierShapelessRecipe(ResourceLocation id, String group, CraftingBookCategory category, ItemStack result, NonNullList<Ingredient> ingredients, List<ResourceLocation> modifiers, List<ResourceLocation> catchModifiers, ResourceLocation bobberSkin) {
+        super(id, group, category, result, ingredients);
         this.modifiers = modifiers;
+        this.catchModifiers = catchModifiers;
+        this.bobberSkin = bobberSkin;
+        this.isSimple = ingredients.stream().allMatch(Ingredient::isSimple);
     }
+
+    public ModifierShapelessRecipe(ShapelessRecipe recipe, List<ResourceLocation> modifiers, List<ResourceLocation> catchModifiers, ResourceLocation bobberSkin) {
+        this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.result, recipe.getIngredients(), modifiers, catchModifiers, bobberSkin);
+    }
+
+
 
     @Override
     public RecipeSerializer<?> getSerializer()
     {
-        return ModRecipes.MODIFIER_SHAPELESS_RECIPE.get();
-    }
-
-    @Override
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return null;
-    }
-
-    @Override
-    public CraftingBookCategory category()
-    {
-        return this.category;
-    }
-
-    @Override
-    public ItemStack getResultItem(RegistryAccess registries)
-    {
-        return this.result;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients()
-    {
-        return this.ingredients;
-    }
-
-    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess)
-    {
-        return this.result.copy();
+        return ModRecipeSerializers.MODIFIER_SHAPELESS_RECIPE.get();
     }
 
     @Override
@@ -93,7 +53,7 @@ public class ModifierShapelessRecipe implements CraftingRecipe
         StackedContents contents = new StackedContents();
         container.fillStackedContents(contents);
 
-        if (container.getItems().size() != this.ingredients.size())
+        if (container.getItems().size() != this.getIngredients().size())
         {
             return false;
         }
@@ -103,61 +63,29 @@ public class ModifierShapelessRecipe implements CraftingRecipe
             for (var item : container.getItems())
                 if (!item.isEmpty())
                     nonEmptyItems.add(item);
-            return RecipeMatcher.findMatches(nonEmptyItems, this.ingredients) != null;
+            return RecipeMatcher.findMatches(nonEmptyItems, this.getIngredients()) != null;
         }
         else
         {
-            return container.getItems().size() == 1 && this.ingredients.size() == 1
-                    ? this.ingredients.get(0).test(container.getItems().get(0))
+            return container.getItems().size() == 1 && this.getIngredients().size() == 1
+                    ? this.getIngredients().get(0).test(container.getItems().get(0))
                     : contents.canCraft(this, null);
         }
-    }
-
-    /**
-     * Used to determine if this recipe can fit in a grid of the given width/height
-     */
-    @Override
-    public boolean canCraftInDimensions(int width, int height)
-    {
-        return width * height >= this.ingredients.size();
     }
 
     public static class Serializer implements RecipeSerializer<ModifierShapelessRecipe>
     {
 
-        public static final StreamCodec<ModifierShapelessRecipe> STREAM_CODEC = StreamCodec.composite(
-                StreamCodec.STRING, rec -> rec.group,
-                StreamCodec.CRAFTING_BOOK_CATEGORY, rec -> rec.category,
-                StreamCodec.ITEM_STACK, rec -> rec.result,
-                StreamCodec.INGREDIENT.nonNullList(Ingredient.EMPTY), rec -> rec.ingredients,
-                StreamCodec.RESOURCE_LOCATION.list(), rec -> rec.modifiers,
-                ModifierShapelessRecipe::new
-        );
-
         @Override
-        public ModifierShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            String source = GsonHelper.getAsString(json, "group");
-            CraftingBookCategory bookCategory = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
-            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-            NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
-            List<ResourceLocation> modifiers = locsFromJson(GsonHelper.getAsJsonArray(json, "modifiers"));
+        public ModifierShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
+            ShapelessRecipe original = ShapelessRecipe.Serializer.SHAPELESS_RECIPE.fromJson(recipeId, serializedRecipe);
+            var modifiers = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "minigame_modifiers", new JsonArray()));
+            var catchModifiers = locsFromJson(GsonHelper.getAsJsonArray(serializedRecipe, "catch_modifiers", new JsonArray()));
 
-            return new ModifierShapelessRecipe(source, bookCategory, result, ingredients, modifiers);
+            ResourceLocation bobber = new ResourceLocation(GsonHelper.getAsString(serializedRecipe, "bobber_skin", Starcatcher.rl("missingno").toString()));
+
+            return new ModifierShapelessRecipe(original,  modifiers, catchModifiers, bobber );
         }
-
-        private static NonNullList<Ingredient> itemsFromJson(JsonArray ingredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-            for(int i = 0; i < ingredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i), false);
-                if (!ingredient.isEmpty()) {
-                    nonnulllist.add(ingredient);
-                }
-            }
-
-            return nonnulllist;
-        }
-
 
         private static List<ResourceLocation> locsFromJson(JsonArray ingredientArray) {
             List<ResourceLocation> list = new ArrayList<>();
@@ -173,12 +101,20 @@ public class ModifierShapelessRecipe implements CraftingRecipe
 
         @Override
         public @Nullable ModifierShapelessRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return STREAM_CODEC.decode(buffer);
+            return new ModifierShapelessRecipe(
+                    ShapelessRecipe.Serializer.SHAPELESS_RECIPE.fromNetwork(recipeId, buffer),
+                    StreamCodec.RESOURCE_LOCATION.list().decode(buffer),
+                    StreamCodec.RESOURCE_LOCATION.list().decode(buffer),
+                    StreamCodec.RESOURCE_LOCATION.decode(buffer)
+            );
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, ModifierShapelessRecipe recipe) {
-            STREAM_CODEC.encode(buffer, recipe);
+            ShapelessRecipe.Serializer.SHAPELESS_RECIPE.toNetwork(buffer, recipe);
+            StreamCodec.RESOURCE_LOCATION.list().encode(buffer, recipe.modifiers);
+            StreamCodec.RESOURCE_LOCATION.list().encode(buffer, recipe.catchModifiers);
+            StreamCodec.RESOURCE_LOCATION.encode(buffer, recipe.bobberSkin);
         }
     }
 
