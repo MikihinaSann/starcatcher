@@ -49,7 +49,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FishingGuideScreen extends Screen
 {
@@ -288,7 +287,6 @@ public class FishingGuideScreen extends Screen
                 {
                     //index -> next page of index
                     minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
-                    System.out.println(entries.size() - 1 > 49 * (page - 3));
                     if (hasNextPage)
                     {
                         page++;
@@ -317,7 +315,7 @@ public class FishingGuideScreen extends Screen
                 case 2 ->
                 {
                     //entries -> next entry
-                    if (page <= entries.size() / 2 - 2)
+                    if (entries.size() > page * 2 + 2)
                     {
                         minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
                         page++;
@@ -380,7 +378,7 @@ public class FishingGuideScreen extends Screen
         //next arrow
         if (x > 336 && x < 356 && y > 202 && y < 216)
         {
-            if (page <= entries.size() / 2 - 2)
+            if (entries.size() > page * 2 + 2)
             {
                 arrowNextPressed = true;
             }
@@ -463,7 +461,7 @@ public class FishingGuideScreen extends Screen
         }
 
         //next arrow
-        if (page <= entries.size() / 2 - 2)
+        if (entries.size() > page * 2 + 2)
         {
             if (x > 336 && x < 356 && y > 202 && y < 216)
                 renderImage(guiGraphics, ARROW_NEXT_HIGHLIGHT);
