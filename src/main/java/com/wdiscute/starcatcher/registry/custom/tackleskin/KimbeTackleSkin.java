@@ -10,12 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 
 public class KimbeTackleSkin extends AbstractTackleSkin
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Starcatcher.rl("kimbe"), "main");
-
     @Override
     public ModelLayerLocation getLayerLocation()
     {
-        return LAYER_LOCATION;
+        return new ModelLayerLocation(Starcatcher.rl("kimbe"), "main");
     }
 
     @Override

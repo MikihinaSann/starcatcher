@@ -92,12 +92,12 @@ public class ModClientEvents
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
         //tackle skins
-        event.registerLayerDefinition(BaseTackleSkin.LAYER_LOCATION, BaseTackleSkin::createBodyLayer);
-        event.registerLayerDefinition(PearlTackleSkin.LAYER_LOCATION, PearlTackleSkin::createBodyLayer);
-        event.registerLayerDefinition(KimbeTackleSkin.LAYER_LOCATION, KimbeTackleSkin::createBodyLayer);
-        event.registerLayerDefinition(FrogTackleSkin.LAYER_LOCATION, FrogTackleSkin::createBodyLayer);
-        event.registerLayerDefinition(ColorfulTackleSkin.LAYER_LOCATION, ColorfulTackleSkin::createBodyLayer);
-        event.registerLayerDefinition(ClearTackleSkin.LAYER_LOCATION, ClearTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new BaseTackleSkin().getLayerLocation(), BaseTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new PearlTackleSkin().getLayerLocation(), PearlTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new KimbeTackleSkin().getLayerLocation(), KimbeTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new FrogTackleSkin().getLayerLocation(), FrogTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new ColorfulTackleSkin().getLayerLocation(), ColorfulTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new ClearTackleSkin().getLayerLocation(), ClearTackleSkin::createBodyLayer);
 
         //fishes
         event.registerLayerDefinition(AgaveBream.LAYER_LOCATION, AgaveBream::createBodyLayer);
