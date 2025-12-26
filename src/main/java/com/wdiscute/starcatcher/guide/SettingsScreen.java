@@ -104,10 +104,6 @@ public class SettingsScreen extends Screen
     {
         super(Component.empty());
 
-        previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        if(!ModList.get().isLoaded("distanthorizons"))
-            Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
-
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
         this.fp = fp;
@@ -461,9 +457,6 @@ public class SettingsScreen extends Screen
     {
         Config.HIT_DELAY.set((double) hitDelay);
         Config.HIT_DELAY.save();
-
-        Config.MINIGAME_GUI_SCALE.set(Minecraft.getInstance().options.guiScale().get());
-        Config.MINIGAME_GUI_SCALE.save();
 
         if(!ModList.get().isLoaded("distanthorizons"))
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);

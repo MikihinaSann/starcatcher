@@ -94,7 +94,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     List<HitFakeParticle> hitParticles = new ArrayList<>();
 
-    public int previousGuiScale;
 
 
     // Nikdo53 values, these are mine dont steal them
@@ -102,6 +101,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public int holdingTicks = 0;
     protected boolean isHoldingKey = false;
     protected boolean isHoldingMouse = false;
+
+    public float renderScale;
 
     protected final List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
     protected final List<AbstractMinigameModifier> modifiers = new ArrayList<>();
@@ -112,10 +113,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         handToSwing = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
-        previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        if (!hasDistantHorizons())
-            Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
-
+        renderScale = Config.MINIGAME_RENDER_SCALE.get().floatValue();
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
         this.fishProperties = fp;
@@ -256,11 +254,15 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float badPartialTick) {
         renderBackground(guiGraphics);
 
-        super.render(guiGraphics, mouseX, mouseY, badPartialTick);
         final float partialTick = PartialTickHelper.INSTANCE.getPartialTicks(minecraft.level);
 
         PoseStack poseStack = guiGraphics.pose();
         partial = partialTick;
+
+        poseStack.pushPose();
+        poseStack.translate(width >> 1, height >> 1, 0);
+        poseStack.scale(renderScale, renderScale, 1);
+        poseStack.translate( -width >> 1, -height >> 1, 0);
 
         //render modifiers background
         modifiers.forEach(modifier -> modifier.renderBackground(guiGraphics, partialTick, width, height));
@@ -313,6 +315,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         //render particles
         hitParticles.forEach(p -> p.render(guiGraphics, width, height));
+
+        poseStack.popPose();
+
+        super.render(guiGraphics, mouseX, mouseY, badPartialTick);
     }
 
     public void renderSweetSpot(ActiveSweetSpot ass, GuiGraphics guiGraphics, float partialTick, PoseStack poseStack)
@@ -627,9 +633,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         modifiers.forEach(AbstractMinigameModifier::onRemove);
 
-        if (!hasDistantHorizons())
-            Minecraft.getInstance().options.guiScale().set(previousGuiScale);
-
         ModNetworking.sendToServer(new FishingCompletedPayload(-1, false, false, consecutiveHits));
         this.minecraft.popGuiLayer();
     }
@@ -687,14 +690,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public static void renderPoseCentered(GuiGraphics guiGraphics, ResourceLocation texture, int spriteSize)
     {
         guiGraphics.blit(
-                texture, -spriteSize / 2, -spriteSize / 2,
+                texture, -spriteSize >> 1, -spriteSize >> 1,
                 spriteSize, spriteSize, 0, 0, spriteSize, spriteSize, spriteSize, spriteSize);
     }
 
     public static void renderPoseCentered(GuiGraphics guiGraphics, ResourceLocation texture, int spriteWidth, int spriteHeight, int uOffset, int vOffset, int textureSize)
     {
         guiGraphics.blit(
-                texture, -spriteWidth / 2, -spriteHeight / 2,
+                texture, -spriteWidth >> 1, -spriteHeight >> 1,
                 spriteWidth, spriteHeight, uOffset, vOffset, spriteWidth, spriteHeight, textureSize, textureSize);
     }
 
