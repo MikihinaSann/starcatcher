@@ -64,6 +64,7 @@ public class FishingGuideScreen extends Screen
 
     private static final ResourceLocation FISHES_IN_AREA_TOP_RIGHT_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_top_right_decoration.png");
     private static final ResourceLocation FISHES_IN_AREA_BOTTOM_LEFT_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_bottom_left_decoration.png");
+    private static final ResourceLocation FISHES_IN_AREA_BOTTOM_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_bottom_decoration.png");
     private static final ResourceLocation FISHES_IN_AREA_FISH_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_fish_decoration.png");
 
     private static final ResourceLocation HELP_PAGE_BASICS = Starcatcher.rl("textures/gui/guide/help_basics.png");
@@ -137,6 +138,9 @@ public class FishingGuideScreen extends Screen
     boolean arrowPreviousPressed;
     boolean arrowNextPressed;
     boolean arrowIndexPressed;
+
+    boolean hasNextPage = false;
+    int lastIndexPage = 0;
 
     int menu = 0;
     int page = 0;
@@ -250,7 +254,7 @@ public class FishingGuideScreen extends Screen
                     if (page == 0)
                     {
                         menu = 0;
-                        page = 0;
+                        page = lastIndexPage;
                         return true;
                     }
                     //help -> previous help page
@@ -284,7 +288,8 @@ public class FishingGuideScreen extends Screen
                 {
                     //index -> next page of index
                     minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
-                    if (true)
+                    System.out.println(entries.size() - 1 > 49 * (page - 3));
+                    if (hasNextPage)
                     {
                         page++;
                         return true;
@@ -312,9 +317,9 @@ public class FishingGuideScreen extends Screen
                 case 2 ->
                 {
                     //entries -> next entry
-                    minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
-                    if (page <= entries.size() / 2 - 1)
+                    if (page <= entries.size() / 2 - 2)
                     {
+                        minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
                         page++;
                         return true;
                     }
@@ -375,7 +380,7 @@ public class FishingGuideScreen extends Screen
         //next arrow
         if (x > 336 && x < 356 && y > 202 && y < 216)
         {
-            if (page <= entries.size() / 2 - 1)
+            if (page <= entries.size() / 2 - 2)
             {
                 arrowNextPressed = true;
             }
@@ -458,7 +463,7 @@ public class FishingGuideScreen extends Screen
         }
 
         //next arrow
-        if (page <= entries.size() / 2 - 1)
+        if (page <= entries.size() / 2 - 2)
         {
             if (x > 336 && x < 356 && y > 202 && y < 216)
                 renderImage(guiGraphics, ARROW_NEXT_HIGHLIGHT);
@@ -798,7 +803,7 @@ public class FishingGuideScreen extends Screen
     {
         int topLeftCorner = uiX + 53;
 
-//        if (player.level().getDayTime() % 20 == 0)
+//        if (player.level().getDayTime() % 10 == 0)
 //        {
 //            System.out.println(player.level().getDayTime());
 //            fishInArea.add(FishProperties.DEFAULT);
@@ -837,62 +842,87 @@ public class FishingGuideScreen extends Screen
 
         //render fishes in area
         {
-            for (int i = 0; i < fishInArea.size(); i++)
-            {
-                if (i >= 42) break;
-                FishProperties fp = fishInArea.get(i);
-
-                int xpos = topLeftCorner + (i % 7) * 20;
-                int ypos = uiY + 47 + (i / 7 * 20) + 38;
-
-                renderFishIndex(guiGraphics, xpos, ypos, mouseX, mouseY, fp, 0xffc6bdaf);
-            }
-
-            //render decorations and stuff
             if (page == 0)
             {
-                //render top right deco unless theres no fish in the top right slot
-                if (fishInArea.size() > 6) renderImage(guiGraphics, FISHES_IN_AREA_TOP_RIGHT_DECORATION);
-
-                int numberOfRows = (fishInArea.size() - 1) / 7 + 1;
-
-                int x = mouseX - uiX;
-                int y = mouseY - uiY;
-
-                if (x > 51 && x < 116 && y > 67 && y < 76)
+                //render fishes in area clickable squares and stuff
+                for (int i = 0; i < fishInArea.size(); i++)
                 {
-                    guiGraphics.renderTooltip(this.font, Component.translatable(Config.SORT.get().getTranslationKey()), mouseX, mouseY);
+                    if (i >= 42) break;
+                    FishProperties fp = fishInArea.get(i);
+
+                    int xpos = topLeftCorner + (i % 7) * 20;
+                    int ypos = uiY + 47 + (i / 7 * 20) + 38;
+
+                    renderFishIndex(guiGraphics, xpos, ypos, mouseX, mouseY, fp, 0xffc6bdaf);
                 }
 
-                //render bottom left thingy, offset by the number of rows
-                if (!fishInArea.isEmpty())
-                    renderImage(guiGraphics, FISHES_IN_AREA_BOTTOM_LEFT_DECORATION, 0, (Math.min(numberOfRows, 6) - 1) * 20);
+                //render decorations and stuff
+                {
+                    //render top right deco unless theres no fish in the top right slot
+                    if (fishInArea.size() > 6) renderImage(guiGraphics, FISHES_IN_AREA_TOP_RIGHT_DECORATION);
 
-                //render fish skeleton unless theres no space for it
-                int xFishSkeletonOffset = 0;
-                if (fishInArea.size() % 7 > 4 || fishInArea.size() % 7 == 0) xFishSkeletonOffset = 20;
-                if (numberOfRows < 6 || (numberOfRows == 6 && fishInArea.size() % 7 < 5 && fishInArea.size() % 7 != 0))
-                    renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20 + xFishSkeletonOffset);
+                    int numberOfRows = (fishInArea.size() - 1) / 7 + 1;
+
+                    int x = mouseX - uiX;
+                    int y = mouseY - uiY;
+
+                    if (x > 51 && x < 116 && y > 67 && y < 76)
+                    {
+                        guiGraphics.renderTooltip(this.font, Component.translatable(Config.SORT.get().getTranslationKey()), mouseX, mouseY);
+                    }
+
+                    //render bottom decoration if theres space
+                    if (numberOfRows < 6)
+                        renderImage(guiGraphics, FISHES_IN_AREA_BOTTOM_DECORATION);
+
+                    //render bottom left thingy, offset by the number of rows
+                    if (!fishInArea.isEmpty())
+                        renderImage(guiGraphics, FISHES_IN_AREA_BOTTOM_LEFT_DECORATION, 0, (Math.min(numberOfRows, 6) - 1) * 20);
+
+                    //render fish skeleton unless theres no space for it
+                    int xFishSkeletonOffset = 0;
+                    if (fishInArea.size() % 7 > 4 || fishInArea.size() % 7 == 0) xFishSkeletonOffset = 20;
+                    if (numberOfRows < 5)
+                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20 + xFishSkeletonOffset);
+                    if (numberOfRows == 5 && fishInArea.size() % 7 < 5 && fishInArea.size() % 7 != 0)
+                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20);
+                    if (numberOfRows == 6 && fishInArea.size() % 7 < 5 && fishInArea.size() % 7 != 0)
+                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20);
+                }
             }
+
         }
 
+        hasNextPage = false;
         //render all fishes
-        if(page == 0)
+        if (page == 0)
         {
-            for (int i = 0; i < entries.size(); i++)
+            for (int i = 0; i < 49; i++)
             {
-                renderFishIndex(guiGraphics, topLeftCorner + 160 + (i % 7 * 20), 48 + (i / 7 * 20), mouseX, mouseY, entries.get(i), 0xffc6bdaf);
-                if(i > 47) break;
+                if (i > entries.size() - 1) return;
+                renderFishIndex(guiGraphics, topLeftCorner + 160 + (i % 7 * 20), uiY + 56 + (i / 7 * 20), mouseX, mouseY, entries.get(i), 0xffc6bdaf);
             }
         }
         else
         {
-            for (int i = 47 * page; i < entries.size() + 47 * page; i++)
+            //render second page, left
+            for (int i = 0; i < 49; i++)
             {
-                renderFishIndex(guiGraphics, topLeftCorner + 160 + (i % 7 * 20), 48 + (i / 7 * 20), mouseX, mouseY, entries.get(i), 0xffc6bdaf);
-                if(i > 47) break;
+                int order = i + 49 * (page * 2 - 1);
+                if (order > entries.size() - 1) break;
+                renderFishIndex(guiGraphics, topLeftCorner + (i % 7 * 20), uiY + 56 + (i / 7 * 20), mouseX, mouseY, entries.get(order), 0xffc6bdaf);
+            }
+
+            //render second page, right
+            for (int i = 0; i < 49; i++)
+            {
+                int order = i + 49 + 49 * (page * 2 - 1);
+                if (order > entries.size() - 1) return;
+                renderFishIndex(guiGraphics, topLeftCorner + 160 + (i % 7 * 20), uiY + 56 + (i / 7 * 20), mouseX, mouseY, entries.get(order), 0xffc6bdaf);
             }
         }
+        lastIndexPage = Math.max(page + 1, lastIndexPage);
+        hasNextPage = true;
     }
 
     private void renderFishIndex(GuiGraphics guiGraphics, int xOffset, int yOffset, int mouseX, int mouseY, FishProperties fp, int backgroundFillColor)
@@ -1639,7 +1669,7 @@ public class FishingGuideScreen extends Screen
 
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl)
     {
-        guiGraphics.blit(rl, uiX, uiY, 0, 0, 420, 260, 420, 260);
+        renderImage(guiGraphics, rl, 0, 0);
     }
 
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl, int xOffset, int yOffset)
