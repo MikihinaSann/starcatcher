@@ -2,29 +2,31 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
+              "name": "starcatcher:trophy_gold",
               "functions": [
                 {
-                  "function": "minecraft:copy_components",
-                  "include": [
-                    "starcatcher:trophy",
-                    "minecraft:item_name"
-                  ],
-                  "source": "block_entity"
+                  "function": "minecraft:copy_nbt",
+                  "source": "block_entity",
+                  "ops": [
+                    {
+                      "source": "trophy_properties",
+                      "target": "trophy",
+                      "op": "replace"
+                    }
+                  ]
                 }
-              ],
-              "name": "starcatcher:trophy_gold"
+              ]
             }
           ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "minecraft:blocks/beehive"
