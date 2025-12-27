@@ -11,7 +11,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class TournamentHandler
     private static final List<Tournament> finishedTournaments = new ArrayList<>();
     private static final List<Tournament> activeTournaments = new ArrayList<>();
     private static final List<Tournament> setupTournaments = new ArrayList<>();
+    private static final Logger log = LoggerFactory.getLogger(TournamentHandler.class);
 
     public static Tournament getTournamentOrNew(UUID uuid)
     {
@@ -80,7 +82,7 @@ public class TournamentHandler
         activeTournaments.add(tournament);
         setupTournaments.remove(tournament);
         tournament.status = Tournament.Status.ACTIVE;
-        tournament.lastsUntil = level.getGameTime() + tournament.settings.duration;
+        tournament.lastsUntilEpoch = System.currentTimeMillis() + tournament.settings.durationInTicks / 20 * 1000;
     }
 
     public static void cancelTournament(Player ownerPlayer, Tournament tournament)
@@ -159,7 +161,7 @@ public class TournamentHandler
         List<Tournament> finishedTournaments = new ArrayList<>();
         for (Tournament t : activeTournaments)
         {
-            if (levelTicks >= t.lastsUntil)
+            if (System.currentTimeMillis() >= t.lastsUntilEpoch)
             {
                 finishedTournaments.add(t);
 

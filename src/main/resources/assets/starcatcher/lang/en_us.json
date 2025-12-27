@@ -14,6 +14,15 @@
   "tooltip.namespace.path.7" : "skipping a number will stop the tooltip 'cycle', so don't do that. this text will never be rendered",
   "tooltip.namespace.path.8" : "This works with any item or block, not just your mod or vanilla!",
 
+
+  "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
+  "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
+
+  "key.category.starcatcher.starcatcher": "Starcatcher",
+  "key.starcatcher.minigame_hit": "Minigame Hit",
+  "key.starcatcher.expand_tournament": "Expand Tournament",
+
+
   "creativetab.starcatcher.starcatcher": "Starcatcher",
 
   "emi.category.starcatcher.fishing" : "Starcatcher's Fishing",
@@ -1496,10 +1505,5 @@
   "tooltip.starcatcher.voidbiter.0" : "A <rgb>legendary</rgb> fish found in outer islands of The End.",
   "tooltip.starcatcher.voidbiter.1" : "So few anglers have seen it that it's only rumored to exist.",
   "tooltip.starcatcher.voidbiter.2" : "It's said only <gradient-30>Older Anglers</gradient-50> have successfully",
-  "tooltip.starcatcher.voidbiter.3" : "caught it before.",
-  "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
-  "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
-  "fishing.combo": "%1$s COMBO",
-  "key.category.starcatcher.minigame": "Starcatcher Minigame",
-  "key.starcatcher.minigame_hit": "Minigame Hit"
+  "tooltip.starcatcher.voidbiter.3" : "caught it before."
 }

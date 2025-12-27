@@ -54,7 +54,6 @@ import java.util.Objects;
 @Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, value = Dist.CLIENT, bus =  Mod.EventBusSubscriber.Bus.MOD)
 public class ModClientEvents
 {
-
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
@@ -132,6 +131,7 @@ public class ModClientEvents
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event)
     {
         event.register(ModKeymappings.MINIGAME_HIT);
+        event.register(ModKeymappings.EXPAND_TOURNAMENT);
     }
 
     @SubscribeEvent

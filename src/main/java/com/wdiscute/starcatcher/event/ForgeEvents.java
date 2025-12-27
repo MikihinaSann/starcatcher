@@ -10,7 +10,9 @@ import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
+import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -38,6 +41,15 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID)
 public class ForgeEvents {
+
+    @SubscribeEvent
+    public static void keyPressed(InputEvent.Key event)
+    {
+        if(event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue())
+        {
+            TournamentOverlay.isExpanded = !TournamentOverlay.isExpanded;
+        }
+    }
 
     @SubscribeEvent
     public static void addCommand(RegisterCommandsEvent event)

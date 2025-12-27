@@ -79,9 +79,9 @@ public class StandMenu extends AbstractContainerMenu
         //duration -
         if (id == 101)
         {
-            if (sbe.tournament.settings.duration > 1200)
+            if (sbe.tournament.settings.durationInTicks > 1200)
             {
-                sbe.tournament.settings.duration -= 1200;
+                sbe.tournament.settings.durationInTicks -= 1200;
                 ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
@@ -89,9 +89,9 @@ public class StandMenu extends AbstractContainerMenu
         //duration --
         if (id == 102)
         {
-            if (sbe.tournament.settings.duration > 12000)
+            if (sbe.tournament.settings.durationInTicks > 12000)
             {
-                sbe.tournament.settings.duration -= 12000;
+                sbe.tournament.settings.durationInTicks -= 12000;
                 ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
@@ -99,14 +99,14 @@ public class StandMenu extends AbstractContainerMenu
         //duration +
         if (id == 103)
         {
-            sbe.tournament.settings.duration += 1200;
+            sbe.tournament.settings.durationInTicks += 1200;
             ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         //duration ++
         if (id == 104)
         {
-            sbe.tournament.settings.duration += 12000;
+            sbe.tournament.settings.durationInTicks += 12000;
             ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 

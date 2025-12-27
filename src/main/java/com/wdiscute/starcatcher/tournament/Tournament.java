@@ -23,7 +23,7 @@ public class Tournament
     public Map<UUID, TournamentPlayerScore> playerScores;
     public TournamentSettings settings;
     public List<SingleStackContainer> lootPool;
-    public long lastsUntil;
+    public long lastsUntilEpoch;
 
     public static final Tournament DEFAULT = new Tournament(
             UUID.randomUUID(),
@@ -44,7 +44,7 @@ public class Tournament
                     Codec.unboundedMap(UUIDUtil.CODEC, TournamentPlayerScore.CODEC).fieldOf("player_scores").forGetter(Tournament::getPlayerScores),
                     TournamentSettings.CODEC.fieldOf("settings").forGetter(Tournament::getSettings),
                     SingleStackContainer.LIST_CODEC.optionalFieldOf("loot_pool", SingleStackContainer.EMPTY_LIST).forGetter(Tournament::getLootPool),
-                    Codec.LONG.fieldOf("lastsUntil").forGetter(Tournament::getLastsUntil)
+                    Codec.LONG.fieldOf("lastsUntil").forGetter(Tournament::getLastsUntilEpoch)
             ).apply(instance, Tournament::new)
     );
 
@@ -56,7 +56,7 @@ public class Tournament
             StreamCodec.map(Object2ObjectOpenHashMap::new, StreamCodec.UUID, TournamentPlayerScore.STREAM_CODEC), Tournament::getPlayerScores,
             TournamentSettings.STREAM_CODEC, Tournament::getSettings,
             SingleStackContainer.STREAM_CODEC_LIST, Tournament::getLootPool,
-            StreamCodec.LONG, Tournament::getLastsUntil,
+            StreamCodec.LONG, Tournament::getLastsUntilEpoch,
             Tournament::new
     );
 
@@ -77,7 +77,7 @@ public class Tournament
         this.playerScores = playerScore;
         this.settings = settings;
         this.lootPool = pool;
-        this.lastsUntil = lastsUntil;
+        this.lastsUntilEpoch = lastsUntil;
     }
 
     public UUID getTournamentUUID()
@@ -100,9 +100,9 @@ public class Tournament
         return playerScores;
     }
 
-    public long getLastsUntil()
+    public long getLastsUntilEpoch()
     {
-        return lastsUntil;
+        return lastsUntilEpoch;
     }
 
     public Status getStatus()

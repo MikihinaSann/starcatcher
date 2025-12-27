@@ -101,18 +101,18 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.status"), uiX + 130, uiY + 68, 0x9c897c, false);
 
         //duration
-        guiGraphics.drawString(this.font, U.calculateRealLifeTimeFromTicks(tournamentCache.settings.duration), uiX + 55, uiY + 88, 0x635040, false);
+        guiGraphics.drawString(this.font, U.calculateRealLifeTimeFromTicks(tournamentCache.settings.durationInTicks), uiX + 55, uiY + 88, 0x635040, false);
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.duration"), uiX + 60, uiY + 100, 0x9c897c, false);
         //duration hover
         if (x > 52 && x < 116 && y > 85 && y < 98)
         {
             List<Component> durationTooltip = new ArrayList<>();
 
-            durationTooltip.add(Component.literal(tournamentCache.settings.duration + " ticks"));
+            durationTooltip.add(Component.literal(tournamentCache.settings.durationInTicks + " ticks"));
 
-            MutableComponent durationComp = Component.literal(String.format("%.2f ", (float) tournamentCache.settings.duration / 24000));
-            if (tournamentCache.settings.duration % 24000 == 0)
-                durationComp = Component.literal(tournamentCache.settings.duration / 24000 + " ");
+            MutableComponent durationComp = Component.literal(String.format("%.2f ", (float) tournamentCache.settings.durationInTicks / 24000));
+            if (tournamentCache.settings.durationInTicks % 24000 == 0)
+                durationComp = Component.literal(tournamentCache.settings.durationInTicks / 24000 + " ");
             durationTooltip.add(durationComp.append(Component.translatable("gui.starcatcher.tournament.duration.days")));
 
             guiGraphics.renderTooltip(this.font, durationTooltip, Optional.empty(), mouseX, mouseY);
@@ -242,8 +242,8 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-        System.out.println("clicked relative x: " + x);
-        System.out.println("clicked relative y: " + y);
+        //System.out.println("clicked relative x: " + x);
+        //System.out.println("clicked relative y: " + y);
 
         //sign up
         if (x > 48 && x < 98 && y > 117 && y < 127)

@@ -14,10 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class TournamentOverlay implements LayeredDraw.Layer
 {
@@ -30,19 +27,25 @@ public class TournamentOverlay implements LayeredDraw.Layer
     public static Pair<Component, Integer> thirdPlace = Pair.of(Component.literal("[empty]"), 0);
 
     public static Pair<Component, Integer> playerPlace = Pair.of(Component.empty(), 0);
+    public static boolean isExpanded;
+    static int playerRank = 0;
 
 
-    private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/tournament/tournament_overlay.png");
+    private static final ResourceLocation BACKGROUND_TINY = Starcatcher.rl("textures/gui/tournament/overlay_tiny.png");
+    private static final ResourceLocation BACKGROUND_EXPANDED = Starcatcher.rl("textures/gui/tournament/overlay_expanded.png");
+    private static final ResourceLocation FIRST_PLACE_FISH = Starcatcher.rl("textures/gui/tournament/first_place_fish.png");
+    private static final ResourceLocation SECOND_PLACE_FISH = Starcatcher.rl("textures/gui/tournament/second_place_fish.png");
+    private static final ResourceLocation THIRD_PLACE_FISH = Starcatcher.rl("textures/gui/tournament/third_place_fish.png");
 
     int uiX;
     int uiY;
 
-    float offsetScreen = -150;
     Font font;
-    int imageWidth = 160;
-    int imageHeight = 90;
+    int imageWidth = 420;
+    int imageHeight = 260;
     Player player;
     ClientLevel level;
+
 
     @Override
     public void render(GuiGraphics guiGraphics, float partialTicks)
@@ -58,33 +61,101 @@ public class TournamentOverlay implements LayeredDraw.Layer
         font = Minecraft.getInstance().font;
 
 
-        //smoothly moves ui in and out of screen
-        if (tournament.status.equals(Tournament.Status.ACTIVE))
-            offsetScreen = Math.min(offsetScreen + 15, 0);
-        else
-            offsetScreen = Math.max(offsetScreen - 15, -150);
-
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(offsetScreen, 0, 0);
+        guiGraphics.pose().translate(0, 0, 0);
+        //add scale with config like minigame
 
-        renderImage(guiGraphics, BACKGROUND);
+        //if tiny
+        if (isExpanded)
+        {
+            renderImage(guiGraphics, BACKGROUND_TINY);
 
-        guiGraphics.drawString(this.font, tournament.name, 18, uiY + 8, 0x635040, false);
+            guiGraphics.drawString(this.font, tournament.name, 58, 35, 0x635040, false);
 
+            guiGraphics.drawString(this.font, playerPlace.getFirst(), 48, 70, -1, false);
+            guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 160, 70, -1, false);
 
-        guiGraphics.drawString(this.font, firstPlace.getFirst(), 18, uiY + 23, 0x635040, false);
-        guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 93, uiY + 23, 0x635040, false);
+            guiGraphics.drawString(this.font, getDisplayTimeLeft(tournament.lastsUntilEpoch - System.currentTimeMillis()), 21, 35, -1, false);
+            switch (playerRank)
+            {
+                case 1:
+                    guiGraphics.blit(FIRST_PLACE_FISH, 30, 72, 0, 0, 11, 6, 11, 6);
+                case 2:
+                    guiGraphics.blit(SECOND_PLACE_FISH, 30, 72, 0, 0, 11, 6, 11, 6);
+                case 3:
+                    guiGraphics.blit(THIRD_PLACE_FISH, 30, 72, 0, 0, 11, 6, 11, 6);
+            }
+        }
+        else
+        {
+            renderImage(guiGraphics, BACKGROUND_EXPANDED);
 
-        guiGraphics.drawString(this.font, secondPlace.getFirst(), 18, uiY + 36, 0x635040, false);
-        guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 93, uiY + 36, 0x635040, false);
+            guiGraphics.drawString(this.font, tournament.name, 58, 16, 0x635040, false);
 
-        guiGraphics.drawString(this.font, thirdPlace.getFirst(), 18, uiY + 49, 0x635040, false);
-        guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 93, uiY + 49, 0x635040, false);
+            //render first/second/third player + scores
+            guiGraphics.drawString(this.font, firstPlace.getFirst(), 48, 71, -1, false);
+            guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 154, 71, -1, false);
+            guiGraphics.drawString(this.font, secondPlace.getFirst(), 48, 92, -1, false);
+            guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 154, 92, -1, false);
+            guiGraphics.drawString(this.font, thirdPlace.getFirst(), 48, 113, -1, false);
+            guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 154, 113, -1, false);
 
-        guiGraphics.drawString(this.font, playerPlace.getFirst(), 18, uiY + 64, 0x635040, false);
-        guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 93, uiY + 64, 0x635040, false);
+            guiGraphics.drawString(this.font, playerPlace.getFirst(), 48, 141, -1, false);
+            guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 154, 141, -1, false);
+
+            guiGraphics.drawString(this.font, getDisplayTimeLeft(tournament.lastsUntilEpoch - System.currentTimeMillis()), 12, 31, -1, false);
+
+            System.out.println(playerRank);
+
+            //render fish icon for first/second/third place
+            guiGraphics.blit(
+                    switch (playerRank)
+                    {
+                        case 1:
+                            yield FIRST_PLACE_FISH;
+                        case 2:
+                            yield SECOND_PLACE_FISH;
+                        default:
+                            yield THIRD_PLACE_FISH;
+                    },
+                    30, 142, 0, 0, 11, 6, 11, 6);
+        }
 
         guiGraphics.pose().popPose();
+    }
+
+
+    public static String getDisplayTimeLeft(long ticks)
+    {
+        long ticksRemainingToCalculate = ticks / 1000;
+        if (ticksRemainingToCalculate < 0) return "????";
+        String finalString = "";
+
+        //days
+        if (ticksRemainingToCalculate > 86400)
+        {
+            finalString += ticksRemainingToCalculate / 86400 + "d";
+            return finalString;
+        }
+
+        //hours
+        if (ticksRemainingToCalculate > 3600)
+        {
+            finalString += String.format("%02d", ticksRemainingToCalculate / 3600) + ":";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 3600;
+
+            finalString += String.format("%02d", ticksRemainingToCalculate / 60);
+
+            return finalString;
+        }
+
+        //minutes
+        finalString += String.format("%02d", ticksRemainingToCalculate / 60) + ":";
+        ticksRemainingToCalculate = ticksRemainingToCalculate % 60;
+
+        //seconds
+        finalString += String.format("%02d", ticksRemainingToCalculate);
+        return finalString;
     }
 
     public static void onTournamentReceived(Tournament t, List<GameProfile> list)
@@ -127,12 +198,17 @@ public class TournamentOverlay implements LayeredDraw.Layer
                 }
 
 
-
             }
 
             playerPlace = Pair.of(
                     Minecraft.getInstance().player.getName(),
                     t.playerScores.get(Minecraft.getInstance().player.getUUID()).score);
+
+            //set playerRank
+            if (firstPlace.getFirst().equals(playerPlace.getFirst())) playerRank = 1;
+            else if (secondPlace.getFirst().equals(playerPlace.getFirst())) playerRank = 2;
+            else if (thirdPlace.getFirst().equals(playerPlace.getFirst())) playerRank = 3;
+            else playerRank = 0;
         }
         tournament = t;
     }
@@ -140,7 +216,7 @@ public class TournamentOverlay implements LayeredDraw.Layer
 
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl)
     {
-        guiGraphics.blit(rl, 0, uiY, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        guiGraphics.blit(rl, 0, 0, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 
     private void drawComp(GuiGraphics guiGraphics, Component comp, int xOffset, int yOffset)
