@@ -21,13 +21,6 @@ public class ModDataAttachments {
     public static final Capability<DataAttachmentTackleSkin> TACKLE_SKIN_CAP = CapabilityManager.get(new CapabilityToken<>() {});
 
     // Attaching capabilities to anything other than entities (like levels, chunks, BEs) isn't set up yet since it isn't needed
-    public static final DataAttachmentType<SingleStackContainer> BOBBER_SKIN = DataAttachmentType.register(
-            BOOKER_SKIN_CAP, Starcatcher.rl("bobber_skin"),
-            DataAttachmentType.builder(SingleStackContainer::new)
-                    .sync(SingleStackContainer.STREAM_CODEC)
-                    .serialize(SingleStackContainer.CODEC)
-                    .canAttachTo(CapabilityType.NON_LIVING_ENTITY));
-
     public static final DataAttachmentType<FishingBobAttachment> FISHING_BOB = DataAttachmentType.register(
             FISHING_BOB_CAP, Starcatcher.rl("fishing_bob"),
             DataAttachmentType.builder(FishingBobAttachment::new)
@@ -47,7 +40,7 @@ public class ModDataAttachments {
             DataAttachmentType.builder(() -> Starcatcher.rl("base"))
                     .sync(StreamCodec.RESOURCE_LOCATION)
                     .serialize(ResourceLocation.CODEC)
-                    .canAttachTo(CapabilityType.LIVING_ENTITY));
+                    .canAttachTo(CapabilityType.NON_LIVING_ENTITY));
 
 
 

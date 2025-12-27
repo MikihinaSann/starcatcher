@@ -14,6 +14,9 @@
   "tooltip.namespace.path.7" : "skipping a number will stop the tooltip 'cycle', so don't do that. this text will never be rendered",
   "tooltip.namespace.path.8" : "This works with any item or block, not just your mod or vanilla!",
 
+  "dimension.minecraft.overworld" : "Overworld",
+  "dimension.minecraft.the_nether" : "The Nether",
+  "dimension.minecraft.the_end" : "The End",
 
   "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
   "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
