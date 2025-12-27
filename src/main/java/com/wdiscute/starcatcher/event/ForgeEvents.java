@@ -95,12 +95,10 @@ public class ForgeEvents {
     {
         if(event.getEntity() instanceof ServerPlayer serverPlayer)
         {
-            FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(serverPlayer, ModDataAttachments.FISHING_GUIDE);
-
-            if(Config.GIVE_GUIDE.get() && !fishingGuideAttachment.receivedGuide)
+            if(Config.GIVE_GUIDE.get() && !FishingGuideAttachment.getReceivedGuide(serverPlayer))
             {
                 serverPlayer.addItem(new ItemStack(ModItems.GUIDE.get()));
-                fishingGuideAttachment.receivedGuide = true;
+                FishingGuideAttachment.setReceivedGuide(serverPlayer, true);
             }
 
             DataAttachmentType.DATA_ATTACHMENTS.values().forEach(attachment -> ModDataAttachments.sync(serverPlayer, attachment));

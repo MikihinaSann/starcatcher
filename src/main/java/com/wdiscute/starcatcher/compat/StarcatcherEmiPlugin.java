@@ -13,6 +13,7 @@ import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,21 +47,23 @@ public class StarcatcherEmiPlugin implements EmiPlugin
         // Add all the workstations your category uses
         registry.addWorkstation(STARCATCHER_CATEGORY, MY_WORKSTATION);
 
-        Registry<FishProperties> fps = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY);
+        ClientLevel level = Minecraft.getInstance().level;
+        Registry<FishProperties> fps = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY);
 
-        for (FishProperties fp : fps)
+        for (FishProperties fp : FishProperties.getFPs(level))
         {
             registry.addRecipe(new StarcatcherEmiRecipe(fps.getKey(fp), fp));
         }
 
 
-        Registry<TrophyProperties> trophies = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY);
+        Registry<TrophyProperties> trophies = level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY);
 
-        for (TrophyProperties fp : trophies)
+        trophies.stream().filter(TrophyProperties::isPresent).forEach(fp ->
         {
             if (fp.trophyType().equals(TrophyProperties.TrophyType.TROPHY) || fp.trophyType().equals(TrophyProperties.TrophyType.SECRET))
                 registry.addRecipe(new StarcatcherEmiRecipe(trophies.getKey(fp), fp));
         }
+        );
 
         for (SmithingRecipe recipe : getRecipes(registry, RecipeType.SMITHING))
         {
