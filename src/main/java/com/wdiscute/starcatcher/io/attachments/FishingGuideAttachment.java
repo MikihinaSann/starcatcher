@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -71,8 +72,9 @@ public class FishingGuideAttachment{
     }
 
     public static void setReceivedGuide(Player player, boolean receivedGuide) {
-        get(player).receivedGuide = receivedGuide;
-        sync(player);
+        FishingGuideAttachment fishingGuideAttachment = get(player);
+        fishingGuideAttachment.receivedGuide = receivedGuide;
+        ModDataAttachments.set(player, ModDataAttachments.FISHING_GUIDE, fishingGuideAttachment);
     }
 
     public static FishingGuideAttachment get(Entity holder){
