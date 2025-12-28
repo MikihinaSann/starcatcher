@@ -1546,7 +1546,7 @@ public record FishProperties(
             {
                 for (Holder<Biome> biomeHolder : optional.get())
                 {
-                    rls.add(ForgeRegistries.BIOMES.getKey(biomeHolder.get()));
+                    rls.add(biomeHolder.unwrapKey().get().location());
                 }
             }
         }
@@ -1576,7 +1576,7 @@ public record FishProperties(
             {
                 for (Holder<Biome> biomeHolder : optional.get())
                 {
-                    rls.add(ForgeRegistries.BIOMES.getKey(biomeHolder.get()));
+                    rls.add(biomeHolder.unwrapKey().get().location());
                 }
             }
         }
