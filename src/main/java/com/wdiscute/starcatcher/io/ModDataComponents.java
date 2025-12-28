@@ -69,6 +69,7 @@ public class ModDataComponents
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     public static <T> T get(ItemStack stack, DataComponent<T> component){
         T ret = component.getOn(stack);
 

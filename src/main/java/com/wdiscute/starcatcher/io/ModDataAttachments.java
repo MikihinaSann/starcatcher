@@ -86,30 +86,6 @@ public class ModDataAttachments {
         holder.getCapability(attachmentType.attachment().getCapabilityKey()).ifPresent(cap -> cap.sync(holder));
     }
 
-
-    public static <T> void remove(ICapabilityProvider holder, Capability<DataAttachment<T>> capKey)
-    {
-        holder.getCapability(capKey).ifPresent(cap -> cap.setDefault(holder));
-    }
-
-    public static <T> void set(ICapabilityProvider holder, Capability<DataAttachment<T>> capKey, T data)
-    {
-        holder.getCapability(capKey).ifPresent(cap -> cap.setAndSync(holder, data));
-    }
-
-    public static <T> T get(ICapabilityProvider holder, Capability<DataAttachment<T>> capKey)
-    {
-        LazyOptional<DataAttachment<T>> capability = holder.getCapability(capKey);
-        if (!capability.isPresent()) return null;
-
-        return capability.orElseThrow(IllegalStateException::new).getData();
-    }
-
-    public static <T> void sync(ICapabilityProvider holder, Capability<DataAttachment<T>> capKey)
-    {
-        holder.getCapability(capKey).ifPresent(cap -> cap.sync(holder));
-    }
-
     public static <T> void setFrom(ICapabilityProvider holder, DataAttachment<T> attachment){
         holder.getCapability(attachment.getCapabilityKey()).ifPresent(cap -> cap.setNoSync(attachment.getData()));
     }

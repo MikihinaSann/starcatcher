@@ -36,6 +36,8 @@ public class FishingRodScreen extends AbstractContainerScreen<FishingRodMenu>
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
+        renderBackground(guiGraphics);
+
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
@@ -43,9 +45,6 @@ public class FishingRodScreen extends AbstractContainerScreen<FishingRodMenu>
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1)
     {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, BACKGROUND);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
