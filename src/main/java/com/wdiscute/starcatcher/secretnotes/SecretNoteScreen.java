@@ -29,6 +29,7 @@ public class SecretNoteScreen extends Screen
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
+        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         renderImage(guiGraphics, BACKGROUND);
