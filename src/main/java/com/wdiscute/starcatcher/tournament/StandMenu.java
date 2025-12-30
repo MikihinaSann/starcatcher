@@ -29,6 +29,7 @@ public class StandMenu extends AbstractContainerMenu
     public StandMenu(int containerId, Inventory inv, BlockEntity blockEntity)
     {
         super(ModMenuTypes.STAND_MENU.get(), containerId);
+
         sbe = ((StandBlockEntity) blockEntity);
         level = inv.player.level();
 
@@ -69,7 +70,7 @@ public class StandMenu extends AbstractContainerMenu
     @Override
     public boolean clickMenuButton(Player player, int id)
     {
-        if (player.level().isClientSide) return false;
+        if (level.isClientSide) return false;
 
         //six seven
         //¯\_(ツ)¯\_
@@ -82,7 +83,7 @@ public class StandMenu extends AbstractContainerMenu
             if (sbe.tournament.settings.durationInTicks > 1200)
             {
                 sbe.tournament.settings.durationInTicks -= 1200;
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
             }
         }
 
@@ -92,7 +93,7 @@ public class StandMenu extends AbstractContainerMenu
             if (sbe.tournament.settings.durationInTicks > 12000)
             {
                 sbe.tournament.settings.durationInTicks -= 12000;
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
             }
         }
 
@@ -100,14 +101,14 @@ public class StandMenu extends AbstractContainerMenu
         if (id == 103)
         {
             sbe.tournament.settings.durationInTicks += 1200;
-            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
         }
 
         //duration ++
         if (id == 104)
         {
             sbe.tournament.settings.durationInTicks += 12000;
-            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
         }
 
         //start
@@ -124,7 +125,7 @@ public class StandMenu extends AbstractContainerMenu
         {
             if(player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.ACTIVE))
             {
-                TournamentHandler.cancelTournament(player, sbe.tournament);
+                TournamentHandler.cancelTournament(level, sbe.tournament);
             }
         }
 
@@ -132,11 +133,11 @@ public class StandMenu extends AbstractContainerMenu
         if (id == 67)
         {
             //if player has the items to signup and is not already signed up
-            if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.containsKey(player.getUUID()))
+            if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.stream().anyMatch(t -> t.playerUUID.equals(player.getUUID())))
             {
                 //sign up player with empty score
-                sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+                sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
+                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
 
                 List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
 

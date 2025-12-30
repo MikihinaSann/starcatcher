@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.TournamentSavedData;
 import com.wdiscute.starcatcher.io.attachments.CapabilityType;
 import com.wdiscute.starcatcher.io.attachments.DataAttachment;
 import com.wdiscute.starcatcher.io.attachments.DataAttachmentType;
@@ -36,6 +37,8 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -145,6 +148,31 @@ public class ForgeEvents {
         });
     }
 
+
+    @SubscribeEvent
+    public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
+    {
+        if (event.getEntity() instanceof ServerPlayer sp)
+        {
+            var tournament = TournamentHandler.getTournamentForPlayer(sp);
+            if (tournament != null)
+                TournamentHandler.sendActiveTournamentUpdateToClient(sp, tournament);
+            else
+                TournamentHandler.clearTournamentToClient(sp);
+        }
+    }
+
+    @SubscribeEvent
+    public static void serverStarted(ServerStartedEvent event)
+    {
+        TournamentHandler.setAll(TournamentSavedData.get(event.getServer().overworld()).getTournaments());
+    }
+
+    @SubscribeEvent
+    public static void serverStopping(ServerStoppingEvent event)
+    {
+        TournamentSavedData.get(event.getServer().overworld()).setTournaments(TournamentHandler.getAll());
+    }
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {

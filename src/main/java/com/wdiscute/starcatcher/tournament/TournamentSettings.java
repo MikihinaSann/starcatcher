@@ -120,7 +120,7 @@ public class TournamentSettings
                     Codec.LONG.optionalFieldOf("duration", 0L).forGetter(TournamentSettings::getDurationInTicks),
                     Codec.FLOAT.optionalFieldOf("perfect_catch_multiplier", 0.0f).forGetter(TournamentSettings::getPerfectCatchMultiplier),
                     Codec.INT.optionalFieldOf("miss_penalty", 0).forGetter(TournamentSettings::getMissPenalty),
-                    SingleStackContainer.LIST_CODEC.optionalFieldOf("", List.of()).forGetter(TournamentSettings::getEntryCost)
+                    SingleStackContainer.LIST_CODEC.optionalFieldOf("entry_cost", List.of()).forGetter(TournamentSettings::getEntryCost)
             ).apply(instance, TournamentSettings::new)
     );
 

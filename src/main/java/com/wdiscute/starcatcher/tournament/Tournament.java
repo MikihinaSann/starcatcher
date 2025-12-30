@@ -9,10 +9,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.util.StringRepresentable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Tournament
 {
@@ -20,7 +17,7 @@ public class Tournament
     public String name;
     public Status status;
     public UUID owner;
-    public Map<UUID, TournamentPlayerScore> playerScores;
+    public List<TournamentPlayerScore> playerScores;
     public TournamentSettings settings;
     public List<SingleStackContainer> lootPool;
     public long lastsUntilEpoch;
@@ -30,33 +27,33 @@ public class Tournament
             "missingno",
             Status.SETUP,
             UUID.randomUUID(),
-            new HashMap<>(),
+            new ArrayList<>(),
             TournamentSettings.DEFAULT,
-            List.of(),
+            new ArrayList<>(),
             0);
 
     public static final Codec<Tournament> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(Tournament::getTournamentUUID),
-                    Codec.STRING.optionalFieldOf("name", "Unnamed Tournament").forGetter(Tournament::getName),
-                    Status.CODEC.fieldOf("status").forGetter(Tournament::getStatus),
-                    UUIDUtil.CODEC.fieldOf("owner").forGetter(Tournament::getOwner),
-                    Codec.unboundedMap(UUIDUtil.CODEC, TournamentPlayerScore.CODEC).fieldOf("player_scores").forGetter(Tournament::getPlayerScores),
-                    TournamentSettings.CODEC.fieldOf("settings").forGetter(Tournament::getSettings),
-                    SingleStackContainer.LIST_CODEC.optionalFieldOf("loot_pool", SingleStackContainer.EMPTY_LIST).forGetter(Tournament::getLootPool),
-                    Codec.LONG.fieldOf("lastsUntil").forGetter(Tournament::getLastsUntilEpoch)
+                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(t -> t.tournamentUUID),
+                    Codec.STRING.optionalFieldOf("name", "Unnamed Tournament").forGetter(t -> t.name),
+                    Status.CODEC.fieldOf("status").forGetter(t -> t.status),
+                    UUIDUtil.CODEC.fieldOf("owner").forGetter(t -> t.owner),
+                    TournamentPlayerScore.CODEC.listOf().fieldOf("player_scores").forGetter(t -> t.playerScores),
+                    TournamentSettings.CODEC.fieldOf("settings").forGetter(t -> t.settings),
+                    SingleStackContainer.LIST_CODEC.optionalFieldOf("loot_pool", SingleStackContainer.EMPTY_LIST).forGetter(t -> t.lootPool),
+                    Codec.LONG.fieldOf("lastsUntil").forGetter(t -> t.lastsUntilEpoch)
             ).apply(instance, Tournament::new)
     );
 
     public static final StreamCodec<Tournament> STREAM_CODEC = ExtraComposites.composite(
-            StreamCodec.UUID, Tournament::getTournamentUUID,
-            StreamCodec.STRING, Tournament::getName,
-            Status.STREAM_CODEC, Tournament::getStatus,
-            StreamCodec.UUID, Tournament::getOwner,
-            StreamCodec.map(Object2ObjectOpenHashMap::new, StreamCodec.UUID, TournamentPlayerScore.STREAM_CODEC), Tournament::getPlayerScores,
-            TournamentSettings.STREAM_CODEC, Tournament::getSettings,
-            SingleStackContainer.STREAM_CODEC_LIST, Tournament::getLootPool,
-            StreamCodec.LONG, Tournament::getLastsUntilEpoch,
+            StreamCodec.UUID, t -> t.tournamentUUID,
+            StreamCodec.STRING, t -> t.name,
+            Status.STREAM_CODEC, t -> t.status,
+            StreamCodec.UUID, t -> t.owner,
+            TournamentPlayerScore.STREAM_CODEC.list(), t -> t.playerScores,
+            TournamentSettings.STREAM_CODEC, t -> t.settings,
+            SingleStackContainer.STREAM_CODEC_LIST, t -> t.lootPool,
+            StreamCodec.LONG, t -> t.lastsUntilEpoch,
             Tournament::new
     );
 
@@ -64,7 +61,7 @@ public class Tournament
                       String name,
                       Status status,
                       UUID owner,
-                      Map<UUID, TournamentPlayerScore> playerScore,
+                      List<TournamentPlayerScore> playerScore,
                       TournamentSettings settings,
                       List<SingleStackContainer> pool,
                       long lastsUntil
@@ -78,46 +75,6 @@ public class Tournament
         this.settings = settings;
         this.lootPool = pool;
         this.lastsUntilEpoch = lastsUntil;
-    }
-
-    public UUID getTournamentUUID()
-    {
-        return tournamentUUID;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public List<SingleStackContainer> getLootPool()
-    {
-        return lootPool;
-    }
-
-    public Map<UUID, TournamentPlayerScore> getPlayerScores()
-    {
-        return playerScores;
-    }
-
-    public long getLastsUntilEpoch()
-    {
-        return lastsUntilEpoch;
-    }
-
-    public Status getStatus()
-    {
-        return status;
-    }
-
-    public TournamentSettings getSettings()
-    {
-        return settings;
-    }
-
-    public UUID getOwner()
-    {
-        return owner;
     }
 
     public enum Status implements StringRepresentable
@@ -138,9 +95,7 @@ public class Tournament
         }
 
         public static final Codec<Status> CODEC = StringRepresentable.fromEnum(Status::values);
-        public static final Codec<List<Status>> LIST_CODEC = Status.CODEC.listOf();
         public static final StreamCodec<Status> STREAM_CODEC = StreamCodec.enumCodec(Status.class);
-        public static final StreamCodec<List<Status>> LIST_STREAM_CODEC = STREAM_CODEC.list();
         private final String key;
 
         @Override

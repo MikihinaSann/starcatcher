@@ -64,12 +64,12 @@ public class StandBlock extends Block implements EntityBlock
             if(sbe.tournament.owner == null)
             {
                 sbe.tournament.owner = player.getUUID();
-                sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
+                sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
             }
 
             player.openMenu(new SimpleMenuProvider(sbe, Component.empty()));
 
-            ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> ((ServerPlayer) player)), CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> ((ServerPlayer) player)), CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
         }
 
         return InteractionResult.SUCCESS;
@@ -78,6 +78,12 @@ public class StandBlock extends Block implements EntityBlock
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston)
     {
+        //before super since super removed BE
+        if(level.getBlockEntity(pos) instanceof StandBlockEntity sbe && !level.isClientSide && sbe.tournament != null)
+        {
+            TournamentHandler.cancelTournament(level, sbe.tournament);
+        }
+
         super.onRemove(state, level, pos, newState, movedByPiston);
 
         Direction direction = state.getValue(FACING);

@@ -4,6 +4,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.StreamNetworkingUtils;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
+import com.wdiscute.starcatcher.io.network.tournament.CBClearTournamentPayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
 import net.minecraft.server.level.ServerPlayer;
@@ -86,6 +87,13 @@ public class ModNetworking {
                 SyncCapabilityPayload::handle
         );
 
+        register(
+                CBClearTournamentPayload.class,
+                CBClearTournamentPayload.STREAM_CODEC,
+                CBClearTournamentPayload::handle
+        );
+
+
     }
 
     private static <T> void register(Class<T> msg, StreamCodec<T> streamCodec, BiConsumer<T, Supplier<NetworkEvent.Context>> consumer){
@@ -98,7 +106,7 @@ public class ModNetworking {
     }
 
     public static void sendToAllPlayers(Object message){
-        CHANNEL.send(PacketDistributor.PLAYER.noArg(), message);
+        CHANNEL.send(PacketDistributor.ALL.noArg(), message);
     }
 
     public static void sendToServer(Object message){

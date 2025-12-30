@@ -5,11 +5,14 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.UUIDUtil;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TournamentPlayerScore
 {
+    public UUID playerUUID;
     public int score;
     public int misses;
     public int common;
@@ -20,6 +23,7 @@ public class TournamentPlayerScore
 
     public static final Codec<TournamentPlayerScore> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
+                    UUIDUtil.CODEC.fieldOf("player_uuid").forGetter(t -> t.playerUUID),
                     Codec.INT.optionalFieldOf("score", 0).forGetter(TournamentPlayerScore::getScore),
                     Codec.INT.optionalFieldOf("misses", 0).forGetter(TournamentPlayerScore::getMisses),
                     Codec.INT.optionalFieldOf("common", 0).forGetter(TournamentPlayerScore::getCommon),
@@ -31,6 +35,7 @@ public class TournamentPlayerScore
     );
 
     public static final StreamCodec<TournamentPlayerScore> STREAM_CODEC = ExtraComposites.composite(
+            StreamCodec.UUID, t -> t.playerUUID,
             StreamCodec.INT, TournamentPlayerScore::getScore,
             StreamCodec.INT, TournamentPlayerScore::getMisses,
             StreamCodec.INT, TournamentPlayerScore::getCommon,
@@ -43,7 +48,12 @@ public class TournamentPlayerScore
 
     public static TournamentPlayerScore empty()
     {
-        return new TournamentPlayerScore(0, 0, 0, 0, 0, 0, 0);
+        return new TournamentPlayerScore(UUID.randomUUID(), 0, 0, 0, 0, 0, 0, 0);
+    }
+
+    public static TournamentPlayerScore empty(UUID uuid)
+    {
+        return new TournamentPlayerScore(uuid, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public void addScore(int score)
@@ -51,8 +61,9 @@ public class TournamentPlayerScore
         this.score += score;
     }
 
-    public TournamentPlayerScore(int score, int misses, int common, int uncommon, int rare, int epic, int legendary)
+    public TournamentPlayerScore(UUID uuid, int score, int misses, int common, int uncommon, int rare, int epic, int legendary)
     {
+        this.playerUUID = uuid;
         this.score = score;
         this.misses = misses;
         this.common = common;

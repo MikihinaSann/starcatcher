@@ -46,6 +46,10 @@ public class TournamentOverlay implements LayeredDraw.Layer
     Player player;
     ClientLevel level;
 
+    public static void clear()
+    {
+        tournament = null;
+    }
 
     @Override
     public void render(GuiGraphics guiGraphics, float partialTicks)
@@ -93,32 +97,31 @@ public class TournamentOverlay implements LayeredDraw.Layer
             guiGraphics.drawString(this.font, tournament.name, 58, 16, 0x635040, false);
 
             //render first/second/third player + scores
-            guiGraphics.drawString(this.font, firstPlace.getFirst(), 48, 71, -1, false);
-            guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 154, 71, -1, false);
-            guiGraphics.drawString(this.font, secondPlace.getFirst(), 48, 92, -1, false);
-            guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 154, 92, -1, false);
-            guiGraphics.drawString(this.font, thirdPlace.getFirst(), 48, 113, -1, false);
-            guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 154, 113, -1, false);
+            if(firstPlace.getSecond() != 0)guiGraphics.drawString(this.font, firstPlace.getFirst(), 48, 71, -1, false);
+            if(firstPlace.getSecond() != 0)guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 154, 71, -1, false);
+            if(secondPlace.getSecond() != 0)guiGraphics.drawString(this.font, secondPlace.getFirst(), 48, 92, -1, false);
+            if(secondPlace.getSecond() != 0)guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 154, 92, -1, false);
+            if(thirdPlace.getSecond() != 0)guiGraphics.drawString(this.font, thirdPlace.getFirst(), 48, 113, -1, false);
+            if(thirdPlace.getSecond() != 0) guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 154, 113, -1, false);
 
             guiGraphics.drawString(this.font, playerPlace.getFirst(), 48, 141, -1, false);
             guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 154, 141, -1, false);
 
             guiGraphics.drawString(this.font, getDisplayTimeLeft(tournament.lastsUntilEpoch - System.currentTimeMillis()), 12, 31, -1, false);
 
-            System.out.println(playerRank);
-
             //render fish icon for first/second/third place
-            guiGraphics.blit(
-                    switch (playerRank)
-                    {
-                        case 1:
-                            yield FIRST_PLACE_FISH;
-                        case 2:
-                            yield SECOND_PLACE_FISH;
-                        default:
-                            yield THIRD_PLACE_FISH;
-                    },
-                    30, 142, 0, 0, 11, 6, 11, 6);
+            if (playerRank != 0)
+                guiGraphics.blit(
+                        switch (playerRank)
+                        {
+                            case 1:
+                                yield FIRST_PLACE_FISH;
+                            case 2:
+                                yield SECOND_PLACE_FISH;
+                            default:
+                                yield THIRD_PLACE_FISH;
+                        },
+                        30, 142, 0, 0, 11, 6, 11, 6);
         }
 
         guiGraphics.pose().popPose();
@@ -169,40 +172,42 @@ public class TournamentOverlay implements LayeredDraw.Layer
 
         if (t.status.equals(Tournament.Status.ACTIVE))
         {
-            for (Map.Entry<UUID, TournamentPlayerScore> tps : t.playerScores.entrySet())
+            for (TournamentPlayerScore tps : t.playerScores)
             {
-                if (tps.getValue().score > thirdPlace.getSecond())
+                if (tps.score > thirdPlace.getSecond())
                 {
                     thirdPlace = Pair.of(
-                            Component.literal(gameProfilesCache.get(tps.getKey())),
-                            tps.getValue().score
+                            Component.literal(gameProfilesCache.get(tps.playerUUID)),
+                            tps.score
                     );
                 }
 
-                if (tps.getValue().score > secondPlace.getSecond())
+                if (tps.score > secondPlace.getSecond())
                 {
                     thirdPlace = secondPlace;
                     secondPlace = Pair.of(
-                            Component.literal(gameProfilesCache.get(tps.getKey())),
-                            tps.getValue().score
+                            Component.literal(gameProfilesCache.get(tps.playerUUID)),
+                            tps.score
                     );
                 }
 
-                if (tps.getValue().score > firstPlace.getSecond())
+                if (tps.score > firstPlace.getSecond())
                 {
                     secondPlace = firstPlace;
                     firstPlace = Pair.of(
-                            Component.literal(gameProfilesCache.get(tps.getKey())),
-                            tps.getValue().score
+                            Component.literal(gameProfilesCache.get(tps.playerUUID)),
+                            tps.score
                     );
                 }
 
 
             }
 
-            playerPlace = Pair.of(
+            //set player place name & score
+            Optional<TournamentPlayerScore> optional = t.playerScores.stream().filter(p -> p.playerUUID.equals(Minecraft.getInstance().player.getUUID())).findFirst();
+            optional.ifPresent(playerScore -> playerPlace = Pair.of(
                     Minecraft.getInstance().player.getName(),
-                    t.playerScores.get(Minecraft.getInstance().player.getUUID()).score);
+                    playerScore.score));
 
             //set playerRank
             if (firstPlace.getFirst().equals(playerPlace.getFirst())) playerRank = 1;
@@ -213,14 +218,8 @@ public class TournamentOverlay implements LayeredDraw.Layer
         tournament = t;
     }
 
-
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl)
     {
         guiGraphics.blit(rl, 0, 0, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
-    }
-
-    private void drawComp(GuiGraphics guiGraphics, Component comp, int xOffset, int yOffset)
-    {
-        guiGraphics.drawString(font, comp, uiX + xOffset, uiY + yOffset, 0, false);
     }
 }

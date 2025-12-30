@@ -128,7 +128,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
 
         //signup button
-        if (tournamentCache.playerScores.containsKey(Minecraft.getInstance().player.getUUID()))
+        if (tournamentCache.playerScores.stream().anyMatch(t -> t.playerUUID.equals(Minecraft.getInstance().player.getUUID())))
         {
             guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.signed_up"), uiX + 51, uiY + 120, 0x40752c, false);
         }
@@ -162,15 +162,15 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         boolean drawOthers = false;
         List<Component> others = new ArrayList<>();
         others.add(Component.translatable("gui.starcatcher.tournament.other"));
-        for (var entry : tournamentCache.getPlayerScores().entrySet())
+        for (var entry : tournamentCache.playerScores)
         {
             if (count == 11)
             {
                 drawOthers = true;
-                others.add(Component.literal(getPlayerFromUUID(entry.getKey())));
+                others.add(Component.literal(getPlayerFromUUID(entry.playerUUID)));
                 continue;
             }
-            guiGraphics.drawString(this.font, getPlayerFromUUID(entry.getKey()), uiX + xOffset, uiY + yOffset, 0x635040, false);
+            guiGraphics.drawString(this.font, getPlayerFromUUID(entry.playerUUID), uiX + xOffset, uiY + yOffset, 0x635040, false);
             count++;
             yOffset += 12;
             if (count == 6)

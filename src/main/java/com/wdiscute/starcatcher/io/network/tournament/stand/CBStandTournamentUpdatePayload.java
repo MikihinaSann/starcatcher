@@ -13,8 +13,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -25,16 +24,16 @@ import java.util.Optional;
 public record CBStandTournamentUpdatePayload(List<GameProfile> listSignups, Tournament tour) implements ToClientPacket
 {
 
-    public static CBStandTournamentUpdatePayload helper(Player player, Tournament tournament)
+    public static CBStandTournamentUpdatePayload helper(Level level, Tournament tournament)
     {
-        if (player.level().isClientSide) throw new RuntimeException();
+        if (level.isClientSide) throw new RuntimeException();
         List<GameProfile> list = new ArrayList<>();
-        for (var entry : tournament.getPlayerScores().entrySet())
+        for (var entry : tournament.playerScores)
         {
-            GameProfileCache profileCache = player.level().getServer().getProfileCache();
+            GameProfileCache profileCache = level.getServer().getProfileCache();
             if (profileCache != null)
             {
-                Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
+                Optional<GameProfile> gameProfile = profileCache.get(entry.playerUUID);
                 gameProfile.ifPresent(list::add);
             }
         }
@@ -69,4 +68,5 @@ public record CBStandTournamentUpdatePayload(List<GameProfile> listSignups, Tour
         StandScreen.gameProfilesCache = new HashMap<>();
         this.listSignups().forEach(e -> StandScreen.gameProfilesCache.put(e.getId(), e.getName()));
     }
+
 }

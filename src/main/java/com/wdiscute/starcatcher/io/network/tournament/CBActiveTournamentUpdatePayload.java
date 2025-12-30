@@ -27,12 +27,12 @@ public record CBActiveTournamentUpdatePayload(List<GameProfile> listSignups,
     {
         if (player.level().isClientSide) throw new RuntimeException();
         List<GameProfile> list = new ArrayList<>();
-        for (var entry : tournament.getPlayerScores().entrySet())
+        for (var entry : tournament.playerScores)
         {
             GameProfileCache profileCache = player.level().getServer().getProfileCache();
             if (profileCache != null)
             {
-                Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
+                Optional<GameProfile> gameProfile = profileCache.get(entry.playerUUID);
                 gameProfile.ifPresent(list::add);
             }
         }
