@@ -6,6 +6,7 @@ import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpd
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -64,7 +65,7 @@ public class StandMenu extends AbstractContainerMenu
 
     public StandMenu(int containerId, Inventory inv, FriendlyByteBuf extraData)
     {
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
+        this(containerId, inv, new StandBlockEntity(BlockPos.ZERO, ModBlocks.STAND.get().defaultBlockState()));
     }
 
     @Override
