@@ -809,6 +809,7 @@
   "gui.guide.deepslate" : "Deepslate",
   "gui.guide.fluid" : "Fluid: ",
   "gui.guide.no_restriction" : "-------",
+  "gui.guide.bait_required" : "The correct bait is required for this catch!",
   "gui.guide.hover" : "[hover]",
 
 

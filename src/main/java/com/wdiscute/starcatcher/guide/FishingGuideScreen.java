@@ -1440,6 +1440,16 @@ public class FishingGuideScreen extends Screen
 
         yOffset += 12;
 
+        //baits
+        if(fp.baseChance() == 0)
+        {
+            guiGraphics.drawString(this.font, Component.literal("[!]").withColor(0xa34536), uiX + xOffset + 130, uiY + yOffset - 1, 0, false);
+            //show tooltip while hovering
+            if (x > xOffset + 129 && x < xOffset + 140 && y > yOffset - 3 && y < yOffset + 8)
+            {
+                guiGraphics.renderTooltip(this.font, Component.translatable("gui.guide.bait_required"), mouseX, mouseY);
+            }
+        }
         if (fp.br().correctBait().isEmpty())
         {
             guiGraphics.drawString(
