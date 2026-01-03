@@ -14,30 +14,37 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.nikdo53.tinymultiblocklib.block.AbstractMultiBlock;
+import net.nikdo53.tinymultiblocklib.block.IMultiBlock;
+import net.nikdo53.tinymultiblocklib.block.IPreviewableMultiblock;
+import net.nikdo53.tinymultiblocklib.components.IBlockPosOffsetEnum;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Properties;
 import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 
-public class StandBlock extends Block implements EntityBlock
+public class StandBlock extends AbstractMultiBlock implements IPreviewableMultiblock
 {
 
     public static final EnumProperty<StandPart> PART = EnumProperty.create("stand_part", StandPart.class);
@@ -46,6 +53,40 @@ public class StandBlock extends Block implements EntityBlock
     public StandBlock()
     {
         super(Properties.of().noOcclusion());
+        registerDefaultState(defaultBlockState().setValue(PART, StandPart.BOTTOM_LEFT));
+    }
+
+    @Override
+    public List<BlockPos> makeFullBlockShape(@Nullable Direction direction, BlockPos center, BlockState state) {
+        assert direction != null;
+        return List.of(center, center.above(), center.relative(direction.getCounterClockWise()), center.relative(direction.getCounterClockWise()).above());
+    }
+
+    @Override
+    public RenderShape getMultiblockRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public @Nullable DirectionProperty getDirectionProperty() {
+        return FACING;
+    }
+
+    @Override
+    public BlockState getStateForEachBlock(BlockState state, BlockPos pos, BlockPos centerOffset, Level level, @Nullable Direction direction) {
+       state = state.setValue(PART, IBlockPosOffsetEnum.fromOffset(StandPart.class, centerOffset, direction, StandPart.BOTTOM_LEFT));
+
+        return state;
+    }
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return getStateForPlacementHelper(context, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    public BlockState getDefaultStateForPreviews(Direction direction) {
+        return IPreviewableMultiblock.super.getDefaultStateForPreviews(direction.getOpposite());
     }
 
 
@@ -54,11 +95,12 @@ public class StandBlock extends Block implements EntityBlock
     {
         if (level.isClientSide) return InteractionResult.SUCCESS;
 
-        if (level.getBlockEntity(pos) instanceof StandBlockEntity sbe)
+        BlockPos center = IMultiBlock.getCenter(level, pos);
+        if (level.getBlockEntity(center) instanceof StandBlockEntity sbe)
         {
             if (sbe.tournament == null)
             {
-                sbe.tournament = TournamentHandler.getTournamentOrNew(sbe.uuid);
+                sbe.tournament = TournamentHandler.getTournamentOrNew(sbe.getUuid());
             }
 
             if(sbe.tournament.owner == null)
@@ -67,7 +109,7 @@ public class StandBlock extends Block implements EntityBlock
                 sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
             }
 
-            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()));
+            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), center);
 
             ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> ((ServerPlayer) player)), CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
         }
@@ -79,165 +121,83 @@ public class StandBlock extends Block implements EntityBlock
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston)
     {
         //before super since super removed BE
-        if(level.getBlockEntity(pos) instanceof StandBlockEntity sbe && !level.isClientSide && sbe.tournament != null)
+        BlockPos center = IMultiBlock.getCenter(level, pos);
+        if(level.getBlockEntity(center) instanceof StandBlockEntity sbe && !level.isClientSide && sbe.tournament != null)
         {
             TournamentHandler.cancelTournament(level, sbe.tournament);
         }
 
         super.onRemove(state, level, pos, newState, movedByPiston);
+    }
 
-        Direction direction = state.getValue(FACING);
+    private static final VoxelShape SHAPE_NORTH = makeShapeNorth();
+    private static final VoxelShape SHAPE_EAST = makeShapeEast();
+    private static final VoxelShape SHAPE_SOUTH = makeShapeSouth();
+    private static final VoxelShape SHAPE_WEST = makeShapeWest();
 
-        if (state.getValue(PART) == StandPart.BOTTOM_LEFT)
-        {
-            level.destroyBlock(pos.above(), false);
-            level.destroyBlock(pos.relative(direction.getCounterClockWise()), false);
-            level.destroyBlock(pos.relative(direction.getCounterClockWise()).above(), false);
-        }
+    public static VoxelShape makeShapeNorth(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.5, 0, 0, 1.5, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0, 2, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 1.5, 0.4375, 2, 2, 0.5), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 1, 0.4375, 0.0625, 2, 0.5), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(1.9375, 1, 0.4375, 2, 2, 0.5), BooleanOp.OR);
 
-        if (state.getValue(PART) == StandPart.BOTTOM_RIGHT)
-        {
-            level.destroyBlock(pos.above(), false);
-            level.destroyBlock(pos.relative(direction.getClockWise()), false);
-            level.destroyBlock(pos.relative(direction.getClockWise()).above(), false);
-        }
+        return shape;
+    }
 
-        if (state.getValue(PART) == StandPart.TOP_LEFT)
-        {
-            level.destroyBlock(pos.below(), false);
-            level.destroyBlock(pos.relative(direction.getCounterClockWise()), false);
-            level.destroyBlock(pos.relative(direction.getCounterClockWise()).below(), false);
-        }
+    public static VoxelShape makeShapeEast(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0.5, 1, 1, 1.5), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0, 1, 1, 2), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 1.453125, 0, 0.5625, 1.953125, 2), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 0.953125, 0, 0.5625, 1.953125, 0.0625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 0.953125, 1.9375, 0.5625, 1.953125, 2), BooleanOp.OR);
 
-        if (state.getValue(PART) == StandPart.TOP_RIGHT)
-        {
-            level.destroyBlock(pos.above(), false);
-            level.destroyBlock(pos.relative(direction.getClockWise()), false);
-            level.destroyBlock(pos.relative(direction.getClockWise()).above(), false);
-        }
+        return shape;
+    }
 
+    public static VoxelShape makeShapeSouth(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(-0.5, 0, 0, 0.5, 1, 1.0), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(-1, 0.875, 0, 1, 1, 1.0), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(-1, 1.453125, 0.5, 1, 1.953125, 0.5625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.9375, 0.953125, 0.5, 1, 1.953125, 0.5625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(-1, 0.953125, 0.5, -0.9375, 1.953125, 0.5625), BooleanOp.OR);
 
+        return shape;
+    }
+
+    public static VoxelShape makeShapeWest(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0, 0, -0.5, 1.0, 1, 0.5), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.875, -1, 1.0, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 1.453125, -1, 0.5625, 1.953125, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 0.953125, -1, 0.5625, 1.953125, -0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.5, 0.953125, 0.9375, 0.5625, 1.953125, 1), BooleanOp.OR);
+
+        return shape;
     }
 
     @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        BlockPos blockpos = context.getClickedPos();
-        Level level = context.getLevel();
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        VoxelShape shape = switch (getDirection(state).getOpposite()){
+            case NORTH -> SHAPE_NORTH;
+            case SOUTH -> SHAPE_SOUTH;
+            case WEST -> SHAPE_WEST;
+            case EAST -> SHAPE_EAST;
+            default ->  null;
+        };
 
-        Direction direction = context.getHorizontalDirection().getOpposite();
-
-        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context)
-                && blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.relative(direction.getCounterClockWise())).canBeReplaced(context)
-                && blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above().relative(direction.getCounterClockWise())).canBeReplaced(context)
-        )
-        {
-            return this.defaultBlockState()
-                    .setValue(FACING, direction)
-                    .setValue(PART, StandPart.BOTTOM_LEFT);
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
-    {
-        if (level.isClientSide) return;
-        UUID uuid = UUID.randomUUID();
-        if (level.getBlockState(pos).is(ModBlocks.STAND.get()))
-        {
-            Direction direction = level.getBlockState(pos).getValue(FACING);
-
-            level.setBlock(
-                    pos.above(), state
-                            .setValue(PART, StandPart.TOP_LEFT)
-                            .setValue(FACING, direction), 3);
-
-            level.setBlock(
-                    pos.relative(direction.getCounterClockWise()), state
-                            .setValue(PART, StandPart.BOTTOM_RIGHT)
-                            .setValue(FACING, direction), 3);
-
-            level.setBlock(
-                    pos.above().relative(direction.getCounterClockWise()), state
-                            .setValue(PART, StandPart.TOP_RIGHT)
-                            .setValue(FACING, direction), 3);
-
-            //assign uuids to stand blocks entities played
-            if (level.getBlockEntity(pos) instanceof StandBlockEntity sbe) sbe.uuid = uuid;
-            if (level.getBlockEntity(pos.above()) instanceof StandBlockEntity sbe) sbe.uuid = uuid;
-            if (level.getBlockEntity(pos.relative(direction.getCounterClockWise())) instanceof StandBlockEntity sbe) sbe.uuid = uuid;
-            if (level.getBlockEntity(pos.above().relative(direction.getCounterClockWise())) instanceof StandBlockEntity sbe) sbe.uuid = uuid;
-        }
-    }
-
-    private static final VoxelShape BOTTOM_LEFT = Shapes.or(Block.box(0.0F, 0.0F, 0.0F, 8.0F, 16.0F, 16.0F), Block.box(8.0F, 14.0F, 0.0F, 16.0F, 16.0F, 16.0F), Block.box(8.0F, 0.0F, 2.0F, 16.0F, 6.0F, 10.0F));
-    private static final VoxelShape BOTTOM_LEFT_EAST = Shapes.or(Block.box(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 8.0F), Block.box(0.0F, 14.0F, 8.0F, 16.0F, 16.0F, 16.0F), Block.box(6.0F, 0.0F, 8.0F, 14.0F, 6.0F, 16.0F));
-    private static final VoxelShape BOTTOM_LEFT_SOUTH = Shapes.or(Block.box(8.0F, 0.0F, 0.0F, 16.0F, 16.0F, 16.0F), Block.box(0.0F, 14.0F, 0.0F, 8.0F, 16.0F, 16.0F), Block.box(0.0F, 0.0F, 6.0F, 8.0F, 6.0F, 14.0F));
-    private static final VoxelShape BOTTOM_LEFT_WEST = Shapes.or(Block.box(0.0F, 0.0F, 8.0F, 16.0F, 16.0F, 16.0F), Block.box(0.0F, 14.0F, 0.0F, 16.0F, 16.0F, 8.0F), Block.box(2.0F, 0.0F, 0.0F, 10.0F, 6.0F, 8.0F));
-    private static final VoxelShape BOTTOM_RIGHT = Shapes.or(Block.box(8, 0, 0, 16, 16, 16), Block.box(0, 14, 0, 16, 16, 16));
-    private static final VoxelShape BOTTOM_RIGHT_EAST = Shapes.or(Block.box(0, 0, 8, 16, 16, 16), Block.box(0, 14, 0, 16, 16, 16));
-    private static final VoxelShape BOTTOM_RIGHT_SOUTH = Shapes.or(Block.box(0, 0, 0, 8, 16, 16), Block.box(0, 14, 0, 16, 16, 16));
-    private static final VoxelShape BOTTOM_RIGHT_WEST = Shapes.or(Block.box(0, 0, 0, 16, 16, 8), Block.box(0, 14, 0, 16, 16, 16));
-    private static final VoxelShape TOP_LEFT = Shapes.or(Block.box(15, 0, 7, 16, 16, 8), Block.box(0, 10, 7, 16, 16, 8));
-    private static final VoxelShape TOP_LEFT_EAST = Shapes.or(Block.box(8, 0, 15, 9, 16, 16), Block.box(8, 10, 0, 9, 16, 16));
-    private static final VoxelShape TOP_LEFT_SOUTH = Shapes.or(Block.box(0, 0, 8, 1, 16, 9), Block.box(0, 10, 8, 16, 16, 9));
-    private static final VoxelShape TOP_LEFT_WEST = Shapes.or(Block.box(7, 0, 0, 8, 16, 1), Block.box(7, 10, 0, 8, 16, 16));
-    private static final VoxelShape TOP_RIGHT = Shapes.or(Block.box(0, 0, 7, 1, 16, 8), Block.box(0, 10, 7, 16, 16, 8));
-    private static final VoxelShape TOP_RIGHT_EAST = Shapes.or(Block.box(8, 0, 0, 9, 16, 1), Block.box(8, 10, 0, 9, 16, 16));
-    private static final VoxelShape TOP_RIGHT_SOUTH = Shapes.or(Block.box(15, 0, 8, 16, 16, 9), Block.box(0, 10, 8, 16, 16, 9));
-    private static final VoxelShape TOP_RIGHT_WEST = Shapes.or(Block.box(7, 0, 15, 8, 16, 16), Block.box(7, 10, 0, 8, 16, 16));
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
-    {
-        StandPart part = state.getValue(PART);
-        Direction facing = state.getValue(FACING);
-
-        if (part == StandPart.BOTTOM_LEFT)
-        {
-            if (facing.equals(Direction.NORTH)) return BOTTOM_LEFT;
-            if (facing.equals(Direction.EAST)) return BOTTOM_LEFT_EAST;
-            if (facing.equals(Direction.SOUTH)) return BOTTOM_LEFT_SOUTH;
-            if (facing.equals(Direction.WEST)) return BOTTOM_LEFT_WEST;
-        }
-
-        if (part == StandPart.BOTTOM_RIGHT)
-        {
-            if (facing.equals(Direction.NORTH)) return BOTTOM_RIGHT;
-            if (facing.equals(Direction.EAST)) return BOTTOM_RIGHT_EAST;
-            if (facing.equals(Direction.SOUTH)) return BOTTOM_RIGHT_SOUTH;
-            if (facing.equals(Direction.WEST)) return BOTTOM_RIGHT_WEST;
-        }
-
-        if (part == StandPart.TOP_LEFT)
-        {
-            if (facing.equals(Direction.NORTH)) return TOP_LEFT;
-            if (facing.equals(Direction.EAST)) return TOP_LEFT_EAST;
-            if (facing.equals(Direction.SOUTH)) return TOP_LEFT_SOUTH;
-            if (facing.equals(Direction.WEST)) return TOP_LEFT_WEST;
-        }
-
-        if (part == StandPart.TOP_RIGHT)
-        {
-            if (facing.equals(Direction.NORTH)) return TOP_RIGHT;
-            if (facing.equals(Direction.EAST)) return TOP_RIGHT_EAST;
-            if (facing.equals(Direction.SOUTH)) return TOP_RIGHT_SOUTH;
-            if (facing.equals(Direction.WEST)) return TOP_RIGHT_WEST;
-        }
-
-        return super.getShape(state, level, pos, context);
+        return voxelShapeHelper(state, level, pos, shape);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         super.createBlockStateDefinition(builder);
+        //the facing gets added automatically by the lib
         builder.add(PART);
-        builder.add(FACING);
     }
 
     @Override
@@ -246,15 +206,20 @@ public class StandBlock extends Block implements EntityBlock
         return ModBlockEntities.STAND.get().create(blockPos, blockState);
     }
 
-    public enum StandPart implements StringRepresentable
+    public enum StandPart implements StringRepresentable, IBlockPosOffsetEnum
     {
-        BOTTOM_LEFT("bottom_left"), BOTTOM_RIGHT("bottom_right"), TOP_LEFT("top_left"), TOP_RIGHT("top_right");
+        BOTTOM_LEFT("bottom_left", pos -> pos),
+        BOTTOM_RIGHT("bottom_right", BlockPos::west),
+        TOP_LEFT("top_left", BlockPos::above),
+        TOP_RIGHT("top_right", pos -> pos.above().west());
 
         private final String name;
+        public final Function<BlockPos, BlockPos> offset;
 
-        StandPart(String name)
+        StandPart(String name, Function<BlockPos, BlockPos> offset)
         {
             this.name = name;
+            this.offset = offset;
         }
 
         public String toString()
@@ -266,6 +231,11 @@ public class StandBlock extends Block implements EntityBlock
         public String getSerializedName()
         {
             return this.name;
+        }
+
+        @Override
+        public BlockPos getOffset() {
+            return offset.apply(BlockPos.ZERO);
         }
     }
 }

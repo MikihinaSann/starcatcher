@@ -60,9 +60,6 @@ public record CBStandTournamentUpdatePayload(List<GameProfile> listSignups, Tour
         //only accept packet if cache is empty, or if it's the correct uuid being disaplyed
         if (Minecraft.getInstance().screen instanceof StandScreen ss)
         {
-            if (ss.tournamentCache == null)
-                ss.onTournamentReceived(this.tour());
-            else if (ss.tournamentCache.tournamentUUID.equals(this.tour.tournamentUUID))
                 ss.onTournamentReceived(this.tour());
         }
         StandScreen.gameProfilesCache = new HashMap<>();

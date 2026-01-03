@@ -17,45 +17,6 @@ tasks.named('wrapper', Wrapper).configure {
 version = mod_version
 group = mod_group_id
 
-
-dependencies {
-    //emi
-    modCompileOnly("dev.emi:emi-forge:${emi_version}:api")
-    modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
-
-
-    //mixin
-   //  annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-   // implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
-   // compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
-
-
-    //Serene Seasons
-    modCompileOnly("maven.modrinth:serene-seasons:9.1.0.2")
-    modCompileOnly("maven.modrinth:glitchcore:0.0.1.1")
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
-
-
-    //runtimeOnly "maven.modrinth:serene-seasons:9.1.0.2"
-    //runtimeOnly "maven.modrinth:glitchcore:0.0.1.1"
-
-    //modImplementation("maven.modrinth:serene-seasons:9.1.0.2")
-    //modImplementation("maven.modrinth:glitchcore:0.0.1.1")
-
-    modCompileOnly ("curse.maven:terrafirmacraft-302973:6990923")
-
-
-    //Ecliptic Seasons
-    modCompileOnly("curse.maven:ecliptic-seasons-1118306:7304569")
-
-    modCompileOnly("curse.maven:ftb-teams-forge-404468:6130786")
-
-
-}
-
 repositories
         {
             //emi
@@ -87,6 +48,46 @@ repositories
                 }
             }
         }
+
+dependencies {
+    //emi
+    modCompileOnly("dev.emi:emi-forge:${emi_version}:api")
+    modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
+
+
+    //mixin
+    //  annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    // implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
+    // compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+
+
+    //Serene Seasons
+    modCompileOnly("maven.modrinth:serene-seasons:9.1.0.2")
+    modCompileOnly("maven.modrinth:glitchcore:0.0.1.1")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:[0.5.0,)"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+
+
+    //runtimeOnly "maven.modrinth:serene-seasons:9.1.0.2"
+    //runtimeOnly "maven.modrinth:glitchcore:0.0.1.1"
+
+    //modImplementation("maven.modrinth:serene-seasons:9.1.0.2")
+    //modImplementation("maven.modrinth:glitchcore:0.0.1.1")
+
+    modCompileOnly ("curse.maven:terrafirmacraft-302973:6990923")
+
+    jarJar(implementation("maven.modrinth:tiny-multiblock-lib:forge-1.20.1-${tiny_multiblock_lib_version}"))
+
+    //Ecliptic Seasons
+    modCompileOnly("curse.maven:ecliptic-seasons-1118306:7304569")
+
+    modCompileOnly("curse.maven:ftb-teams-forge-404468:6130786")
+
+
+}
+
 
 base {
     archivesName = mod_id
