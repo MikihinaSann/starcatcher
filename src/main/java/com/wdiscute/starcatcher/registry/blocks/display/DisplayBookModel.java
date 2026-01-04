@@ -13,7 +13,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
-import org.joml.Vector3f;
 
 public class DisplayBookModel extends Model
 {
@@ -78,14 +77,12 @@ public class DisplayBookModel extends Model
         this.leftLid.yRot = (float) Math.PI + f;
         this.rightLid.yRot = -f;
         this.leftPages.yRot = f;
-
-
         this.rightPages.yRot = -f;
         this.flipPage1.yRot = f - f * 2.0F * rightPageFlipAmount;
         this.flipPage2.yRot = f - f * 2.0F * leftPageFlipAmount;
-        this.leftPages.x = Mth.sin(f) + 0.001f;
-        this.rightPages.x = Mth.sin(f) + 0.001f;
-        this.flipPage1.x = Mth.sin(f) + 0.001f;
-        this.flipPage2.x = Mth.sin(f) + 0.001f;
+        this.leftPages.x = Mth.sin(f);
+        this.rightPages.x = Mth.sin(f);
+        this.flipPage1.x = Mth.sin(f);
+        this.flipPage2.x = Mth.sin(f);
     }
 }
