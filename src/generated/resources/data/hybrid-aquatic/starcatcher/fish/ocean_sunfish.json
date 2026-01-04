@@ -7,9 +7,9 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "hybrid-aquatic:sunfish",
+    "entity": "hybrid-aquatic:ocean_sunfish",
     "fish_bucket": "starcatcher:missingno",
-    "item": "hybrid-aquatic:sunfish",
+    "item": "hybrid-aquatic:ocean_sunfish",
     "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "day",
