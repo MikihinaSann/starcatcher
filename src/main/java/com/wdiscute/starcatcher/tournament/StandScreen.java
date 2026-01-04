@@ -18,21 +18,25 @@ import java.util.*;
 
 public class StandScreen extends AbstractContainerScreen<StandMenu>
 {
-    public Tournament tournamentCache;
+    public Tournament tournament;
     public static Map<UUID, String> gameProfilesCache;
 
     private EditBox nameEditBox;
     private boolean nameWasFocused;
 
+    private static final ResourceLocation BACKGROUND_OWNER = Starcatcher.rl("textures/gui/tournament/background_owner.png");
     private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/tournament/background.png");
 
     int uiX;
     int uiY;
+    boolean isOwner = false;
 
     @Override
     protected void init()
     {
         super.init();
+        tournament = menu.sbe.tournament;
+        gameProfilesCache = menu.sbe.profiles;
         uiX = (width - imageWidth) / 2;
         uiY = (height - imageHeight) / 2;
         subInit();
@@ -53,15 +57,15 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
     private void onFocusNameEditBox()
     {
-        nameEditBox.setValue(tournamentCache.name);
-        tournamentCache.name = "";
+        nameEditBox.setValue(tournament.name);
+        tournament.name = "";
     }
 
     private void onUnfocusNameEditBox()
     {
         //send packet
-        ModNetworking.CHANNEL.sendToServer(new SBStandTournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
-        tournamentCache.name = nameEditBox.getValue();
+        ModNetworking.sendToServer(new SBStandTournamentNameChangePayload(tournament.tournamentUUID, nameEditBox.getValue()));
+        tournament.name = nameEditBox.getValue();
         nameEditBox.setValue("");
     }
 
@@ -71,11 +75,19 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderBackground(guiGraphics);
 
+        //render background
+        if (isOwner)
+            renderImage(guiGraphics, BACKGROUND_OWNER);
+        else
+            renderImage(guiGraphics, BACKGROUND);
+
+        //update tournament in case menu received a new tournament from server
+        if (tournament != menu.sbe.tournament) onTournamentReceived();
+        if (tournament == null) return;
+        if (gameProfilesCache == null) return;
+
         double x = mouseX - uiX;
         double y = mouseY - uiY;
-
-        if (tournamentCache == null) return;
-        if (gameProfilesCache == null) return;
 
         //handle Name editbox focusing
         if (nameWasFocused != nameEditBox.isFocused())
@@ -87,33 +99,35 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
         nameWasFocused = nameEditBox.isFocused();
 
-        //render background
-        renderImage(guiGraphics, BACKGROUND);
-
         //render tournament name
-        guiGraphics.drawString(this.font, tournamentCache.name, uiX + 53, uiY + 36, 0x635040, false);
+        guiGraphics.drawString(this.font, tournament.name, uiX + 53, uiY + 36, 0x635040, false);
+        nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
+
 
         //organizer
-        guiGraphics.drawString(this.font, getPlayerFromUUID(tournamentCache.owner), uiX + 55, uiY + 56, 0x635040, false);
+        guiGraphics.drawString(this.font, getPlayerFromUUID(tournament.owner), uiX + 55, uiY + 56, 0x635040, false);
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.organizer"), uiX + 55, uiY + 68, 0x9c897c, false);
 
         //status
-        guiGraphics.drawString(this.font, Component.translatable(tournamentCache.status.getSerializedName()), uiX + 130, uiY + 56, 0x635040, false);
+        guiGraphics.drawString(this.font, Component.translatable(tournament.status.getSerializedName()), uiX + 130, uiY + 56, 0x635040, false);
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.status"), uiX + 130, uiY + 68, 0x9c897c, false);
 
         //duration
-        guiGraphics.drawString(this.font, U.calculateRealLifeTimeFromTicks(tournamentCache.settings.durationInTicks), uiX + 55, uiY + 88, 0x635040, false);
-        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.duration"), uiX + 60, uiY + 100, 0x9c897c, false);
+        guiGraphics.drawString(this.font, U.calculateRealLifeTimeFromTicks(tournament.settings.durationInTicks), uiX + 55, uiY + 88, 0x635040, false);
+        if (isOwner)
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.duration"), uiX + 60, uiY + 100, 0x9c897c, false);
+        else
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.duration"), uiX + 56, uiY + 100, 0x9c897c, false);
         //duration hover
         if (x > 52 && x < 116 && y > 85 && y < 98)
         {
             List<Component> durationTooltip = new ArrayList<>();
 
-            durationTooltip.add(Component.literal(tournamentCache.settings.durationInTicks + " ticks"));
+            durationTooltip.add(Component.literal(tournament.settings.durationInTicks + " ticks"));
 
-            MutableComponent durationComp = Component.literal(String.format("%.2f ", (float) tournamentCache.settings.durationInTicks / 24000));
-            if (tournamentCache.settings.durationInTicks % 24000 == 0)
-                durationComp = Component.literal(tournamentCache.settings.durationInTicks / 24000 + " ");
+            MutableComponent durationComp = Component.literal(String.format("%.2f ", (float) tournament.settings.durationInTicks / 24000));
+            if (tournament.settings.durationInTicks % 24000 == 0)
+                durationComp = Component.literal(tournament.settings.durationInTicks / 24000 + " ");
             durationTooltip.add(durationComp.append(Component.translatable("gui.starcatcher.tournament.duration.days")));
 
             guiGraphics.renderTooltip(this.font, durationTooltip, Optional.empty(), mouseX, mouseY);
@@ -121,71 +135,57 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
 
         //scoring
-        int xOwnerOffset = 0;
-        if (Minecraft.getInstance().player.getUUID().equals(tournamentCache.owner))
-            xOwnerOffset += 4;
-        guiGraphics.drawString(this.font, Component.translatable(tournamentCache.settings.scoring.getSerializedName()), uiX + 130, uiY + 88, 0x635040, false);
-        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.scoring"), uiX + 130 + xOwnerOffset, uiY + 100, 0x9c897c, false);
+        guiGraphics.drawString(this.font, Component.translatable(tournament.settings.scoring.getSerializedName()), uiX + 130, uiY + 88, 0x635040, false);
+        if (isOwner)
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.scoring"), uiX + 134, uiY + 100, 0x9c897c, false);
+        else
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.scoring"), uiX + 130, uiY + 100, 0x9c897c, false);
+
+        //duration hover
+        if (x > 129 && x < 190 && y > 85 && y < 98)
+        {
+            List<Component> durationTooltip = new ArrayList<>();
+            durationTooltip.add(Component.translatable("gui.starcatcher.tournament.scoring.later"));
+
+            guiGraphics.renderTooltip(this.font, durationTooltip, Optional.empty(), mouseX, mouseY);
+        }
 
 
         //signup button
-        if (tournamentCache.playerScores.stream().anyMatch(t -> t.playerUUID.equals(Minecraft.getInstance().player.getUUID())))
+        if (tournament.playerScores.stream().anyMatch(t -> t.playerUUID.equals(Minecraft.getInstance().player.getUUID())))
         {
-            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.signed_up"), uiX + 51, uiY + 120, 0x40752c, false);
-        }
-        else
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.signed_up"), uiX + 65, uiY + 116, 0x9c897c, false);
+        } else
         {
-            int color = tournamentCache.settings.canSignUp(minecraft.player) ? 0x40752c : 0xa34536;
-            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.sign_up"), uiX + 51, uiY + 120, color, false);
-        }
-
-        //cost tooltip
-        if (x > 48 && x < 98 && y > 117 && y < 127 && !tournamentCache.settings.entryCost.isEmpty())
-        {
-            List<Component> signUpCostList = new ArrayList<>();
-
-            signUpCostList.add(Component.literal("Sign Up Fee:"));
-
-
-            for (SingleStackContainer ssc : tournamentCache.settings.entryCost)
-            {
-                if (!ssc.stack().isEmpty())
-                    signUpCostList.add(Component.literal(ssc.stack().getCount() + "x ").append(Component.translatable(ssc.stack().getItem().getDescriptionId())));
-            }
-
-            guiGraphics.renderTooltip(this.font, signUpCostList, Optional.empty(), mouseX, mouseY);
+            int color = tournament.settings.canSignUp(minecraft.player) ? 0x40752c : 0xa34536;
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.sign_up"), uiX + 65, uiY + 116, color, false);
         }
 
         //list of players
-        int count = 0;
-        int xOffset = 53;
-        int yOffset = 132;
         boolean drawOthers = false;
         List<Component> others = new ArrayList<>();
         others.add(Component.translatable("gui.starcatcher.tournament.other"));
-        for (var entry : tournamentCache.playerScores)
+
+        for (int i = 0; i < tournament.playerScores.size(); i++)
         {
-            if (count == 11)
+            if (i < 5)
+            {
+                if (i == 0)
+                    guiGraphics.drawString(this.font, getPlayerFromUUID(tournament.playerScores.get(i).playerUUID), uiX + 77, uiY + 128, 0x635040, false);
+                else
+                    guiGraphics.drawString(this.font, getPlayerFromUUID(tournament.playerScores.get(i).playerUUID), uiX + 65, uiY + 140 + (i - 1) * 12, 0x635040, false);
+            } else
             {
                 drawOthers = true;
-                others.add(Component.literal(getPlayerFromUUID(entry.playerUUID)));
-                continue;
-            }
-            guiGraphics.drawString(this.font, getPlayerFromUUID(entry.playerUUID), uiX + xOffset, uiY + yOffset, 0x635040, false);
-            count++;
-            yOffset += 12;
-            if (count == 6)
-            {
-                xOffset += 77;
-                yOffset = 132;
+                others.add(Component.literal(getPlayerFromUUID(tournament.playerScores.get(i).playerUUID)));
             }
         }
 
-        //[others]
+        //[others] hover
         if (drawOthers)
         {
-            guiGraphics.drawString(this.font, Component.translatable("gui.guide.hover"), uiX + xOffset, uiY + yOffset, 0x635040, false);
-            if (x > 125 && x < 190 && y > 188 && y < 202)
+            guiGraphics.drawString(this.font, Component.translatable("gui.guide.hover"), uiX + 65, uiY + 140 + 4 * 12, 0x635040, false);
+            if (x > 62 && x < 180 && y > 186 && y < 197)
                 guiGraphics.renderTooltip(
                         this.font,
                         others,
@@ -193,52 +193,87 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
 
 
-        if (tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()))
+        //right page
+        if (isOwner)
         {
             //[Start Tournament]
-            if (tournamentCache.status.equals(Tournament.Status.SETUP))
+            if (tournament.status.equals(Tournament.Status.SETUP))
             {
                 guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.start"), uiX + 236, uiY + 188, 0x635040, false);
                 if (x > 226 && x < 340 && y > 183 && y < 200)
                 {
-                    guiGraphics.renderTooltip(this.font, Component.literal("this can not be undone!"), mouseX, mouseY);
+                    guiGraphics.renderTooltip(this.font, Component.translatable("gui.starcatcher.tournament.undone"), mouseX, mouseY);
                 }
             }
 
             //[Cancel Tournament]
-            if (tournamentCache.status.equals(Tournament.Status.ACTIVE))
+            if (tournament.status.equals(Tournament.Status.ACTIVE))
             {
                 if (x > 226 && x < 340 && y > 183 && y < 200)
                 {
-                    guiGraphics.renderTooltip(this.font, Component.literal("this can not be undone!"), mouseX, mouseY);
+                    guiGraphics.renderTooltip(this.font, Component.translatable("gui.starcatcher.tournament.undone"), mouseX, mouseY);
                 }
                 guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.cancel"), uiX + 236, uiY + 188, 0x635040, false);
             }
-        }
-        else
+
+            //[Cancel Tournament]
+            if (tournament.status.isDone())
+            {
+                if (x > 226 && x < 340 && y > 183 && y < 200)
+                {
+                    guiGraphics.renderTooltip(this.font, Component.translatable("gui.starcatcher.tournament.undone"), mouseX, mouseY);
+                }
+                guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.new"), uiX + 236, uiY + 188, 0x635040, false);
+            }
+        } else
         {
             guiGraphics.drawString(
                     this.font, Component.translatable("gui.starcatcher.tournament.waiting")
-                            .append(Component.literal(" " + gameProfilesCache.get(tournamentCache.owner) + "...")),
+                            .append(Component.literal(" " + gameProfilesCache.get(tournament.owner) + "...")),
                     uiX + 236, uiY + 188, 0x635040, false);
-            if (x > 226 && x < 340 && y > 183 && y < 200)
-            {
-                guiGraphics.renderTooltip(this.font, Component.literal("this can not be undone!"), mouseX, mouseY);
-            }
         }
+
 
     }
 
-    public void onTournamentReceived(Tournament tournament)
+    public void onTournamentReceived()
     {
-        tournamentCache = tournament;
-        nameEditBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
+        tournament = menu.sbe.tournament;
+        gameProfilesCache = menu.sbe.profiles;
+        isOwner = this.tournament.owner.equals(Minecraft.getInstance().player.getUUID());
+        nameEditBox.setEditable(isOwner);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY)
+    {
+        double x = mouseX - uiX;
+        double y = mouseY - uiY;
+
+        //duration decrease, shift does x10
+        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && scrollY < -0.5f)
+        {
+            if (!hasShiftDown())
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 101);
+            else
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 102);
+        }
+
+        //duration increase, shift does x10
+        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && scrollY > 0.5f)
+        {
+            if (!hasShiftDown())
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 103);
+            else
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 104);
+        }
+
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
-
         double x = mouseX - uiX;
         double y = mouseY - uiY;
         assert minecraft != null;
@@ -248,7 +283,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         //System.out.println("clicked relative y: " + y);
 
         //sign up
-        if (x > 48 && x < 98 && y > 117 && y < 127)
+        if (x > 62 && x < 180 && y > 115 && y < 124)
         {
             minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 67);
         }
@@ -256,18 +291,18 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         //start
         if (x > 226 && x < 340 && y > 183 && y < 200)
         {
-            if (tournamentCache.status.equals(Tournament.Status.SETUP))
+            if (tournament.status.equals(Tournament.Status.SETUP))
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 68);
 
-            if (tournamentCache.status.equals(Tournament.Status.ACTIVE))
+            if (tournament.status.equals(Tournament.Status.ACTIVE))
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 69);
 
-            if (tournamentCache.status.isDone())
+            if (tournament.status.isDone())
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 53);
         }
 
         //duration decrease, shift does x10
-        if (x > 50 && x < 60 && y > 98 && y < 107)
+        if (x > 50 && x < 60 && y > 98 && y < 107 && isOwner)
         {
             if (!hasShiftDown())
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 101);
@@ -276,7 +311,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
 
         //duration increase, shift does x10
-        if (x > 109 && x < 119 && y > 99 && y < 109)
+        if (x > 109 && x < 119 && y > 99 && y < 109 && isOwner)
         {
             if (!hasShiftDown())
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 103);
@@ -342,10 +377,18 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         return editbox || super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+    @Override
+    public void onClose()
+    {
+        super.onClose();
+        if (!nameEditBox.getValue().isEmpty())
+            PacketDistributor.sendToServer(new SBStandTournamentNameChangePayload(tournament.tournamentUUID, nameEditBox.getValue()));
+    }
+
     public StandScreen(StandMenu menu, Inventory playerInventory, Component title)
     {
         super(menu, playerInventory, title);
-        //standMenu = menu;
+        tournament = menu.sbe.tournament;
         imageWidth = 420;
         imageHeight = 260;
     }

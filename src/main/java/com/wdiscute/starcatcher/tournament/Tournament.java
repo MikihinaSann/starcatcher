@@ -78,6 +78,25 @@ public class Tournament
         this.lastsUntilEpoch = lastsUntil;
     }
 
+    public static Tournament empty(UUID uuid)
+    {
+        return new Tournament(
+                uuid,
+                "Unnamed Tournament",
+                Tournament.Status.SETUP,
+                null,
+                new ArrayList<>(),
+                new TournamentSettings(
+                        TournamentSettings.Scoring.SIMPLE,
+                        48000,
+                        0,
+                        0,
+                        SingleStackContainer.EMPTY_LIST),
+                SingleStackContainer.EMPTY_LIST,
+                200
+        );
+    }
+
     public Tournament setOwner(UUID owner)
     {
         this.owner = owner;

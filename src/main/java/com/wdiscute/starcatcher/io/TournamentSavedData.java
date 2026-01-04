@@ -2,7 +2,6 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.tournament.Tournament;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
@@ -11,8 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
-import net.minecraft.world.entity.raid.Raids;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import java.util.ArrayList;
@@ -52,10 +49,6 @@ public class TournamentSavedData extends SavedData
     @Override
     public CompoundTag save(CompoundTag compoundTag)
     {
-        Tournament wd = TournamentHandler.getTournamentOrNew(UUID.randomUUID());
-
-        wd.owner = UUID.randomUUID();
-
         CODEC.encodeStart(NbtOps.INSTANCE, tournaments)
                 .resultOrPartial(Starcatcher.LOGGER::error)
                 .ifPresent(tag -> compoundTag.put(NAME, tag));

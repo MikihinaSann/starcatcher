@@ -79,100 +79,100 @@ public class StandMenu extends AbstractContainerMenu
         //
         //_/¯(ツ)_/¯
 
-        //duration -
-        if (id == 101)
+
+        if (sbe.tournament.status == Tournament.Status.SETUP)
         {
-            if (sbe.tournament.settings.durationInTicks > 1200)
+            //duration -
+            if (id == 101)
             {
-                sbe.tournament.settings.durationInTicks -= 1200;
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
+                if (sbe.tournament.settings.durationInTicks > 1200)
+                {
+                    sbe.tournament.settings.durationInTicks -= 1200;
+                }
             }
-        }
 
-        //duration --
-        if (id == 102)
-        {
-            if (sbe.tournament.settings.durationInTicks > 12000)
+            //duration --
+            if (id == 102)
             {
-                sbe.tournament.settings.durationInTicks -= 12000;
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
+                if (sbe.tournament.settings.durationInTicks > 12000)
+                {
+                    sbe.tournament.settings.durationInTicks -= 12000;
+                }
             }
-        }
 
-        //duration +
-        if (id == 103)
-        {
-            sbe.tournament.settings.durationInTicks += 1200;
-            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
-        }
-
-        //duration ++
-        if (id == 104)
-        {
-            sbe.tournament.settings.durationInTicks += 12000;
-            ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
-        }
-
-        //start
-        if(id == 68)
-        {
-            if(player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.SETUP))
+            //duration +
+            if (id == 103)
             {
-                TournamentHandler.startTournament(player, sbe.tournament);
+                sbe.tournament.settings.durationInTicks += 1200;
+            }
+
+            //duration ++
+            if (id == 104)
+            {
+                sbe.tournament.settings.durationInTicks += 12000;
+            }
+
+            //start
+            if (id == 68)
+            {
+                if (player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.SETUP))
+                {
+                    TournamentHandler.startTournament(player, sbe.tournament);
+                }
+            }
+
+            //signup
+            if (id == 67)
+            {
+                //if player has the items to signup and is not already signed up
+                if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.stream().anyMatch(t -> t.playerUUID.equals(player.getUUID())))
+                {
+                    //sign up player with empty score
+                    sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
+
+                    List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
+
+                    if (!entryCost.isEmpty())
+                    {
+                        for (SingleStackContainer ssc : entryCost)
+                        {
+                            Predicate<ItemStack> predicate = (is) -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount();
+
+                            for (int i = 0; i < player.getInventory().getContainerSize(); ++i)
+                            {
+                                ItemStack is = player.getInventory().getItem(i);
+                                if (predicate.test(is))
+                                {
+                                    is.shrink(ssc.stack().getCount());
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
         }
 
         //cancel
-        if(id == 69)
+        if (id == 69)
         {
-            if(player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.ACTIVE))
+            if (player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.ACTIVE))
             {
                 TournamentHandler.cancelTournament(level, sbe.tournament);
             }
         }
 
         //wipe a finished/canceled tournament
-        if(id == 53)
+        if (id == 53 && sbe.tournament.status.isDone())
         {
             Tournament tournamentOld = sbe.tournament;
             sbe.setUuid(UUID.randomUUID());
-            sbe.tournament = TournamentHandler.getTournamentOrNew(sbe.getUuid()).setOwner(tournamentOld.owner);
-            PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
+            sbe.tournament = null;
+            sbe.tournament = sbe.makeOrGetTournament().setOwner(tournamentOld.owner);
         }
 
 
-        //signup
-        if (id == 67)
-        {
-            //if player has the items to signup and is not already signed up
-            if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.stream().anyMatch(t -> t.playerUUID.equals(player.getUUID())))
-            {
-                //sign up player with empty score
-                sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
-                ModNetworking.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(level, sbe.tournament));
-
-                List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
-
-                if (!entryCost.isEmpty())
-                {
-                    for (SingleStackContainer ssc : entryCost)
-                    {
-                        Predicate<ItemStack> predicate = (is) -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount();
-
-                        for (int i = 0; i < player.getInventory().getContainerSize(); ++i)
-                        {
-                            ItemStack is = player.getInventory().getItem(i);
-                            if (predicate.test(is))
-                            {
-                                is.shrink(ssc.stack().getCount());
-                                break;
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
 
         sbe.sync();
         return super.clickMenuButton(player, id);
@@ -208,16 +208,14 @@ public class StandMenu extends AbstractContainerMenu
             {
                 return ItemStack.EMPTY;  // EMPTY_ITEM
             }
-        }
-        else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
+        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
         {
             // This is a TE slot so merge the stack into the playerScores inventory
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false))
             {
                 return ItemStack.EMPTY;
             }
-        }
-        else
+        } else
         {
             return ItemStack.EMPTY;
         }
@@ -225,8 +223,7 @@ public class StandMenu extends AbstractContainerMenu
         if (sourceStack.getCount() == 0)
         {
             sourceSlot.set(ItemStack.EMPTY);
-        }
-        else
+        } else
         {
             sourceSlot.setChanged();
         }

@@ -833,21 +833,28 @@
   "gui.starcatcher.tournament.prize_pool" : "Prize Pool",
   "gui.starcatcher.tournament.entry_fee" : "Entry Fee",
   "gui.starcatcher.tournament.inventory" : "Inventory",
-  "gui.starcatcher.tournament.sign_up" : "[Sign Up]",
-  "gui.starcatcher.tournament.signed_up" : "[Signed Up!]",
+  "gui.starcatcher.tournament.sign_up" : "[Click to Sign Up]",
+  "gui.starcatcher.tournament.signed_up" : "Signed Up",
   "gui.starcatcher.tournament.other" : "Others:",
   "gui.starcatcher.tournament.status" : "Status",
   "gui.starcatcher.tournament.scoring" : "Scoring",
+  "gui.starcatcher.tournament.scoring.later" : "More scoring systems coming later!",
   "gui.starcatcher.tournament.duration" : "Duration",
   "gui.starcatcher.tournament.start" : "[Start Tournament]",
   "gui.starcatcher.tournament.cancel" : "[Cancel Tournament]",
+  "gui.starcatcher.tournament.new" : "[New Tournament]",
+  "gui.starcatcher.tournament.undone" : "This can not be undone!",
   "gui.starcatcher.tournament.waiting" : "Waiting on",
+
+  "gui.starcatcher.tournament.started" : " has started!",
+  "gui.starcatcher.tournament.press_tab" : "Press [Tab] to toggle the tournament's scoreboard.",
 
   "gui.starcatcher.tournament.duration.days" : "Minecraft days",
 
 
   "gui.starcatcher.tournament.status.setup" : "Preparing",
   "gui.starcatcher.tournament.status.active" : "Ongoing",
+  "gui.starcatcher.tournament.status.cancelled" : "Cancelled",
   "gui.starcatcher.tournament.status.finished" : "Complete",
 
   "gui.starcatcher.tournament.scoring.simple" : "Simple",
