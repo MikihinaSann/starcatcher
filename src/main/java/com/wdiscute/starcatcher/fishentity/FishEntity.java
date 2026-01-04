@@ -1,5 +1,8 @@
 package com.wdiscute.starcatcher.fishentity;
 
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -20,6 +23,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FishEntity extends AbstractFish
 {
     private static final EntityDataAccessor<ItemStack> FISH_ITEM = SynchedEntityData.defineId(FishEntity.class, EntityDataSerializers.ITEM_STACK);
@@ -28,6 +34,8 @@ public class FishEntity extends AbstractFish
     {
         super(entityType, level);
     }
+
+    private boolean shouldDropItem = true;
 
     @Override
     protected SoundEvent getAmbientSound()
@@ -79,12 +87,39 @@ public class FishEntity extends AbstractFish
     public void tick()
     {
         super.tick();
-        if(getPickResult().isEmpty()) kill();
+        if(getBodyArmorItem().isEmpty() && !level().isClientSide)
+        {
+            shouldDropItem = false;
+            List<FishProperties> available = new ArrayList<>();
+
+            for (FishProperties fp : level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+            {
+                if (FishProperties.getChance(fp, this, ModItems.ROD.toStack()) > 0 && fp.catchInfo().fish().is(StarcatcherTags.BUCKETABLE_FISHES)) available.add(fp);
+            }
+
+            if(available.isEmpty())
+                kill();
+            else
+            {
+                FishProperties fp = available.get(U.r.nextInt(available.size() - 1));
+                ItemStack is = new ItemStack(fp.catchInfo().fish());
+                setBodyArmorItem(is);
+            }
+        }
+    }
+
+    @Override
+    protected void dropAllDeathLoot(ServerLevel p_level, DamageSource damageSource)
+    {
+        if(shouldDropItem)
+            super.dropAllDeathLoot(p_level, damageSource);
     }
 
     public void setFish(ItemStack is)
     {
-        entityData.set(FISH_ITEM, is.copy());
+        setBodyArmorItem(is);
+        shouldDropItem = true;
+        setCustomName(is.getDisplayName());
     }
 
     @Override

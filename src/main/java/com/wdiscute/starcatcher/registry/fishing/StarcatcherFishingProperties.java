@@ -398,7 +398,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldUndergroundFish(ModItems.GOLD_FAN.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000)));
 
-        registerStarcatcherBucketAndEntity(overworldUndergroundFish(ModItems.GEODE_EEL.getId())
+        registerStarcatcherOnlyEntity(overworldUndergroundFish(ModItems.GEODE_EEL.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(500, 150, 10000, 2000))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withBaseChance(1)
@@ -409,7 +409,7 @@ public class StarcatcherFishingProperties
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 30, 3000, 2000))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
-        registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.BLACK_EEL.getId())
+        registerStarcatcherOnlyEntity(overworldCavesFish(ModItems.BLACK_EEL.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(500, 150, 6000, 2000))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
@@ -525,7 +525,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        registerStarcatcherBucketAndEntity(overworldSurfaceLava(ModItems.OBSIDIAN_EEL.getId())
+        registerStarcatcherOnlyEntity(overworldSurfaceLava(ModItems.OBSIDIAN_EEL.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(500, 150, 70000, 13000))
                 .withWeather(FishProperties.Weather.RAIN)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
@@ -538,7 +538,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        registerStarcatcherBucketAndEntity(overworldUndergroundLava(ModItems.OBSIDIAN_CRAB.getId())
+        registerStarcatcherOnlyEntity(overworldUndergroundLava(ModItems.OBSIDIAN_CRAB.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 8, 700, 300))
                 .withDifficulty(FishProperties.Difficulty.OBSIDIAN_CRAB)
                 .withRarity(FishProperties.Rarity.EPIC));
@@ -549,7 +549,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        registerStarcatcherBucketAndEntity(overworldDeepslateLava(ModItems.MOLTEN_DEEPSLATE_CRAB.getId())
+        registerStarcatcherOnlyEntity(overworldDeepslateLava(ModItems.MOLTEN_DEEPSLATE_CRAB.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 8, 700, 300))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.DEEPSLATE_CRAB));
@@ -560,7 +560,7 @@ public class StarcatcherFishingProperties
                 .withSizeAndWeight(FishProperties.sizeWeight(220, 70, 5700, 900))
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.LAVA_CRAB.getId())
+        registerStarcatcherOnlyEntity(netherLavaFish(ModItems.LAVA_CRAB.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 8, 700, 300))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.NETHER_CRAB));
@@ -611,7 +611,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        registerStarcatcherBucketAndEntity(endFish(ModItems.CHORUS_CRAB.getId())
+        registerStarcatcherOnlyEntity(endFish(ModItems.CHORUS_CRAB.getId())
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 8, 700, 300))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.END_CRAB));

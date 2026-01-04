@@ -30,6 +30,10 @@ public interface ModItems
     DeferredRegister<Item> TRASH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> ITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
 
+    DeferredRegister<Item> FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> KINDA_BUT_NOT_REALLY_FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+    DeferredRegister<Item> TRASH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
+
     DeferredRegister<Item> TEMPLATES_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> HOOKS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> BLOCKITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
@@ -252,11 +256,11 @@ public interface ModItems
 
     //underground
     RegistryObject<Item> GOLD_FAN = FISH_REGISTRY.register("gold_fan", FishItem::new);
-    RegistryObject<Item> GEODE_EEL = FISH_REGISTRY.register("geode_eel", FishItem::new);
+    RegistryObject<Item> GEODE_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("geode_eel", FishItem::new);
 
     //caves
     RegistryObject<Item> WHITEVEIL = FISH_REGISTRY.register("whiteveil", FishItem::new);
-    RegistryObject<Item> BLACK_EEL = FISH_REGISTRY.register("black_eel", FishItem::new);
+    RegistryObject<Item> BLACK_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("black_eel", FishItem::new);
     RegistryObject<Item> AMETHYSTBACK = FISH_REGISTRY.register("amethystback", FishItem::new);
     RegistryObject<Item> STONEFISH = FISH_REGISTRY.register("stonefish", FishItem::new);
 
@@ -286,11 +290,11 @@ public interface ModItems
     //overworld surface lava
     RegistryObject<Item> SUNEATER = FISH_REGISTRY.register("suneater", FireResistantBasicItem::new);
     RegistryObject<Item> PYROTROUT = FISH_REGISTRY.register("pyrotrout", FireResistantBasicItem::new);
-    RegistryObject<Item> OBSIDIAN_EEL = FISH_REGISTRY.register("obsidian_eel", FireResistantBasicItem::new);
+    RegistryObject<Item> OBSIDIAN_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("obsidian_eel", FireResistantBasicItem::new);
 
     //overworld underground lava
     RegistryObject<Item> MOLTEN_SHRIMP = FISH_REGISTRY.register("molten_shrimp", FireResistantBasicItem::new);
-    RegistryObject<Item> OBSIDIAN_CRAB = FISH_REGISTRY.register("obsidian_crab", FireResistantBasicItem::new);
+    RegistryObject<Item> OBSIDIAN_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("obsidian_crab", FireResistantBasicItem::new);
 
     //overworld deepslate lava
     RegistryObject<Item> SCORCHED_BLOODSUCKER = FISH_REGISTRY.register("scorched_bloodsucker", FireResistantBasicItem::new);
@@ -300,7 +304,7 @@ public interface ModItems
     RegistryObject<Item> EMBERGILL = FISH_REGISTRY.register("embergill", FireResistantBasicItem::new);
     RegistryObject<Item> SCALDING_PIKE = FISH_REGISTRY.register("scalding_pike", FireResistantBasicItem::new);
     RegistryObject<Item> CINDER_SQUID = FISH_REGISTRY.register("cinder_squid", FireResistantBasicItem::new);
-    RegistryObject<Item> LAVA_CRAB = FISH_REGISTRY.register("lava_crab", FireResistantBasicItem::new);
+    RegistryObject<Item> LAVA_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("lava_crab", FireResistantBasicItem::new);
     RegistryObject<Item> MAGMA_FISH = FISH_REGISTRY.register("magma_fish", FireResistantBasicItem::new);
     RegistryObject<Item> GLOWSTONE_SEEKER = FISH_REGISTRY.register("glowstone_seeker", FireResistantBasicItem::new);
     RegistryObject<Item> GLOWSTONE_PUFFERFISH = FISH_REGISTRY.register("glowstone_pufferfish", FireResistantBasicItem::new);
@@ -312,7 +316,7 @@ public interface ModItems
 
     //the end
     RegistryObject<Item> CHARFISH = FISH_REGISTRY.register("charfish", FishItem::new);
-    RegistryObject<Item> CHORUS_CRAB = FISH_REGISTRY.register("chorus_crab", FishItem::new);
+    RegistryObject<Item> CHORUS_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("chorus_crab", FishItem::new);
     RegistryObject<Item> END_GLOW = FISH_REGISTRY.register("end_glow", FishItem::new);
     RegistryObject<Item> VOIDBITER = FISH_REGISTRY.register("voidbiter", FishItem::new);
 

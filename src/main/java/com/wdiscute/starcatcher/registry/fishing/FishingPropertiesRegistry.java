@@ -304,6 +304,14 @@ public class FishingPropertiesRegistry
         register(builder);
     }
 
+    protected static void registerStarcatcherOnlyEntity(FishProperties.Builder builder)
+    {
+        builder.withEntityToSpawn(U.holderEntity("starcatcher", "fish"));
+        builder.build();
+        register(builder);
+    }
+
+
     protected static void register(FishProperties.Builder builder)
     {
         FishProperties properties = builder.build();

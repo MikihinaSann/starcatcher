@@ -1321,6 +1321,11 @@ public record FishProperties(
                 RL_AQUA, 22, 1, 0x387982
         );
 
+        public static SweetSpot AQUA_5 = new SweetSpot(
+                ModSweetSpotsBehaviour.AQUA,
+                RL_AQUA, 22, 1, 0x387982
+        );
+
         public static SweetSpot AQUA_10 = new SweetSpot(
                 ModSweetSpotsBehaviour.AQUA,
                 RL_AQUA, 22, 10, 0x387982

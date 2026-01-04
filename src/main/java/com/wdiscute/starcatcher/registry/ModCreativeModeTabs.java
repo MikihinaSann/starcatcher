@@ -65,6 +65,10 @@ public class ModCreativeModeTabs
                         for (RegistryObject<Item> item : ModItems.FISH_REGISTRY.getEntries())
                             output.accept(item.get());
 
+                        //adds fish
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.KINDA_BUT_NOT_REALLY_FISH_REGISTRY.getEntries())
+                            output.accept(item.get());
+
                         //adds trash
                         for (RegistryObject<Item> item : ModItems.TRASH_REGISTRY.getEntries())
                             output.accept(item.get());

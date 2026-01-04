@@ -34,7 +34,11 @@ public class ModItemsTagProvider extends ItemTagsProvider
         for (var item : ModItems.FISH_REGISTRY.getEntries())
         {
             tag(ItemTags.FISHES).add(item.get());
+            tag(StarcatcherTags.BUCKETABLE_FISHES).add(item.get());
+
         }
+
+        //todo figure out what to do with crabs tags?
 
         //baits tag
         for (RegistryObject<Item> item : ModItems.BAITS_REGISTRY.getEntries())
@@ -82,7 +86,6 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(Tags.Items.TOOLS_FISHING_RODS).add(item.get());
             tag(StarcatcherTags.RODS).add(item.get());
         }
-
     }
 
 
