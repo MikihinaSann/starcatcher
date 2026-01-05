@@ -67,7 +67,7 @@ public class TournamentHandler
             if (player != null)
             {
                 player.sendSystemMessage(Component.literal(tournament.name).append(Component.translatable("gui.starcatcher.tournament.started")));
-                player.sendSystemMessage(Component.translatable("gui.starcatcher.tournament.cancel").withColor(CommonColors.LIGHT_GRAY));
+                player.sendSystemMessage(Component.translatable("gui.starcatcher.tournament.press_tab").withColor(CommonColors.LIGHT_GRAY));
             }
         }
     }

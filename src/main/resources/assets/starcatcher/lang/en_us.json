@@ -79,17 +79,10 @@
 
 
 
-  "tooltip.starcatcher.tournament_stand.0" : "still wip sorry :( couldn't make it in time for this release!",
-  "tooltip.starcatcher.tournament_stand.1" : "kinda somewhat not really works, I wouldnt recommend using it in",
-  "tooltip.starcatcher.tournament_stand.2" : "a world you care about...",
-
-
-
   "tooltip.minecraft.fishing_rod.0": "A simple fishing rod used for catching",
   "tooltip.minecraft.fishing_rod.1": "the most basic of fishes.",
   "tooltip.minecraft.fishing_rod.2": "One can only dream of upgrading",
   "tooltip.minecraft.fishing_rod.3": "it to a <gradient-67>Starcatcher's rod</gradient-90>.",
-
 
 
 
@@ -172,7 +165,8 @@
   "tooltip.starcatcher.starcatcher_twine.0": "A delicate twine wrapped around a stick.",
   "tooltip.starcatcher.starcatcher_twine.1": "Vansire used these for string instruments once upon a time.",
 
-
+  "block.starcatcher.tournament_stand": "Tournament Stand",
+  "tooltip.starcatcher.tournament_stand.0": "A stand used to host fishing tournaments.",
 
 
   "tooltip.starcatcher.modifiers": "Fishing Modifiers:",

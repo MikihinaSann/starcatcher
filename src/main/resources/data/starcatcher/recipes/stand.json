@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "starcatcher:starcatcher_guide"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "B": {
+      "tag": "c:barrels/wooden"
+    }
+  },
+  "pattern": [
+    " G ",
+    "PPP",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "starcatcher:tournament_stand"
+  }
+}
