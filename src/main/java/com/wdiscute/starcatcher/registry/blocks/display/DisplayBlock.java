@@ -54,7 +54,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     {
         super(BlockBehaviour.Properties.of()
                 .lightLevel(s -> 9)
-                .destroyTime(20)
+                .destroyTime(4)
         );
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(HAS_BOOK, false)
@@ -193,27 +193,27 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
     {
         //if has book, open screen
-        if (state.getValue(HAS_BOOK) && !stack.isEmpty())
+        if (state.getValue(HAS_BOOK) && !stack.is(ModItems.GUIDE) && !player.isCrouching())
         {
             //TODO SEND PACKET TO CLIENT TO OPEN SCREEN
             return ItemInteractionResult.SUCCESS;
         }
 
-        //place book
-        if (!state.getValue(HAS_BOOK) && stack.is(ModItems.GUIDE))
+        //place/replace book
+        if (level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe && stack.is(ModItems.GUIDE))
         {
-            if (!level.isClientSide && level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe)
-            {
-                dbe.setBook(stack.consumeAndReturn(1, player));
-                level.playSound(null, pos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1.0F, 1.0F);
-            }
-
             level.setBlockAndUpdate(pos, state.setValue(HAS_BOOK, true));
+            player.addItem(dbe.getBook());
+            if (stack.is(ModItems.GUIDE))
+                dbe.setBook(stack.consumeAndReturn(1, null));
+            else
+                dbe.setBook(ItemStack.EMPTY);
+            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             return ItemInteractionResult.SUCCESS;
         }
 
         //remove book
-        if (stack.isEmpty() && state.getValue(HAS_BOOK) && level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe)
+        if (level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe && player.isCrouching() && state.getValue(HAS_BOOK))
         {
             level.setBlockAndUpdate(pos, state.setValue(HAS_BOOK, false));
             player.addItem(dbe.getBook());
