@@ -2,9 +2,8 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.ModNetworking;
-import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.SBStandTournamentNameChangePayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -13,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -245,13 +245,13 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY)
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta)
     {
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
         //duration decrease, shift does x10
-        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && scrollY < -0.5f)
+        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && delta < -0.5f)
         {
             if (!hasShiftDown())
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 101);
@@ -260,7 +260,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
 
         //duration increase, shift does x10
-        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && scrollY > 0.5f)
+        if (x > 53 && x < 117 && y > 88 && y < 107 && isOwner && delta > 0.5f)
         {
             if (!hasShiftDown())
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 103);
@@ -268,7 +268,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
                 minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 104);
         }
 
-        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+        return super.mouseScrolled(mouseX, mouseY, delta);
     }
 
     @Override
@@ -382,7 +382,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     {
         super.onClose();
         if (!nameEditBox.getValue().isEmpty())
-            PacketDistributor.sendToServer(new SBStandTournamentNameChangePayload(tournament.tournamentUUID, nameEditBox.getValue()));
+            ModNetworking.sendToServer(new SBStandTournamentNameChangePayload(tournament.tournamentUUID, nameEditBox.getValue()));
     }
 
     public StandScreen(StandMenu menu, Inventory playerInventory, Component title)

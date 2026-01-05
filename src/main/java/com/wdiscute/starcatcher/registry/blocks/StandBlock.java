@@ -4,6 +4,7 @@ import com.wdiscute.starcatcher.tournament.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import net.nikdo53.tinymultiblocklib.block.AbstractMultiBlock;
 import net.nikdo53.tinymultiblocklib.block.IMultiBlock;
 import net.nikdo53.tinymultiblocklib.block.IPreviewableMultiblock;
@@ -101,8 +103,11 @@ public class StandBlock extends AbstractMultiBlock implements IPreviewableMultib
                 sbe.tournament.owner = player.getUUID();
                 sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
             }
-            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), center);
             sbe.sync();
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, sbe, buf -> buf.writeBlockPos(center));
+            }
         }
 
         return InteractionResult.SUCCESS;
@@ -171,7 +176,7 @@ public class StandBlock extends AbstractMultiBlock implements IPreviewableMultib
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         VoxelShape shape = switch (getDirection(state).getOpposite()){
             case NORTH -> SHAPE_NORTH;
             case SOUTH -> SHAPE_SOUTH;

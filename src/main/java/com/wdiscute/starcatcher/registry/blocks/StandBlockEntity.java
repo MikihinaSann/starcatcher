@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,7 +26,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
 import net.nikdo53.tinymultiblocklib.blockentities.AbstractMultiBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,7 +103,7 @@ public class StandBlockEntity extends AbstractMultiBlockEntity implements MenuPr
     @Override
     protected void saveAdditional(CompoundTag tag)
     {
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
 
         if (!isCenter()) return;
 
@@ -145,7 +147,7 @@ public class StandBlockEntity extends AbstractMultiBlockEntity implements MenuPr
     @Override
     public void load(CompoundTag tag)
     {
-        super.loadAdditional(tag, registries);
+        super.load(tag);
 
         if (!isCenter()) return;
 
@@ -160,12 +162,17 @@ public class StandBlockEntity extends AbstractMultiBlockEntity implements MenuPr
 
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries)
+    public CompoundTag getUpdateTag()
     {
 
         CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, registries);
+        saveAdditional(tag);
         return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
     }
 
     @Override

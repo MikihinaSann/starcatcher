@@ -371,7 +371,7 @@ public class HybridAquaticFishingProperties extends FishingPropertiesRegistry
                         .withRarity(FishProperties.Rarity.COMMON));
 
         register(
-                overworldJungleFish(U.holderItem("hybrid-aquatic", "pleco"))
+                overworldJungleFish(U.locItem("hybrid-aquatic", "pleco"))
                         .withEntityToSpawn(U.holderEntity("hybrid-aquatic", "pleco"))
                         .withSizeAndWeight(FishProperties.sizeWeight(90, 10, 4300, 2500))
                         .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)

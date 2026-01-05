@@ -5,8 +5,7 @@ import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.StreamNetworkingUtils;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.CBClearTournamentPayload;
-import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
-import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.SBStandTournamentNameChangePayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
@@ -63,11 +62,6 @@ public class ModNetworking {
                 FPsSeenPayload::handle
         );
 
-        register(
-                CBStandTournamentUpdatePayload.class,
-                CBStandTournamentUpdatePayload.STREAM_CODEC,
-                CBStandTournamentUpdatePayload::handle
-        );
 
         register(
                 SBStandTournamentNameChangePayload.class,

@@ -1,12 +1,9 @@
 package com.wdiscute.starcatcher.tournament;
 
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.ModNetworking;
-import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +23,7 @@ public class StandMenu extends AbstractContainerMenu
 {
     public final StandBlockEntity sbe;
     public final Level level;
+
 
     public StandMenu(int containerId, Inventory inv, BlockEntity blockEntity)
     {
@@ -66,7 +63,7 @@ public class StandMenu extends AbstractContainerMenu
 
     public StandMenu(int containerId, Inventory inv, FriendlyByteBuf extraData)
     {
-        this(containerId, inv, new StandBlockEntity(BlockPos.ZERO, ModBlocks.STAND.get().defaultBlockState()));
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
     }
 
     @Override

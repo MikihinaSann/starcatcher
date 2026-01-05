@@ -6,6 +6,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -87,14 +88,14 @@ public class FishEntity extends AbstractFish
     public void tick()
     {
         super.tick();
-        if(getBodyArmorItem().isEmpty() && !level().isClientSide)
+        if(getFishItem().isEmpty() && !level().isClientSide)
         {
             shouldDropItem = false;
             List<FishProperties> available = new ArrayList<>();
 
             for (FishProperties fp : level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
             {
-                if (FishProperties.getChance(fp, this, ModItems.ROD.toStack()) > 0 && fp.catchInfo().fish().is(StarcatcherTags.BUCKETABLE_FISHES)) available.add(fp);
+                if (FishProperties.getChance(fp, this, ModItems.ROD.get().getDefaultInstance()) > 0 && fp.catchInfo().fish().is(StarcatcherTags.BUCKETABLE_FISHES)) available.add(fp);
             }
 
             if(available.isEmpty())
@@ -103,21 +104,19 @@ public class FishEntity extends AbstractFish
             {
                 FishProperties fp = available.get(U.r.nextInt(available.size() - 1));
                 ItemStack is = new ItemStack(fp.catchInfo().fish());
-                setBodyArmorItem(is);
+                setFish(is);
             }
         }
     }
 
     @Override
-    protected void dropAllDeathLoot(ServerLevel p_level, DamageSource damageSource)
-    {
-        if(shouldDropItem)
-            super.dropAllDeathLoot(p_level, damageSource);
+    protected boolean shouldDropLoot() {
+        return super.shouldDropLoot() && shouldDropItem;
     }
+
 
     public void setFish(ItemStack is)
     {
-        setBodyArmorItem(is);
         shouldDropItem = true;
         setCustomName(is.getDisplayName());
     }

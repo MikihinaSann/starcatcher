@@ -25,9 +25,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 public interface ModItems
 {
-    //fishes which have a model and swim in water
-    DeferredRegister<Item> FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
-    DeferredRegister<Item> TRASH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
     DeferredRegister<Item> ITEMS_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);
 
     DeferredRegister<Item> FISH_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Starcatcher.MOD_ID);

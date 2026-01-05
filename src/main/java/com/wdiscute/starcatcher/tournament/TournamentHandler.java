@@ -2,11 +2,8 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.wdiscute.starcatcher.io.network.tournament.CBClearTournamentPayload;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.ModNetworking;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
-import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -67,7 +64,7 @@ public class TournamentHandler
             if (player != null)
             {
                 player.sendSystemMessage(Component.literal(tournament.name).append(Component.translatable("gui.starcatcher.tournament.started")));
-                player.sendSystemMessage(Component.translatable("gui.starcatcher.tournament.press_tab").withColor(CommonColors.LIGHT_GRAY));
+                player.sendSystemMessage(Component.translatable("gui.starcatcher.tournament.press_tab").withStyle(Style.EMPTY.withColor(-8355712)));
             }
         }
     }
