@@ -69,6 +69,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
+        renderBackground(guiGraphics);
 
         double x = mouseX - uiX;
         double y = mouseY - uiY;
@@ -225,7 +226,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
                 guiGraphics.renderTooltip(this.font, Component.literal("this can not be undone!"), mouseX, mouseY);
             }
         }
-
 
     }
 

@@ -3,12 +3,14 @@ package com.wdiscute.starcatcher.event;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.Tooltips;
+import com.wdiscute.starcatcher.fishspotter.FishRadarLayer;
 import com.wdiscute.starcatcher.fishspotter.LayeredDraw;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -18,6 +20,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,13 +32,6 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
 public class ForgeClientEvents {
-
-    @SubscribeEvent
-    public static void renderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        //they all render after experience bars bcs IDK
-        if (event.getOverlay().id().equals(new ResourceLocation(ResourceLocation.DEFAULT_NAMESPACE, "experience_bar")))
-            LayeredDraw.renderAll(event.getGuiGraphics(), event.getPartialTick());
-    }
 
     @SubscribeEvent
     public static void tooltipEvent(ItemTooltipEvent event)

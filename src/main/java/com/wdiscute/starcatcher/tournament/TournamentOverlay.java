@@ -11,6 +11,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

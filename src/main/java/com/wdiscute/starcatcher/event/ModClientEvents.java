@@ -61,7 +61,6 @@ public class ModClientEvents
 
         MenuScreens.register(ModMenuTypes.FISHING_ROD_MENU.get(), FishingRodScreen::new);
         MenuScreens.register(ModMenuTypes.STAND_MENU.get(), StandScreen::new);
-        registerGuiLayers();
     }
 
 
@@ -73,10 +72,10 @@ public class ModClientEvents
     }
 
 
-    public static void registerGuiLayers()
-    {
-        LayeredDraw.add(new FishRadarLayer());
-        LayeredDraw.add(new TournamentOverlay());
+    @SubscribeEvent
+    public static void registerGuiLayers(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll("fish_tracker", new FishRadarLayer());
+        event.registerAboveAll("tournament", new TournamentOverlay());
     }
 
     @SubscribeEvent
