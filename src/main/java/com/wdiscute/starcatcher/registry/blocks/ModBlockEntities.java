@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.blocks;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.registry.blocks.Telescope.TelescopeBlockEntity;
 import com.wdiscute.starcatcher.registry.blocks.display.DisplayBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,6 +28,11 @@ public class ModBlockEntities
             () -> BlockEntityType.Builder.of(StandBlockEntity::new,
                             ModBlocks.STAND.get()
                     ).build(null));
+
+    public static final Supplier<BlockEntityType<TelescopeBlockEntity>> TELESCOPE = BLOCK_ENTITIES.register("telescope",
+            () -> BlockEntityType.Builder.of(TelescopeBlockEntity::new,
+                    ModBlocks.TELESCOPE.get()
+            ).build(null));
 
     public static final Supplier<BlockEntityType<DisplayBlockEntity>> DISPLAY = BLOCK_ENTITIES.register("display",
             () -> BlockEntityType.Builder.of(DisplayBlockEntity::new,

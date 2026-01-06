@@ -1,34 +1,34 @@
 {
   "variants": {
-    "facing=east,center=false": {
+    "facing=east, part=top": {
       "model": "starcatcher:block/telescope",
       "y": 90
     },
-    "facing=north,center=false": {
+    "facing=north, part=top": {
       "model": "starcatcher:block/telescope"
     },
-    "facing=south,center=false": {
+    "facing=south, part=top": {
       "model": "starcatcher:block/telescope",
       "y": 180
     },
-    "facing=west,center=false": {
+    "facing=west, part=top": {
       "model": "starcatcher:block/telescope",
       "y": 270
     },
 
 
-    "facing=east,center=true": {
+    "facing=east, part=bottom": {
       "model": "starcatcher:block/telescope_base",
       "y": 90
     },
-    "facing=north,center=true": {
+    "facing=north, part=bottom": {
       "model": "starcatcher:block/telescope_base"
     },
-    "facing=south,center=true": {
+    "facing=south, part=bottom": {
       "model": "starcatcher:block/telescope_base",
       "y": 180
     },
-    "facing=west,center=true": {
+    "facing=west, part=bottom": {
       "model": "starcatcher:block/telescope_base",
       "y": 270
     }
