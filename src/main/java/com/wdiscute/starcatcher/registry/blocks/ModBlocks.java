@@ -2,6 +2,8 @@ package com.wdiscute.starcatcher.registry.blocks;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.blocks.Telescope.TelescopeBlock;
+import com.wdiscute.starcatcher.registry.blocks.display.DisplayBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,6 +25,8 @@ public interface ModBlocks
 
     RegistryObject<Block> STAND = registerStand("tournament_stand", StandBlock::new);
 
+
+    RegistryObject<Block> TELESCOPE = registerBlock("telescope", TelescopeBlock::new);
 
 
 
