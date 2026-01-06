@@ -69,38 +69,15 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
     }
 
     @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        return getStateForPlacementHelper(context, context.getHorizontalDirection().getOpposite());
-    }
-
-    @Override
-    public BlockState getDefaultStateForPreviews(Direction direction)
-    {
-        return IPreviewableMultiblock.super.getDefaultStateForPreviews(direction.getOpposite());
-    }
-
-
-
-
-    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state)
     {
         return ModBlockEntities.TELESCOPE.get().create(pos, state);
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+
+    //This probably doesn't need to be there since the center property does the same thing
     public static final EnumProperty<TelescopePart> TELESCOPE_PART = EnumProperty.create("part", TelescopePart.class);
 
     @Override
