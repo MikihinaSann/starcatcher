@@ -33,7 +33,7 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
 {
     public TelescopeBlock()
     {
-        super(BlockBehaviour.Properties.of());
+        super(BlockBehaviour.Properties.of().noOcclusion());
     }
 
     @Override
