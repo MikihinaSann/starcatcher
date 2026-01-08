@@ -49,7 +49,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
 
     private void recalculate()
     {
-        fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player).stream().filter(o -> !o.catchInfo().alwaysSpawnEntity()).toList();
+        fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player);
         fishesCaught.clear();
 
         FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) ->{
