@@ -1727,7 +1727,7 @@ public record FishProperties(
         Level level = entity.level();
         List<ResourceLocation> biomes = getBiomesAsList(fp, level);
         List<ResourceLocation> blacklist = getBiomesBlacklistAsList(fp, level);
-        ResourceLocation currentBiome =  ForgeRegistries.BIOMES.getKey(level.getBiome(entity.blockPosition()).get());
+        ResourceLocation currentBiome = level.getBiome(entity.blockPosition()).unwrapKey().get().location();
 
         if (!biomes.isEmpty() && !biomes.contains(currentBiome))
             return false;
