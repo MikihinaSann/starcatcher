@@ -49,7 +49,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
 
     private void recalculate()
     {
-        fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player);
+        fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player).stream().filter(o -> !o.catchInfo().alwaysSpawnEntity()).toList();
         fishesCaught.clear();
 
         FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) ->{
@@ -85,7 +85,6 @@ public class FishRadarLayer implements LayeredDraw.Layer
         else
             offScreen = 0;
 
-
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(-offScreen, 0, 0);
 
@@ -118,9 +117,12 @@ public class FishRadarLayer implements LayeredDraw.Layer
         int animationFrame = ((int) (level.getGameTime() / 2 % 32 + 1));
         renderImage(guiGraphics, Starcatcher.rl("textures/gui/fish_radar/radar_animation" + animationFrame + ".png"));
 
-        //recalculate every 100 ticks?
-        counterSinceLastRefresh += 1 * partialTicks;
-        if (counterSinceLastRefresh > 100) recalculate();
+        counterSinceLastRefresh += 1;
+        if (counterSinceLastRefresh > 100 && shouldShow)
+        {
+            counterSinceLastRefresh = 0;
+            recalculate();
+        }
 
         for (int i = 0; i < fpsInArea.size(); i++)
         {
