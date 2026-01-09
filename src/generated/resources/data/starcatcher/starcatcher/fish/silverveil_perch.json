@@ -50,6 +50,15 @@
     "deviation_weight_grams": 352.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "epsilon_umi"
+    ],
+    "debug_color": -890519,
+    "name": "yildun",
+    "x": 2693,
+    "y": 860
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

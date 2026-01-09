@@ -52,6 +52,16 @@
     "deviation_weight_grams": 2000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "aldebaran",
+      "gamma_tauri"
+    ],
+    "debug_color": -9606670,
+    "name": "ain",
+    "x": 2977,
+    "y": 1553
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

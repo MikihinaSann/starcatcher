@@ -50,6 +50,15 @@
     "deviation_weight_grams": 5000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "segin"
+    ],
+    "debug_color": -9833760,
+    "name": "ruchbah",
+    "x": 2980,
+    "y": 1007
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 100,

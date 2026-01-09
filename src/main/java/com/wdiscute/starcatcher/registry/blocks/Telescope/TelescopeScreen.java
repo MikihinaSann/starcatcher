@@ -1,25 +1,24 @@
 package com.wdiscute.starcatcher.registry.blocks.Telescope;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.jna.platform.win32.OaIdl;
+import com.mojang.math.Axis;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.joml.Vector2d;
-import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class TelescopeScreen extends Screen
 {
-    List<StarInfo> stars = new ArrayList<>();
+    List<FishProperties> stars = new ArrayList<>();
 
     double offsetX = 0d;
     double offsetY = 0d;
@@ -29,86 +28,23 @@ public class TelescopeScreen extends Screen
 
     float zoomScale = 1;
 
-    public static float raToDegrees(int hours, int minutes, double seconds)
-    {
-        double decimalHours = hours + minutes / 60.0 + seconds / 3600.0;
-        return ((float) (decimalHours * 15.0));
-    }
-
-    record StarInfo(
-            ResourceLocation rl,
-            Vector2d pos,
-            List<ResourceLocation> connections
-    )
-    {
-        //helper builder using ra and dec
-        public static StarInfo starBullshit(String name, float raDegrees, float dec, String... connections)
-        {
-            List<ResourceLocation> con = new ArrayList<>();
-            Arrays.stream(connections).forEach(o -> con.add(Starcatcher.rl(o)));
-
-            double finaly = (dec + 90) * 2;
-
-            double angleX = Math.cos(Math.toRadians(raDegrees));
-            double angleY = Math.sin(Math.toRadians(raDegrees));
-
-            int offset = dec > 0 ? 1800 : 0;
-
-            Vector2d coords;
-            if (dec > 0)
-                coords = new Vector2d((int) (offset + angleX * Math.abs(90 - dec) * 10), (int) (angleY * Math.abs(90 - dec)) * 10);
-            else
-                coords = new Vector2d((int) (offset + angleX * Math.abs(dec) * 10), (int) (angleY * Math.abs(dec)) * 10);
-
-
-            return new StarInfo(Starcatcher.rl(name), coords, con);
-        }
-    }
-
     protected TelescopeScreen(Component title)
     {
         super(title);
 
-        // stars.add(StarInfo.starBullshit("center", 0, 90f));
-
-        // Ursa Minor
-
-        for (int i = 0; i < 18; i++)
-        {
-//            stars.add(StarInfo.starBullshit("polaris", raToDegrees(0, 0, 0), -90f + i * 10));
-//            stars.add(StarInfo.starBullshit("polaris", raToDegrees(2, 0, 0), -90f + i * 10));
-//            stars.add(StarInfo.starBullshit("polaris", raToDegrees(22, 0, 0), -90f + i * 10));
-        }
-
+        stars.addAll(Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY)
+                .stream().filter(o -> !o.star().equals(FishProperties.Star.DEFAULT)).toList());
 
         for (int i = 0; i < 36; i++)
         {
             for (int j = 0; j < 48; j++)
             {
-                //stars.add(StarInfo.starBullshit("polaris", raToDegrees(j / 2, j % 2 == 0? 30 : 0, 0), -90f + i * 5, "dwad"));
+                FishProperties.Star star = FishProperties.Star.fromRaAndDec("wda", j/2, j % 2 == 0? 30 : 0, 0, -90 + i * 5, 0xddffffff);
+                FishProperties fp = FishProperties.builder().withStar(star).build();
+
+                stars.add(fp);
             }
-
         }
-
-
-        stars.add(StarInfo.starBullshit("polaris", raToDegrees(3, 6, 43), 89f));
-        stars.add(StarInfo.starBullshit("kochab", raToDegrees(14, 50, 42), 74.16f));
-        stars.add(StarInfo.starBullshit("pherkad", raToDegrees(15, 20, 44), 71.83f));
-        stars.add(StarInfo.starBullshit("yildun", raToDegrees(17, 32, 13), 86.59f));
-        stars.add(StarInfo.starBullshit("epsilon_umi", raToDegrees(16, 45, 58), 82.04f));
-        stars.add(StarInfo.starBullshit("zeta_umi", raToDegrees(15, 44, 4), 77.79f));
-        stars.add(StarInfo.starBullshit("eta_umi", raToDegrees(16, 17, 31), 75.75f));
-//
-//        //Ursa Major
-        stars.add(StarInfo.starBullshit("dubhe", raToDegrees(11, 3, 43), 61.75f));
-        stars.add(StarInfo.starBullshit("merak", raToDegrees(11, 1, 50), 56.38f));
-        stars.add(StarInfo.starBullshit("phecda", raToDegrees(11, 53, 49), 53.70f));
-        stars.add(StarInfo.starBullshit("megrez", raToDegrees(12, 15, 25), 57.03f));
-        stars.add(StarInfo.starBullshit("alioth", raToDegrees(12, 54, 1), 55.97f));
-        stars.add(StarInfo.starBullshit("mizar", raToDegrees(13, 23, 55), 54.92f));
-        stars.add(StarInfo.starBullshit("alkaid", raToDegrees(13, 47, 32), 49.31f));
-
-
     }
 
     @Override
@@ -125,7 +61,6 @@ public class TelescopeScreen extends Screen
         //background
         guiGraphics.fill(0, 0, width, height, 0xff000000);
 
-
         //scaling
         guiGraphics.pose().pushPose();
 
@@ -137,16 +72,18 @@ public class TelescopeScreen extends Screen
         //zoom scale
         guiGraphics.pose().scale(zoomScale, zoomScale, zoomScale);
 
-        //System.out.println(Minecraft.getInstance().getFps());
-
         //cursor
         guiGraphics.fill(-2, -2, +2, +2, 0xffff0000);
 
+        //stars.set(0, new StarInfo(Starcatcher.rl("da"), new Vector2d(0, 0), List.of()));
+        //stars.set(1, new StarInfo(Starcatcher.rl("da"), new Vector2d(111, 20), List.of()));
+
         int number = 0;
-        for (StarInfo star : stars)
+        for (FishProperties fpdonotuse : stars)
         {
-            double baseX = star.pos.x - offsetX;
-            double baseY = star.pos.y - offsetY;
+            FishProperties.Star star = fpdonotuse.star();
+            double baseX = star.x() - offsetX;
+            double baseY = star.y() - offsetY;
 
             for (int i = -1; i <= 1; i++)
             {
@@ -161,36 +98,94 @@ public class TelescopeScreen extends Screen
                     translateY += j * 1800;
 
                     //culling
-                    if(translateX > screenWidth /2) continue;
-                    if(translateX < -screenWidth /2) continue;
-                    if(translateY > screenHeight /2) continue;
-                    if(translateY < -screenHeight /2) continue;
+                    //if (translateX > screenWidth / 2) continue;
+                    //if (translateX < -screenWidth / 2) continue;
+                    //if (translateY > screenHeight / 2) continue;
+                    //if (translateY < -screenHeight / 2) continue;
 
                     guiGraphics.pose().pushPose();
 
                     number++;
                     guiGraphics.pose().translate(translateX, translateY, 0);
 
-                    if (star.connections.isEmpty())
-                        guiGraphics.fill(-2, -2, 2, 2, 0xffffffff);
-                    else
-                        guiGraphics.fill(-2, -2, 2, 2, 0x55ffffff);
+                    //render lines to connections
+                    for (String connectionStarName : star.connections())
+                    {
+
+                        Optional<FishProperties> optional = stars.stream().filter(fplol -> fplol.star().name().equals(connectionStarName)).findFirst();
+
+                        //if rl is not valid
+                        if (optional.isPresent())
+                        {
+                            FishProperties.Star connectionStar = optional.get().star();
+                            double distance = Vector2d.distance(star.x(), star.y(), connectionStar.x(), connectionStar.y());
+
+                            var a = star.y() - connectionStar.y();
+                            var b = star.x() - connectionStar.x();
+                            var angle = Mth.atan2(a, b);
+
+                            guiGraphics.pose().pushPose();
+                            guiGraphics.pose().mulPose(Axis.ZP.rotationDegrees((float) Math.toDegrees(angle) + 90));
+                            guiGraphics.fill(0, 0, 1, (int) distance, star.debugColor());
+                            guiGraphics.pose().popPose();
+
+                        }
+
+
+                    }
+
+                    //render star
+                    guiGraphics.fill(-5, -5, 5, 5, 0xff000000);
+                    guiGraphics.fill(-2, -2, 2, 2, star.debugColor());
 
                     guiGraphics.pose().popPose();
                 }
             }
         }
 
-        System.out.println("rendered " + number + " stars");
+        //todo cull better
+        //System.out.println("rendered " + number + " stars");
         guiGraphics.pose().popPose();
     }
 
+    private static void plotLine(GuiGraphics graphics, final int x0, final int y0, final int x1, final int y1, final int color)
+    {
+        //plotLine(guiGraphics, (int) 0, (int) 0, (int) (star.pos.x - starConnected.pos.x), (int) (star.pos.y - starConnected.pos.y), 0xffff0000);
+        graphics.drawManaged(() ->
+        {
+            int newX0 = x0;
+            int newY0 = y0;
+            int dx = Mth.abs(x1 - newX0);
+            int sx = newX0 < x1 ? 1 : -1;
+            int dy = -Mth.abs(y1 - newY0);
+            int sy = newX0 < y1 ? 1 : -1;
+            int error = dx + dy;
+
+            while (true)
+            {
+                graphics.fill(newX0, newY0, newX0 + 1, newY0 + 1, color);
+                int e2 = 2 * error;
+                if (e2 >= dy)
+                {
+                    if (newX0 == x1) break;
+                    error = error + dy;
+                    newX0 = newX0 + sx;
+                }
+                if (e2 <= dx)
+                {
+                    if (newY0 == y1) break;
+                    error = error + dx;
+                    newY0 = newY0 + sy;
+                }
+            }
+        });
+    }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY)
     {
         zoomScale += (float) (scrollY / 20);
-        zoomScale = Math.clamp(zoomScale, 0.2f, 4);
+        zoomScale = Math.clamp(zoomScale, 0.01f, 4);
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 

@@ -50,6 +50,15 @@
     "deviation_weight_grams": 1000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "navi"
+    ],
+    "debug_color": -9833760,
+    "name": "shedar",
+    "x": 3034,
+    "y": 959
+  },
   "weather": "clear",
   "world_restrictions": {
     "above_y": 50,

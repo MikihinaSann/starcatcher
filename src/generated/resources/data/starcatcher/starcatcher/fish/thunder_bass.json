@@ -50,6 +50,13 @@
     "deviation_weight_grams": 800.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [],
+    "debug_color": -890519,
+    "name": "pherkad",
+    "x": 2577,
+    "y": 754
+  },
   "weather": "thunder",
   "world_restrictions": {
     "above_y": 50,

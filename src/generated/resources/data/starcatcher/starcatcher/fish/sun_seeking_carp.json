@@ -50,6 +50,15 @@
     "deviation_weight_grams": 4000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "tau_tari"
+    ],
+    "debug_color": -9606670,
+    "name": "elnath",
+    "x": 2796,
+    "y": 1512
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 100,

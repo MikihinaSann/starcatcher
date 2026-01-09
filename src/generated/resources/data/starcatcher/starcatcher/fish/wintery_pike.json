@@ -50,6 +50,16 @@
     "deviation_weight_grams": 3000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "phecda",
+      "dubhe"
+    ],
+    "debug_color": -7146903,
+    "name": "megrez",
+    "x": 2360,
+    "y": 876
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

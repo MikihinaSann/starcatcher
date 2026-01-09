@@ -52,6 +52,15 @@
     "deviation_weight_grams": 3000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "ain"
+    ],
+    "debug_color": -9606670,
+    "name": "tau_tari",
+    "x": 2929,
+    "y": 1529
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

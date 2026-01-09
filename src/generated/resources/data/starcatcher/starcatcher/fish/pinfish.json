@@ -50,6 +50,15 @@
     "deviation_weight_grams": 100.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "lambda_tauri"
+    ],
+    "debug_color": -9606670,
+    "name": "gamma_tauri",
+    "x": 3016,
+    "y": 1579
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

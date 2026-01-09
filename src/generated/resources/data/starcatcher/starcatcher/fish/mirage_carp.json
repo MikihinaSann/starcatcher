@@ -50,6 +50,13 @@
     "deviation_weight_grams": 4000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [],
+    "debug_color": -7146903,
+    "name": "merak",
+    "x": 2371,
+    "y": 987
+  },
   "weather": "clear",
   "world_restrictions": {
     "above_y": 50,

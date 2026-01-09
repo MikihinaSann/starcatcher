@@ -60,6 +60,13 @@
     "deviation_weight_grams": 100.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [],
+    "debug_color": -9606670,
+    "name": "zeta_tauri",
+    "x": 2772,
+    "y": 1586
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

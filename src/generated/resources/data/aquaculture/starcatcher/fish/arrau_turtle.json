@@ -56,6 +56,13 @@
     "deviation_weight_grams": 150000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [],
+    "debug_color": -1,
+    "name": "",
+    "x": 0,
+    "y": 0
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

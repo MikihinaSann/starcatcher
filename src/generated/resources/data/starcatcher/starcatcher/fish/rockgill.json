@@ -50,6 +50,13 @@
     "deviation_weight_grams": 5000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [],
+    "debug_color": -9833760,
+    "name": "segin",
+    "x": 2936,
+    "y": 1030
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 100,

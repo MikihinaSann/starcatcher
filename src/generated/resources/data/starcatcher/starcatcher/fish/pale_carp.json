@@ -50,6 +50,15 @@
     "deviation_weight_grams": 4000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "omicron_tauri"
+    ],
+    "debug_color": -9606670,
+    "name": "lambda_tauri",
+    "x": 3090,
+    "y": 1575
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

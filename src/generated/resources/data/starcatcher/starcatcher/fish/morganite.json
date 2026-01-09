@@ -50,6 +50,15 @@
     "deviation_weight_grams": 1000.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "yildun"
+    ],
+    "debug_color": -890519,
+    "name": "polaris",
+    "x": 2706,
+    "y": 907
+  },
   "weather": "rain",
   "world_restrictions": {
     "above_y": 50,

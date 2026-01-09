@@ -72,6 +72,15 @@
     "deviation_weight_grams": 30.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "megrez"
+    ],
+    "debug_color": -7146903,
+    "name": "alioth",
+    "x": 2358,
+    "y": 821
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,

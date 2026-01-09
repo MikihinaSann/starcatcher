@@ -50,6 +50,15 @@
     "deviation_weight_grams": 731.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "pherkad"
+    ],
+    "debug_color": -890519,
+    "name": "eta_umi",
+    "x": 2634,
+    "y": 765
+  },
   "weather": "rain",
   "world_restrictions": {
     "above_y": 50,

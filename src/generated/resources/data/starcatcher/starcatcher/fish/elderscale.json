@@ -50,6 +50,16 @@
     "deviation_weight_grams": 652.0
   },
   "skips_minigame": false,
+  "star": {
+    "connections": [
+      "kochab",
+      "eta_umi"
+    ],
+    "debug_color": -890519,
+    "name": "zeta_umi",
+    "x": 2625,
+    "y": 793
+  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,
