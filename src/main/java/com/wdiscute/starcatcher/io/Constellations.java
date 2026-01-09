@@ -47,7 +47,7 @@ public class Constellations
                 "phecda", 11, 55, 12, 53f, 0xff92f269, "merak");
 
         public static final FishProperties.Star MERAK = FishProperties.Star.fromRaAndDec(
-                "merak", 11, 3, 25, 56f, 0xff92f269, "");
+                "merak", 11, 3, 25, 56f, 0xff92f269, "dubhe");
 
         public static final FishProperties.Star DUBHE = FishProperties.Star.fromRaAndDec(
                 "dubhe", 11, 5, 21, 61f, 0xff92f269, "");

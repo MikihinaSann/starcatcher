@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-09T00:28:10.6621125	FishingProperties
+// 1.21.1	2026-01-09T02:49:05.2394334	FishingProperties
 753b5a3869ec4d15f4463d601e7803dcac71056b data/alexscaves/starcatcher/fish/lanternfish.json
 2f4e35cfb0f1239f7f72c7081033c065b4ed77d0 data/alexscaves/starcatcher/fish/radgill.json
 816fc3519462023e9fced6d9e4ba829001d2424b data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -184,7 +184,7 @@ c2eda076577f51a072174a415e303ebfe7bb23c1 data/starcatcher/starcatcher/fish/light
 5b63629c7f273139e1b29f2469cb21e7bc9c9ec0 data/starcatcher/starcatcher/fish/lily_snapper.json
 f90c3e9ea215ab283cd26327cc771ffaf2da21a7 data/starcatcher/starcatcher/fish/lush_pike.json
 b16f4e50b030f8ea5c0803e26b62c14bc1032be7 data/starcatcher/starcatcher/fish/magma_fish.json
-28ecf271580c86370d6d30fe81bcf31477aea0ea data/starcatcher/starcatcher/fish/mirage_carp.json
+36770e393a4ce829e5e1bf4404ebf9fd422bb7de data/starcatcher/starcatcher/fish/mirage_carp.json
 34410fa885248a184e49a69c0af88fbf1921d42e data/starcatcher/starcatcher/fish/mistback_chub.json
 768865f4320bbcbee34dc5f2c445afa9a58045fc data/starcatcher/starcatcher/fish/molten_deepslate_crab.json
 35465972352aaa6c32de0804545ffabfa57831c3 data/starcatcher/starcatcher/fish/molten_shrimp.json

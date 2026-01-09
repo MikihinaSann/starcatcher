@@ -51,7 +51,9 @@
   },
   "skips_minigame": false,
   "star": {
-    "connections": [],
+    "connections": [
+      "dubhe"
+    ],
     "debug_color": -7146903,
     "name": "merak",
     "x": 2371,

@@ -42,7 +42,7 @@ public class TelescopeScreen extends Screen
                 FishProperties.Star star = FishProperties.Star.fromRaAndDec("wda", j/2, j % 2 == 0? 30 : 0, 0, -90 + i * 5, 0xddffffff);
                 FishProperties fp = FishProperties.builder().withStar(star).build();
 
-                stars.add(fp);
+                //stars.add(fp);
             }
         }
     }
