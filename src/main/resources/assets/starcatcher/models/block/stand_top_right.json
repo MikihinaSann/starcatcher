@@ -1,13 +1,12 @@
 {
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"texture_size": [32, 32],
-	"render_type" : "cutout",
 	"textures": {
 		"1": "starcatcher:block/stand",
 		"2": "starcatcher:block/trophy",
-		"3": "starcatcher:block/bucket",
-		"particle": "minecraft:block/barrel_side"
+		"particle": "block/barrel_side"
 	},
 	"elements": [
 		{
@@ -30,7 +29,7 @@
 			"faces": {
 				"north": {"uv": [1.875, 7.75, 3.75, 8.75], "texture": "#1"},
 				"east": {"uv": [0, 0, 0, 3.5], "texture": "#1"},
-				"south": {"uv": [3.75, 7.75, 0, 8.75], "texture": "#1"},
+				"south": {"uv": [0, 7.75, 1.875, 8.75], "texture": "#1"},
 				"west": {"uv": [0, 0, 0, 3.5], "texture": "#1"},
 				"up": {"uv": [0, 0, 14, 0], "texture": "#1"},
 				"down": {"uv": [0, 0, 14, 0], "texture": "#1"}
@@ -106,7 +105,7 @@
 			"name": "bucket",
 			"origin": [0, 0, 2],
 			"color": 0,
-			"children": [4, 5, 6, 7, 8]
+			"children": [4, 5]
 		}
 	]
 }
