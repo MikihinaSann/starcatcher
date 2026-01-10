@@ -18,7 +18,7 @@
     "item": "tide:guppy",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "night",
+  "daytime": "all",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 20,
@@ -48,12 +48,12 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "common",
+  "rarity": "uncommon",
   "size_and_weight": {
-    "average_size_cm": 4.0,
-    "average_weight_grams": 2.0,
-    "deviation_size_cm": 1.0,
-    "deviation_weight_grams": 1.0
+    "average_size_cm": 20.0,
+    "average_weight_grams": 400.0,
+    "deviation_size_cm": 5.0,
+    "deviation_weight_grams": 100.0
   },
   "skips_minigame": false,
   "weather": "all",

@@ -18,7 +18,7 @@
     "item": "tide:yellow_perch",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "day",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 5,
@@ -29,44 +29,43 @@
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 0.0,
+        "moving_rate": 1.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.1
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 0.0,
+        "moving_rate": 1.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.1
+        "vanishing_rate": 0.0
       }
     ]
   },
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 25.0,
-    "average_weight_grams": 200.0,
-    "deviation_size_cm": 10.0,
-    "deviation_weight_grams": 20.0
+    "average_size_cm": 27.0,
+    "average_weight_grams": 500.0,
+    "deviation_size_cm": 11.0,
+    "deviation_weight_grams": 352.0
   },
   "skips_minigame": false,
-  "weather": "rain",
+  "weather": "all",
   "world_restrictions": {
     "above_y": 50,
     "below_y": 100,
     "biomes": [],
     "biomes_blacklist": [],
-    "biomes_blacklist_tags": [
-      "starcatcher:is_ocean",
+    "biomes_blacklist_tags": [],
+    "biomes_tags": [
       "starcatcher:is_river"
     ],
-    "biomes_tags": [],
     "dimensions": [
       "minecraft:overworld"
     ],
@@ -75,8 +74,7 @@
       "minecraft:water"
     ],
     "seasons": [
-      "spring",
-      "summer"
+      "all"
     ]
   }
 }

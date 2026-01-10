@@ -13,8 +13,8 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "starcatcher:fish",
-    "fish_bucket": "starcatcher:missingno",
+    "entity": "tide:cave_eel",
+    "fish_bucket": "tide:cave_eel_bucket",
     "item": "tide:cave_eel",
     "treasure": "starcatcher:waterlogged_satchel"
   },
@@ -29,7 +29,7 @@
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 1.0,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
@@ -39,7 +39,7 @@
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 1.0,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
@@ -50,15 +50,15 @@
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 15.0,
-    "average_weight_grams": 5.0,
-    "deviation_size_cm": 5.0,
-    "deviation_weight_grams": 3.0
+    "average_size_cm": 500.0,
+    "average_weight_grams": 10000.0,
+    "deviation_size_cm": 150.0,
+    "deviation_weight_grams": 2000.0
   },
   "skips_minigame": false,
   "weather": "all",
   "world_restrictions": {
-    "above_y": 0,
+    "above_y": -2147483648,
     "below_y": 50,
     "biomes": [],
     "biomes_blacklist": [],
