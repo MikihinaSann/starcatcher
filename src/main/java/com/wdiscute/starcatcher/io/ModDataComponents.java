@@ -154,7 +154,10 @@ public class ModDataComponents
         }
 
         private boolean isOn(ItemStack stack){
-            return stack.getOrCreateTag().contains(name);
+            CompoundTag tag = stack.getTag();
+            if (tag == null) return false;
+
+            return tag.contains(name);
         }
 
         @Nullable
