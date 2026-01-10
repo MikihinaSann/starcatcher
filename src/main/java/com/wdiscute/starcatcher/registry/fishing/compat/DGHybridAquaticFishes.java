@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class HybridAquaticFishingProperties extends FishingPropertiesRegistry
+public class DGHybridAquaticFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

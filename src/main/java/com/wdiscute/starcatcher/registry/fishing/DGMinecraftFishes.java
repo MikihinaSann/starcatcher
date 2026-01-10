@@ -10,7 +10,8 @@ import net.minecraft.world.item.Items;
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
 
-public class MinecraftFishingProperties {
+public class DGMinecraftFishes
+{
     public static void bootstrap() {
 
         //ocean

@@ -7,7 +7,7 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.tags.BiomeTags;
 
-public class TideFishingProperties extends FishingPropertiesRegistry
+public class DGTideFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

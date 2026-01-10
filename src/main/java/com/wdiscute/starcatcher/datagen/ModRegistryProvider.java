@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.datagen;
 
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.registry.fishing.ModTrophyProperties;
+import com.wdiscute.starcatcher.registry.fishing.DGTrophies;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.PackOutput;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 public class ModRegistryProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder REGISTRY = new RegistrySetBuilder()
             //trophies
-            .add(Starcatcher.TROPHY_REGISTRY, ModTrophyProperties::bootstrap);
+            .add(Starcatcher.TROPHY_REGISTRY, DGTrophies::bootstrap);
 
     public ModRegistryProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, REGISTRY, Set.of(

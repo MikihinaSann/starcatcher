@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class MinersDelightFishingProperties extends FishingPropertiesRegistry
+public class DGMinersDelightFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegistry
+public class DGNetherDepthsUpgradeFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

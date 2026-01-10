@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
+public class DGAlexsCavesFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

@@ -25,22 +25,22 @@ public class FishingPropertiesRegistry
 
     public static void register()
     {
-        MinecraftFishingProperties.bootstrap();
-        StarcatcherFishingProperties.bootstrap();
-        TideFishingProperties.bootstrap();
-        AquacultureFishingProperties.bootstrap();
-        FishOfThievesFishingProperties.bootstrap();
-        NetherDepthsUpgradeFishingProperties.bootstrap();
-        SullysModFishingProperties.bootstrap();
-        UpgradeAquaticFishingProperties.bootstrap();
-        EnvironmentalFishingProperties.bootstrap();
-        CollectorsReapFishingProperties.bootstrap();
-        MinersDelightFishingProperties.bootstrap();
-        AlexsCavesFishingProperties.bootstrap();
-        CrittersAndCompanionsFishingProperties.bootstrap();
-        HybridAquaticFishingProperties.bootstrap();
-        AquamiraeFishingProperties.bootstrap();
-        TerraFirmaCraftFishProperties.bootstrap();
+        DGMinecraftFishes.bootstrap();
+        DGStarcatcherFishes.bootstrap();
+        DGTideFishes.bootstrap();
+        DGAquacultureFishes.bootstrap();
+        DGFishOfThievesFishes.bootstrap();
+        DGNetherDepthsUpgradeFishes.bootstrap();
+        DGSullysModFishes.bootstrap();
+        DGUpgradeAquaticFishes.bootstrap();
+        DGEnvironmentalFishes.bootstrap();
+        DGCollectorsReapFishes.bootstrap();
+        DGMinersDelightFishes.bootstrap();
+        DGAlexsCavesFishes.bootstrap();
+        DGCrittersAndCompanionsFishes.bootstrap();
+        DGHybridAquaticFishes.bootstrap();
+        DGAquamiraeFishes.bootstrap();
+        DGTerraFirmaCraftFishes.bootstrap();
     }
 
     //region builders

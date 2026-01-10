@@ -6,7 +6,7 @@ import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 
-public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
+public class DGCollectorsReapFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

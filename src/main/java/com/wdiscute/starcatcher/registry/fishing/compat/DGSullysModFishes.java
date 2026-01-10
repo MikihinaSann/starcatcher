@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class SullysModFishingProperties extends FishingPropertiesRegistry
+public class DGSullysModFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {

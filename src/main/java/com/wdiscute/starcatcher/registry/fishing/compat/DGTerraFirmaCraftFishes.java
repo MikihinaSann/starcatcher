@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
+public class DGTerraFirmaCraftFishes extends FishingPropertiesRegistry
 {
     public static void bootstrap() {
 

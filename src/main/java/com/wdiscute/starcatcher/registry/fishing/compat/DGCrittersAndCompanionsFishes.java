@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-public class CrittersAndCompanionsFishingProperties extends FishingPropertiesRegistry
+public class DGCrittersAndCompanionsFishes extends FishingPropertiesRegistry
 {
 
 
