@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]] #mandatory
 modId="starcatcher"
-version="2.1-FORGE-1.20.1"
+version="2.1.1-FORGE-1.20.1"
 displayName="Starcatcher"
 authors="wdiscute, Nikdo53, ScribbleDemon, DayTheMagpie"
 description='''A fishing mod with lots of fishes to collect!
