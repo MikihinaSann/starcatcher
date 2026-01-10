@@ -156,8 +156,10 @@ public class ModDataComponents
         private boolean isOn(ItemStack stack){
             CompoundTag tag = stack.getTag();
             if (tag == null) return false;
+            if (!tag.contains(name)) return false;
 
-            return tag.contains(name);
+            //this might not be very good for performance but its fail proof
+            return getOn(stack) != null;
         }
 
         @Nullable
