@@ -10,7 +10,7 @@
   "catch_info": {
     "always_spawn_entity": false,
     "entity": "starcatcher:fish",
-    "fish_bucket": "starcatcher:missingno",
+    "fish_bucket": "starcatcher:starcaught_bucket",
     "item": "starcatcher:obsidian_eel",
     "treasure": "starcatcher:waterlogged_satchel"
   },
