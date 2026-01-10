@@ -4,15 +4,18 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,6 +37,7 @@ public class ModItemsTagProvider extends ItemTagsProvider
         for (var item : ModItems.FISH_REGISTRY.getEntries())
         {
             tag(ItemTags.FISHES).add(item.get());
+            tag(TagKey.create(Registries.ITEM, new ResourceLocation("forge", "foods/raw_fish"))).add(item.get());
             tag(StarcatcherTags.BUCKETABLE_FISHES).add(item.get());
 
         }
