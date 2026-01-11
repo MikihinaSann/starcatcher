@@ -5,7 +5,13 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import com.wdiscute.starcatcher.*;
+import com.wdiscute.starcatcher.Config;
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
+import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
@@ -53,6 +59,7 @@ import java.util.List;
 public class FishingGuideScreen extends Screen
 {
     //todo fix fishes in area to not be shit
+    private static final ResourceLocation BACKGROUND_COVER = Starcatcher.rl("textures/gui/guide/background_cover.png");
     private static final ResourceLocation BACKGROUND_INDEX_FIRST = Starcatcher.rl("textures/gui/guide/background_index_first.png");
     private static final ResourceLocation BACKGROUND_INDEX_SECOND = Starcatcher.rl("textures/gui/guide/background_index_second.png");
     private static final ResourceLocation BACKGROUND_ENTRY = Starcatcher.rl("textures/gui/guide/background_entry.png");
@@ -246,6 +253,11 @@ public class FishingGuideScreen extends Screen
                         page--;
                         return true;
                     }
+                    //go to book cover
+                    else
+                    {
+                        menu = -1;
+                    }
                 }
                 case 1 ->
                 {
@@ -284,6 +296,14 @@ public class FishingGuideScreen extends Screen
         {
             switch (menu)
             {
+                case -1 ->
+                {
+                    //cover -> index
+                    minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
+                    menu = 0;
+                    page = 0;
+                    return true;
+                }
                 case 0 ->
                 {
                     //index -> next page of index
@@ -354,8 +374,8 @@ public class FishingGuideScreen extends Screen
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-//        System.out.println("clicked on x :" + x);
-//        System.out.println("clicked on x :" + y);
+        System.out.println("clicked on x :" + x);
+        System.out.println("clicked on x :" + y);
 
         //sort
         if (x > 51 && x < 116 && y > 67 && y < 76)
@@ -411,8 +431,14 @@ public class FishingGuideScreen extends Screen
 
         switch (menu)
         {
-            //render settings screen
             case -1 ->
+            {
+                renderImage(guiGraphics, BACKGROUND_COVER);
+                renderCover(guiGraphics, mouseX, mouseY);
+            }
+
+            //render settings screen
+            case -99 ->
             {
                 Minecraft.getInstance().setScreen(
                         new NewSettingsScreen(
@@ -447,15 +473,18 @@ public class FishingGuideScreen extends Screen
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-        //previous arrow and index should not render on first page of the book
-        if (!(menu == 0 && page == 0))
+        //previous arrow should not render on book cover
+        if (menu != -1)
         {
             //previous arrow
             if (x > 49 && x < 69 && y > 203 && y < 217)
                 renderImage(guiGraphics, ARROW_PREVIOUS_HIGHLIGHT);
             renderImage(guiGraphics, arrowPreviousPressed ? ARROW_PREVIOUS_PRESSED : ARROW_PREVIOUS);
+        }
 
-            //index
+        //indexshould not render on book cover and first page of index
+        if (menu != -1 && !(menu == 0 && page == 0))
+        {
             if (x > 174 && x < 196 && y > 202 && y < 216)
                 renderImage(guiGraphics, ARROW_INDEX_HIGHLIGHT);
             renderImage(guiGraphics, arrowIndexPressed ? ARROW_INDEX_PRESSED : ARROW_INDEX);
@@ -471,6 +500,26 @@ public class FishingGuideScreen extends Screen
 
         clickedX = 0;
         clickedY = 0;
+    }
+
+    private void renderCover(GuiGraphics guiGraphics, int mouseX, int mouseY)
+    {
+        double x = mouseX - uiX;
+        double y = mouseY - uiY;
+
+        if(x > 233 && x < 334 && y > 117 && y < 125)
+        {
+            List<Component> list = new ArrayList<>();
+            list.add(Component.literal("This will lock the book with the current recorded entries so it "));
+            list.add(Component.literal("can be shared with others or displayed in a lectern"));
+            guiGraphics.renderTooltip(this.font, list, Optional.empty() , mouseX, mouseY);
+        }
+
+        if(clickedX > 233 && clickedX < 334 && clickedY > 117 && clickedY < 125)
+        {
+            System.out.println("send packet");
+        }
+
     }
 
     private void renderHelpText(GuiGraphics guiGraphics, String pageName)
@@ -868,7 +917,7 @@ public class FishingGuideScreen extends Screen
                         case 4 -> page = 7;
                         case 5 -> page = 8;
                     }
-                    if (i == 6) menu = -1;
+                    if (i == 6) menu = -99;
                 }
                 x += 20;
             }
@@ -919,12 +968,10 @@ public class FishingGuideScreen extends Screen
                     //render fish skeleton unless theres no space for it
                     int xFishSkeletonOffset = 0;
                     if (fishInArea.size() % 7 > 4 || fishInArea.size() % 7 == 0) xFishSkeletonOffset = 20;
-                    if (numberOfRows < 5)
+                    if (numberOfRows < 6)
                         renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20 + xFishSkeletonOffset);
-                    if (numberOfRows == 5 && fishInArea.size() % 7 < 5 && fishInArea.size() % 7 != 0)
-                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20);
                     if (numberOfRows == 6 && fishInArea.size() % 7 < 5 && fishInArea.size() % 7 != 0)
-                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20);
+                        renderImage(guiGraphics, FISHES_IN_AREA_FISH_DECORATION, 0, (numberOfRows - 1) * 20 + xFishSkeletonOffset);
                 }
             }
 

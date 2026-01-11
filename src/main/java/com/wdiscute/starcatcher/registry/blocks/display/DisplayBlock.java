@@ -37,7 +37,6 @@ import javax.annotation.Nullable;
 public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     public static final MapCodec<DisplayBlock> CODEC = simpleCodec(DisplayBlock::new);
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty HAS_BOOK = BlockStateProperties.HAS_BOOK;
     public static final VoxelShape SHAPE_BASE = Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
@@ -55,7 +54,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     {
         super(properties);
         this.registerDefaultState(
-                this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(HAS_BOOK, false)
+                this.stateDefinition.any().setValue(POWERED, false).setValue(HAS_BOOK, false)
         );
     }
 
@@ -63,7 +62,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     {
         super(BlockBehaviour.Properties.of());
         this.registerDefaultState(
-                this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(HAS_BOOK, false)
+                this.stateDefinition.any().setValue(POWERED, false).setValue(HAS_BOOK, false)
         );
     }
 
@@ -88,7 +87,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER));
+        return this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER));
     }
 
     @Override
@@ -98,21 +97,9 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected BlockState rotate(BlockState state, Rotation rotation)
-    {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-    }
-
-    @Override
-    protected BlockState mirror(BlockState state, Mirror mirror)
-    {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(FACING, POWERED, HAS_BOOK, BlockStateProperties.WATERLOGGED);
+        builder.add(POWERED, HAS_BOOK, BlockStateProperties.WATERLOGGED);
     }
 
     @Override
@@ -143,12 +130,9 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     {
         if (level.getBlockEntity(pos) instanceof LecternBlockEntity lecternblockentity)
         {
-            Direction direction = state.getValue(FACING);
             ItemStack itemstack = lecternblockentity.getBook().copy();
-            float f = 0.25F * (float) direction.getStepX();
-            float f1 = 0.25F * (float) direction.getStepZ();
             ItemEntity itementity = new ItemEntity(
-                    level, (double) pos.getX() + 0.5 + (double) f, pos.getY() + 1, (double) pos.getZ() + 0.5 + (double) f1, itemstack
+                    level, (double) pos.getX() + 0.5, pos.getY() + 1, (double) pos.getZ() + 0.5, itemstack
             );
             itementity.setDefaultPickUpDelay();
             level.addFreshEntity(itementity);

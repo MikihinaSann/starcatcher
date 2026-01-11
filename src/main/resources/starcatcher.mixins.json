@@ -7,6 +7,7 @@
   "mixins": [
     "CraftingHelperAccessor",
     "DatagenConditionsBackportMixin",
+    "LecternReturnMixin",
     "RemoveFishSizeAndWeightWhenStacking"
   ],
   "injectors": {
