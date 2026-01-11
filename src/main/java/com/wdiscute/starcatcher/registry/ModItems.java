@@ -53,7 +53,6 @@ public interface ModItems
     RegistryObject<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
 
     RegistryObject<Item> FISH_RADAR = ITEMS_REGISTRY.register("fish_radar", SingleStackBasicItem::new);
-
     RegistryObject<Item> STARCATCHER_TWINE = ITEMS_REGISTRY.register("starcatcher_twine", SingleStackBasicItem::new);
 
     //hooks
@@ -319,4 +318,6 @@ public interface ModItems
 
     //bucket
     RegistryObject<Item> STARCAUGHT_BUCKET = ITEMS_REGISTRY.register("starcaught_bucket", () -> new StarcaughtBucket(Fluids.WATER));
+
+    RegistryObject<Item> COOKED_STARCAUGHT_FISH = ITEMS_REGISTRY.register("cooked_starcaught_fish", () -> new Item(new Item.Properties().food(ModFoodProperties.BASIC_COOKED_FISH)));
 }

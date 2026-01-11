@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-11T16:43:07.4960205	Item Models: starcatcher
+// 1.21.1	2026-01-11T21:38:57.9279169	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -33,6 +33,7 @@ f6383369cb097a667f5406f76a8ecd9ec0bd23ce assets/starcatcher/models/item/cerberay
 7624bdc48e8cebe54bdeed194657679e0e27a0a7 assets/starcatcher/models/item/clear_smithing_template.json
 ae2c1d929a5ea501d66d5340bfc9b4657db9b199 assets/starcatcher/models/item/colorful_smithing_template.json
 c21ddccb5dd997a4a4d122dfb83dabfe68c27dd5 assets/starcatcher/models/item/conch.json
+5436654ee91e9de97efb1623e091ab45aa357a3d assets/starcatcher/models/item/cooked_starcaught_fish.json
 2539cea75231a8b810564fdabdfb2171b913fc1b assets/starcatcher/models/item/crystalback_boreal.json
 9b01c43443918c6c7f85436a99bc899f988bc332 assets/starcatcher/models/item/crystalback_minnow.json
 2d29747202f3589c48c4684c42dbe12756799071 assets/starcatcher/models/item/crystalback_sturgeon.json

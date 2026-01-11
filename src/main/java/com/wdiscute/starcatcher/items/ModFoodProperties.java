@@ -10,4 +10,10 @@ public class ModFoodProperties
             .saturationMod(0.1f)
             .build();
 
+    public static final FoodProperties BASIC_COOKED_FISH = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationModifier(2f)
+            .usingConvertsTo(ModItems.FISH_BONES.get())
+            .build();
+
 }

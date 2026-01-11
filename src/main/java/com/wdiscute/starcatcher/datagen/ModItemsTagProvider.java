@@ -39,7 +39,7 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(ItemTags.FISHES).add(item.get());
             tag(TagKey.create(Registries.ITEM, new ResourceLocation("forge", "foods/raw_fish"))).add(item.get());
             tag(StarcatcherTags.BUCKETABLE_FISHES).add(item.get());
-
+            tag(StarcatcherTags.STARCAUGHT_FISHES).add(item.get());
         }
 
         //todo figure out what to do with crabs tags?

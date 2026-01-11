@@ -39,6 +39,7 @@ public class StarcatcherTags
     public static final TagKey<Item> RODS = ItemTags.create(Starcatcher.rl("rods"));
 
     public static final TagKey<Item> BUCKETABLE_FISHES = ItemTags.create(Starcatcher.rl("bucketable_fishes"));
+    public static final TagKey<Item> STARCAUGHT_FISHES = ItemTags.create(Starcatcher.rl("starcaught_fishes"));
 
 
     public static final TagKey<Fluid> NETHERITE_UPGRADE_SURVIVES = FluidTags.create(Starcatcher.rl("netherite_upgrade_survives"));
