@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.datagen;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;

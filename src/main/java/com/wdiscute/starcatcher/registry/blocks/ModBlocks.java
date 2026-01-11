@@ -18,24 +18,15 @@ public interface ModBlocks
 {
     DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Starcatcher.MOD_ID);
 
-    RegistryObject<Block> TROPHY_GOLD = registerBlock("trophy_gold", TrophyBlock::new);
-    RegistryObject<Block> TROPHY_SILVER = registerBlock("trophy_silver", TrophyBlock::new);
-    RegistryObject<Block> TROPHY_BRONZE = registerBlock("trophy_bronze", TrophyBlock::new);
+    RegistryObject<Block> TROPHY_GOLD = registerBlockDatagen("trophy_gold", TrophyBlock::new);
+    RegistryObject<Block> TROPHY_SILVER = registerBlockDatagen("trophy_silver", TrophyBlock::new);
+    RegistryObject<Block> TROPHY_BRONZE = registerBlockDatagen("trophy_bronze", TrophyBlock::new);
 
-    RegistryObject<Block> STAND = registerStand("tournament_stand", StandBlock::new);
+    RegistryObject<Block> STAND = registerBlockDatagen("tournament_stand", StandBlock::new);
 
 
     RegistryObject<Block> TELESCOPE = registerBlock("telescope", TelescopeBlock::new);
 
-
-
-    private static <T extends Block> RegistryObject<T> registerStand(String name, Supplier<T> block)
-    {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-
-        ModItems.BLOCKITEMS_REGISTRY.register(name, () -> new StandBlockItem(toReturn.get()));
-        return toReturn;
-    }
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
     {
@@ -47,6 +38,18 @@ public interface ModBlocks
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block)
     {
         ModItems.BLOCKITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
+    private static <T extends Block> RegistryObject<T> registerBlockDatagen(String name, Supplier<T> block)
+    {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItemDatagen(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block> void registerBlockItemDatagen(String name, RegistryObject<T> block)
+    {
+        ModItems.ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     static void register(IEventBus eventBus)
