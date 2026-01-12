@@ -69,7 +69,7 @@ public record FishProperties(
     public static final Codec<FishProperties> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     CatchInfo.CODEC.fieldOf("catch_info").forGetter(FishProperties::catchInfo),
-                    Star.CODEC.fieldOf("star").forGetter(FishProperties::star),
+                    Star.CODEC.optionalFieldOf("star", Star.DEFAULT).forGetter(FishProperties::star),
                     Codec.INT.fieldOf("base_chance").forGetter(FishProperties::baseChance),
                     SizeAndWeight.CODEC.fieldOf("size_and_weight").forGetter(FishProperties::sizeWeight),
                     Rarity.CODEC.fieldOf("rarity").forGetter(FishProperties::rarity),

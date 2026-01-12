@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.blocks.Telescope;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -9,8 +10,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import org.joml.Vector2d;
 import org.lwjgl.glfw.GLFW;
+import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ public class TelescopeScreen extends Screen
     double offsetX = 0d;
     double offsetY = 0d;
 
+    Pair<Double, Double> cacheOffset = new Pair<>(0d, 0d);
+
     boolean omouseLocked = true;
     boolean mouseLocked = true;
 
@@ -32,14 +37,21 @@ public class TelescopeScreen extends Screen
     {
         super(title);
 
+        offsetX = 2700;
+        offsetY = 900;
+
         stars.addAll(Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY)
                 .stream().filter(o -> !o.star().equals(FishProperties.Star.DEFAULT)).toList());
+
+
+        //stars.add(FishProperties.builder().withStar(new FishProperties.Star("wda", 0, 0, List.of(), 0xffffffff)).build());
+        //stars.add(FishProperties.builder().withStar(new FishProperties.Star("wda", 900, 0, List.of(), 0xffffffff)).build());
 
         for (int i = 0; i < 36; i++)
         {
             for (int j = 0; j < 48; j++)
             {
-                FishProperties.Star star = FishProperties.Star.fromRaAndDec("wda", j/2, j % 2 == 0? 30 : 0, 0, -90 + i * 5, 0xddffffff);
+                FishProperties.Star star = FishProperties.Star.fromRaAndDec("wda", j / 2, j % 2 == 0 ? 30 : 0, 0, -90 + i * 5, -90 + i * 5 > 0 ? 0x55ffff00 : 0x55ff00ff);
                 FishProperties fp = FishProperties.builder().withStar(star).build();
 
                 //stars.add(fp);
@@ -57,64 +69,55 @@ public class TelescopeScreen extends Screen
         int screenWidth = Minecraft.getInstance().getWindow().getScreenWidth();
         int width = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
+        PoseStack pose = guiGraphics.pose();
 
         //background
         guiGraphics.fill(0, 0, width, height, 0xff000000);
 
         //scaling
-        guiGraphics.pose().pushPose();
+        pose.pushPose();
 
         //translate to center for scaling
-        guiGraphics.pose().translate((float) width / 2, (float) height / 2, 0);
+        pose.translate((float) width / 2, (float) height / 2, 0);
+
         //unscale vanilla gui scaling
         float vanillaScale = (float) Minecraft.getInstance().getWindow().getGuiScale();
-        guiGraphics.pose().scale(1 / vanillaScale + 1.5f, 1 / vanillaScale + 1.5f, 0);
+        //guiGraphics.pose().scale(1 / vanillaScale + 1.5f, 1 / vanillaScale + 1.5f, 0);
+
         //zoom scale
         guiGraphics.pose().scale(zoomScale, zoomScale, zoomScale);
 
-        //cursor
-        guiGraphics.fill(-2, -2, +2, +2, 0xffff0000);
-
-        //stars.set(0, new StarInfo(Starcatcher.rl("da"), new Vector2d(0, 0), List.of()));
-        //stars.set(1, new StarInfo(Starcatcher.rl("da"), new Vector2d(111, 20), List.of()));
-
         int number = 0;
-        for (FishProperties fpdonotuse : stars)
+        ItemStack itemHovered = ItemStack.EMPTY;
+        for (FishProperties fp : stars)
         {
-            FishProperties.Star star = fpdonotuse.star();
-            double baseX = star.x() - offsetX;
-            double baseY = star.y() - offsetY;
+            FishProperties.Star star = fp.star();
 
-            for (int i = -1; i <= 1; i++)
+            for (int i = -1; i < 2; i++)
             {
-                for (int j = -2; j <= 2; j++)
+                for (int j = -1; j < 3; j++)
                 {
-                    double translateX = baseX;
-                    translateX += i * 3600;
-                    if (j % 2 == 0)
-                        translateX += 1800;
 
-                    double translateY = baseY;
-                    translateY += j * 1800;
+                    double x = star.x() - offsetX;
+                    x += 3600 * i;
+                    double y = star.y() - offsetY;
+                    y += 1800 * j;
+                    if (j % 2 != 0) x -= 1800;
 
                     //culling
-                    //if (translateX > screenWidth / 2) continue;
-                    //if (translateX < -screenWidth / 2) continue;
-                    //if (translateY > screenHeight / 2) continue;
-                    //if (translateY < -screenHeight / 2) continue;
+                    if (x > screenWidth / zoomScale / 2) continue;
+                    if (x < -screenWidth / zoomScale / 2) continue;
+                    if (y > screenHeight / zoomScale / 2) continue;
+                    if (y < -screenHeight / zoomScale / 2) continue;
 
-                    guiGraphics.pose().pushPose();
-
-                    number++;
-                    guiGraphics.pose().translate(translateX, translateY, 0);
+                    pose.pushPose();
+                    pose.translate(x, y, 0);
 
                     //render lines to connections
                     for (String connectionStarName : star.connections())
                     {
-
                         Optional<FishProperties> optional = stars.stream().filter(fplol -> fplol.star().name().equals(connectionStarName)).findFirst();
-
-                        //if rl is not valid
+                        //if rl is valid
                         if (optional.isPresent())
                         {
                             FishProperties.Star connectionStar = optional.get().star();
@@ -128,24 +131,35 @@ public class TelescopeScreen extends Screen
                             guiGraphics.pose().mulPose(Axis.ZP.rotationDegrees((float) Math.toDegrees(angle) + 90));
                             guiGraphics.fill(0, 0, 1, (int) distance, star.debugColor());
                             guiGraphics.pose().popPose();
-
                         }
-
-
                     }
 
-                    //render star
-                    guiGraphics.fill(-5, -5, 5, 5, 0xff000000);
-                    guiGraphics.fill(-2, -2, 2, 2, star.debugColor());
+                    if (Mth.abs((float) x) < 8 && Mth.abs((float) y) < 8)
+                    {
+                        guiGraphics.renderItem(new ItemStack(fp.catchInfo().fish().value()), 5, -7, 0xffffffff);
+                        guiGraphics.drawString(this.font, fp.catchInfo().fish().value().getDescription(), 25, -3, 0xffffffff);
+                    }
 
-                    guiGraphics.pose().popPose();
+                    //render star 🔥🔥🔥🔥🔥
+                    number++;
+                    guiGraphics.fill(-2, -2, 2, 2, star.debugColor());
+                    pose.popPose();
                 }
             }
         }
 
         //todo cull better
         //System.out.println("rendered " + number + " stars");
-        guiGraphics.pose().popPose();
+        pose.popPose();
+
+
+        //cursor
+        guiGraphics.fill(screenWidth / 2 - 2, screenHeight / 2 - 2, screenWidth / 2 + 2, screenHeight / 2 + 2, 0xffff0000);
+
+        pose.pushPose();
+        pose.scale(3, 3, 3);
+        guiGraphics.drawString(this.font, "rendered " + number + " stars", 0, 0, 0xffffffff);
+        pose.popPose();
     }
 
     private static void plotLine(GuiGraphics graphics, final int x0, final int y0, final int x1, final int y1, final int color)
