@@ -34,6 +34,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.Optional;
@@ -67,6 +68,18 @@ public class Starcatcher
 
     public static final ResourceKey<Registry<Supplier<AbstractTackleSkin>>> TACKLE_SKIN =
             ResourceKey.createRegistryKey(Starcatcher.rl("bobber_skin"));
+
+    @Nullable
+    public static IForgeRegistry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY;
+
+    @Nullable
+    public static IForgeRegistry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY;
+
+    @Nullable
+    public static IForgeRegistry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY;
+
+    @Nullable
+    public static IForgeRegistry<Supplier<AbstractTackleSkin>> TACKLE_SKIN_REGISTRY;
 
 
     public static <T> IForgeRegistry<T> getRegistry(ResourceKey<Registry<T>> resourceKey){
