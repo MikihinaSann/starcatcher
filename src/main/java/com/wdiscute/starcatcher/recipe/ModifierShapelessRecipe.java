@@ -53,13 +53,14 @@ public class ModifierShapelessRecipe extends ShapelessRecipe
         StackedContents contents = new StackedContents();
         container.fillStackedContents(contents);
 
-        if (container.getItems().size() != this.getIngredients().size())
+        long count = container.getItems().stream().filter(o -> !o.isEmpty()).count();
+        if (count != this.getIngredients().size())
         {
             return false;
         }
         else if (!isSimple)
         {
-            var nonEmptyItems = new java.util.ArrayList<ItemStack>(container.getItems().size());
+            var nonEmptyItems = new java.util.ArrayList<ItemStack>((int) count);
             for (var item : container.getItems())
                 if (!item.isEmpty())
                     nonEmptyItems.add(item);
@@ -67,7 +68,7 @@ public class ModifierShapelessRecipe extends ShapelessRecipe
         }
         else
         {
-            return container.getItems().size() == 1 && this.getIngredients().size() == 1
+            return count == 1 && this.getIngredients().size() == 1
                     ? this.getIngredients().get(0).test(container.getItems().get(0))
                     : contents.canCraft(this, null);
         }
