@@ -6,21 +6,18 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModItemProperties
-{
+public class ModItemProperties {
 
-    public static void addCustomItemProperties()
-    {
+    public static void addCustomItemProperties() {
 
-        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries())
-        {
+        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries()) {
             ItemProperties.register(
                     item.get(),
                     Starcatcher.rl("cast"),
                     (stack, level, entity, seed) ->
                     {
-                        if(entity == null) return 0.0f;
-                        return  !ModDataAttachments.get(entity, ModDataAttachments.FISHING_BOB).isEmpty() && (entity.getMainHandItem() == stack || (entity.getOffhandItem() == stack)) ? 1.0f : 0.0f;
+                        if (entity == null) return 0.0f;
+                        return !ModDataAttachments.get(entity, ModDataAttachments.FISHING_BOB).isEmpty() && (entity.getMainHandItem() == stack || (entity.getOffhandItem() == stack)) ? 1.0f : 0.0f;
                     }
             );
         }
