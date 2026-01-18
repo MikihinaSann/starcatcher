@@ -19,6 +19,7 @@ import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -71,6 +72,8 @@ public class FishingBobEntity extends Projectile
 
     public int ticksInFluid;
 
+    boolean voidHook = false;
+
     enum FishHookState
     {
         FLYING,
@@ -97,6 +100,8 @@ public class FishingBobEntity extends Projectile
         this.player = player;
         this.rod = rod;
         this.modifiers = ModCatchModifiers.getAllCatchModifiers(level, rod);
+        SingleStackContainer ssc = ModDataComponents.get(rod, ModDataComponents.HOOK);
+        voidHook = BuiltInRegistries.ITEM.getKey(ssc.stack().getItem()).equals(U.rl("tide", "void_fishing_hook"));
 
         netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false);
 
@@ -355,6 +360,11 @@ public class FishingBobEntity extends Projectile
 
         if (this.currentState == FishHookState.FLYING)
         {
+            if(voidHook && position().y < -71)
+            {
+                if (!level().isClientSide) this.currentState = FishHookState.BOBBING;
+            }
+
             if (getDeltaMovement().y < 1.2f)
                 this.setDeltaMovement(this.getDeltaMovement().add(0, -0.02, 0));
 
@@ -400,7 +410,7 @@ public class FishingBobEntity extends Projectile
         }
 
         //if theres no fluid on block or under, changes to FLYING
-        if (fluid.isEmpty() && fluidBellow.isEmpty())
+        if (fluid.isEmpty() && fluidBellow.isEmpty() && !voidHook)
         {
             if (!level().isClientSide) currentState = FishHookState.FLYING;
         }

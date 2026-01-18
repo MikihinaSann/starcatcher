@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider implements IDatagenConditionsExtension {
+public class DGFishingPropertiesProvider extends DatapackBuiltinEntriesProvider implements IDatagenConditionsExtension {
 
     static {
         FishingPropertiesRegistry.register(); //register all entries before anything else
@@ -24,7 +24,7 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider im
             //fishes
             .add(Starcatcher.FISH_REGISTRY, FishingPropertiesRegistry::bootstrap);
 
-    public FishingPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+    public DGFishingPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, REGISTRY, Set.of(
                 Starcatcher.MOD_ID,
                 "minecraft",

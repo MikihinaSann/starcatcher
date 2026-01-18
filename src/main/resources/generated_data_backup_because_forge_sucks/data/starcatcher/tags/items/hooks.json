@@ -6,6 +6,10 @@
     "starcatcher:mossy_hook",
     "starcatcher:stone_hook",
     "starcatcher:split_hook",
-    "starcatcher:heavy_hook"
+    "starcatcher:heavy_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    }
   ]
 }

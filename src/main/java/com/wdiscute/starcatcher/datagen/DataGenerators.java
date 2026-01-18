@@ -28,24 +28,23 @@ public class DataGenerators
         //fish properties
         gen.addProvider(
                 event.includeServer(),
-                new FishingPropertiesProvider(output, registries)
+                new DGFishingPropertiesProvider(output, registries)
         );
 
-
-        gen.addProvider(event.includeServer(), new ModAdvancementProvider(output, registries, existingFileHelper));
-        gen.addProvider(event.includeServer(), new ModRegistryProvider(output, registries));
+        gen.addProvider(event.includeServer(), new DGModRegistryProvider(output, registries));
 
         //fish models
-        gen.addProvider(event.includeServer(), new ModItemModelProvider(output, existingFileHelper));
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        gen.addProvider(event.includeServer(), new DGModItemModelProvider(output, existingFileHelper));
 
         //block tags
-        BlockTagsProvider btp = new ModBlocksTagProvider(output, registries, existingFileHelper);
+        BlockTagsProvider btp = new DGModBlocksTagProvider(output, registries, existingFileHelper);
         gen.addProvider(event.includeServer(), btp);
 
         //fish tags
-        ItemTagsProvider itp = new ModItemsTagProvider(output, registries, btp.contentsGetter(), existingFileHelper);
+        ItemTagsProvider itp = new DGModItemsTagProvider(output, registries, btp.contentsGetter(), existingFileHelper);
         gen.addProvider(event.includeServer(), itp);
 
-       //  gen.addProvider(event.includeServer(), new ModAdvancementProvider(output, registries, existingFileHelper));
+        gen.addProvider(event.includeServer(), new DGModAdvancementProvider(output, registries, existingFileHelper));
     }
 }
