@@ -285,6 +285,24 @@ public class FishingPropertiesRegistry
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_FOREST);
     }
 
+    protected static FishProperties.Builder overworldVoidFishing(Holder<Item> fish)
+    {
+        return FishProperties.builder().withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_VOID);
+    }
+
+    protected static FishProperties.Builder netherVoidFishing(Holder<Item> fish)
+    {
+        return FishProperties.builder().withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.NETHER_VOID);
+    }
+
+    protected static FishProperties.Builder endVoidFishing(Holder<Item> fish)
+    {
+        return FishProperties.builder().withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.END_VOID);
+    }
+
     //endregion
 
     private static final List<Pair<ResourceKey<FishProperties>, FishProperties>> PROPERTIES = new ArrayList<>();

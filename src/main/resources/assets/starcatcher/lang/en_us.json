@@ -1,30 +1,12 @@
 {
-  "tooltip.libtooltips.generic.shift_up": "⏬ §l§3[Shift]§r ⏬",
-  "tooltip.libtooltips.generic.shift_down": "⏫ §l§6[Shift]§r ⏫",
-  "tooltip.libtooltips.generic.empty" : "",
-
-  "tooltip.namespace.path.name" : "<rgb>Diamond!</rgb>",
-  "tooltip.namespace.path.0" : "wow a fancy <rgb>description!</rgb> very <gradient-03>cool</gradient-30> description me thinks.",
-  "tooltip.namespace.path.1" : "You can add <rgb>more lines</rgb> by just simply doing .1 .2 etc!",
-  "tooltip.namespace.path.2" : "<gradient-30>You can define a gradient like this!</gradient-60>",
-  "tooltip.namespace.path.3" : "The 30 and 60 refer to a scale from 00 to 99 for the hue.",
-  "tooltip.namespace.path.4" : "",
-  "tooltip.namespace.path.5" : "You can make a 'line break' by just leaving the translation empty like this.",
-
-  "tooltip.namespace.path.7" : "skipping a number will stop the tooltip 'cycle', so don't do that. this text will never be rendered",
-  "tooltip.namespace.path.8" : "This works with any item or block, not just your mod or vanilla!",
-
-  "dimension.minecraft.overworld" : "Overworld",
-  "dimension.minecraft.the_nether" : "The Nether",
-  "dimension.minecraft.the_end" : "The End",
+  "block.minecraft.empty": "Void",
 
   "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
   "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
 
   "key.category.starcatcher.starcatcher": "Starcatcher",
   "key.starcatcher.minigame_hit": "Minigame Hit",
-  "key.starcatcher.expand_tournament": "Expand Tournament",
-
+  "key.starcatcher.expand_tournament": "Toggle Tournament Overlay",
 
   "creativetab.starcatcher.starcatcher": "Starcatcher",
 
@@ -61,8 +43,14 @@
   "tag.minecraft.is_savanna" : "Savannas",
   "tag.minecraft.is_taiga" : "Taigas",
 
+  "tag.starcatcher.baits" : "Fishing Baits",
   "tag.starcatcher.hooks" : "Fishing Hooks",
-  "tag.starcatcher.bobbers" : "Bobbers",
+  "tag.starcatcher.bobbers" : "Fishing Bobbers",
+  "tag.starcatcher.equipments" : "Fishing Equipment",
+  "tag.starcatcher.gadgets" : "Fishing Gadgets",
+  "tag.starcatcher.rods" : "Starcatcher Rods",
+  "tag.starcatcher.templates" : "Fishing Rod Templates",
+  "tag.starcatcher.bucketable_fishes" : "Starcatcher Bucketable Fishes",
   "tag.starcatcher.hooks_survive_fire" : "Hooks that survive Fire",
 
 
@@ -122,7 +110,7 @@
   "item.starcatcher.azure_crystal_rod": "Azure Crystal Rod",
   "tooltip.starcatcher.azure_crystal_rod.0": "A <rgb>Legendary</rgb> rod made of pure azure crystals.",
   "tooltip.starcatcher.azure_crystal_rod.1": "It's said the <gradient-30>Older Anglers</gradient-50> gift this rod",
-  "tooltip.starcatcher.azure_crystal_rod.2": "to those to manage to greed for a treasure whilst catching an <rgb>Aurora</rgb>",
+  "tooltip.starcatcher.azure_crystal_rod.2": "to those who greed for a treasure whilst catching an <rgb>Aurora</rgb>",
 
   "item.starcatcher.good_old_rod": "Good Ol' Rod",
   "tooltip.starcatcher.good_old_rod.0": "A simple rod, now supportive of bobbers, hooks and baits.",
@@ -150,7 +138,7 @@
 
   "item.starcatcher.lush_glowberry_rod": "Lush Glowberry Rod",
   "tooltip.starcatcher.lush_glowberry_rod.0": "A glowing glowberry rod that glows just like glowberries.",
-  "tooltip.starcatcher.lush_glowberry_rod.1": "Rarely fished up from lush caves.",
+  "tooltip.starcatcher.lush_glowberry_rod.1": "Rarely fished up in lush caves.",
 
   "item.starcatcher.humble_rod": "Humble Rod",
   "tooltip.starcatcher.humble_rod.0": "A very humble rod found rarely in rivers.",
@@ -507,6 +495,7 @@
   "gui.guide.cosmetics" : "    Cosmetics",
   "gui.guide.templates" : "    Templates",
   "gui.guide.equipment" : "    Equipment",
+  "gui.guide.tournaments" : "Fishing Tournaments",
   "gui.guide.trophies" : "    Trophies",
   "gui.guide.secrets" : "      Secrets",
 
@@ -732,9 +721,49 @@
   "gui.guide.page.templates.right.2" : "",
   "gui.guide.page.templates.right.3" : "",
   "gui.guide.page.templates.right.4" : "",
-  "gui.guide.page.templates.right.5" : "  On top of looking",
-  "gui.guide.page.templates.right.6" : "fashionable, equipment might",
-  "gui.guide.page.templates.right.7" : "offer modifiers to aid you.",
+  "gui.guide.page.templates.right.5" : "[wip]",
+  "gui.guide.page.templates.right.6" : "  On top of looking",
+  "gui.guide.page.templates.right.7" : "fashionable, equipment can",
+  "gui.guide.page.templates.right.8" : "offer modifiers to aid you.",
+  "gui.guide.page.templates.right.9" : "",
+  "gui.guide.page.templates.right.10" : "  You may find equipment",
+  "gui.guide.page.templates.right.11" : "from fishing treasures,",
+  "gui.guide.page.templates.right.12" : "tournaments, dungeon loot,",
+  "gui.guide.page.templates.right.13" : "and more!",
+
+
+  "gui.guide.page.tournaments.left.0" : "",
+  "gui.guide.page.tournaments.left.1" : "",
+  "gui.guide.page.tournaments.left.2" : "",
+  "gui.guide.page.tournaments.left.3" : "",
+  "gui.guide.page.tournaments.left.4" : "",
+  "gui.guide.page.tournaments.left.5" : "  Fishing tournaments let",
+  "gui.guide.page.tournaments.left.6" : "you put your skills to the",
+  "gui.guide.page.tournaments.left.7" : "test by competing against",
+  "gui.guide.page.tournaments.left.8" : "other anglers!",
+  "gui.guide.page.tournaments.left.9" : "",
+  "gui.guide.page.tournaments.left.10" : "  To get started you'll need",
+  "gui.guide.page.tournaments.left.11" : "a Tournament Stand.",
+  "gui.guide.page.tournaments.left.12" : "",
+  "gui.guide.page.tournaments.left.13" : "  Configure the tournament",
+  "gui.guide.page.tournaments.left.14" : "settings however you want",
+  "gui.guide.page.tournaments.left.15" : "and invite your friends",
+  "gui.guide.page.tournaments.left.16" : "over for a friendly",
+  "gui.guide.page.tournaments.left.17" : "fishing competition!",
+
+  "gui.guide.page.tournaments.right.0" : "",
+  "gui.guide.page.tournaments.right.1" : "",
+  "gui.guide.page.tournaments.right.2" : "",
+  "gui.guide.page.tournaments.right.3" : "[Work In Progress]",
+  "gui.guide.page.tournaments.right.4" : "  The organizer may set",
+  "gui.guide.page.tournaments.right.5" : "an entry cost which goes",
+  "gui.guide.page.tournaments.right.6" : "towards the prize pool!",
+  "gui.guide.page.tournaments.right.7" : "",
+  "gui.guide.page.tournaments.right.8" : "  There might even be",
+  "gui.guide.page.tournaments.right.9" : "special prizes for",
+  "gui.guide.page.tournaments.right.10" : "the best anglers.",
+
+
 
 
   "gui.guide.page.trophies.left.0" : "",

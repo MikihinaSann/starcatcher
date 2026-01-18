@@ -10,35 +10,45 @@
     "correct_bait_chance_added": 0,
     "correct_baits": []
   },
-  "base_chance": 10,
+  "base_chance": 15,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "tide:elytrout",
-    "fish_bucket": "tide:elytrout_bucket",
-    "item": "tide:elytrout",
+    "entity": "tide:ender_glider",
+    "fish_bucket": "tide:ender_glider_bucket",
+    "item": "tide:ender_glider",
     "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
     "decay": 1.0,
-    "missPenalty": 30,
+    "missPenalty": 10,
     "modifiers": [],
-    "speed": 13,
+    "speed": 11,
     "sweetspots": [
       {
         "color_as_int": 65280,
-        "hitbox_size_in_pixels": 33,
+        "hitbox_size_in_pixels": 15,
         "is_flip": false,
         "moving_rate": 0.0,
-        "reward": 15,
+        "reward": 20,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal_steady.png",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/thin.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 15,
+        "is_flip": false,
+        "moving_rate": 0.0,
+        "reward": 20,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/thin.png",
         "vanishing_rate": 0.0
       }
     ]
   },
   "has_guide_entry": true,
-  "rarity": "rare",
+  "rarity": "uncommon",
   "size_and_weight": {
     "average_size_cm": 60.0,
     "average_weight_grams": 7000.0,

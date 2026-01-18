@@ -16,6 +16,7 @@ import com.wdiscute.starcatcher.rod.FishingRodScreen;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -40,7 +41,6 @@ public class ModClientEvents {
         event.registerEntityRenderer(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntities.FISH.get(), FishRenderer::new);
     }
-
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiOverlaysEvent event) {

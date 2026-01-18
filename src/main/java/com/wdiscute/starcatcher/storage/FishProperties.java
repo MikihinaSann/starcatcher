@@ -892,6 +892,27 @@ public record FishProperties(
                         .withBiomesTags(BiomeTags.IS_END.location())
                         .withBiomesBlacklist(Biomes.THE_END.location());
 
+        public static final WorldRestrictions OVERWORLD_VOID =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withMustBeCaughtBelowY(-64)
+                        .withFluids(ResourceLocation.withDefaultNamespace("empty"));
+
+        public static final WorldRestrictions NETHER_VOID =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.NETHER.location())
+                        .withMustBeCaughtBelowY(0)
+                        .withFluids(ResourceLocation.withDefaultNamespace("empty"));
+
+        public static final WorldRestrictions END_VOID =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.END.location())
+                        .withFluids(ResourceLocation.withDefaultNamespace("empty"));
+
+        public static final WorldRestrictions VOID =
+                WorldRestrictions.DEFAULT
+                        .withFluids(ResourceLocation.withDefaultNamespace("empty"));
+
         public WorldRestrictions withDims(ResourceLocation... dims)
         {
             return new WorldRestrictions(List.of(dims), this.dimsBlacklist, this.biomes, this.biomesTags, this.biomesBlacklist, this.biomesBlacklistTags, this.fluids, this.seasons, this.mustBeCaughtBelowY, this.mustBeCaughtAboveY);
@@ -1083,9 +1104,21 @@ public record FishProperties(
         public static Difficulty THREE_BIG_TWO_THIN = new Difficulty(
                 9, 20, 0,
                 List.of(),
-                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.THIN, SweetSpot.THIN
         ).vanishing();
         public static Difficulty THREE_BIG_TWO_THIN_VANISHING = THREE_BIG_TWO_THIN.vanishing();
+
+        public static Difficulty EIGHT_STONE_SPOTS = new Difficulty(
+                12, 20, 0,
+                List.of(),
+                SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE
+        );
+
+        public static Difficulty TWO_STONE_SPOTS_EASY = new Difficulty(
+                12, 20, 0,
+                List.of(),
+                SweetSpot.STONE_5, SweetSpot.STONE_5, SweetSpot.STONE_5, SweetSpot.STONE_5
+        );
 
         public static Difficulty FOUR_STONE_SPOTS = new Difficulty(
                 12, 20, 0,
@@ -1384,6 +1417,15 @@ public record FishProperties(
                 30,
                 0xff0000
         );
+
+        public static SweetSpot STONE_5 = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_STONE,
+                33,
+                5,
+                0x494949
+        );
+
 
         public static SweetSpot STONE = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,

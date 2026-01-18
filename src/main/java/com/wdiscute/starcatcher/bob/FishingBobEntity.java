@@ -55,6 +55,7 @@ public class FishingBobEntity extends Projectile
 {
     private static final Logger log = LoggerFactory.getLogger(FishingBobEntity.class);
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(FishingBobEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> VOID = SynchedEntityData.defineId(FishingBobEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final Player player;
     private FishHookState currentState;
@@ -102,6 +103,8 @@ public class FishingBobEntity extends Projectile
         this.modifiers = ModCatchModifiers.getAllCatchModifiers(level, rod);
         SingleStackContainer ssc = ModDataComponents.get(rod, ModDataComponents.HOOK);
         voidHook = BuiltInRegistries.ITEM.getKey(ssc.stack().getItem()).equals(U.rl("tide", "void_fishing_hook"));
+
+        entityData.set(VOID, voidHook);
 
         netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false);
 
@@ -166,7 +169,8 @@ public class FishingBobEntity extends Projectile
                 FishProperties.Rarity.LEGENDARY, TrophyProperties.RarityProgress.DEFAULT
         ));
 
-        FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) -> {
+        FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) ->
+        {
             all.set(new TrophyProperties.RarityProgress(all.get().total() + counter.count(), all.get().unique()));
 
             progressMap.computeIfPresent(U.getFpFromRl(level(), loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
@@ -244,7 +248,7 @@ public class FishingBobEntity extends Projectile
         modifiers.forEach(acm -> acm.afterChoosingTheCatch(immutableAvailable));
 
         //should cancel to prevent normal minigame/item fished (only used for vanilla bobber)
-        if(modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))
+        if (modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))
         {
             this.kill();
             return;
@@ -255,8 +259,7 @@ public class FishingBobEntity extends Projectile
                 || modifiers.stream().anyMatch(m -> m.forceSkipMinigame(Config.ENABLE_MINIGAME.get())))
         {
             U.spawnFishFromPlayerFishing(((ServerPlayer) player), 0, false, false, 0);
-        }
-        else
+        } else
         {
             //otherwise send fishing minigame payload to client
             ModNetworking.sendToPlayer(player, new FishingStartedPayload(fpToFish, rod)
@@ -288,7 +291,7 @@ public class FishingBobEntity extends Projectile
         if (level().isClientSide) return false;
 
         //if any modifier wants to stop fishing
-        if(modifiers.stream().anyMatch(acm -> acm.shouldStopFishing())) return true;
+        if (modifiers.stream().anyMatch(acm -> acm.shouldStopFishing())) return true;
 
         boolean holdingRod = player.getMainHandItem().is(StarcatcherTags.RODS)
                 || player.getOffhandItem().is(StarcatcherTags.RODS);
@@ -296,8 +299,7 @@ public class FishingBobEntity extends Projectile
         if (!player.isRemoved() && player.isAlive() && holdingRod && !(this.distanceToSqr(player) > 1024))
         {
             return false;
-        }
-        else
+        } else
         {
             this.kill();
             return true;
@@ -332,14 +334,15 @@ public class FishingBobEntity extends Projectile
     {
         super.tick();
 
+        voidHook = entityData.get(VOID);
+
         if (!level().isClientSide)
         {
             if (currentState == FishHookState.FLYING) entityData.set(STATE, 1);
             if (currentState == FishHookState.BOBBING) entityData.set(STATE, 2);
             if (currentState == FishHookState.BITING) entityData.set(STATE, 3);
             if (currentState == FishHookState.FISHING) entityData.set(STATE, 4);
-        }
-        else
+        } else
         {
             if (entityData.get(STATE) == 1) currentState = FishHookState.FLYING;
             if (entityData.get(STATE) == 2) currentState = FishHookState.BOBBING;
@@ -360,10 +363,20 @@ public class FishingBobEntity extends Projectile
 
         if (this.currentState == FishHookState.FLYING)
         {
-            if(voidHook && position().y < -71)
-            {
+            //set voidhook fishing for overworld/nether/end negative offset (based on tide) and always for any other dimension
+            ResourceLocation dim = level().dimension().location();
+            if (voidHook && position().y < -71 && dim.equals(Level.OVERWORLD.location()))
                 if (!level().isClientSide) this.currentState = FishHookState.BOBBING;
-            }
+
+            if (voidHook && position().y < -5 && dim.equals(Level.NETHER.location()))
+                if (!level().isClientSide) this.currentState = FishHookState.BOBBING;
+
+            if (voidHook && position().y < 50 && dim.equals(Level.END.location()))
+                if (!level().isClientSide) this.currentState = FishHookState.BOBBING;
+
+            if (!dim.equals(Level.OVERWORLD.location()) && !dim.equals(Level.NETHER.location()) && !dim.equals(Level.END.location()))
+                if (!level().isClientSide) this.currentState = FishHookState.BOBBING;
+
 
             if (getDeltaMovement().y < 1.2f)
                 this.setDeltaMovement(this.getDeltaMovement().add(0, -0.02, 0));
@@ -403,8 +416,7 @@ public class FishingBobEntity extends Projectile
                 ModTackleSkins.get(level(), rod).onMissed(player);
                 kill();
             }
-        }
-        else
+        } else
         {
             timeBiting = 0;
         }
@@ -420,20 +432,24 @@ public class FishingBobEntity extends Projectile
         {
             checkForFish();
 
-            if (!fluid.isEmpty())
+            if (!voidHook)
             {
-                setDeltaMovement(this.getDeltaMovement().add(0.0F, 0.01, 0.0F));
-            }
-            else
+                if (!fluid.isEmpty())
+                {
+                    setDeltaMovement(this.getDeltaMovement().add(0.0F, 0.01, 0.0F));
+                } else
+                {
+                    if (random.nextFloat() > 0.02)
+                    {
+                        setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.03, 0.0F));
+                    } else
+                    {
+                        setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.01, 0.0F));
+                    }
+                }
+            } else
             {
-                if (random.nextFloat() > 0.02)
-                {
-                    setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.03, 0.0F));
-                }
-                else
-                {
-                    setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.01, 0.0F));
-                }
+                setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y * 0.9, getDeltaMovement().z);
             }
         }
 
@@ -457,8 +473,7 @@ public class FishingBobEntity extends Projectile
             currentState = FishHookState.FISHING;
             reel();
             return true;
-        }
-        else
+        } else
         {
             return false;
         }
@@ -498,6 +513,7 @@ public class FishingBobEntity extends Projectile
     protected void defineSynchedData()
     {
         this.entityData.define(STATE, 0);
+        this.entityData.define(VOID, false);
     }
 
     public static boolean check(TrophyProperties.RarityProgress current, TrophyProperties.RarityProgress restriction)
