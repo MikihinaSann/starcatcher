@@ -7,7 +7,7 @@ public class StoneHookModifier extends AbstractMinigameModifier
     @Override
     public boolean onHit(ActiveSweetSpot ass)
     {
-        instance.gracePeriod = instance.fishProperties.rarity().getStoneHookGraceTicks();;
+        instance.gracePeriod = instance.rarity.getStoneHookGraceTicks();;
 
         return super.onHit(ass);
     }

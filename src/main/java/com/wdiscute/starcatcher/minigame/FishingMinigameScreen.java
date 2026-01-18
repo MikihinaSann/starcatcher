@@ -49,8 +49,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     private static final ResourceLocation SURFACE = Starcatcher.rl("textures/gui/minigame/surface.png");
     public ResourceLocation tankTexture = SURFACE;
 
-    public final FishProperties fishProperties;
     public FishProperties.Difficulty difficulty;
+    public FishProperties.Rarity rarity;
 
     public final ItemStack itemBeingFished;
     public final ItemStack bobber;
@@ -118,8 +118,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         renderScale = Config.MINIGAME_RENDER_SCALE.get().floatValue();
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
-        this.fishProperties = fp;
         this.difficulty = fp.dif();
+        this.rarity = fp.rarity();
 
         //if override is not missingno (default) then use the override item set
         if (!fp.catchInfo().overrideMinigameWith().get().equals(ModItems.MISSINGNO.get()))
@@ -160,10 +160,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             tankTexture = NETHER;
 
         //base - a lot of these are now hitZone-based
-        this.pointerSpeed = difficulty.speed();
-        this.pointerBaseSpeed = difficulty.speed();
-        this.penalty = difficulty.penalty();
-        this.decay = difficulty.decay();
+        this.pointerSpeed = (float) (difficulty.speed() * Config.POINTER_SPEED_MULTIPLIER.get());
+        this.pointerBaseSpeed = (float) (difficulty.speed() * Config.POINTER_SPEED_MULTIPLIER.get());
+        this.penalty = (int) (difficulty.penalty() * Config.PENALTY_MULTIPLIER.get());
+        this.decay = (float) (difficulty.decay() * Config.DECAY_RATE_MULTIPLIER.get());
 
         //add base modifier for kimbe before other modifiers so they can override kimbe if needed
         addModifier(new BaseModifier());

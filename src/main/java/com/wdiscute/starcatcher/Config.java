@@ -53,6 +53,31 @@ public class Config
             .comment("Useful if you want to play with a seasons mod but don't like the built-in restrictions.")
             .define("enable_seasons", true);
 
+    public static final ForgeConfigSpec.DoubleValue VANISHING_RATE_MULTIPLIER = BUILDER_SERVER
+            .comment("Adjusts the vanishing rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
+            .defineInRange("vanishing_rate_multiplier", 1d, 0d, 100d);
+
+    public static final ForgeConfigSpec.DoubleValue MOVING_SPEED_MULTIPLIER = BUILDER_SERVER
+            .comment("Adjusts the moving sweet-spots speed multiplier, useful if you want to adjust the fishes' difficulty globally.")
+            .defineInRange("moving_speed_multiplier", 1d, 0d, 100d);
+
+    public static final ForgeConfigSpec.DoubleValue PENALTY_MULTIPLIER = BUILDER_SERVER
+            .comment("Adjusts the penalty for missing rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
+            .defineInRange("penalty_multiplier", 1d, 0d, 100d);
+
+    public static final ForgeConfigSpec.DoubleValue DECAY_RATE_MULTIPLIER = BUILDER_SERVER
+            .comment("Adjusts the fish decay rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
+            .defineInRange("decay_multiplier", 1d, 0d, 100d);
+
+    public static final ForgeConfigSpec.DoubleValue POINTER_SPEED_MULTIPLIER = BUILDER_SERVER
+            .comment("Adjusts the fish decay rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
+            .defineInRange("pointer_speed_multiplier", 1d, 0d, 100d);
+
+    //todo add base modifiers config
+//    public static final ModConfigSpec.ListValueSpec BASE_MODIFIERS = BUILDER_SERVER
+//            .comment("Adjusts the fish decay rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
+//            .define("pointer_speed_multiplier", List.of());
+
     static final ForgeConfigSpec SPEC_SERVER = BUILDER_SERVER.build();
 
 

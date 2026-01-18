@@ -9,7 +9,7 @@ public class MossyHookModifier extends AbstractMinigameModifier
     public void tick()
     {
         super.tick();
-        if(tickCount == 1 && instance.fishProperties.rarity() != FishProperties.Rarity.LEGENDARY && instance.fishProperties.rarity() != FishProperties.Rarity.EPIC)
+        if(tickCount == 1 && instance.rarity != FishProperties.Rarity.LEGENDARY && instance.rarity != FishProperties.Rarity.EPIC)
         {
             instance.removeAllSweetSpots();
             instance.pointerBaseSpeed = 12;
@@ -25,7 +25,7 @@ public class MossyHookModifier extends AbstractMinigameModifier
     @Override
     public boolean forceAwardTreasure()
     {
-        return instance.perfectCatch && instance.fishProperties.rarity() != FishProperties.Rarity.LEGENDARY && instance.fishProperties.rarity() != FishProperties.Rarity.EPIC;
+        return instance.perfectCatch && instance.rarity != FishProperties.Rarity.LEGENDARY && instance.rarity != FishProperties.Rarity.EPIC;
     }
 }
 
