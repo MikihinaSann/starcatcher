@@ -23,15 +23,20 @@ public class TelescopeScreen extends Screen
 {
     List<FishProperties> stars = new ArrayList<>();
 
-    double offsetX = 0d;
-    double offsetY = 0d;
+    double offsetX;
+    double offsetY;
+
+    int frames = 0;
+    int fps = 999;
+    int ticks = 0;
 
     Pair<Double, Double> cacheOffset = new Pair<>(0d, 0d);
 
     boolean omouseLocked = true;
     boolean mouseLocked = true;
 
-    float zoomScale = 1;
+    float zoomScale;
+    float vanillaScale = (float) Minecraft.getInstance().getWindow().getGuiScale();
 
     protected TelescopeScreen(Component title)
     {
@@ -43,6 +48,12 @@ public class TelescopeScreen extends Screen
         stars.addAll(Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY)
                 .stream().filter(o -> !o.star().equals(FishProperties.Star.DEFAULT)).toList());
 
+
+        //unscale vanilla gui scaling
+        float vanillaScale = (float) Minecraft.getInstance().getWindow().getGuiScale();
+        zoomScale = 1 / vanillaScale;
+
+        zoomScale += 2;
 
         //stars.add(FishProperties.builder().withStar(new FishProperties.Star("wda", 0, 0, List.of(), 0xffffffff)).build());
         //stars.add(FishProperties.builder().withStar(new FishProperties.Star("wda", 900, 0, List.of(), 0xffffffff)).build());
@@ -63,6 +74,7 @@ public class TelescopeScreen extends Screen
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
+        frames++;
         lockCursor();
 
         int screenHeight = Minecraft.getInstance().getWindow().getScreenHeight();
@@ -80,15 +92,10 @@ public class TelescopeScreen extends Screen
         //translate to center for scaling
         pose.translate((float) width / 2, (float) height / 2, 0);
 
-        //unscale vanilla gui scaling
-        float vanillaScale = (float) Minecraft.getInstance().getWindow().getGuiScale();
-        //guiGraphics.pose().scale(1 / vanillaScale + 1.5f, 1 / vanillaScale + 1.5f, 0);
-
         //zoom scale
-        guiGraphics.pose().scale(zoomScale, zoomScale, zoomScale);
+        guiGraphics.pose().scale(zoomScale / vanillaScale, zoomScale / vanillaScale, zoomScale / vanillaScale);
 
         int number = 0;
-        ItemStack itemHovered = ItemStack.EMPTY;
         for (FishProperties fp : stars)
         {
             FishProperties.Star star = fp.star();
@@ -148,51 +155,19 @@ public class TelescopeScreen extends Screen
             }
         }
 
-        //todo cull better
-        //System.out.println("rendered " + number + " stars");
         pose.popPose();
 
-
         //cursor
-        guiGraphics.fill(screenWidth / 2 - 2, screenHeight / 2 - 2, screenWidth / 2 + 2, screenHeight / 2 + 2, 0xffff0000);
+        pose.pushPose();
+        guiGraphics.fill(width / 2 - 2, height / 2 - 2, width / 2 + 2, height / 2 + 2, 0xffff0000);
+
+        pose.popPose();
 
         pose.pushPose();
         pose.scale(3, 3, 3);
         guiGraphics.drawString(this.font, "rendered " + number + " stars", 0, 0, 0xffffffff);
+        guiGraphics.drawString(this.font, "fps: " + fps, 0, 10, 0xffffffff);
         pose.popPose();
-    }
-
-    private static void plotLine(GuiGraphics graphics, final int x0, final int y0, final int x1, final int y1, final int color)
-    {
-        //plotLine(guiGraphics, (int) 0, (int) 0, (int) (star.pos.x - starConnected.pos.x), (int) (star.pos.y - starConnected.pos.y), 0xffff0000);
-        graphics.drawManaged(() ->
-        {
-            int newX0 = x0;
-            int newY0 = y0;
-            int dx = Mth.abs(x1 - newX0);
-            int sx = newX0 < x1 ? 1 : -1;
-            int dy = -Mth.abs(y1 - newY0);
-            int sy = newX0 < y1 ? 1 : -1;
-            int error = dx + dy;
-
-            while (true)
-            {
-                graphics.fill(newX0, newY0, newX0 + 1, newY0 + 1, color);
-                int e2 = 2 * error;
-                if (e2 >= dy)
-                {
-                    if (newX0 == x1) break;
-                    error = error + dy;
-                    newX0 = newX0 + sx;
-                }
-                if (e2 <= dx)
-                {
-                    if (newY0 == y1) break;
-                    error = error + dx;
-                    newY0 = newY0 + sy;
-                }
-            }
-        });
     }
 
     @Override
@@ -208,12 +183,10 @@ public class TelescopeScreen extends Screen
         omouseLocked = mouseLocked;
         if (mouseLocked)
         {
-            double xpos = (double) this.minecraft.getWindow().getScreenWidth() / 2;
-            double ypos = (double) this.minecraft.getWindow().getScreenHeight() / 2;
-            InputConstants.grabOrReleaseMouse(this.minecraft.getWindow().getWindow(), GLFW.GLFW_CURSOR_HIDDEN, xpos, ypos);
+            GLFW.glfwSetInputMode(this.minecraft.getWindow().getWindow(), 212993, GLFW.GLFW_CURSOR_HIDDEN);
         } else
         {
-            GLFW.glfwSetInputMode(this.minecraft.getWindow().getWindow(), 208897, GLFW.GLFW_CURSOR_NORMAL);
+            GLFW.glfwSetInputMode(this.minecraft.getWindow().getWindow(), 212993, GLFW.GLFW_CURSOR_NORMAL);
         }
     }
 
@@ -237,16 +210,18 @@ public class TelescopeScreen extends Screen
     @Override
     public void mouseMoved(double mouseX, double mouseY)
     {
-        super.mouseMoved(mouseX, mouseY);
+        //super.mouseMoved(mouseX, mouseY);
 
         if (omouseLocked && mouseLocked)
         {
+            GLFW.glfwSetCursorPos(this.minecraft.getWindow().getWindow(), (double) this.minecraft.getWindow().getWidth() / 2, (double) this.minecraft.getWindow().getHeight() / 2);
+
             //dumb lil formula to make the mouse sensitivity feel better on non default zoom scales
             double scale = zoomScale <= 1f ? 4f - 3f * zoomScale : 1f - (zoomScale - 1f) / 4f;
             scale /= 6;
 
-            offsetX += (mouseX - (double) this.minecraft.getWindow().getGuiScaledWidth() / 2) * scale;
-            offsetY += (mouseY - (double) this.minecraft.getWindow().getGuiScaledHeight() / 2) * scale;
+            offsetX += (mouseX - (double) this.minecraft.getWindow().getGuiScaledWidth() / 2) * scale * vanillaScale;
+            offsetY += (mouseY - (double) this.minecraft.getWindow().getGuiScaledHeight() / 2) * scale * vanillaScale;
 
             if (offsetX > 3600) offsetX -= 3600;
             if (offsetX < 0) offsetX += 3600;
@@ -255,6 +230,18 @@ public class TelescopeScreen extends Screen
             if (offsetY < 0) offsetY += 3600;
         }
 
+    }
+
+    @Override
+    public void tick()
+    {
+        super.tick();
+        ticks++;
+        if(ticks % 20 == 0)
+        {
+            fps = frames;
+            frames = 0;
+        }
     }
 
     @Override
