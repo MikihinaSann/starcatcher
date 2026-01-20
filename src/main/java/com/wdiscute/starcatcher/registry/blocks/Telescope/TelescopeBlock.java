@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.nikdo53.tinymultiblocklib.block.AbstractMultiBlock;
 import net.nikdo53.tinymultiblocklib.block.IPreviewableMultiblock;
 import net.nikdo53.tinymultiblocklib.components.IBlockPosOffsetEnum;
@@ -113,9 +115,15 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult)
     {
-        if (level.isClientSide) Minecraft.getInstance().setScreen(new TelescopeScreen(Component.empty()));
+        if (level.isClientSide) screen();
 
         return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void screen()
+    {
+        Minecraft.getInstance().setScreen(new TelescopeScreen(Component.empty()));
     }
 
     public enum TelescopePart implements StringRepresentable, IBlockPosOffsetEnum
