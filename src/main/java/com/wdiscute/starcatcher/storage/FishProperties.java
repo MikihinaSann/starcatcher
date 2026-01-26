@@ -1757,7 +1757,7 @@ public record FishProperties(
         boolean fluidAbove = fp.wr.fluids.contains(BuiltInRegistries.FLUID.getKey(getSource(level.getFluidState(entity.blockPosition().above()).getType())));
         boolean fluidBelow = fp.wr.fluids.contains(BuiltInRegistries.FLUID.getKey(getSource(level.getFluidState(entity.blockPosition().below()).getType())));
 
-        if (!fluid && !fluidAbove && !fluidBelow && entity instanceof FishingBobEntity)
+        if (!fluid && !fluidAbove && !fluidBelow)
             return 0;
 
         //correct bait chance bonus
