@@ -41,6 +41,11 @@ public class StarcatcherTags
     public static final TagKey<Item> BUCKETABLE_FISHES = ItemTags.create(Starcatcher.rl("bucketable_fishes"));
     public static final TagKey<Item> STARCAUGHT_FISHES = ItemTags.create(Starcatcher.rl("starcaught_fishes"));
 
+    public static final TagKey<Item> COMMON_FISHES = ItemTags.create(Starcatcher.rl("common_fishes"));
+    public static final TagKey<Item> UNCOMMON_FISHES = ItemTags.create(Starcatcher.rl("uncommon_fishes"));
+    public static final TagKey<Item> RARE_FISHES = ItemTags.create(Starcatcher.rl("rare_fishes"));
+    public static final TagKey<Item> EPIC_FISHES = ItemTags.create(Starcatcher.rl("epic_fishes"));
+    public static final TagKey<Item> LEGENDARY_FISHES = ItemTags.create(Starcatcher.rl("legendary_fishes"));
 
     public static final TagKey<Fluid> NETHERITE_UPGRADE_SURVIVES = FluidTags.create(Starcatcher.rl("netherite_upgrade_survives"));
 

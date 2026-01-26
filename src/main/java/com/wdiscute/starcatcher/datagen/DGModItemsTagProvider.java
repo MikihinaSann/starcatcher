@@ -3,6 +3,8 @@ package com.wdiscute.starcatcher.datagen;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.fishing.DGStarcatcherFishes;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -42,7 +44,20 @@ public class DGModItemsTagProvider extends ItemTagsProvider
             tag(StarcatcherTags.STARCAUGHT_FISHES).add(item.get());
         }
 
-        //todo figure out what to do with crabs tags?
+        //todo figure out what to do with crabs/eels tags?
+
+        for (FishProperties fp : DGStarcatcherFishes.STARCATCHER_FISHES)
+        {
+            switch (fp.rarity())
+            {
+                case COMMON -> tag(StarcatcherTags.COMMON_FISHES).add(fp.catchInfo().fish().value());
+                case UNCOMMON -> tag(StarcatcherTags.UNCOMMON_FISHES).add(fp.catchInfo().fish().value());
+                case RARE -> tag(StarcatcherTags.RARE_FISHES).add(fp.catchInfo().fish().value());
+                case EPIC -> tag(StarcatcherTags.EPIC_FISHES).add(fp.catchInfo().fish().value());
+                case LEGENDARY -> tag(StarcatcherTags.LEGENDARY_FISHES).add(fp.catchInfo().fish().value());
+            }
+        }
+
 
         //baits tag
         for (RegistryObject<Item> item : ModItems.BAITS_REGISTRY.getEntries())

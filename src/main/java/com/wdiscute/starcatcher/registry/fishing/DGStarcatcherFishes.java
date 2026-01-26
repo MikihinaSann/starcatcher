@@ -1,15 +1,20 @@
 package com.wdiscute.starcatcher.registry.fishing;
 
+import com.wdiscute.starcatcher.io.Constellations;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
 public class DGStarcatcherFishes
 {
+    public static final List<FishProperties> STARCATCHER_FISHES = new ArrayList<>();
     public static void bootstrap()
     {
         registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.OBIDONTIEE)
@@ -355,6 +360,13 @@ public class DGStarcatcherFishes
                 .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
                 .withBaseChance(15)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                .withDaytime(FishProperties.Daytime.DAY));
+
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.BLUE_HERRING)
+                .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
+                .withBaseChance(3)
+                .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY));
 
         registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.IRONJAW_HERRING.getId())
