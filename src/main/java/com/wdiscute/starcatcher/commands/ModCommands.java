@@ -155,7 +155,8 @@ public class ModCommands
                                                                         c.getSource().getPlayerOrException(),
                                                                         IntegerArgumentType.getInteger(c, "ticks"),
                                                                         IntegerArgumentType.getInteger(c, "size"),
-                                                                        IntegerArgumentType.getInteger(c, "weight")
+                                                                        IntegerArgumentType.getInteger(c, "weight"),
+                                                                        IntegerArgumentType.getInteger(c, "percentile")
                                                                 )
                                                         )
                                                 )
@@ -167,7 +168,7 @@ public class ModCommands
                                 .executes(c -> awardFish(
                                         c.getSource().getPlayerOrException(),
                                         ResourceArgument.getResource(c, "fish", Starcatcher.FISH_REGISTRY).unwrap().left().get(),
-                                        0, 0, 0
+                                        0, 0, 0, 0
                                 ))
                                 // -> /starcatcher award_fish 123, 123, 132
                                 .then(Commands.argument("ticks", IntegerArgumentType.integer())
@@ -178,7 +179,8 @@ public class ModCommands
                                                                         ResourceArgument.getResource(c, "fish", Starcatcher.FISH_REGISTRY).key(),
                                                                         IntegerArgumentType.getInteger(c, "ticks"),
                                                                         IntegerArgumentType.getInteger(c, "size"),
-                                                                        IntegerArgumentType.getInteger(c, "weight")
+                                                                        IntegerArgumentType.getInteger(c, "weight"),
+                                                                        IntegerArgumentType.getInteger(c, "percentile")
                                                                 )
                                                         )
                                                 )
@@ -220,10 +222,10 @@ public class ModCommands
         return 0;
     }
 
-    private static int awardAllFish(ServerPlayer player, int ticks, int size, int weight)
+    private static int awardAllFish(ServerPlayer player, int ticks, int size, int weight, int percentile)
     {
         for (FishProperties fp : Starcatcher.getAllRegistryValues(player.level(), Starcatcher.FISH_REGISTRY))
-            FishCaughtCounter.awardFishCaughtCounter(fp, player, ticks, size, weight, false, false);
+            FishCaughtCounter.awardFishCaughtCounter(fp, player, ticks, size, weight, percentile, false, false);
 
         return 0;
     }
@@ -231,16 +233,16 @@ public class ModCommands
     private static int awardAllFish(ServerPlayer player)
     {
         for (FishProperties fp : Starcatcher.getAllRegistryValues(player.level(),Starcatcher.FISH_REGISTRY))
-            FishCaughtCounter.awardFishCaughtCounter(fp, player, 0, 0, 0, false, false);
+            FishCaughtCounter.awardFishCaughtCounter(fp, player, 0, 0, 0, 0, false, false);
 
         return 0;
     }
 
-    private static int awardFish(ServerPlayer player, ResourceKey<FishProperties> fish, int ticks, int size, int weight) throws CommandSyntaxException
+    private static int awardFish(ServerPlayer player, ResourceKey<FishProperties> fish, int ticks, int size, int weight, int percentile) throws CommandSyntaxException
     {
         Optional<FishProperties> optional = player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getOptional(fish);
         if (optional.isPresent())
-            FishCaughtCounter.awardFishCaughtCounter(optional.get(), player, ticks, size, weight, false, false);
+            FishCaughtCounter.awardFishCaughtCounter(optional.get(), player, ticks, size, weight, percentile, false, false);
         else
             throw ERROR_FISH_ENTRY_INVALID.create(fish);
         return 0;
@@ -280,8 +282,7 @@ public class ModCommands
             List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS));
             mods.add(modifier);
             ModDataComponents.set(stack, ModDataComponents.MINIGAME_MODIFIERS, mods);
-        }
-        else
+        } else
         {
             ModDataComponents.set(stack, ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier));
         }
@@ -299,8 +300,7 @@ public class ModCommands
             List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.getOrDefault(stack, ModDataComponents.CATCH_MODIFIERS, null));
             mods.add(modifier);
             ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, mods);
-        }
-        else
+        } else
         {
             ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, List.of(modifier));
         }
@@ -328,8 +328,7 @@ public class ModCommands
         {
             ModNetworking.sendToPlayer(player, new FishingStartedPayload(optional.get(), player.getMainHandItem()));
             return 1;
-        }
-        else
+        } else
         {
             throw ERROR_FISH_ENTRY_INVALID.create(fish.location());
         }

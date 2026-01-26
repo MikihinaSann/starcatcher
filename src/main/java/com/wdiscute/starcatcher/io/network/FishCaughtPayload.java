@@ -10,12 +10,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
-public record FishCaughtPayload(FishProperties fp, boolean newFish, int size, int weight) implements ToClientPacket {
+public record FishCaughtPayload(FishProperties fp, boolean newFish, int size, int weight, float percentile) implements ToClientPacket {
     public static final StreamCodec<FishCaughtPayload> STREAM_CODEC = StreamCodec.composite(
             FishProperties.STREAM_CODEC, FishCaughtPayload::fp,
             StreamCodec.BOOL, FishCaughtPayload::newFish,
             StreamCodec.INT, FishCaughtPayload::size,
             StreamCodec.INT, FishCaughtPayload::weight,
+            StreamCodec.FLOAT, FishCaughtPayload::percentile,
             FishCaughtPayload::new
     );
 

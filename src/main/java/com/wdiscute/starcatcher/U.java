@@ -70,15 +70,15 @@ public class U
                         player, time, completedTreasure, perfectCatch, hits))) return;
 
                 //pick size and weight
-                float percentile = r.nextFloat(100);
+                float percentile = 50;
                 int size = getRandomSize(fp, percentile);
                 int weight = getRandomWeight(fp, percentile);
 
                 //award fish counter
-                FishCaughtCounter.awardFishCaughtCounter(fp, player, time, size, weight, perfectCatch, true);
+                FishCaughtCounter.awardFishCaughtCounter(fp, player, time, size, weight, percentile, perfectCatch, true);
 
                 //add score to tournaments
-                TournamentHandler.addScore(player, fp, perfectCatch, size, weight);
+                TournamentHandler.addScore(player, fp, perfectCatch, size, weight, percentile);
 
                 //play sound
                 Vec3 p = player.position();
@@ -209,8 +209,9 @@ public class U
     public static int getRandomSize(FishProperties fp, float percentile)
     {
         percentile = Mth.clamp(percentile, 0.01f, 99.999f);
+        percentile = 100 - percentile;
         percentile = percentile / 100;
-        float dev = fp.sizeWeight().sizeDeviation();
+        float dev = fp.sizeWeight().sizeDeviation() * 2;
         float average = fp.sizeWeight().sizeAverage();
 
         return (int) (average + percentile * dev - dev / 2);
@@ -219,8 +220,9 @@ public class U
     public static int getRandomWeight(FishProperties fp, float percentile)
     {
         percentile = Mth.clamp(percentile, 0.01f, 99.999f);
+        percentile = 100 - percentile;
         percentile = percentile / 100;
-        float dev = fp.sizeWeight().weightDeviation();
+        float dev = fp.sizeWeight().weightDeviation() * 2;
         float average = fp.sizeWeight().weightAverage();
 
         return (int) (average + percentile * dev - dev / 2);

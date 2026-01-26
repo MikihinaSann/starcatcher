@@ -83,7 +83,7 @@ public class TournamentHandler
         tournament.status = Tournament.Status.CANCELLED;
     }
 
-    public static void addScore(Player playerToAwardScoreTo, FishProperties fp, boolean perfectCatch, int size, int weight)
+    public static void addScore(Player playerToAwardScoreTo, FishProperties fp, boolean perfectCatch, int size, int weight, float percentile)
     {
         if (playerToAwardScoreTo.level().isClientSide) return;
         for (Tournament t : activeTournaments)

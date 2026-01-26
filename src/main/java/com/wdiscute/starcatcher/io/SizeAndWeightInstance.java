@@ -14,7 +14,7 @@ public record SizeAndWeightInstance(
             instance.group(
                     Codec.INT.fieldOf("size").forGetter(SizeAndWeightInstance::sizeInCentimeters),
                     Codec.INT.fieldOf("weight").forGetter(SizeAndWeightInstance::weightInGrams),
-                    Codec.FLOAT.optionalFieldOf("weight", 0f).forGetter(SizeAndWeightInstance::percentile)
+                    Codec.FLOAT.optionalFieldOf("percentile", 0f).forGetter(SizeAndWeightInstance::percentile)
             ).apply(instance, SizeAndWeightInstance::new));
 
 }

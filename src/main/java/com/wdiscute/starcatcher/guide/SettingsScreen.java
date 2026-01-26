@@ -578,7 +578,7 @@ public class SettingsScreen extends Screen
 
             if (this.equals(Units.METRIC))
             {
-                if (weight < 1000) weightString = ((int) weight) + "g";
+                if (weight <= 1000) weightString = ((int) weight) + "g";
                 if (weight > 1000) weightString = (float) ((int) (weight / 1000 * 100)) / 100 + "kg";
             }
 
