@@ -721,7 +721,7 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_LAKE =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withBiomesBlacklistTags(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER)
+                        .withBiomesBlacklistTags(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER, StarcatcherTags.IS_MUSHROOM_FIELDS)
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 

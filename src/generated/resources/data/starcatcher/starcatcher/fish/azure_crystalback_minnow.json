@@ -6,7 +6,7 @@
       "starcatcher:legendary_bait"
     ]
   },
-  "base_chance": 1,
+  "base_chance": 25,
   "catch_info": {
     "always_spawn_entity": false,
     "entity": "starcatcher:fish",

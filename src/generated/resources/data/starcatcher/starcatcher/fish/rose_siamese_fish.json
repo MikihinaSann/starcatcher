@@ -6,7 +6,7 @@
       "starcatcher:cherry_bait"
     ]
   },
-  "base_chance": 5,
+  "base_chance": 8,
   "catch_info": {
     "always_spawn_entity": false,
     "entity": "starcatcher:fish",
