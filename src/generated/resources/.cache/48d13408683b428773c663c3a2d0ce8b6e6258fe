@@ -1,14 +1,19 @@
-// 1.21.1	2026-01-18T14:55:31.2006808	Tags for minecraft:item mod id starcatcher
-cbc2f8be71aa692d6ef2630ef9741c8ba45f8d8f data/c/tags/item/foods/raw_fish.json
+// 1.21.1	2026-01-26T22:42:53.4980883	Tags for minecraft:item mod id starcatcher
+9454f5372e7710ae6289038cbff1e3aee6b20f65 data/c/tags/item/foods/raw_fish.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/c/tags/item/tools/fishing_rod.json
-cbc2f8be71aa692d6ef2630ef9741c8ba45f8d8f data/minecraft/tags/item/cat_food.json
-cbc2f8be71aa692d6ef2630ef9741c8ba45f8d8f data/minecraft/tags/item/fishes.json
+9454f5372e7710ae6289038cbff1e3aee6b20f65 data/minecraft/tags/item/cat_food.json
+9454f5372e7710ae6289038cbff1e3aee6b20f65 data/minecraft/tags/item/fishes.json
 d08559bf7b581b347694be057e916605a023f190 data/starcatcher/tags/item/baits.json
 afda5aa678adf37b89c8ba7412779d97403a0fde data/starcatcher/tags/item/bobbers.json
-cbc2f8be71aa692d6ef2630ef9741c8ba45f8d8f data/starcatcher/tags/item/bucketable_fishes.json
+9454f5372e7710ae6289038cbff1e3aee6b20f65 data/starcatcher/tags/item/bucketable_fishes.json
+3c7032f672cf8e36fb5a66dead1d5f8cc53e7d29 data/starcatcher/tags/item/common_fishes.json
+25d87ad30bfcad9746ef3eb910bbe1bce1eeff6d data/starcatcher/tags/item/epic_fishes.json
 0abbeae875129266afd53ae8e6e68ea73f61876f data/starcatcher/tags/item/equipments.json
 de6377a3a15fcc745a25e8d8e40184200ee10c90 data/starcatcher/tags/item/gadgets.json
 0d6a2044b9237ef59aeebc7864687c2fd14fa985 data/starcatcher/tags/item/hooks.json
+2e07d27d36441bd6f808d362d180ec7c22fe00f6 data/starcatcher/tags/item/legendary_fishes.json
+116f611c882ea0406c4e90decb6c108c935672cc data/starcatcher/tags/item/rare_fishes.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/starcatcher/tags/item/rods.json
-cbc2f8be71aa692d6ef2630ef9741c8ba45f8d8f data/starcatcher/tags/item/starcaught_fishes.json
+9454f5372e7710ae6289038cbff1e3aee6b20f65 data/starcatcher/tags/item/starcaught_fishes.json
 c4587353669bb3edd7d9acaa9727dd8dcca56dd9 data/starcatcher/tags/item/templates.json
+32f5fd853b3bbb6548e0c8c36b144f4e662622ac data/starcatcher/tags/item/uncommon_fishes.json

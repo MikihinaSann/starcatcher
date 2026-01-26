@@ -233,6 +233,7 @@ public interface ModItems
     RegistryObject<Item> BLUE_CRYSTAL_FIN = FISH_REGISTRY.register("blue_crystal_fin", FishItem::new);
 
     //saltwater
+    RegistryObject<Item> BLUE_HERRING = FISH_REGISTRY.register("blue_herring", FishItem::new);
     RegistryObject<Item> IRONJAW_HERRING = FISH_REGISTRY.register("ironjaw_herring", FishItem::new);
     RegistryObject<Item> DEEPJAW_HERRING = FISH_REGISTRY.register("deepjaw_herring", FishItem::new);
     RegistryObject<Item> DUSKTAIL_SNAPPER = FISH_REGISTRY.register("dusktail_snapper", FishItem::new);

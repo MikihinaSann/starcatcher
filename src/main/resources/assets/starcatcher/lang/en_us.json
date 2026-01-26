@@ -1317,6 +1317,10 @@
   "tooltip.starcatcher.ironjaw_herring.0" : "This type of herring common to the ocean and often",
   "tooltip.starcatcher.ironjaw_herring.1" : "has a petrified silvery jaw resembling iron.",
 
+  "item.starcatcher.blue_herring" : "Blue Herring",
+  "tooltip.starcatcher.blue_herring.0" : "A very illusive fish, always searching for the 46th ocean.",
+  "tooltip.starcatcher.blue_herring.1" : "Fisherman use it for directions as it always goes back to where it all started.",
+
   "item.starcatcher.deepjaw_herring" : "Deepjaw Herring",
   "tooltip.starcatcher.deepjaw_herring.0" : "A fish common to oceans, often regarded highly for trading.",
 

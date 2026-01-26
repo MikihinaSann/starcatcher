@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-18T16:41:43.435897	FishingProperties
+// 1.21.1	2026-01-26T22:42:53.4980883	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -137,6 +137,7 @@ f84c909a42a2fdf85859f9e787842466b2cc03e0 data/starcatcher/starcatcher/fish/bigey
 5c1783434a20a385d8a33f374359f978c3ab3f72 data/starcatcher/starcatcher/fish/blossomfish.json
 2c64d8b97284b331b9c362acf4304a6be45c0edc data/starcatcher/starcatcher/fish/bluegigi.json
 17fbddb335b96c4aebf5a0c1b7953a46b3438118 data/starcatcher/starcatcher/fish/blue_crystal_fin.json
+266b74f7e42553035abd7117761556b8cb1f9199 data/starcatcher/starcatcher/fish/blue_herring.json
 9e1072424a6247c5f97bfea623dbf340dda4f63c data/starcatcher/starcatcher/fish/boot.json
 eeafefa73d3227c9a51364d8bb6e879821eb10e1 data/starcatcher/starcatcher/fish/boreal.json
 991f1aedeb4e8243dc29f2fdeec812b455a06cbd data/starcatcher/starcatcher/fish/bright_amethyst_snapper.json
