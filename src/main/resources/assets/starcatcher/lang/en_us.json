@@ -238,6 +238,8 @@
   "item.starcatcher.gold_hook": "Gold Hook",
   "item.starcatcher.mossy_hook": "Mossy Hook",
   "item.starcatcher.crystal_hook": "Crystal Hook",
+  "tooltip.starcatcher.crystal_hook.0": "A durable fire resistant hook often used by",
+  "tooltip.starcatcher.crystal_hook.1": "anglers who have yet to upgraded their fishing rod.",
   "item.starcatcher.stone_hook": "Stone Hook",
   "item.starcatcher.split_hook": "Split Hook",
   "item.starcatcher.stabilizing_hook": "Stabilizing Hook",
