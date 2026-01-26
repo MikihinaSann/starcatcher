@@ -70,7 +70,7 @@ public class U
                         player, time, completedTreasure, perfectCatch, hits))) return;
 
                 //pick size and weight
-                float percentile = 50;
+                float percentile = r.nextFloat(100);
                 int size = getRandomSize(fp, percentile);
                 int weight = getRandomWeight(fp, percentile);
 
