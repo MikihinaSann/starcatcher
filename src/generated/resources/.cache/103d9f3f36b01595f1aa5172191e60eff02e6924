@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-12T00:37:11.3130194	Registries
+// 1.21.1	2026-01-26T23:53:20.5743064	Registries
 d868935b0ad1ccf88142f896d1cf230a4ddcf753 data/minecraft/starcatcher/trophy/diamond.json
 ac7983eccc99046bd7f35271c0ed96e5a6bbc0fc data/minecraft/starcatcher/trophy/gold_block.json
 cf4f9ccf54015f0ae619539ff956e9f8a954b2bd data/minecraft/starcatcher/trophy/netherite_scrap.json
@@ -6,6 +6,7 @@ cf4f9ccf54015f0ae619539ff956e9f8a954b2bd data/minecraft/starcatcher/trophy/nethe
 62d6e2195213395c95eaa17eaea0221dacde8d5f data/starcatcher/starcatcher/trophy/bamboo_rod.json
 9bebf3c095d4168580a4e514cd4b42a7c005261c data/starcatcher/starcatcher/trophy/boner_rod.json
 e74c5a4acf5f89a082315bdd5ad3e6516101f741 data/starcatcher/starcatcher/trophy/burning_bottle.json
+e3cadc22afe0851ca1c8208cc406d3875116a481 data/starcatcher/starcatcher/trophy/crystal_hook.json
 f4d068b858828c3639715c03113d2aa766d3103d data/starcatcher/starcatcher/trophy/drifting_waterlogged_bottle.json
 d2de42535abda55f5917b88cf60be7317d2578ff data/starcatcher/starcatcher/trophy/hopeful_bottle.json
 101e3dde67499957256ca86726464623965fb65b data/starcatcher/starcatcher/trophy/hopeless_bottle.json

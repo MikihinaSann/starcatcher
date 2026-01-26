@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-26T22:42:53.4980883	Tags for minecraft:item mod id starcatcher
+// 1.21.1	2026-01-26T23:38:43.4340178	Tags for minecraft:item mod id starcatcher
 9454f5372e7710ae6289038cbff1e3aee6b20f65 data/c/tags/item/foods/raw_fish.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/c/tags/item/tools/fishing_rod.json
 9454f5372e7710ae6289038cbff1e3aee6b20f65 data/minecraft/tags/item/cat_food.json
@@ -10,7 +10,8 @@ afda5aa678adf37b89c8ba7412779d97403a0fde data/starcatcher/tags/item/bobbers.json
 25d87ad30bfcad9746ef3eb910bbe1bce1eeff6d data/starcatcher/tags/item/epic_fishes.json
 0abbeae875129266afd53ae8e6e68ea73f61876f data/starcatcher/tags/item/equipments.json
 de6377a3a15fcc745a25e8d8e40184200ee10c90 data/starcatcher/tags/item/gadgets.json
-0d6a2044b9237ef59aeebc7864687c2fd14fa985 data/starcatcher/tags/item/hooks.json
+0323b3fd663c86a4dc8c47da2b1d3863c767a556 data/starcatcher/tags/item/hooks.json
+600f2eb59b186baf9906f726c0eef264ad35d4f7 data/starcatcher/tags/item/hook_survives_lava.json
 2e07d27d36441bd6f808d362d180ec7c22fe00f6 data/starcatcher/tags/item/legendary_fishes.json
 116f611c882ea0406c4e90decb6c108c935672cc data/starcatcher/tags/item/rare_fishes.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/starcatcher/tags/item/rods.json

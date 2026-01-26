@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "N": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "N  ",
+    "G G",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "starcatcher:crystal_hook"
+  }
+}

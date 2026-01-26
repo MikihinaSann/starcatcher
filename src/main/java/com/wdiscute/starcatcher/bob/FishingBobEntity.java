@@ -106,7 +106,7 @@ public class FishingBobEntity extends Projectile
 
         entityData.set(VOID, voidHook);
 
-        netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false);
+        netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false) || ModDataComponents.get(rod, ModDataComponents.HOOK).stack().is(StarcatcherTags.HOOK_SURVIVES_LAVA);
 
         minTicksToFish = 100;
         maxTicksToFish = 300;
