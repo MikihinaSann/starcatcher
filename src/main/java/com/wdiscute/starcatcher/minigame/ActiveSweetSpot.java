@@ -79,7 +79,7 @@ public class ActiveSweetSpot
         this.vanishingRate = (float) (ss.vanishingRate() * Config.VANISHING_RATE_MULTIPLIER.get());
         this.movingRate = (float) (ss.movingRate() * Config.MOVING_SPEED_MULTIPLIER.get());
 
-        currentRotation = 1;
+        currentRotation = -1;
 
         this.alpha = 1;
     }
