@@ -5,14 +5,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 public record SizeAndWeightInstance(
         int sizeInCentimeters,
-        int weightInGrams
+        int weightInGrams,
+        float percentile
 )
 {
 
     public static final Codec<SizeAndWeightInstance> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.INT.fieldOf("size").forGetter(SizeAndWeightInstance::sizeInCentimeters),
-                    Codec.INT.fieldOf("weight").forGetter(SizeAndWeightInstance::weightInGrams)
+                    Codec.INT.fieldOf("weight").forGetter(SizeAndWeightInstance::weightInGrams),
+                    Codec.FLOAT.optionalFieldOf("weight", 0f).forGetter(SizeAndWeightInstance::percentile)
             ).apply(instance, SizeAndWeightInstance::new));
 
 }

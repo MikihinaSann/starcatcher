@@ -70,8 +70,9 @@ public class U
                         player, time, completedTreasure, perfectCatch, hits))) return;
 
                 //pick size and weight
-                int size = getRandomSize(fp);
-                int weight = getRandomWeight(fp);
+                float percentile = r.nextFloat(100);
+                int size = getRandomSize(fp, percentile);
+                int weight = getRandomWeight(fp, percentile);
 
                 //award fish counter
                 FishCaughtCounter.awardFishCaughtCounter(fp, player, time, size, weight, perfectCatch, true);
@@ -117,7 +118,7 @@ public class U
                     }
 
                     //set fish item if it's a starcatcher fish entity
-                    if (entity instanceof FishEntity fe) fe.setFish(getFishedItemstackFromFP(fp, size, weight));
+                    if (entity instanceof FishEntity fe) fe.setFish(getFishedItemstackFromFP(fp, size, weight, percentile));
 
                     entity.setPos(fbe.position().add(0, 1.2f, 0));
 
@@ -144,7 +145,7 @@ public class U
                         is = new ItemStack(fp.catchInfo().fish().get());
 
                         //store size and weight data component
-                        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+                        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight, percentile));
 
                         //store fp in itemstack for name color change
                         ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
@@ -205,31 +206,31 @@ public class U
         ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
     }
 
-    public static ItemStack getFishedItemstackFromFP(FishProperties fp)
+    public static int getRandomSize(FishProperties fp, float percentile)
     {
-        int size = getRandomSize(fp);
-        int weight = getRandomWeight(fp);
-        return getFishedItemstackFromFP(fp, size, weight);
+        percentile = Mth.clamp(percentile, 0.01f, 99.999f);
+        percentile = percentile / 100;
+        float dev = fp.sizeWeight().sizeDeviation();
+        float average = fp.sizeWeight().sizeAverage();
+
+        return (int) (average + percentile * dev - dev / 2);
     }
 
-
-    public static int getRandomSize(FishProperties fp)
+    public static int getRandomWeight(FishProperties fp, float percentile)
     {
-        return ((int) Starcatcher.truncatedNormal(fp.sizeWeight().sizeAverage(), fp.sizeWeight().sizeDeviation()));
+        percentile = Mth.clamp(percentile, 0.01f, 99.999f);
+        percentile = percentile / 100;
+        float dev = fp.sizeWeight().weightDeviation();
+        float average = fp.sizeWeight().weightAverage();
 
+        return (int) (average + percentile * dev - dev / 2);
     }
 
-    public static int getRandomWeight(FishProperties fp)
-    {
-        return ((int) Starcatcher.truncatedNormal(fp.sizeWeight().weightAverage(), fp.sizeWeight().weightDeviation()));
-
-    }
-
-    public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
+    public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight, float percentile)
     {
         ItemStack is = new ItemStack(fp.catchInfo().fish().get());
         ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
-        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight, percentile));
         return is;
     }
 

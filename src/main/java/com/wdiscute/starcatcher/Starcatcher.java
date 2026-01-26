@@ -99,18 +99,6 @@ public class Starcatcher
     }
 
 
-    public static double truncatedNormal(double mean, double deviation)
-    {
-        while (true)
-        {
-            double value = mean + deviation * U.r.nextGaussian();
-            if (value >= mean - deviation && value <= mean + deviation)
-            {
-                return value;
-            }
-        }
-    }
-
     public static ResourceLocation rl(String s)
     {
         return new ResourceLocation(Starcatcher.MOD_ID, s);

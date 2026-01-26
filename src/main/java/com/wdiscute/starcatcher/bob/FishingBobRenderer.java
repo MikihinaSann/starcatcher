@@ -3,6 +3,8 @@ package com.wdiscute.starcatcher.bob;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
@@ -14,7 +16,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
@@ -25,7 +26,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static java.lang.Float.NaN;
 
