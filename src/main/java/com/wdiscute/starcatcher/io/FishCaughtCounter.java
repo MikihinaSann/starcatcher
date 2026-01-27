@@ -23,6 +23,7 @@ public record FishCaughtCounter(
         float averageTicks,
         int size,
         int weight,
+        long firstCatch,
         boolean caughtGolden,
         boolean perfectCatch,
         boolean hasGuideNotification
@@ -36,6 +37,7 @@ public record FishCaughtCounter(
                     Codec.FLOAT.optionalFieldOf("average_ticks", 0.0f).forGetter(FishCaughtCounter::averageTicks),
                     Codec.INT.optionalFieldOf("best_size", 0).forGetter(FishCaughtCounter::size),
                     Codec.INT.optionalFieldOf("best_weight", 0).forGetter(FishCaughtCounter::weight),
+                    Codec.LONG.optionalFieldOf("first_catch", 0L).forGetter(FishCaughtCounter::firstCatch),
                     Codec.BOOL.optionalFieldOf("caught_golden", false).forGetter(FishCaughtCounter::caughtGolden),
                     Codec.BOOL.optionalFieldOf("perfect_catch", false).forGetter(FishCaughtCounter::perfectCatch),
                     Codec.BOOL.optionalFieldOf("has_guide_notification", false).forGetter(FishCaughtCounter::hasGuideNotification)
@@ -49,6 +51,7 @@ public record FishCaughtCounter(
             StreamCodec.FLOAT, FishCaughtCounter::averageTicks,
             StreamCodec.INT, FishCaughtCounter::size,
             StreamCodec.INT, FishCaughtCounter::weight,
+            StreamCodec.LONG, FishCaughtCounter::firstCatch,
             StreamCodec.BOOL, FishCaughtCounter::caughtGolden,
             StreamCodec.BOOL, FishCaughtCounter::perfectCatch,
             StreamCodec.BOOL, FishCaughtCounter::hasGuideNotification,
@@ -68,18 +71,18 @@ public record FishCaughtCounter(
 
     public static FishCaughtCounter createHacked()
     {
-        return new FishCaughtCounter(999999, 0, 0, 0, 0, false, false, true);
+        return new FishCaughtCounter(999999, 0, 0, 0, 0, 0, false, false, true);
     }
 
     public FishCaughtCounter removeNotification()
     {
-        return new FishCaughtCounter(this.count, this.fastestTicks, this.averageTicks, this.size, this.weight, this.caughtGolden, perfectCatch, false);
+        return new FishCaughtCounter(this.count, this.fastestTicks, this.averageTicks, this.size, this.weight, this.firstCatch, this.caughtGolden, perfectCatch, false);
     }
 
     @Nonnull
     public static FishCaughtCounter create(int ticks, int size, int weight, boolean perfectCatch)
     {
-        return new FishCaughtCounter(1, ticks, (float) ticks, size, weight, false, perfectCatch, true);
+        return new FishCaughtCounter(1, ticks, (float) ticks, size, weight, U.getTime(), false, perfectCatch, true);
     }
 
     public FishCaughtCounter getUpdated(int ticks, int size, int weight, boolean perfectCatch)
@@ -100,7 +103,10 @@ public record FishCaughtCounter(
         return new FishCaughtCounter(
                 countToSave + 1,
                 fastestToSave,
-                averageToSave, sizeToSave, weightToSave,
+                averageToSave,
+                sizeToSave,
+                weightToSave,
+                this.firstCatch,
                 this.caughtGolden,
                 perfect,
                 true);

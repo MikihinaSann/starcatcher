@@ -514,4 +514,9 @@ public class U
     {
         return x >= 0 ? 1 : -1;
     }
+
+    public static long getTime()
+    {
+        return java.time.Instant.now().getEpochSecond();
+    }
 }
