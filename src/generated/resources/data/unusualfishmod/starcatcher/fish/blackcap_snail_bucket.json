@@ -10,7 +10,7 @@
     "correct_bait_chance_added": 0,
     "correct_baits": []
   },
-  "base_chance": 5,
+  "base_chance": 1,
   "catch_info": {
     "always_spawn_entity": true,
     "entity": "unusualfishmod:blackcap_snail",
@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "rare",
   "size_and_weight": {
     "average_size_cm": 80.0,
     "average_weight_grams": 12000.0,

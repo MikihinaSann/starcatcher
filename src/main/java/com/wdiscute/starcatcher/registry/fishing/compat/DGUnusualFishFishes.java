@@ -10,13 +10,17 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
     {
 
         //
-        //  ,---.   ,--.                    ,--.              ,-----.
-        // /  O  \  |  |  ,---.  ,--.  ,--. |  |  ,---.      '  .--./  ,--,--. ,--.  ,--.  ,---.   ,---.
-        //|  .-.  | |  | | .-. :  \  `'  /  `-'  (  .-'      |  |     ' ,-.  |  \  `'  /  | .-. : (  .-'
-        //|  | |  | |  | \   --.  /  /.  \       .-'  `)     '  '--'\ \ '-'  |   \    /   \   --. .-'  `)
-        //`--' `--' `--'  `----' '--'  '--'      `----'       `-----'  `--`--'    `--'     `----' `----'
+        //,--. ,--.                                             ,--.
+        //|  | |  | ,--,--,  ,--.,--.  ,---.  ,--.,--.  ,--,--. |  |
+        //|  | |  | |      \ |  ||  | (  .-'  |  ||  | ' ,-.  | |  |
+        //'  '-'  ' |  ||  | '  ''  ' .-'  `) '  ''  ' \ '-'  | |  |
+        // `-----'  `--''--'  `----'  `----'   `----'   `--`--' `--'
+        //,------. ,--.         ,--.
+        //|  .---' `--'  ,---.  |  ,---.   ,---.   ,---.
+        //|  `--,  ,--. (  .-'  |  .-.  | | .-. : (  .-'
+        //|  |`    |  | .-'  `) |  | |  | \   --. .-'  `)
+        //`--'     `--' `----'  `--' `--'  `----' `----'
         //
-
 
         //ocean
         register(fish(U.holderItem("unusualfishmod", "wizard_jelly_bucket"))
@@ -24,15 +28,16 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "wizard_jelly"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.EPIC)
                 .withDaytime(FishProperties.Daytime.NIGHT)
+                .withBaseChance(2)
         );
 
         register(fish(U.holderItem("unusualfishmod", "raw_aero_mono"))
                 .withBucketedFish(U.holderItem("unusualfishmod", "aero_mono_bucket"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "aero_mono"))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "raw_beaked_herring"))
@@ -47,15 +52,19 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "brick_snail"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withWeather(FishProperties.Weather.RAIN)
+                .withBaseChance(10)
         );
 
         register(fish(U.holderItem("unusualfishmod", "celestial_fish_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "celestial"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDaytime(FishProperties.Daytime.NIGHT)
+                .withRarity(FishProperties.Rarity.LEGENDARY)
+                .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                .withWeather(FishProperties.Weather.CLEAR)
+                .withBaseChance(30)
         );
 
         //deep oceans
@@ -68,14 +77,15 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
 
         register(helper("demon_herring")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DEEP_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
+                .withDaytime(FishProperties.Daytime.DAY)
         );
 
         register(fish(U.holderItem("unusualfishmod", "sea_spider_bucket"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "sea_spider"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DEEP_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         //cold oceans
@@ -83,7 +93,8 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "volt_angler"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_COLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withWeather(FishProperties.Weather.RAIN)
         );
 
         register(fish(U.holderItem("unusualfishmod", "blizzardfin_bucket"))
@@ -91,13 +102,15 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_COLD_OCEAN)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withDaytime(FishProperties.Daytime.DAY)
         );
 
         register(fish(U.holderItem("unusualfishmod", "raw_snowflake"))
                 .withBucketedFish(U.holderItem("unusualfishmod", "snowflake_tail_fish_bucket"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "snowflaketail"))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_COLD_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withDaytime(FishProperties.Daytime.NIGHT)
         );
 
         //lukewarm oceans
@@ -113,7 +126,7 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "squoddle"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUKEWARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "spoon_shark_bucket"))
@@ -125,7 +138,9 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
 
         register(helper("circus")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUKEWARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withWeather(FishProperties.Weather.CLEAR)
+                .withDaytime(FishProperties.Daytime.DAY)
         );
 
         register(fish(U.holderItem("unusualfishmod", "sea_pancake_spawn_egg"))
@@ -139,12 +154,12 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withBucketedFish(U.holderItem("unusualfishmod", "copperflame_bucket"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "copperflame"))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUKEWARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(helper("forkfish")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUKEWARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "picklefish_bucket"))
@@ -152,7 +167,8 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "picklefish"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUKEWARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
+                .withDaytime(FishProperties.Daytime.DAY)
         );
 
         register(fish(U.holderItem("unusualfishmod", "porcupine_lobsta_bucket"))
@@ -169,19 +185,24 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "tiger_puffer"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withBaseChance(2)
+                .withDaytime(FishProperties.Daytime.NIGHT)
         );
 
         register(fish(U.holderItem("unusualfishmod", "zebra_cornetfish_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "zebra_cornetfish"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withWeather(FishProperties.Weather.RAIN)
+                .withDaytime(FishProperties.Daytime.NIGHT)
+                .withBaseChance(20)
         );
 
         register(helper("amber_goby")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "raw_sneep_snorp"))
@@ -196,7 +217,7 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "sea_mosquito"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "clownthorn_shark_bucket"))
@@ -212,7 +233,7 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "coral_skrimp"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "crimsonshell_squid_bucket"))
@@ -220,7 +241,8 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "crimsonshell"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withWeather(FishProperties.Weather.RAIN)
         );
 
         register(helper("duality_damselfish")
@@ -230,19 +252,22 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
 
         register(helper("spindlefish")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_OCEAN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withWeather(FishProperties.Weather.THUNDER)
+                .withBaseChance(30)
+                .withRarity(FishProperties.Rarity.LEGENDARY)
         );
 
 
         //river
         register(helper("triple_twirl_pleco")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(helperOnlyBucket("blackcap_snail")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withBaseChance(1)
         );
 
         register(helperOnlyBucket("ripper")
@@ -256,25 +281,28 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_COLD_RIVER)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withDaytime(FishProperties.Daytime.DAY)
         );
 
 
         //swamp(s)
         register(helper("bark_angelfish")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SWAMP_ONLY)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "roughback_guitarfish_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "roughback_guitarfish_spawn_egg"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SWAMP_ONLY)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withDaytime(FishProperties.Daytime.NIGHT)
+                .withBaseChance(7)
         );
 
         register(helperOnlyBucket("stout_bichir")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_MANGROVE_SWAMP)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(helper("drooping_gourami")
@@ -287,7 +315,9 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "skipper"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_MANGROVE_SWAMP)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                .withBaseChance(15)
         );
 
         register(fish(U.holderItem("unusualfishmod", "muddytop_snail_bucket"))
@@ -308,7 +338,7 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "jungleshark"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLE)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(helper("eyelash")
@@ -318,15 +348,18 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
 
         register(helperOnlyBucket("freshwater_mantis")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLE)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withBaseChance(1)
         );
 
         register(fish(U.holderItem("unusualfishmod", "gnasher_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "gnasher"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLE)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDaytime(FishProperties.Daytime.NIGHT)
+                .withWeather(FishProperties.Weather.CLEAR)
+                .withBaseChance(1)
         );
 
         //savanna
@@ -342,7 +375,7 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "kalappa"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_MUSHROOM_FIELDS)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
         );
 
 
@@ -353,13 +386,14 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withMustBeCaughtBelowY(30))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.RARE)
+                .withBaseChance(2)
         );
 
         register(helperOnlyBucket("deep_crawler")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withMustBeCaughtBelowY(20))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "raw_hatchetfish"))
@@ -373,14 +407,15 @@ public class DGUnusualFishFishes extends FishingPropertiesRegistry
         register(helperOnlyBucket("mossthorn")
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LUSH_CAVES
                         .withMustBeCaughtBelowY(40))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withRarity(FishProperties.Rarity.COMMON)
         );
 
         register(fish(U.holderItem("unusualfishmod", "prawn_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("unusualfishmod", "prawn"))
                 .withAlwaysSpawnEntity()
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DRIPSTONE_CAVES)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DRIPSTONE_CAVES
+                        .withMustBeCaughtBelowY(0))
+                .withRarity(FishProperties.Rarity.LEGENDARY)
         );
 
         register(helperOnlyBucket("shockcat")

@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "legendary",
   "size_and_weight": {
     "average_size_cm": 41.0,
     "average_weight_grams": 2001.0,
@@ -59,7 +59,7 @@
   "weather": "all",
   "world_restrictions": {
     "above_y": 0,
-    "below_y": 50,
+    "below_y": 0,
     "biomes": [
       "minecraft:dripstone_caves"
     ],

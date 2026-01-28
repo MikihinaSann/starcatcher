@@ -10,7 +10,7 @@
     "correct_bait_chance_added": 0,
     "correct_baits": []
   },
-  "base_chance": 5,
+  "base_chance": 30,
   "catch_info": {
     "always_spawn_entity": false,
     "entity": "unusualfishmod:spindlefish",
@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "legendary",
   "size_and_weight": {
     "average_size_cm": 80.0,
     "average_weight_grams": 12000.0,
@@ -56,7 +56,7 @@
     "deviation_weight_grams": 7000.0
   },
   "skips_minigame": false,
-  "weather": "all",
+  "weather": "thunder",
   "world_restrictions": {
     "above_y": 50,
     "below_y": 100,

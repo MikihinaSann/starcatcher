@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "rare",
   "size_and_weight": {
     "average_size_cm": 41.0,
     "average_weight_grams": 2001.0,
@@ -56,7 +56,7 @@
     "deviation_weight_grams": 701.0
   },
   "skips_minigame": false,
-  "weather": "all",
+  "weather": "rain",
   "world_restrictions": {
     "above_y": 50,
     "below_y": 100,

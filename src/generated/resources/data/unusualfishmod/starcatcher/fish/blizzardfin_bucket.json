@@ -18,7 +18,7 @@
     "item": "unusualfishmod:blizzardfin_bucket",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "day",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 5,

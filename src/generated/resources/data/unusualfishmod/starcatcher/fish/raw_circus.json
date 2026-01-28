@@ -18,7 +18,7 @@
     "item": "unusualfishmod:raw_circus",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "day",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 5,
@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "rare",
   "size_and_weight": {
     "average_size_cm": 80.0,
     "average_weight_grams": 12000.0,
@@ -56,7 +56,7 @@
     "deviation_weight_grams": 7000.0
   },
   "skips_minigame": false,
-  "weather": "all",
+  "weather": "clear",
   "world_restrictions": {
     "above_y": 50,
     "below_y": 100,

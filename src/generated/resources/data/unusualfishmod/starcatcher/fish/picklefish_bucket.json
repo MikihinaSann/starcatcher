@@ -18,7 +18,7 @@
     "item": "unusualfishmod:picklefish_bucket",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "day",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 5,
@@ -48,7 +48,7 @@
     ]
   },
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "common",
   "size_and_weight": {
     "average_size_cm": 41.0,
     "average_weight_grams": 2001.0,
