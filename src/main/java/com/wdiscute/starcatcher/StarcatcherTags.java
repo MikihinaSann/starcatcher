@@ -13,12 +13,14 @@ public class StarcatcherTags
     public static final ResourceLocation IS_COLD_LAKE = Starcatcher.rl("is_cold_lake");
     public static final ResourceLocation IS_COLD_RIVER = Starcatcher.rl("is_cold_river");
     public static final ResourceLocation IS_COLD_OCEAN = Starcatcher.rl("is_cold_ocean");
+    public static final ResourceLocation IS_FROZEN_OCEAN = Starcatcher.rl("is_cold_ocean");
 
     public static final ResourceLocation IS_WARM_LAKE = Starcatcher.rl("is_warm");
     public static final ResourceLocation IS_WARM_RIVER = Starcatcher.rl("is_warm_river");
     public static final ResourceLocation IS_WARM_OCEAN = Starcatcher.rl("is_warm_ocean");
 
     public static final ResourceLocation IS_OCEAN = Starcatcher.rl("is_ocean");
+    public static final ResourceLocation IS_NORMAL_OCEAN = Starcatcher.rl("is_normal_ocean");
     public static final ResourceLocation IS_LUKEWARM_OCEAN = Starcatcher.rl("is_lukewarm_ocean");
     public static final ResourceLocation IS_DEEP_OCEAN = Starcatcher.rl("is_deep_ocean");
     public static final ResourceLocation IS_RIVER = Starcatcher.rl("is_river");

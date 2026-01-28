@@ -6,7 +6,6 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
@@ -181,6 +180,12 @@ public record FishProperties(
         public Builder withEntityToSpawn(ResourceLocation entity)
         {
             this.catchInfo.withEntityToSpawn(entity);
+            return this;
+        }
+
+        public Builder withAlwaysSpawnEntity()
+        {
+            this.catchInfo.withAlwaysSpawnEntity(true);
             return this;
         }
 
@@ -697,6 +702,13 @@ public record FishProperties(
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
+        public static final WorldRestrictions OVERWORLD_ALL_OCEANS =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(StarcatcherTags.IS_OCEAN)
+                        .withMustBeCaughtAboveY(50)
+                        .withMustBeCaughtBelowY(100);
+
         public static final WorldRestrictions OVERWORLD_OCEAN =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
@@ -704,7 +716,7 @@ public record FishProperties(
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
-        public static final WorldRestrictions OVERWORLD_LUKEOCEAN =
+        public static final WorldRestrictions OVERWORLD_LUKEWARM_OCEAN =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
                         .withBiomesTags(StarcatcherTags.IS_OCEAN)
@@ -757,6 +769,14 @@ public record FishProperties(
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
+        public static final WorldRestrictions OVERWORLD_SAVANNA =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(BiomeTags.IS_SAVANNA.location())
+                        .withMustBeCaughtAboveY(50)
+                        .withMustBeCaughtBelowY(100);
+
+
         public static final WorldRestrictions OVERWORLD_COLD_RIVER =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
@@ -768,6 +788,13 @@ public record FishProperties(
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
                         .withBiomesTags(StarcatcherTags.IS_COLD_OCEAN)
+                        .withMustBeCaughtAboveY(50)
+                        .withMustBeCaughtBelowY(100);
+
+        public static final WorldRestrictions OVERWORLD_FROZEN_OCEAN =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(StarcatcherTags.IS_FROZEN_OCEAN)
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
@@ -814,10 +841,22 @@ public record FishProperties(
                         .withBiomesTags(StarcatcherTags.IS_CHERRY_GROVE)
                         .withMustBeCaughtAboveY(50);
 
-        public static final WorldRestrictions OVERWORLD_SWAMP =
+        public static final WorldRestrictions OVERWORLD_SWAMPS =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
                         .withBiomesTags(StarcatcherTags.IS_SWAMP)
+                        .withMustBeCaughtAboveY(50);
+
+        public static final WorldRestrictions OVERWORLD_SWAMP_ONLY =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomes(Biomes.SWAMP.location())
+                        .withMustBeCaughtAboveY(50);
+
+        public static final WorldRestrictions OVERWORLD_MANGROVE_SWAMP =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomes(Biomes.MANGROVE_SWAMP.location())
                         .withMustBeCaughtAboveY(50);
 
         public static final WorldRestrictions OVERWORLD_DARK_FOREST =
