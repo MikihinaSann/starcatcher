@@ -700,7 +700,14 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_OCEAN =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withBiomesTags((StarcatcherTags.IS_OCEAN))
+                        .withBiomesTags(StarcatcherTags.IS_OCEAN)
+                        .withMustBeCaughtAboveY(50)
+                        .withMustBeCaughtBelowY(100);
+
+        public static final WorldRestrictions OVERWORLD_LUKEOCEAN =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(StarcatcherTags.IS_OCEAN)
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 

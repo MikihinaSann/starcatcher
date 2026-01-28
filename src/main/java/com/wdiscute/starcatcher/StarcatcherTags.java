@@ -19,6 +19,7 @@ public class StarcatcherTags
     public static final ResourceLocation IS_WARM_OCEAN = Starcatcher.rl("is_warm_ocean");
 
     public static final ResourceLocation IS_OCEAN = Starcatcher.rl("is_ocean");
+    public static final ResourceLocation IS_LUKEWARM_OCEAN = Starcatcher.rl("is_lukewarm_ocean");
     public static final ResourceLocation IS_DEEP_OCEAN = Starcatcher.rl("is_deep_ocean");
     public static final ResourceLocation IS_RIVER = Starcatcher.rl("is_river");
 
