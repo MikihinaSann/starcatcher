@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.custom.tackleskin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.bob.FishingBobModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 public abstract class AbstractTackleSkin
 {
     public abstract ModelLayerLocation getLayerLocation();
+
     public abstract ResourceLocation getTexture();
 
     RenderType renderType = null;
@@ -50,12 +52,14 @@ public abstract class AbstractTackleSkin
     public void onSuccessfulMinigame(Player player)
     {
         Vec3 p = player.position();
-        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
+        if (Config.ENABLE_VILLAGER_SOUND.get())
+            player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
     }
 
     public void onFailedMinigame(Player player)
     {
         Vec3 p = player.position();
-        player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
+        if (Config.ENABLE_VILLAGER_SOUND.get())
+            player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
     }
 }

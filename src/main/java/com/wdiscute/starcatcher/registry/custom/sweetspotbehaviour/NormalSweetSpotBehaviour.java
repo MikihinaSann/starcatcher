@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour;
 
+import com.wdiscute.starcatcher.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 
@@ -13,7 +14,8 @@ public class NormalSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         instance.progress += ass.reward;
         if(ass.isFlip) instance.currentRotation *= -1;
         ass.pos = instance.getRandomFreePosition(ass.thickness);
-        Minecraft.getInstance().player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1f);
+        if(Config.ENABLE_HIT_SOUND.get())
+            Minecraft.getInstance().player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1f);
         ass.alpha = 1;
     }
 }

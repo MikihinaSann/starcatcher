@@ -31,7 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.ModList;
 import org.joml.Quaternionf;
 import org.joml.Vector2d;
 
@@ -538,7 +537,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             this.modifiers.forEach(AbstractMinigameModifier::onMiss);
 
             consecutiveHits = 0;
-            level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
+            if(Config.ENABLE_MISS_SOUND.get())
+                level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
             progress -= penalty;
         }
     }
