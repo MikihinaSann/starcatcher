@@ -1786,6 +1786,8 @@ public record FishProperties(
     {
         Level level = entity.level();
 
+        if(ModDataComponents.get(rod, ModDataComponents.BAIT).stack().is(ModItems.DEV_WORM)) return fp.baseChance;
+
         if (!isSeasonCorrect(entity, fp)) return 0;
 
         if (!isDimensionCorrect(entity, fp)) return 0;

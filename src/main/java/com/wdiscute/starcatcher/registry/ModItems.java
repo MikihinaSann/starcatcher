@@ -78,6 +78,7 @@ public interface ModItems
     RegistryObject<Item> WORM = BAITS_REGISTRY.register("worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     RegistryObject<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.FISH_ENTITY));
     RegistryObject<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.GUARANTEE_NEW_FISH_ALWAYS));
+    RegistryObject<Item> DEV_WORM = BAITS_REGISTRY.register("dev_worm", BasicItem::new);
 
     RegistryObject<Item> GUNPOWDER_BAIT = BAITS_REGISTRY.register("gunpowder_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     RegistryObject<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));

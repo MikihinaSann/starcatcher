@@ -270,6 +270,9 @@
   "item.starcatcher.almighty_worm": "Almighty Worm",
   "tooltip.starcatcher.almighty_worm.0": "A rare worm found by bonemealing some farmland.",
 
+  "item.starcatcher.dev_worm": "Dev Worm",
+  "tooltip.starcatcher.dev_worm.0": "A worm that ignores all fish restrictions. For dev use.",
+
 
   "item.starcatcher.gunpowder_bait": "Gunpowder Bait",
   "tooltip.starcatcher.gunpowder_bait.0": "An attempt at a bait made from gunpowder.",
