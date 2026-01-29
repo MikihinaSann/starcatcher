@@ -21,9 +21,9 @@
   "daytime": "all",
   "difficulty": {
     "decay": 1.0,
-    "missPenalty": 5,
+    "missPenalty": 20,
     "modifiers": [],
-    "speed": 9,
+    "speed": 15,
     "sweetspots": [
       {
         "color_as_int": 65280,

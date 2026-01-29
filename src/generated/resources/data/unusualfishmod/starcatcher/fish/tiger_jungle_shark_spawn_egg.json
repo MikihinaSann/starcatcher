@@ -33,7 +33,7 @@
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
+        "vanishing_rate": 0.1
       },
       {
         "color_as_int": 65280,
@@ -43,7 +43,7 @@
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
+        "vanishing_rate": 0.1
       }
     ]
   },
