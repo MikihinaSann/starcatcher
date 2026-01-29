@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:is_river"
+    "#minecraft:is_river",
+    "tfc:river"
   ]
 }
