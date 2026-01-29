@@ -1,17 +1,18 @@
-// 1.21.1	2026-01-29T21:55:41.035371	Tags for minecraft:worldgen/biome mod id starcatcher
-84797fbb26c436356acbf38a28832619ec549394 data/starcatcher/tags/worldgen/biome/is_beach.json
-e2ee8ac5e3907e8fd6937a8db9b781e46968201c data/starcatcher/tags/worldgen/biome/is_birch_forest.json
-9e44b329c53cb1df34e01db7eec9d01bbe960092 data/starcatcher/tags/worldgen/biome/is_cherry_grove.json
-1ad28fed0d9be58e867e0c06efbf0a23b7e2d542 data/starcatcher/tags/worldgen/biome/is_cold_lake.json
+// 1.21.1	2026-01-29T22:02:31.5543948	Tags for minecraft:worldgen/biome mod id starcatcher
+c292b44e75004534deecb2d20998cfc779483580 data/starcatcher/tags/worldgen/biome/is_beach.json
+946f7156168b436d482a8704e92544cc5c7ae7c7 data/starcatcher/tags/worldgen/biome/is_birch_forest.json
+5e3e6937d1bb9058864a6b7b89e88856087d3656 data/starcatcher/tags/worldgen/biome/is_cherry_grove.json
+3ac6737a3f2d14f8bd525b8b51334eae224a5df8 data/starcatcher/tags/worldgen/biome/is_cold_lake.json
+bfc110d3b64bb5caec1721a299c9bd9753826e57 data/starcatcher/tags/worldgen/biome/is_cold_ocean.json
 793198558ffba8cd08665e81a87ffe96d7e79d74 data/starcatcher/tags/worldgen/biome/is_cold_river.json
 7c1bc15122f878c5edc2d2f2f7c8e745ff4ffe0a data/starcatcher/tags/worldgen/biome/is_dark_forest.json
-0fce6050ac557701443e4d4f186e687117e57783 data/starcatcher/tags/worldgen/biome/is_deep_ocean.json
+ee44bbf4a37e64c068b42225b60e61b9fb9811f7 data/starcatcher/tags/worldgen/biome/is_deep_ocean.json
 86671a37ccf6def2b7dee3cc8ffbe41934b1aa8b data/starcatcher/tags/worldgen/biome/is_lukewarm_ocean.json
-8d19cf19eeb8ded7ebc71329d0deb20519aa3c06 data/starcatcher/tags/worldgen/biome/is_mushroom_fields.json
+07c6cba3e281c36fac8394fc2f0a781e3fb84cba data/starcatcher/tags/worldgen/biome/is_mushroom_fields.json
 0a3548494bf4af43328121dac6ff0a98fb8cdce5 data/starcatcher/tags/worldgen/biome/is_normal_ocean.json
 008dfa71c31b490537dd9b527d84f223e16ef2e3 data/starcatcher/tags/worldgen/biome/is_ocean.json
 c5186bd6dff2e458f81072f44226cb915d9d0eb9 data/starcatcher/tags/worldgen/biome/is_river.json
-8b2e56325ed8659d3d2e341efafc36c5639be8d0 data/starcatcher/tags/worldgen/biome/is_swamp.json
+a465cbe93e2cdd8d4cf802ce4de0094b73f723b9 data/starcatcher/tags/worldgen/biome/is_swamp.json
 ebd0fba9083e14fd15e1c10e096eb932a357b2d1 data/starcatcher/tags/worldgen/biome/is_warm_lake.json
 4f1a987bb8dfb627367f6e4b0f4ab28b96eb285c data/starcatcher/tags/worldgen/biome/is_warm_ocean.json
 2abca1ee3757fd1345d5145a0a46f3015f25debb data/starcatcher/tags/worldgen/biome/is_warm_river.json

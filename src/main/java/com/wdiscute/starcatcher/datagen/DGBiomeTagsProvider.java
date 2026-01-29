@@ -3,9 +3,7 @@ package com.wdiscute.starcatcher.datagen;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.registry.fishing.DGTrophies;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
@@ -14,13 +12,10 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class DGBiomeTagsProvider extends BiomeTagsProvider
@@ -36,11 +31,13 @@ public class DGBiomeTagsProvider extends BiomeTagsProvider
     {
         this.tag(create(StarcatcherTags.IS_BEACH))
                 .addOptional(BiomeTags.IS_BEACH.location())
+                .addOptionalTag(Tags.Biomes.IS_BEACH)
         ;
 
         this.tag(create(StarcatcherTags.IS_BIRCH_FOREST))
                 .addOptional(Biomes.BIRCH_FOREST.location())
                 .addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST.location())
+                .addOptionalTag(Tags.Biomes.IS_BIRCH_FOREST)
         ;
 
         this.tag(create(StarcatcherTags.IS_CHERRY_GROVE))
@@ -52,9 +49,10 @@ public class DGBiomeTagsProvider extends BiomeTagsProvider
                 .addOptional(Biomes.SNOWY_PLAINS.location())
                 .addOptional(Biomes.ICE_SPIKES.location())
                 .addOptional(Biomes.FROZEN_PEAKS.location())
+                .addOptionalTag(Tags.Biomes.IS_COLD_OVERWORLD)
         ;
 
-        this.tag(create(StarcatcherTags.IS_CHERRY_GROVE))
+        this.tag(create(StarcatcherTags.IS_COLD_OCEAN))
                 .addOptional(Biomes.COLD_OCEAN.location())
                 .addOptional(Biomes.DEEP_COLD_OCEAN.location())
                 .addOptional(Biomes.FROZEN_OCEAN.location())
@@ -75,6 +73,7 @@ public class DGBiomeTagsProvider extends BiomeTagsProvider
                 .addOptional(Biomes.DEEP_FROZEN_OCEAN.location())
                 .addOptional(Biomes.DEEP_LUKEWARM_OCEAN.location())
                 .addOptional(Biomes.DEEP_OCEAN.location())
+                .addOptionalTag(Tags.Biomes.IS_DEEP_OCEAN)
         ;
 
         this.tag(create(StarcatcherTags.IS_LUKEWARM_OCEAN))
@@ -84,6 +83,7 @@ public class DGBiomeTagsProvider extends BiomeTagsProvider
 
         this.tag(create(StarcatcherTags.IS_MUSHROOM_FIELDS))
                 .addOptional(Biomes.MUSHROOM_FIELDS.location())
+                .addOptionalTag(Tags.Biomes.IS_MUSHROOM.location())
         ;
 
         this.tag(create(StarcatcherTags.IS_NORMAL_OCEAN))
@@ -107,6 +107,7 @@ public class DGBiomeTagsProvider extends BiomeTagsProvider
         this.tag(create(StarcatcherTags.IS_SWAMP))
                 .addOptional(Biomes.SWAMP.location())
                 .addOptional(Biomes.MANGROVE_SWAMP.location())
+                .addOptionalTag(Tags.Biomes.IS_SWAMP)
         ;
 
         this.tag(create(StarcatcherTags.IS_WARM_LAKE))

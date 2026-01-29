@@ -19,6 +19,10 @@
     {
       "id": "minecraft:frozen_peaks",
       "required": false
+    },
+    {
+      "id": "#c:is_cold/overworld",
+      "required": false
     }
   ]
 }

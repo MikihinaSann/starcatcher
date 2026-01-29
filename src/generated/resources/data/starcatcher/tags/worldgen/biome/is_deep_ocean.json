@@ -15,6 +15,10 @@
     {
       "id": "minecraft:deep_ocean",
       "required": false
+    },
+    {
+      "id": "#c:is_deep_ocean",
+      "required": false
     }
   ]
 }
