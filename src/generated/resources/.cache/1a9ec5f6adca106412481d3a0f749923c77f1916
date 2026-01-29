@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-29T21:53:08.4916599	FishingProperties
+// 1.21.1	2026-01-29T22:35:11.788627	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -152,7 +152,7 @@ efedfa943a1c670dd024f94ae01d23d23eaa4683 data/starcatcher/starcatcher/fish/auror
 f79a9f535bccd5c56c683e6844f61a97239edfa7 data/starcatcher/starcatcher/fish/bigeye_tuna.json
 31ea26f1749531a4fbb0393e92b837672d6984b4 data/starcatcher/starcatcher/fish/black_eel.json
 5c1783434a20a385d8a33f374359f978c3ab3f72 data/starcatcher/starcatcher/fish/blossomfish.json
-2c64d8b97284b331b9c362acf4304a6be45c0edc data/starcatcher/starcatcher/fish/bluegigi.json
+d3b0a8999041348fa24574f26b976147910d0d23 data/starcatcher/starcatcher/fish/bluegigi.json
 17fbddb335b96c4aebf5a0c1b7953a46b3438118 data/starcatcher/starcatcher/fish/blue_crystal_fin.json
 266b74f7e42553035abd7117761556b8cb1f9199 data/starcatcher/starcatcher/fish/blue_herring.json
 849a00e233f5979deb7fba8cd94f386f839d1c83 data/starcatcher/starcatcher/fish/boot.json
@@ -203,7 +203,7 @@ b1464ae1be695477f96e3cddba9ae3edf5e64c93 data/starcatcher/starcatcher/fish/lava_
 35fcd5974c65982aef80efa8aeb599af3b309710 data/starcatcher/starcatcher/fish/lush_pike.json
 7d42e827479126de61dbc73610120a06df1ac891 data/starcatcher/starcatcher/fish/magma_fish.json
 d1641b948be52e83b2305ab9fc4f442a60294f44 data/starcatcher/starcatcher/fish/mirage_carp.json
-9d005f1a9ab0fe3f005fcd453c115fe1e8090511 data/starcatcher/starcatcher/fish/mistback_chub.json
+2343a08f1df3a6b81eff96d19b15efbb102bb78d data/starcatcher/starcatcher/fish/mistback_chub.json
 1c2b7763296a70e4c558aac6f381dd5b2881c504 data/starcatcher/starcatcher/fish/molten_deepslate_crab.json
 defb59a187bed1be163fd46673e47b90fb2006d8 data/starcatcher/starcatcher/fish/molten_shrimp.json
 c75403fb3f7a6282703bf797f526f60da5ad135d data/starcatcher/starcatcher/fish/morganite.json
