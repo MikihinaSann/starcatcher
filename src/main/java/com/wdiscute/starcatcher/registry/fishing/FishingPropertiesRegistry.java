@@ -34,6 +34,7 @@ public class FishingPropertiesRegistry
         DGSullysModFishes.bootstrap();
         DGUpgradeAquaticFishes.bootstrap();
         DGEnvironmentalFishes.bootstrap();
+        DGBetterEndFishes.bootstrap();
         DGCollectorsReapFishes.bootstrap();
         DGMinersDelightFishes.bootstrap();
         DGAlexsCavesFishes.bootstrap();
@@ -43,6 +44,7 @@ public class FishingPropertiesRegistry
         DGTerraFirmaCraftFishes.bootstrap();
         DGUnusualFishFishes.bootstrap();
         DGSpawnFishes.bootstrap();
+        DGFintasticFishes.bootstrap();
     }
 
     //region builders

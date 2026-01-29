@@ -848,6 +848,12 @@ public record FishProperties(
                         .withBiomesTags(StarcatcherTags.IS_CHERRY_GROVE)
                         .withMustBeCaughtAboveY(50);
 
+        public static final WorldRestrictions OVERWORLD_JUNGLES_AND_SWAMPS =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(StarcatcherTags.IS_SWAMP, BiomeTags.IS_JUNGLE.location())
+                        .withMustBeCaughtAboveY(50);
+
         public static final WorldRestrictions OVERWORLD_SWAMPS =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())

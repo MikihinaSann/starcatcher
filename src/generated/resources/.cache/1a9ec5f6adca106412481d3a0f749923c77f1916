@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-29T00:57:31.1292876	FishingProperties
+// 1.21.1	2026-01-29T19:28:43.7971146	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -42,6 +42,8 @@ fcf4a01aff178c549e5aae01c403f1d27152a5d5 data/aquaculture/starcatcher/fish/small
 19d296397fba95013a402392ef6ddd5103d00343 data/aquaculture/starcatcher/fish/tambaqui.json
 e53c5c917dfc990e4579e9bf7b3f0999f82f2462 data/aquaculture/starcatcher/fish/tuna.json
 d2268d02eeca0ab476d524598c1b4830793fa3e0 data/aquamirae/starcatcher/fish/spinefish.json
+8fd0bfc539a511f333ce7427f061029a0de3ce58 data/betterend/starcatcher/fish/end_fish_raw.json
+82903782aefb94a695c76200efc27bce8010d559 data/betterend/starcatcher/fish/gelatine.json
 754b95b40d85deb3c20153e77139bcaa980d2c11 data/collectorsreap/starcatcher/fish/chieftain_crab.json
 f5859f3db48cb054ef48a57bf24b92c94ec893ed data/collectorsreap/starcatcher/fish/clam.json
 03fedb88079e37699d30371b8924582c12845a22 data/collectorsreap/starcatcher/fish/platinum_bass.json
@@ -53,6 +55,16 @@ d0b23de2c18969b0f3f8e1e1b6805e325c3195f6 data/crittersandcompanions/starcatcher/
 2ccfccbeca4f50784311656560d6c9fda5e78a90 data/crittersandcompanions/starcatcher/fish/sea_bunny_bucket.json
 004388677bb46ef071b651d22719fe2c65c20971 data/environmental/starcatcher/fish/koi.json
 61aacd47b26ec25cbbef0492b2e6ff3e48dbd50d data/environmental/starcatcher/fish/slabfish_bucket.json
+f41e3329efe3e8a471e7d8be0b8e7176dda5e34a data/fintastic/starcatcher/fish/arapaima_bucket.json
+70a296a9ce1141f256ebdbecc68021e0ad977c9d data/fintastic/starcatcher/fish/artemia_bucket.json
+45342b782ed9db22d27c32309a34c661fa268e3c data/fintastic/starcatcher/fish/coelacanth_spawn_egg.json
+de69db0e98336565f2c6f968a94e987ca18ca0d5 data/fintastic/starcatcher/fish/daphnia_bucket.json
+ad7ce18b58df6a9deb3face020f89adf86154b19 data/fintastic/starcatcher/fish/featherback_bucket.json
+a856f753b704fbd47bc65820d61fbff6572e85fd data/fintastic/starcatcher/fish/gourami_bucket.json
+a74e890fca72229c754852565735a739bd6635a1 data/fintastic/starcatcher/fish/guppy_bucket.json
+f43f260fe9d270721ffccebfa35122fe9add7f29 data/fintastic/starcatcher/fish/minnow_bucket.json
+c5ef746bd747de3f3d8ffffbd44bf5443d47be9d data/fintastic/starcatcher/fish/moony_bucket.json
+b3b2084e52b50b35fbd17aced3132b41213a8887 data/fintastic/starcatcher/fish/pleco_bucket.json
 9bd7de57e33cdea58ac12e605f1074dbf799260a data/fishofthieves/starcatcher/fish/ancientscale.json
 54c0f45478a51a36cfeb8c89e6046ecac45afc00 data/fishofthieves/starcatcher/fish/battlegill.json
 34dcbc9ae044306af768d2e14c685cbdf3e10533 data/fishofthieves/starcatcher/fish/devilfish.json
