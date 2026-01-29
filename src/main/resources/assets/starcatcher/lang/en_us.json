@@ -484,6 +484,12 @@
   "gui.guide.not_caught_yet" : "Not Caught Yet!",
   "gui.guide.rarity" : "Rarity:",
 
+  "gui.guide.first" : "First Catch:",
+  "gui.guide.fastest" : "Rarity: ",
+  "gui.guide.average" : "Rarity: ",
+  "gui.guide.biggest" : "Rarity: ",
+  "gui.guide.heaviest" : "Rarity: ",
+
   "gui.guide.fishing" : "All about fishing:",
   "gui.guide.index.basics" : "The Basics, Sweetspots, and treasures",
   "gui.guide.index.upgrades" : "Upgrades & Modifiers",
