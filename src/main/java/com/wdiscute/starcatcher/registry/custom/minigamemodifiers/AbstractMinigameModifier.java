@@ -65,14 +65,11 @@ public abstract class AbstractMinigameModifier
      */
     public void renderOnPointer(GuiGraphics guiGraphics, PoseStack poseStack, float partialTick){};
 
-
     public boolean disableSweetSpotRendering(ActiveSweetSpot spot){
         return false;
     }
 
-    public void renderOnSweetSpot(GuiGraphics guiGraphics, PoseStack poseStack, ActiveSweetSpot spot, float partialTick){
-
-    };
+    public void renderOnSweetSpot(GuiGraphics guiGraphics, PoseStack poseStack, ActiveSweetSpot spot, float partialTick){};
 
     public boolean forceAwardTreasure()
     {
