@@ -42,6 +42,7 @@ public class FishingPropertiesRegistry
         DGAquamiraeFishes.bootstrap();
         DGTerraFirmaCraftFishes.bootstrap();
         DGUnusualFishFishes.bootstrap();
+        DGSpawnFishes.bootstrap();
     }
 
     //region builders

@@ -32,7 +32,7 @@
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 1.0,
-        "reward": 15,
+        "reward": 8,
         "sweet_spot_type": "starcatcher:aqua",
         "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
         "vanishing_rate": 0.0

@@ -44,7 +44,8 @@ public class DGFishingPropertiesProvider extends DatapackBuiltinEntriesProvider 
                 "hybrid-aquatic",
                 "tfc",
                 "betterend",
-                "unusualfishmod"
+                "unusualfishmod",
+                "spawn"
                 //That's a lot of compatibilities
         ));
     }

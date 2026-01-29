@@ -94,7 +94,7 @@
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [
-      "starcatcher:is_ocean"
+      "starcatcher:is_lukewarm_ocean"
     ],
     "dimensions": [
       "minecraft:overworld"

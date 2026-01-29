@@ -712,14 +712,21 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_OCEAN =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withBiomesTags(StarcatcherTags.IS_OCEAN)
+                        .withBiomesTags(StarcatcherTags.IS_NORMAL_OCEAN)
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
         public static final WorldRestrictions OVERWORLD_LUKEWARM_OCEAN =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withBiomesTags(StarcatcherTags.IS_OCEAN)
+                        .withBiomesTags(StarcatcherTags.IS_LUKEWARM_OCEAN)
+                        .withMustBeCaughtAboveY(50)
+                        .withMustBeCaughtBelowY(100);
+
+        public static final WorldRestrictions OVERWORLD_COLD_AND_LUKEWARM_OCEAN =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(StarcatcherTags.IS_LUKEWARM_OCEAN, StarcatcherTags.IS_COLD_OCEAN)
                         .withMustBeCaughtAboveY(50)
                         .withMustBeCaughtBelowY(100);
 
@@ -1195,7 +1202,7 @@ public record FishProperties(
         public static Difficulty FOUR_AQUA = new Difficulty(
                 10, 20, 1,
                 List.of(),
-                SweetSpot.AQUA, SweetSpot.AQUA
+                SweetSpot.AQUA, SweetSpot.AQUA, SweetSpot.AQUA, SweetSpot.AQUA
         );
 
         public static Difficulty THIN_NO_DECAY = new Difficulty(
@@ -1485,7 +1492,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.AQUA,
                 RL_AQUA,
                 22,
-                15,
+                8,
                 0x387982
         );
 
