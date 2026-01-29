@@ -26,7 +26,7 @@
   "tag.starcatcher.is_normal_ocean" : "Ocean",
   "tag.starcatcher.is_river" : "Rivers",
   "tag.starcatcher.is_swamp" : "Swamps",
-  "tag.starcatcher.is_warm" : "Warm Climate",
+  "tag.starcatcher.is_warm_lake" : "Warm Climate",
   "tag.starcatcher.is_lukewarm_ocean" : "Lukewarm Oceans",
   "tag.starcatcher.is_warm_ocean" : "Warm Oceans",
   "tag.starcatcher.is_warm_river" : "Warm Rivers",
