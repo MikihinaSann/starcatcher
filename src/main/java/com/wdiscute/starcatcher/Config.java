@@ -87,6 +87,11 @@ public class Config
             .comment("Adjusts the fish decay rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
             .defineInRange("pointer_speed_multiplier", 1d, 0d, 100d);
 
+    public static final ModConfigSpec.BooleanValue HIDE_ENTRIES_UNTIL_FOUND = BUILDER_SERVER
+            .comment("Hides entries in the guide book until one has been caught.")
+            .define("hide_entries_until_found", true);
+
+
     //todo add base modifiers config
 //    public static final ModConfigSpec.ListValueSpec BASE_MODIFIERS = BUILDER_SERVER
 //            .comment("Adjusts the fish decay rate multiplier, useful if you want to adjust the fishes' difficulty globally.")
