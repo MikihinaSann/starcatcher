@@ -1074,14 +1074,17 @@ public class FishingGuideScreen extends Screen
         {
             List<Component> components = new ArrayList<>();
 
-            if (caught == 0)
+            if (caught == 0 && Config.HIDE_ENTRIES_UNTIL_FOUND.get())
             {
                 components.add(Component.translatable("gui.guide.not_caught_fish_name"));
                 components.add(Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()));
                 components.add(Component.translatable("gui.guide.not_caught_yet").withStyle(Style.EMPTY.withColor(0xa34536)));
             } else
             {
-                components.add(Component.translatable(fp.catchInfo().fish().get().getDescriptionId()));
+                if(fp.catchInfo().alwaysSpawnEntity())
+                    components.add(Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")));
+                else
+                    components.add(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()));
 
                 components.add(Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()));
                 components.add(Component.translatable("gui.guide.caught").append(Component.literal(" [" + caught + "]")).setStyle(Style.EMPTY.withColor(0x40752c)));
@@ -1141,7 +1144,6 @@ public class FishingGuideScreen extends Screen
 
     private void renderEntry(GuiGraphics guiGraphics, int mouseX, int mouseY, int xOffset, int entry)
     {
-
         if (level == null) level = getMinecraft().level;
 
         double x = mouseX - uiX;
@@ -1175,6 +1177,7 @@ public class FishingGuideScreen extends Screen
                     uiX + xOffset + 73, uiY + 78, 0x9c897c, false);
         } else
         {
+
             //[324]
             Component c = Component.literal("[" + fcc.count() + "]").setStyle(Style.EMPTY.withColor(0x635040));
             guiGraphics.drawString(this.font, Component.empty().append(c), uiX + xOffset + 73, uiY + 78, 0, false);
@@ -1189,7 +1192,6 @@ public class FishingGuideScreen extends Screen
         guiGraphics.drawString(
                 this.font, Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()),
                 uiX + xOffset + 73, uiY + 100, 0, false);
-
 
         //render seasons
         if ((ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons") || ModList.get().isLoaded("tfc")) && Config.ENABLE_SEASONS.get())
@@ -1235,31 +1237,19 @@ public class FishingGuideScreen extends Screen
             }
         }
 
-        //rarity
-        guiGraphics.drawString(
-                this.font, Component.translatable("gui.guide.rarity"),
-                uiX + xOffset + 73, uiY + 90, 0x9c897c, false);
-
-
-        //render fish name
-        if (fcc == null)
+        //render fish if discovered
+        if (fcc != null || !Config.HIDE_ENTRIES_UNTIL_FOUND.get())
         {
-            guiGraphics.drawString(
-                    this.font, Component.translatable("gui.guide.not_caught_fish_name"),
-                    uiX + xOffset + 30, uiY + 36, 0x635040, false);
-        } else
-        {
-            MutableComponent compName = Component.translatable(fp.catchInfo().fish().get().getDescriptionId());
-
+            MutableComponent compName = Component.translatable(fp.catchInfo().fish().value().getDescriptionId());
+            if(fp.catchInfo().alwaysSpawnEntity())
+                compName = Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", "."));
+            renderItem(is, uiX + xOffset + 26, uiY + 70);
             //todo fix this holy shit this has to be the worse hard coded offset possible omg wd why did you code it like this
             if (xOffset > 200)
                 guiGraphics.drawString(this.font, compName, uiX + xOffset + 15, uiY + 36, 0x635040, false);
             else
                 guiGraphics.drawString(this.font, compName, uiX + xOffset + 30, uiY + 36, 0x635040, false);
         }
-
-        //render fish
-        if (fcc != null) renderItem(is, uiX + xOffset + 26, uiY + 70);
 
         int color = switch (fp.rarity())
         {
@@ -1291,8 +1281,19 @@ public class FishingGuideScreen extends Screen
             renderImage(guiGraphics, NEW_FISH, xOffset - 52, 0);
 
         //render fish tooltip
-        if (mouseX > uiX + xOffset + 0 && mouseX < uiX + xOffset + 65 && mouseY > uiY + 45 && mouseY < uiY + 110 && fcc != null)
-            guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
+        if (mouseX > uiX + xOffset && mouseX < uiX + xOffset + 65 && mouseY > uiY + 45 && mouseY < uiY + 110 && fcc != null)
+        {
+            if(fp.catchInfo().alwaysSpawnEntity())
+            {
+                guiGraphics.renderTooltip(this.font,
+                        Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")),
+                        mouseX, mouseY);
+            }
+            else
+            {
+                guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
+            }
+        }
 
         //render stats tooltip
         if (mouseX > uiX + xOffset + 66 && mouseX < uiX + xOffset + 140 && mouseY > uiY + 57 && mouseY < uiY + 110 && fcc != null)
@@ -1725,6 +1726,7 @@ public class FishingGuideScreen extends Screen
 
         }
 
+        //white highlight on jumping to
         if (highlightRightAlpha > 0)
         {
             RenderSystem.enableBlend();
