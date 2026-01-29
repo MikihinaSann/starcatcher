@@ -319,10 +319,12 @@ public class DGStarcatcherFishes
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.MISTBACK_CHUB.getId())
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
+                .withDaytime(FishProperties.Daytime.DAY)
                 .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1400, 600)));
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.BLUEGIGI.getId())
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
+                .withDaytime(FishProperties.Daytime.DAY)
                 .withSizeAndWeight(FishProperties.sizeWeight(20, 5, 400, 100)));
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.SILVERFIN_PIKE.getId())

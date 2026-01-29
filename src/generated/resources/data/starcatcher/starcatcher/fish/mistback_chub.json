@@ -12,7 +12,7 @@
     "item": "starcatcher:mistback_chub",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "day",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 5,
