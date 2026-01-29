@@ -41,10 +41,14 @@ public class DataGenerators
         BlockTagsProvider btp = new DGModBlocksTagProvider(output, registries, existingFileHelper);
         gen.addProvider(event.includeServer(), btp);
 
-        //fish tags
+        //item tags
         ItemTagsProvider itp = new DGModItemsTagProvider(output, registries, btp.contentsGetter(), existingFileHelper);
         gen.addProvider(event.includeServer(), itp);
 
+        //advancements
         gen.addProvider(event.includeServer(), new DGModAdvancementProvider(output, registries, existingFileHelper));
+
+        //biome tags
+        gen.addProvider(event.includeServer(), new DGBiomeTagsProvider(output, registries, existingFileHelper));
     }
 }

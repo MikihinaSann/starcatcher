@@ -1,0 +1,135 @@
+package com.wdiscute.starcatcher.datagen;
+
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.registry.fishing.DGTrophies;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.BiomeTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
+public class DGBiomeTagsProvider extends BiomeTagsProvider
+{
+    public DGBiomeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper)
+    {
+        super(output, lookupProvider, Starcatcher.MOD_ID, existingFileHelper);
+    }
+
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider)
+    {
+        this.tag(create(StarcatcherTags.IS_BEACH))
+                .addOptional(BiomeTags.IS_BEACH.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_BIRCH_FOREST))
+                .addOptional(Biomes.BIRCH_FOREST.location())
+                .addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_CHERRY_GROVE))
+                .addOptional(Biomes.CHERRY_GROVE.location());
+
+        this.tag(create(StarcatcherTags.IS_COLD_LAKE))
+                .addOptional(Biomes.SNOWY_TAIGA.location())
+                .addOptional(Biomes.SNOWY_BEACH.location())
+                .addOptional(Biomes.SNOWY_PLAINS.location())
+                .addOptional(Biomes.ICE_SPIKES.location())
+                .addOptional(Biomes.FROZEN_PEAKS.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_CHERRY_GROVE))
+                .addOptional(Biomes.COLD_OCEAN.location())
+                .addOptional(Biomes.DEEP_COLD_OCEAN.location())
+                .addOptional(Biomes.FROZEN_OCEAN.location())
+                .addOptional(Biomes.DEEP_FROZEN_OCEAN.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_COLD_RIVER))
+                .addOptional(Biomes.FROZEN_RIVER.location())
+                .addOptional(Biomes.SNOWY_BEACH.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_DARK_FOREST))
+                .addOptional(Biomes.DARK_FOREST.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_DEEP_OCEAN))
+                .addOptional(Biomes.DEEP_COLD_OCEAN.location())
+                .addOptional(Biomes.DEEP_FROZEN_OCEAN.location())
+                .addOptional(Biomes.DEEP_LUKEWARM_OCEAN.location())
+                .addOptional(Biomes.DEEP_OCEAN.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_LUKEWARM_OCEAN))
+                .addOptional(Biomes.LUKEWARM_OCEAN.location())
+                .addOptional(Biomes.DEEP_LUKEWARM_OCEAN.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_MUSHROOM_FIELDS))
+                .addOptional(Biomes.MUSHROOM_FIELDS.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_NORMAL_OCEAN))
+                .addOptional(Biomes.OCEAN.location())
+                .addOptional(Biomes.DEEP_OCEAN.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_OCEAN))
+                .addOptionalTag(BiomeTags.IS_OCEAN)
+                .addOptional(U.rl("tfc", "deep_ocean"))
+                .addOptional(U.rl("tfc", "deep_ocean_trench"))
+                .addOptional(U.rl("tfc", "ocean"))
+                .addOptional(U.rl("tfc", "ocean_reef"))
+        ;
+
+        this.tag(create(StarcatcherTags.IS_RIVER))
+                .addOptionalTag(BiomeTags.IS_RIVER)
+                .addOptionalTag(U.rl("tfc", "river"))
+        ;
+
+        this.tag(create(StarcatcherTags.IS_SWAMP))
+                .addOptional(Biomes.SWAMP.location())
+                .addOptional(Biomes.MANGROVE_SWAMP.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_WARM_LAKE))
+                .addOptionalTag(BiomeTags.IS_SAVANNA)
+                .addOptionalTag(BiomeTags.HAS_DESERT_PYRAMID)
+                .addOptionalTag(Tags.Biomes.IS_DESERT)
+                .addOptionalTag(Tags.Biomes.IS_BADLANDS)
+        ;
+
+        this.tag(create(StarcatcherTags.IS_WARM_OCEAN))
+                .addOptional(Biomes.WARM_OCEAN.location())
+                .addOptional(Biomes.LUKEWARM_OCEAN.location())
+                .addOptional(Biomes.DEEP_FROZEN_OCEAN.location())
+        ;
+
+        this.tag(create(StarcatcherTags.IS_WARM_RIVER))
+                .addOptional(Biomes.RIVER.location())
+        ;
+
+    }
+
+    private static TagKey<Biome> create(ResourceLocation rl)
+    {
+        return TagKey.create(Registries.BIOME, rl);
+    }
+}
