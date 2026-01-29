@@ -1402,7 +1402,7 @@ public class FishingGuideScreen extends Screen
             {
                 comp = Component.translatable("gui.guide.no_restriction");
 
-                if (fp.wr().biomesBlacklistTags().equals(List.of(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER)))
+                if (fp.wr().biomesBlacklistTags().equals(FishProperties.WorldRestrictions.OVERWORLD_LAKE.biomesBlacklistTags()))
                 {
                     comp = Component.translatable("gui.guide.lakes");
                     if (x > 25 + xOffset && x < 120 + xOffset && y > 133 && y < 140)
