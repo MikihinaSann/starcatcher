@@ -1331,7 +1331,7 @@ public class FishingGuideScreen extends Screen
             Instant instant = Instant.ofEpochSecond(fcc.firstCatch());
             ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("hh ma");
+            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("hh:ma");
             String formatted = zdt.format(formatter);
             String formatted2 = zdt.format(formatter2);
 
