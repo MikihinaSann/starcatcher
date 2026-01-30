@@ -22,18 +22,20 @@ public class DataGenerators
     {
         DataGenerator gen = event.getGenerator();
 
-        //fish properties
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> registries = event.getLookupProvider();
         PackOutput output = gen.getPackOutput();
+        //fish properties
         gen.addProvider(
                 event.includeServer(),
                 new FishingPropertiesProvider(output, registries)
         );
 
+
+        gen.addProvider(event.includeServer(), new ModAdvancementProvider(output, registries, existingFileHelper));
         gen.addProvider(event.includeServer(), new ModRegistryProvider(output, registries));
 
         //fish models
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         gen.addProvider(event.includeServer(), new ModItemModelProvider(output, existingFileHelper));
 
         //block tags

@@ -171,7 +171,6 @@ public class Starcatcher
         ModMinigameModifiers.register(modEventBus);
         ModCatchModifiers.register(modEventBus);
         ModTackleSkins.register(modEventBus);
-        ModCriterionTriggers.register(modEventBus);
 
         ModNetworking.init();
         ModDataAttachments.init();

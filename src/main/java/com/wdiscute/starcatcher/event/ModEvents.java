@@ -3,21 +3,21 @@ package com.wdiscute.starcatcher.event;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.registry.ForgeRegistryHelper;
+import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.*;
-import org.stringtemplate.v4.ST;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.minecraftforge.registries.NewRegistryEvent;
 
 @Mod.EventBusSubscriber(modid = Starcatcher.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEvents
-{
+public class ModEvents {
     @SubscribeEvent
-    public static void addRegistry(NewRegistryEvent event)
-    {
+    public static void addRegistry(NewRegistryEvent event) {
         ForgeRegistryHelper.getInstance(Starcatcher.SWEET_SPOT_BEHAVIOUR)
                 .create(event,
                         (reg) -> Starcatcher.SWEET_SPOT_BEHAVIOUR_REGISTRY = reg,
@@ -46,8 +46,7 @@ public class ModEvents
     }
 
     @SubscribeEvent
-    public static void addDatapackRegistry(DataPackRegistryEvent.NewRegistry event)
-    {
+    public static void addDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
 
         event.dataPackRegistry(Starcatcher.FISH_REGISTRY, FishProperties.CODEC, FishProperties.CODEC);
         event.dataPackRegistry(Starcatcher.TROPHY_REGISTRY, TrophyProperties.CODEC, TrophyProperties.CODEC);
@@ -55,9 +54,12 @@ public class ModEvents
     }
 
     @SubscribeEvent
-    public static void registerAttributed(EntityAttributeCreationEvent event)
-    {
+    public static void registerAttributed(EntityAttributeCreationEvent event) {
         event.put(ModEntities.FISH.get(), FishEntity.createAttributes().build());
     }
 
+    @SubscribeEvent
+    public static void onFMLCommonSetup(FMLCommonSetupEvent event) {
+        ModCriterionTriggers.init();
+    }
 }

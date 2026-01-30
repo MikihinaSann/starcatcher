@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
+import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
@@ -56,7 +57,7 @@ public class U
             {
                 FishProperties fp = fbe.fpToFish;
 
-               // ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger(player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
+                ModCriterionTriggers.MINIGAME_COMPLETED.trigger(player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish().get().getDefaultInstance()); //we don't create items here?
 
                 //trigger modifiers
                 fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));

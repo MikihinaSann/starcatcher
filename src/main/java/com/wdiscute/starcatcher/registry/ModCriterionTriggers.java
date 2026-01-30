@@ -1,23 +1,12 @@
 package com.wdiscute.starcatcher.registry;
 
-import com.wdiscute.starcatcher.Starcatcher;
-import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-
-import java.util.function.Supplier;
+import com.wdiscute.starcatcher.advancement.MinigameCompletedTrigger;
+import net.minecraft.advancements.CriteriaTriggers;
 
 public interface ModCriterionTriggers {
     //TODO: fix all of this
 
-   // DeferredRegister<CriterionTrigger<?>> REGISTRY = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, Starcatcher.MOD_ID);
+    MinigameCompletedTrigger MINIGAME_COMPLETED = CriteriaTriggers.register(new MinigameCompletedTrigger());
 
-   // Supplier<MinigameCompletedTrigger> MINIGAME_COMPLETED = REGISTRY.register("minigame_completed", MinigameCompletedTrigger::new);
-
-
-    static void register(IEventBus eventBus)
-    {
-      //  REGISTRY.register(eventBus);
-    }
+    static void init() {}
 }

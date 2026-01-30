@@ -28,7 +28,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
@@ -46,39 +45,32 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeEvents {
 
     @SubscribeEvent
-    public static void keyPressed(InputEvent.Key event)
-    {
-        if(event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue())
-        {
+    public static void keyPressed(InputEvent.Key event) {
+        if (event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue()) {
             TournamentOverlay.isExpanded = !TournamentOverlay.isExpanded;
         }
     }
 
     @SubscribeEvent
-    public static void addCommand(RegisterCommandsEvent event)
-    {
+    public static void addCommand(RegisterCommandsEvent event) {
         ModCommands.register(event.getDispatcher(), event.getBuildContext());
     }
 
 
     @SubscribeEvent
-    public static void levelTick(TickEvent.ServerTickEvent event)
-    {
+    public static void levelTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END)
             TournamentHandler.tick(event.getServer());
     }
 
 
     @SubscribeEvent
-    public static void dropWormsWhenBonemealing(PlayerInteractEvent.RightClickBlock event)
-    {
+    public static void dropWormsWhenBonemealing(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
         BlockPos pos = event.getPos();
 
-        if (event.getItemStack().is(Items.BONE_MEAL) && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock)
-        {
-            if (!level.isClientSide && Config.ENABLE_BONE_MEAL_ON_FARMLAND_FOR_WORMS.get())
-            {
+        if (event.getItemStack().is(Items.BONE_MEAL) && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
+            if (!level.isClientSide && Config.ENABLE_BONE_MEAL_ON_FARMLAND_FOR_WORMS.get()) {
                 ItemStack is;
                 float i = level.getRandom().nextFloat();
                 if (i < 0.8f)
@@ -95,8 +87,7 @@ public class ForgeEvents {
 
                 level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 
-                if (event.getEntity() instanceof ServerPlayer player)
-                {
+                if (event.getEntity() instanceof ServerPlayer player) {
                     player.swing(event.getHand(), true);
                     if (!player.isCreative())
                         event.getItemStack().shrink(1);
@@ -106,12 +97,9 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
-    {
-        if(event.getEntity() instanceof ServerPlayer serverPlayer)
-        {
-            if(Config.GIVE_GUIDE.get() && !FishingGuideAttachment.getReceivedGuide(serverPlayer))
-            {
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            if (Config.GIVE_GUIDE.get() && !FishingGuideAttachment.getReceivedGuide(serverPlayer)) {
                 serverPlayer.addItem(new ItemStack(ModItems.GUIDE.get()));
                 FishingGuideAttachment.setReceivedGuide(serverPlayer, true);
             }
@@ -150,10 +138,8 @@ public class ForgeEvents {
 
 
     @SubscribeEvent
-    public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
-    {
-        if (event.getEntity() instanceof ServerPlayer sp)
-        {
+    public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer sp) {
             var tournament = TournamentHandler.getTournamentForPlayer(sp);
             if (tournament != null)
                 TournamentHandler.sendActiveTournamentUpdateToClient(sp, tournament);
@@ -163,14 +149,12 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    public static void serverStarted(ServerStartedEvent event)
-    {
+    public static void serverStarted(ServerStartedEvent event) {
         TournamentHandler.setAll(TournamentSavedData.get(event.getServer().overworld()).getTournaments());
     }
 
     @SubscribeEvent
-    public static void serverStopping(ServerStoppingEvent event)
-    {
+    public static void serverStopping(ServerStoppingEvent event) {
         TournamentSavedData.get(event.getServer().overworld()).setTournaments(TournamentHandler.getAll());
     }
 
@@ -201,7 +185,7 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event) {
-      //  System.out.println("attaching capabilities for entity:" + event.getObject().getClass().getName());
+        //  System.out.println("attaching capabilities for entity:" + event.getObject().getClass().getName());
 
         if (event.getObject() instanceof Player) {
             DataAttachmentType.DATA_ATTACHMENTS.values().stream()
