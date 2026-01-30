@@ -10,7 +10,7 @@
     "entity": "aquaculture:pacific_halibut",
     "fish_bucket": "aquaculture:pacific_halibut_bucket",
     "item": "aquaculture:pacific_halibut",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

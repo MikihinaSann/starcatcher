@@ -10,7 +10,7 @@
     "entity": "aquaculture:catfish",
     "fish_bucket": "aquaculture:catfish_bucket",
     "item": "aquaculture:catfish",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_chest"
   },
   "daytime": "all",
   "difficulty": {

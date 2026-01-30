@@ -10,7 +10,7 @@
     "entity": "aquaculture:bayad",
     "fish_bucket": "aquaculture:bayad_bucket",
     "item": "aquaculture:bayad",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "night",
   "difficulty": {

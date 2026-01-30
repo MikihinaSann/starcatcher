@@ -12,7 +12,7 @@
     "entity": "aquaculture:box_turtle",
     "fish_bucket": "starcatcher:missingno",
     "item": "aquaculture:box_turtle",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_chest"
   },
   "daytime": "all",
   "difficulty": {

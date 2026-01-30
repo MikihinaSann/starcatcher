@@ -10,7 +10,7 @@
     "entity": "aquaculture:gar",
     "fish_bucket": "aquaculture:gar_bucket",
     "item": "aquaculture:gar",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

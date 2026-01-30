@@ -10,7 +10,7 @@
     "entity": "aquaculture:pollock",
     "fish_bucket": "aquaculture:pollock_bucket",
     "item": "aquaculture:pollock",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

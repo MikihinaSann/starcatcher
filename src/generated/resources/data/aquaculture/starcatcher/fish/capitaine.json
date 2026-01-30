@@ -10,7 +10,7 @@
     "entity": "aquaculture:capitaine",
     "fish_bucket": "aquaculture:capitaine_bucket",
     "item": "aquaculture:capitaine",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

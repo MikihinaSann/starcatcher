@@ -10,7 +10,7 @@
     "entity": "aquaculture:carp",
     "fish_bucket": "aquaculture:carp_bucket",
     "item": "aquaculture:carp",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "all",
   "difficulty": {

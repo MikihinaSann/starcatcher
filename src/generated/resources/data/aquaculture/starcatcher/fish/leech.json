@@ -12,7 +12,7 @@
     "entity": "starcatcher:fish",
     "fish_bucket": "starcatcher:missingno",
     "item": "aquaculture:leech",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "all",
   "difficulty": {

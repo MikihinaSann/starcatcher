@@ -10,7 +10,7 @@
     "entity": "aquaculture:muskellunge",
     "fish_bucket": "aquaculture:muskellunge_bucket",
     "item": "aquaculture:muskellunge",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "midnight",
   "difficulty": {

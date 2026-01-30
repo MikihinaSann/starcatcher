@@ -10,7 +10,7 @@
     "entity": "aquaculture:brown_trout",
     "fish_bucket": "aquaculture:brown_trout_bucket",
     "item": "aquaculture:brown_trout",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "night",
   "difficulty": {

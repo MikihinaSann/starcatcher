@@ -12,7 +12,7 @@
     "entity": "aquaculture:piranha",
     "fish_bucket": "aquaculture:piranha_bucket",
     "item": "aquaculture:piranha",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_box"
   },
   "daytime": "noon",
   "difficulty": {

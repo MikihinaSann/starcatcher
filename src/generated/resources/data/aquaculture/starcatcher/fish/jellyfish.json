@@ -10,7 +10,7 @@
     "entity": "aquaculture:jellyfish",
     "fish_bucket": "aquaculture:jellyfish_bucket",
     "item": "aquaculture:jellyfish",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "all",
   "difficulty": {

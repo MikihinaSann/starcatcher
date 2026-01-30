@@ -10,7 +10,7 @@
     "entity": "aquaculture:boulti",
     "fish_bucket": "aquaculture:boulti_bucket",
     "item": "aquaculture:boulti",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "day",
   "difficulty": {

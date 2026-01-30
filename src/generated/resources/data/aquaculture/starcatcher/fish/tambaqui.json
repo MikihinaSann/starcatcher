@@ -10,7 +10,7 @@
     "entity": "aquaculture:tambaqui",
     "fish_bucket": "aquaculture:tambaqui_bucket",
     "item": "aquaculture:tambaqui",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "all",
   "difficulty": {

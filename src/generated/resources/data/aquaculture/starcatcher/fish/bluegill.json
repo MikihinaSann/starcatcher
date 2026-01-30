@@ -10,7 +10,7 @@
     "entity": "aquaculture:smallmouth_bass",
     "fish_bucket": "aquaculture:smallmouth_bass_bucket",
     "item": "aquaculture:bluegill",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

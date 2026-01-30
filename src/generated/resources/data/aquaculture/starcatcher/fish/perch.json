@@ -10,7 +10,7 @@
     "entity": "aquaculture:perch",
     "fish_bucket": "aquaculture:perch_bucket",
     "item": "aquaculture:perch",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

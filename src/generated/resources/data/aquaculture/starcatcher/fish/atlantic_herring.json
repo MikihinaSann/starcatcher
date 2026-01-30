@@ -10,7 +10,7 @@
     "entity": "aquaculture:atlantic_herring",
     "fish_bucket": "aquaculture:atlantic_herring_bucket",
     "item": "aquaculture:atlantic_herring",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "day",
   "difficulty": {

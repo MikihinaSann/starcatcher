@@ -10,7 +10,7 @@
     "entity": "aquaculture:red_grouper",
     "fish_bucket": "aquaculture:red_grouper_bucket",
     "item": "aquaculture:red_grouper",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

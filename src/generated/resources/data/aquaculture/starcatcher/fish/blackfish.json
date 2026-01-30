@@ -10,7 +10,7 @@
     "entity": "aquaculture:blackfish",
     "fish_bucket": "aquaculture:blackfish_bucket",
     "item": "aquaculture:blackfish",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "night",
   "difficulty": {

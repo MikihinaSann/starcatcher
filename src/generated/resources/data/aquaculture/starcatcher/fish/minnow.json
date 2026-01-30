@@ -10,7 +10,7 @@
     "entity": "aquaculture:minnow",
     "fish_bucket": "aquaculture:minnow_bucket",
     "item": "aquaculture:minnow",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

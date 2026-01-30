@@ -10,7 +10,7 @@
     "entity": "aquaculture:arapaima",
     "fish_bucket": "aquaculture:arapaima_bucket",
     "item": "aquaculture:arapaima",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "all",
   "difficulty": {

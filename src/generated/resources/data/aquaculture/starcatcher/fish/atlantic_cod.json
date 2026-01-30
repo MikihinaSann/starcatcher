@@ -10,7 +10,7 @@
     "entity": "aquaculture:atlantic_cod",
     "fish_bucket": "aquaculture:atlantic_cod_bucket",
     "item": "aquaculture:atlantic_cod",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "day",
   "difficulty": {

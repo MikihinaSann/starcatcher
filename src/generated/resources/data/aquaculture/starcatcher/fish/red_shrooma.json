@@ -10,7 +10,7 @@
     "entity": "aquaculture:brown_shrooma",
     "fish_bucket": "aquaculture:brown_shrooma_bucket",
     "item": "aquaculture:red_shrooma",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_chest"
   },
   "daytime": "all",
   "difficulty": {

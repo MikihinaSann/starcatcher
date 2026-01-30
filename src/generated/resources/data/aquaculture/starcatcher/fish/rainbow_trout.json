@@ -10,7 +10,7 @@
     "entity": "aquaculture:rainbow_trout",
     "fish_bucket": "aquaculture:rainbow_trout_bucket",
     "item": "aquaculture:rainbow_trout",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:lockbox"
   },
   "daytime": "day",
   "difficulty": {

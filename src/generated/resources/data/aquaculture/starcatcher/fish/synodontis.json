@@ -10,7 +10,7 @@
     "entity": "aquaculture:synodontis",
     "fish_bucket": "aquaculture:synodontis_bucket",
     "item": "aquaculture:synodontis",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_chest"
   },
   "daytime": "all",
   "difficulty": {

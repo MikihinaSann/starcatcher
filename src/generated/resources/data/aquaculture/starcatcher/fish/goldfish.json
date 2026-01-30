@@ -10,7 +10,7 @@
     "entity": "starcatcher:fish",
     "fish_bucket": "starcatcher:missingno",
     "item": "aquaculture:goldfish",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {

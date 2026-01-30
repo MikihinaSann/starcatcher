@@ -10,7 +10,7 @@
     "entity": "aquaculture:pink_salmon",
     "fish_bucket": "aquaculture:pink_salmon_bucket",
     "item": "aquaculture:pink_salmon",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:treasure_chest"
   },
   "daytime": "all",
   "difficulty": {

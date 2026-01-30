@@ -10,7 +10,7 @@
     "entity": "aquaculture:arrau_turtle",
     "fish_bucket": "starcatcher:missingno",
     "item": "aquaculture:arrau_turtle",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "aquaculture:box"
   },
   "daytime": "all",
   "difficulty": {
