@@ -44,10 +44,10 @@
   "has_guide_entry": false,
   "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 0.0,
-    "average_weight_grams": 0.0,
-    "deviation_size_cm": 0.0,
-    "deviation_weight_grams": 0.0
+    "average_size_cm": 41.0,
+    "average_weight_grams": 2001.0,
+    "deviation_size_cm": 21.0,
+    "deviation_weight_grams": 701.0
   },
   "skips_minigame": true,
   "weather": "rain",

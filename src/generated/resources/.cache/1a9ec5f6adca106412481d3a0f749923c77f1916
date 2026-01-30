@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-29T22:35:11.788627	FishingProperties
+// 1.21.1	2026-01-30T00:27:24.1922577	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -121,12 +121,13 @@ a3af9d08a05011ba6a9ac2273594fbbfc367256c data/hybrid-aquatic/starcatcher/fish/su
 8a2bf081dde062187337d50d3fea7e83c29dfe00 data/hybrid-aquatic/starcatcher/fish/tiger_barb.json
 6f0c11c5ce553315db9fbd98c0d09254e93051a1 data/hybrid-aquatic/starcatcher/fish/triggerfish.json
 e850fc4190f1c103e0712bc719c658de0663383f data/hybrid-aquatic/starcatcher/fish/tuna.json
-c3d436210000820bd8e229c14c517b8cc4e34b62 data/minecraft/starcatcher/fish/cod.json
+a64ce61d144772bbed74c1b2c0b6013d01eccc9c data/minecraft/starcatcher/fish/cod.json
 e5d30f01830c33ac534e8317516add0d63b326a3 data/minecraft/starcatcher/fish/creeper_head.json
 9d533ef2de67bf8e054ab240d79dde4cf3ddc5ef data/minecraft/starcatcher/fish/nether_star.json
-241be51b3183dbac8aa9f00e344daeef36cf35d0 data/minecraft/starcatcher/fish/pufferfish.json
-5e26f98a23a709671dc6f9fb8adea2e4049204b2 data/minecraft/starcatcher/fish/rotten_flesh.json
-515b8b3c571c0363c56834307d754dc8280fedc1 data/minecraft/starcatcher/fish/salmon.json
+5ff2435de2ffef7cb8c5d7e53f0ee1e3c7fc1d58 data/minecraft/starcatcher/fish/pufferfish.json
+db6a6de5c71973fb9fa17e41a71b85c9b391cd37 data/minecraft/starcatcher/fish/rotten_flesh.json
+c3fd2ebe56ff31fc52aa3131879b695f450bc487 data/minecraft/starcatcher/fish/salmon.json
+522f462b1dd7bccded8b37e6d3ef703e458ea7f6 data/minecraft/starcatcher/fish/tropical_fish.json
 639791c027dc487bc5b526c1987ba4e43caaefbe data/miners_delight/starcatcher/fish/glow_squid.json
 d956bbe3186c793975e591ff797cc38f09a6f2bf data/miners_delight/starcatcher/fish/squid.json
 8256f607bb69b6d4772f2dbae4afd26d6e3a6b9c data/netherdepthsupgrade/starcatcher/fish/blazefish.json
