@@ -217,11 +217,11 @@ public class FishingGuideScreen extends Screen
 
         all = TrophyProperties.RarityProgress.fromAttachment(player);
 
-        fishCaughtCounterMap.forEach((loc, counter) ->
+        fishCaughtCounterMap.forEach((rl, counter) ->
         {
             all = new TrophyProperties.RarityProgress(all.total() + counter.count(), all.unique() + 1);
 
-            this.progressMap.computeIfPresent(U.getFpFromRl(level, loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
+            this.progressMap.computeIfPresent(U.getFpFromRl(level, rl).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
         });
     }
 

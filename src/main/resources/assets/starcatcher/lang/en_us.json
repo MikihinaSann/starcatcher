@@ -368,6 +368,11 @@
   "block.starcatcher.trophy_silver" : "Silver Trophy",
   "block.starcatcher.trophy_bronze" : "Bronze Trophy",
 
+  "block.starcatcher.display" : "Starcatcher's Guide Display",
+  "tooltip.starcatcher.display.0" : "wip",
+  "block.starcatcher.telescope" : "Telescope",
+  "tooltip.starcatcher.telescope.0" : "wip",
+
   "item.starcatcher.award_all_fishes" : "Award All Fishes",
   "item.starcatcher.award_one_fish" : "Award One Fish",
   "item.starcatcher.revoke_all_fishes" : "Revoke All Fishes",
