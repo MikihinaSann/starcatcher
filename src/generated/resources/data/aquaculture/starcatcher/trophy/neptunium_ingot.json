@@ -1,10 +1,15 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "aquaculture"
+    }
+  ],
   "all": {
     "total": 0,
     "unique": 0
   },
   "always_show": false,
-  "chance_to_catch": 1,
   "fish_properties": {
     "bait_restrictions": {
       "consumes_bait": true,
@@ -16,7 +21,7 @@
       "always_spawn_entity": false,
       "entity": "starcatcher:fish",
       "fish_bucket": "starcatcher:missingno",
-      "item": "starcatcher:iceborn_rod",
+      "item": "aquaculture:neptunium_ingot",
       "treasure": "starcatcher:waterlogged_satchel"
     },
     "daytime": "all",
@@ -79,6 +84,7 @@
       ]
     }
   },
+  "percentage_chance_to_catch": 2.0,
   "progress": {},
   "repeatable": false,
   "trophy_type": "extra"

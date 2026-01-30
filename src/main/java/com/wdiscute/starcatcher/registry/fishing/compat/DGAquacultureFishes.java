@@ -274,7 +274,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
                 .withDaytime(FishProperties.Daytime.NOON)
-                .withTreasure(U.holderItem("aquaculture", "treasure_box"))
+                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
         );
 
         register(overworldJungleFish(U.locItem("aquaculture", "tambaqui"))

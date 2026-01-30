@@ -3,7 +3,6 @@ package com.wdiscute.starcatcher.storage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
-import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.Holder;
@@ -26,7 +25,7 @@ public record TrophyProperties(
         TrophyType trophyType,
         RarityProgress all,
         Map<FishProperties.Rarity, RarityProgress> progress,
-        int chanceToCatch,
+        float chanceToCatch,
         boolean repeatable
 ) implements UnloadedModRegistry
 {
@@ -65,7 +64,7 @@ public record TrophyProperties(
                     TrophyType.CODEC.fieldOf("trophy_type").forGetter(TrophyProperties::trophyType),
                     RarityProgress.CODEC.fieldOf("all").forGetter(TrophyProperties::all),
                     Codec.unboundedMap(FishProperties.Rarity.CODEC, RarityProgress.CODEC).fieldOf("progress").forGetter(TrophyProperties::progress),
-                    Codec.INT.fieldOf("chance_to_catch").forGetter(TrophyProperties::chanceToCatch),
+                    Codec.FLOAT.fieldOf("percentage_chance_to_catch").forGetter(TrophyProperties::chanceToCatch),
                     Codec.BOOL.fieldOf("repeatable").forGetter(TrophyProperties::alwaysShow)
             ).apply(instance, TrophyProperties::new)
     );
@@ -104,7 +103,7 @@ public record TrophyProperties(
         private TrophyType trophyType = TrophyType.EXTRA;
         private RarityProgress all = RarityProgress.DEFAULT;
         private final Map<FishProperties.Rarity, RarityProgress> progressMap = new EnumMap<>(FishProperties.Rarity.class);
-        private int chanceToCatch = 100;
+        private float chanceToCatch = 100;
         private boolean repeatable = false;
 
         private Builder()
@@ -135,19 +134,19 @@ public record TrophyProperties(
             return this;
         }
 
-        public Builder setChanceToCatch(int chanceToCatch)
+        public Builder withChanceToCatch(float chanceToCatch)
         {
             this.chanceToCatch = chanceToCatch;
             return this;
         }
 
-        public Builder setRepeatable(boolean repeatable)
+        public Builder withRepeatable(boolean repeatable)
         {
             this.repeatable = repeatable;
             return this;
         }
 
-        public Builder setFishProperties(FishProperties.Builder builder)
+        public Builder withFP(FishProperties.Builder builder)
         {
             this.fp = builder;
             return this;

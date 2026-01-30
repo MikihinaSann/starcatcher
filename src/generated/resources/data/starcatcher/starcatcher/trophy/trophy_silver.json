@@ -4,7 +4,6 @@
     "unique": 50
   },
   "always_show": true,
-  "chance_to_catch": 100,
   "fish_properties": {
     "bait_restrictions": {
       "consumes_bait": true,
@@ -75,6 +74,7 @@
       ]
     }
   },
+  "percentage_chance_to_catch": 100.0,
   "progress": {},
   "repeatable": true,
   "trophy_type": "trophy"

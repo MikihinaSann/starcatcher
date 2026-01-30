@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-30T05:30:40.58143	FishingProperties
+// 1.21.1	2026-01-30T05:32:28.9713537	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -32,7 +32,7 @@ df34d7dca340912aad764484680408cad13fe542 data/aquaculture/starcatcher/fish/leech
 0a0c7fc29ee2a38e56dff555d62ea12093c50fa0 data/aquaculture/starcatcher/fish/pacific_halibut.json
 68de05a3d773152ec5b7d3984967240e4696aedb data/aquaculture/starcatcher/fish/perch.json
 2d31557537b882a06fb2b892d9db59005c6ed48d data/aquaculture/starcatcher/fish/pink_salmon.json
-5608a982b5ad33d8dbf04015395b22404b2fc379 data/aquaculture/starcatcher/fish/piranha.json
+cfa11b0fb8fe45669ab34aefa5ae7d76cabb8a89 data/aquaculture/starcatcher/fish/piranha.json
 60a61eef7caa8bed5d473cb2b6b266739ec2e429 data/aquaculture/starcatcher/fish/pollock.json
 e570972fdc33cdaace74f5ae7213c62cc9cb36bb data/aquaculture/starcatcher/fish/rainbow_trout.json
 2cab9bae58ab0a77e2c462e62b0015e5af83b300 data/aquaculture/starcatcher/fish/red_grouper.json

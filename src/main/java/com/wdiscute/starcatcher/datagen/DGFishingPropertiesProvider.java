@@ -16,13 +16,12 @@ import java.util.function.BiConsumer;
 
 public class DGFishingPropertiesProvider extends DatapackBuiltinEntriesProvider implements IDatagenConditionsExtension {
 
-    static {
+    static
+    {
         FishingPropertiesRegistry.register(); //register all entries before anything else
     }
 
-    public static final RegistrySetBuilder REGISTRY = new RegistrySetBuilder()
-            //fishes
-            .add(Starcatcher.FISH_REGISTRY, FishingPropertiesRegistry::bootstrap);
+    public static final RegistrySetBuilder REGISTRY = new RegistrySetBuilder().add(Starcatcher.FISH_REGISTRY, FishingPropertiesRegistry::bootstrap);
 
     public DGFishingPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, REGISTRY, Set.of(
@@ -61,7 +60,8 @@ public class DGFishingPropertiesProvider extends DatapackBuiltinEntriesProvider 
     }
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return "FishingProperties";
     }
 }

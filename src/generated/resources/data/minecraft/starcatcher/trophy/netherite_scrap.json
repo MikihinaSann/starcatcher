@@ -4,7 +4,6 @@
     "unique": 0
   },
   "always_show": false,
-  "chance_to_catch": 5,
   "fish_properties": {
     "bait_restrictions": {
       "consumes_bait": true,
@@ -77,6 +76,7 @@
       ]
     }
   },
+  "percentage_chance_to_catch": 5.0,
   "progress": {
     "legendary": {
       "total": 0,
