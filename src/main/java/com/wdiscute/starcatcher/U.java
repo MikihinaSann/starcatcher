@@ -200,6 +200,24 @@ public class U
                 ModTackleSkins.get(level, fbe.rod).onFailedMinigame(player);
             }
 
+            //consume bait
+            ItemStack bait = ModDataComponents.get(fbe.rod, ModDataComponents.BAIT).stack().copy();
+            if (fbe.fpToFish.br().consumesBait())
+            {
+                if (!bait.is(Items.BUCKET))
+                {
+                    bait.shrink(1);
+                    ModDataComponents.set(fbe.rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
+                    return;
+                }
+
+                if (bait.is(Items.BUCKET) && !fbe.fpToFish.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && time != -1)
+                {
+                    bait.shrink(1);
+                    ModDataComponents.set(fbe.rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
+                }
+            }
+
             fbe.kill();
         }
 
