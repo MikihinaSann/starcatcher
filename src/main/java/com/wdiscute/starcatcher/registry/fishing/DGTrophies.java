@@ -58,11 +58,11 @@ public class DGTrophies
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(200, 0))
-                        .withProgress(FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, 36))
+                        .withProgress(FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, 44))
                         .withProgress(FishProperties.Rarity.UNCOMMON, new TrophyProperties.RarityProgress(0, 23))
-                        .withProgress(FishProperties.Rarity.RARE, new TrophyProperties.RarityProgress(0, 14))
-                        .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(0, 13))
-                        .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(0, 8))
+                        .withProgress(FishProperties.Rarity.RARE, new TrophyProperties.RarityProgress(0, 15))
+                        .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(0, 16))
+                        .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(0, 10))
         );
         //                                         ,--.
         // ,---.   ,---.   ,---. ,--.--.  ,---.  ,-'  '-.  ,---.

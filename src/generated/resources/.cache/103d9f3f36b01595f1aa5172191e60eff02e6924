@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-26T23:53:20.5743064	Registries
+// 1.21.1	2026-01-30T05:00:34.0928477	Registries
 d868935b0ad1ccf88142f896d1cf230a4ddcf753 data/minecraft/starcatcher/trophy/diamond.json
 ac7983eccc99046bd7f35271c0ed96e5a6bbc0fc data/minecraft/starcatcher/trophy/gold_block.json
 cf4f9ccf54015f0ae619539ff956e9f8a954b2bd data/minecraft/starcatcher/trophy/netherite_scrap.json
@@ -19,7 +19,7 @@ a643457422e8cb62afb40b5a850722bfb51c2727 data/starcatcher/starcatcher/trophy/nat
 1146dc8e0f6322b0f359016fe5d3db37b2d96c6a data/starcatcher/starcatcher/trophy/scalding_bottle.json
 1875f3bb81da7a4c0528e8abf84fd74d18716b2e data/starcatcher/starcatcher/trophy/sky_rod.json
 2f7348b60296a2589d09e4dc1233fb88bb64636c data/starcatcher/starcatcher/trophy/trophy_bronze.json
-fcbaabc6aef138abbc241db3533cd5e3d56f43e5 data/starcatcher/starcatcher/trophy/trophy_gold.json
+3fe85bf5e169e1f0f8e9ea808cc13190b912362c data/starcatcher/starcatcher/trophy/trophy_gold.json
 88beeb6642cfed29f53cf1af68cc5a0d97cb9f62 data/starcatcher/starcatcher/trophy/trophy_silver.json
 1b322d395f692a599efb0935665b99bbf5883ae2 data/starcatcher/starcatcher/trophy/true_blue_bottle.json
 79b902d902c2e5a77b11307dcd641451f316962f data/starcatcher/starcatcher/trophy/withered_bottle.json
