@@ -490,6 +490,10 @@
   "gui.guide.biggest" : "Rarity: ",
   "gui.guide.heaviest" : "Rarity: ",
 
+  "gui.guide.bucketable" : "Can be caught in a bucket when using one as a bait!",
+  "gui.guide.entity" : "Can be caught alive when using an Almighty Worm as a bait!",
+  "gui.guide.always_entity" : "This fish is more lively than usual!",
+
   "gui.guide.fishing" : "All about fishing:",
   "gui.guide.index.basics" : "The Basics, Sweetspots, and treasures",
   "gui.guide.index.upgrades" : "Upgrades & Modifiers",

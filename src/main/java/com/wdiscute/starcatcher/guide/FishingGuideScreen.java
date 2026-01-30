@@ -11,6 +11,7 @@ import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
+import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
@@ -103,6 +104,10 @@ public class FishingGuideScreen extends Screen
     private static final ResourceLocation GLOW = Starcatcher.rl("textures/gui/guide/glow.png");
     private static final ResourceLocation SEASONS = Starcatcher.rl("textures/gui/guide/seasons.png");
 
+    private static final ResourceLocation BUCKET = Starcatcher.rl("textures/gui/guide/bucketable.png");
+    private static final ResourceLocation ENTITY = Starcatcher.rl("textures/gui/guide/entity.png");
+    private static final ResourceLocation ALWAYS_ENTITY = Starcatcher.rl("textures/gui/guide/always_entity.png");
+
     private static final int MAX_HELP_PAGES = 8;
 
 
@@ -167,8 +172,8 @@ public class FishingGuideScreen extends Screen
     Map<ResourceLocation, FishCaughtCounter> fishCaughtCounterMap = new HashMap<>();
 
     TrophyProperties.RarityProgress all = TrophyProperties.RarityProgress.DEFAULT;
-    private final Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<FishProperties.Rarity, TrophyProperties.RarityProgress>(Map.of(
-            FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
+    private final Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<>(Map.of(
+            FishProperties.Rarity.COMMON, TrophyProperties.RarityProgress.DEFAULT,
             FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
             FishProperties.Rarity.RARE, TrophyProperties.RarityProgress.DEFAULT,
             FishProperties.Rarity.EPIC, TrophyProperties.RarityProgress.DEFAULT,
@@ -214,7 +219,7 @@ public class FishingGuideScreen extends Screen
 
         fishCaughtCounterMap.forEach((loc, counter) ->
         {
-            all = new TrophyProperties.RarityProgress(all.total() + counter.count(), all.unique());
+            all = new TrophyProperties.RarityProgress(all.total() + counter.count(), all.unique() + 1);
 
             this.progressMap.computeIfPresent(U.getFpFromRl(level, loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
         });
@@ -356,8 +361,7 @@ public class FishingGuideScreen extends Screen
                     {
                         minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
                         page++;
-                    }
-                    else
+                    } else
                     {
                         menu = 3;
                         page = 0;
@@ -391,8 +395,8 @@ public class FishingGuideScreen extends Screen
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-        System.out.println("clicked on x :" + x);
-        System.out.println("clicked on x :" + y);
+        //System.out.println("clicked on x :" + x);
+        //System.out.println("clicked on x :" + y);
 
         //sort
         if (x > 51 && x < 116 && y > 67 && y < 76)
@@ -529,15 +533,15 @@ public class FishingGuideScreen extends Screen
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-        if(x > 233 && x < 334 && y > 117 && y < 125)
+        if (x > 233 && x < 334 && y > 117 && y < 125)
         {
             List<Component> list = new ArrayList<>();
             list.add(Component.literal("[not implemented yet] This will lock the book with the current recorded entries so it "));
             list.add(Component.literal("can be shared with others or displayed in a lectern!"));
-            guiGraphics.renderTooltip(this.font, list, Optional.empty() , mouseX, mouseY);
+            guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
         }
 
-        if(clickedX > 233 && clickedX < 334 && clickedY > 117 && clickedY < 125)
+        if (clickedX > 233 && clickedX < 334 && clickedY > 117 && clickedY < 125)
         {
             //System.out.println("send packet");
         }
@@ -1103,7 +1107,7 @@ public class FishingGuideScreen extends Screen
                 components.add(Component.translatable("gui.guide.not_caught_yet").withStyle(Style.EMPTY.withColor(0xa34536)));
             } else
             {
-                if(fp.catchInfo().alwaysSpawnEntity())
+                if (fp.catchInfo().alwaysSpawnEntity())
                     components.add(Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")));
                 else
                     components.add(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()));
@@ -1188,7 +1192,7 @@ public class FishingGuideScreen extends Screen
         //caught:
         guiGraphics.drawString(
                 this.font, Component.translatable("gui.guide.caught"),
-                uiX + xOffset + 73, uiY + 68, 0x9c897c, false);
+                uiX + xOffset + 73, uiY + 64, 0x9c897c, false);
 
         //render caught count
         if (fcc == null)
@@ -1196,24 +1200,49 @@ public class FishingGuideScreen extends Screen
             //------
             guiGraphics.drawString(
                     this.font, Component.translatable("gui.guide.not_caught"),
-                    uiX + xOffset + 73, uiY + 78, 0x9c897c, false);
+                    uiX + xOffset + 73, uiY + 73, 0x9c897c, false);
         } else
         {
 
             //[324]
-            Component c = Component.literal("[" + fcc.count() + "]").setStyle(Style.EMPTY.withColor(0x635040));
-            guiGraphics.drawString(this.font, Component.empty().append(c), uiX + xOffset + 73, uiY + 78, 0, false);
+            Component c = Component.literal("[" + fcc.count() + "]").withStyle(Style.EMPTY.withColor(0x635040));
+            guiGraphics.drawString(this.font, Component.empty().append(c), uiX + xOffset + 73, uiY + 73, 0, false);
         }
 
         //render rarity (always shown)
         //rarity:
         guiGraphics.drawString(
                 this.font, Component.translatable("gui.guide.rarity"),
-                uiX + xOffset + 73, uiY + 90, 0x9c897c, false);
+                uiX + xOffset + 73, uiY + 84, 0x9c897c, false);
         //common
         guiGraphics.drawString(
                 this.font, Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()),
-                uiX + xOffset + 73, uiY + 100, 0, false);
+                uiX + xOffset + 73, uiY + 93, 0, false);
+
+        //render bucketable
+        if (!fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO))
+        {
+            guiGraphics.blit(BUCKET, uiX + 77 + xOffset, uiY + 103, 0, 0, 14, 14, 14, 14);
+            if (mouseX > uiX + xOffset + 75 && mouseX < uiX + xOffset + 90 && mouseY > uiY + 105 && mouseY < uiY + 115)
+                guiGraphics.renderTooltip(this.font, Component.translatable("gui.guide.bucketable"), mouseX, mouseY);
+        }
+
+        //render almighty wormable
+        if ((!fp.catchInfo().entityToSpawn().equals(U.holderEntity("starcatcher", "fish")) && !fp.catchInfo().alwaysSpawnEntity())
+                || (fp.catchInfo().entityToSpawn().equals(U.holderEntity("starcatcher", "fish")) && fp.catchInfo().fish().is(StarcatcherTags.BUCKETABLE_FISHES)))
+        {
+            guiGraphics.blit(ENTITY, uiX + 93 + xOffset, uiY + 103, 0, 0, 14, 14, 14, 14);
+            if (mouseX > uiX + xOffset + 92 && mouseX < uiX + xOffset + 107 && mouseY > uiY + 105 && mouseY < uiY + 115)
+                guiGraphics.renderTooltip(this.font, Component.translatable("gui.guide.entity"), mouseX, mouseY);
+        }
+
+        if (fp.catchInfo().alwaysSpawnEntity())
+        {
+            guiGraphics.blit(ALWAYS_ENTITY, uiX + 93 + xOffset, uiY + 103, 0, 0, 14, 14, 14, 14);
+            if (mouseX > uiX + xOffset + 92 && mouseX < uiX + xOffset + 107 && mouseY > uiY + 105 && mouseY < uiY + 115)
+                guiGraphics.renderTooltip(this.font, Component.translatable("gui.guide.always_entity"), mouseX, mouseY);
+        }
+
 
         //render seasons
         if ((ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons") || ModList.get().isLoaded("tfc")) && Config.ENABLE_SEASONS.get())
@@ -1263,7 +1292,7 @@ public class FishingGuideScreen extends Screen
         if (fcc != null || !Config.HIDE_ENTRIES_UNTIL_FOUND.get())
         {
             MutableComponent compName = Component.translatable(fp.catchInfo().fish().value().getDescriptionId());
-            if(fp.catchInfo().alwaysSpawnEntity())
+            if (fp.catchInfo().alwaysSpawnEntity())
                 compName = Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", "."));
             renderItem(is, uiX + xOffset + 26, uiY + 70);
             //todo fix this holy shit this has to be the worse hard coded offset possible omg wd why did you code it like this
@@ -1305,20 +1334,19 @@ public class FishingGuideScreen extends Screen
         //render fish tooltip
         if (mouseX > uiX + xOffset && mouseX < uiX + xOffset + 65 && mouseY > uiY + 45 && mouseY < uiY + 110 && fcc != null)
         {
-            if(fp.catchInfo().alwaysSpawnEntity())
+            if (fp.catchInfo().alwaysSpawnEntity())
             {
                 guiGraphics.renderTooltip(this.font,
                         Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")),
                         mouseX, mouseY);
-            }
-            else
+            } else
             {
                 guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
             }
         }
 
         //render stats tooltip
-        if (mouseX > uiX + xOffset + 66 && mouseX < uiX + xOffset + 140 && mouseY > uiY + 57 && mouseY < uiY + 110 && fcc != null)
+        if (mouseX > uiX + xOffset + 66 && mouseX < uiX + xOffset + 140 && mouseY > uiY + 57 && mouseY < uiY + 102 && fcc != null)
         {
             List<Component> components = new ArrayList<>();
             float averageTicks = (int) ((fcc.averageTicks() / 20) * 100) / 100.0f;
@@ -1586,7 +1614,7 @@ public class FishingGuideScreen extends Screen
             }
 
 
-            if (x > xOffset && x < xOffset + 100 && y > yOffset - 2 && y < yOffset + 10)
+            if (x > xOffset && x < xOffset + 130 && y > yOffset - 2 && y < yOffset + 10)
             {
                 guiGraphics.renderTooltip(this.font, bait, mouseX, mouseY);
             }

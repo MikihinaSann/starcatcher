@@ -208,7 +208,6 @@ public class U
                 {
                     bait.shrink(1);
                     ModDataComponents.set(fbe.rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
-                    return;
                 }
 
                 if (bait.is(Items.BUCKET) && !fbe.fpToFish.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && time != -1)

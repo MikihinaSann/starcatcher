@@ -190,7 +190,7 @@ public record TrophyProperties(
         public static final RarityProgress DEFAULT = new RarityProgress(0, 0);
 
         public static RarityProgress fromAttachment(Player player){
-            return new RarityProgress(0, FishingGuideAttachment.getTrophiesCaught(player).size());
+            return new RarityProgress(0, FishingGuideAttachment.getFishesCaught(player).size());
         }
     }
 
