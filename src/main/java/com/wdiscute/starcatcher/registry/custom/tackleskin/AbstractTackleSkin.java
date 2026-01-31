@@ -51,15 +51,11 @@ public abstract class AbstractTackleSkin
 
     public void onSuccessfulMinigame(Player player)
     {
-        Vec3 p = player.position();
-        if (Config.ENABLE_VILLAGER_SOUND.get())
-            player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
+
     }
 
     public void onFailedMinigame(Player player)
     {
-        Vec3 p = player.position();
-        if (Config.ENABLE_VILLAGER_SOUND.get())
-            player.level().playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT, 1, 1);
+
     }
 }
