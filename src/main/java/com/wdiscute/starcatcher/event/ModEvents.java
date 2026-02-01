@@ -1,12 +1,14 @@
 package com.wdiscute.starcatcher.event;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.datagen.backport.ConditionalOps;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.registry.ForgeRegistryHelper;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -60,6 +62,6 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onFMLCommonSetup(FMLCommonSetupEvent event) {
-        ModCriterionTriggers.init();
+        event.enqueueWork(ModCriterionTriggers::init);
     }
 }

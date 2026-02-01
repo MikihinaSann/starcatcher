@@ -1,10 +1,4 @@
 {
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "tide"
-    }
-  ],
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
@@ -18,7 +12,7 @@
     "item": "tide:guppy",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "all",
+  "daytime": "night",
   "difficulty": {
     "decay": 1.0,
     "missPenalty": 20,
@@ -47,13 +41,19 @@
       }
     ]
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tide"
+    }
+  ],
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 20.0,
-    "average_weight_grams": 400.0,
-    "deviation_size_cm": 5.0,
-    "deviation_weight_grams": 100.0
+    "average_size_cm": 4.0,
+    "average_weight_grams": 2.0,
+    "deviation_size_cm": 1.0,
+    "deviation_weight_grams": 1.0
   },
   "skips_minigame": false,
   "weather": "all",

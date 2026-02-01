@@ -1,10 +1,4 @@
 {
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "netherdepthsupgrade"
-    }
-  ],
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
@@ -47,6 +41,12 @@
       }
     ]
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "netherdepthsupgrade"
+    }
+  ],
   "has_guide_entry": true,
   "rarity": "uncommon",
   "size_and_weight": {

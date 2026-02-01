@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.datagen;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.datagen.backport.IDatagenConditionsExtension;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -13,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
+public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider implements IDatagenConditionsExtension {
 
     static {
         FishingPropertiesRegistry.register(); //register all entries before anything else
@@ -47,7 +48,10 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
         ));
     }
 
-
+    @Override
+    public void registerConditions(BiConsumer<ResourceKey<?>, ICondition> consumer) {
+        addConditions(consumer);
+    }
 
     private static void addConditions(final BiConsumer<ResourceKey<?>, ICondition> consumer) {
         FishingPropertiesRegistry.registerConditions(consumer);

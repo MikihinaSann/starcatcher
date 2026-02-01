@@ -1,10 +1,4 @@
 {
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "tide"
-    }
-  ],
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
@@ -13,48 +7,84 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "tide:mirage_catfish",
-    "fish_bucket": "tide:mirage_catfish_bucket",
+    "entity": "starcatcher:fish",
+    "fish_bucket": "starcatcher:missingno",
     "item": "tide:mirage_catfish",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "midnight",
+  "daytime": "all",
   "difficulty": {
-    "decay": 1.0,
-    "missPenalty": 5,
+    "decay": 0.0,
+    "missPenalty": 20,
     "modifiers": [],
-    "speed": 13,
+    "speed": 9,
     "sweetspots": [
       {
-        "color_as_int": 3701122,
+        "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
         "reward": 15,
-        "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "moving_rate": 0.0,
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "moving_rate": 0.0,
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "moving_rate": 0.0,
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
       }
     ]
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tide"
+    }
+  ],
   "has_guide_entry": true,
-  "rarity": "rare",
+  "rarity": "epic",
   "size_and_weight": {
     "average_size_cm": 100.0,
-    "average_weight_grams": 10000.0,
+    "average_weight_grams": 15000.0,
     "deviation_size_cm": 50.0,
-    "deviation_weight_grams": 3000.0
+    "deviation_weight_grams": 10000.0
   },
   "skips_minigame": false,
   "weather": "all",
   "world_restrictions": {
-    "above_y": 50,
-    "below_y": 100,
+    "above_y": -2147483648,
+    "below_y": 2147483647,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [
-      "starcatcher:is_warm"
+      "minecraft:is_badlands"
     ],
     "dimensions": [
       "minecraft:overworld"

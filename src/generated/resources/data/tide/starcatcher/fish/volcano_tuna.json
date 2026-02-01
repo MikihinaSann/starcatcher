@@ -1,10 +1,4 @@
 {
-  "forge:conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "tide"
-    }
-  ],
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
@@ -13,26 +7,26 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "tide:volcano_tuna",
-    "fish_bucket": "tide:volcano_tuna_bucket",
+    "entity": "starcatcher:fish",
+    "fish_bucket": "starcatcher:missingno",
     "item": "tide:volcano_tuna",
     "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
     "decay": 1.0,
-    "missPenalty": 20,
+    "missPenalty": 10,
     "modifiers": [],
-    "speed": 10,
+    "speed": 11,
     "sweetspots": [
       {
         "color_as_int": 65280,
-        "hitbox_size_in_pixels": 22,
+        "hitbox_size_in_pixels": 15,
         "is_flip": false,
         "moving_rate": 1.0,
-        "reward": 15,
+        "reward": 20,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/thin.png",
         "vanishing_rate": 0.0
       },
       {
@@ -47,19 +41,25 @@
       }
     ]
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tide"
+    }
+  ],
   "has_guide_entry": true,
-  "rarity": "uncommon",
+  "rarity": "rare",
   "size_and_weight": {
-    "average_size_cm": 150.0,
-    "average_weight_grams": 120000.0,
-    "deviation_size_cm": 50.0,
-    "deviation_weight_grams": 60000.0
+    "average_size_cm": 200.0,
+    "average_weight_grams": 150000.0,
+    "deviation_size_cm": 100.0,
+    "deviation_weight_grams": 50000.0
   },
   "skips_minigame": false,
   "weather": "all",
   "world_restrictions": {
-    "above_y": -2147483648,
-    "below_y": 50,
+    "above_y": 50,
+    "below_y": 2147483647,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
