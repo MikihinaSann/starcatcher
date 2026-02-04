@@ -11,6 +11,9 @@ import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
 import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
 import com.wdiscute.starcatcher.registry.*;
+import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
+import com.wdiscute.starcatcher.registry.blocks.display.DisplayBlockRenderer;
+import com.wdiscute.starcatcher.registry.blocks.display.DisplayBookModel;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.*;
 import com.wdiscute.starcatcher.rod.FishingRodScreen;
 import com.wdiscute.starcatcher.tournament.StandScreen;
@@ -40,6 +43,7 @@ public class ModClientEvents {
         event.registerEntityRenderer(ModEntities.FISHING_BOB.get(), FishingBobRenderer::new);
         event.registerEntityRenderer(ModEntities.BOTTLE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntities.FISH.get(), FishRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.DISPLAY.get(), DisplayBlockRenderer::new);
     }
 
     @SubscribeEvent
@@ -92,6 +96,7 @@ public class ModClientEvents {
         event.registerLayerDefinition(HollowbellyDarter.LAYER_LOCATION, HollowbellyDarter::createBodyLayer);
         event.registerLayerDefinition(IcetoothSturgeon.LAYER_LOCATION, IcetoothSturgeon::createBodyLayer);
         event.registerLayerDefinition(MistbackChub.LAYER_LOCATION, MistbackChub::createBodyLayer);
+        event.registerLayerDefinition(DisplayBookModel.LAYER_LOCATION, DisplayBookModel::createBodyLayer);
     }
 
     @SubscribeEvent

@@ -189,8 +189,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
             if (!level.isClientSide && level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe)
             {
                 dbe.setBook(stack.copy());
-                if (!player.isCreative())
-                    stack.shrink(1);
+                stack.shrink(1);
 
                 level.playSound(null, pos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
