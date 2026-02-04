@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -21,8 +22,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.nikdo53.tinymultiblocklib.block.AbstractMultiBlock;
 import net.nikdo53.tinymultiblocklib.block.IPreviewableMultiblock;
 import net.nikdo53.tinymultiblocklib.components.IBlockPosOffsetEnum;
@@ -39,14 +40,12 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
     }
 
     @Override
-    public List<BlockPos> makeFullBlockShape(@Nullable Direction direction, BlockPos center, BlockState state)
-    {
-        assert direction != null;
+    public List<BlockPos> makeFullBlockShape(Level level, BlockPos center, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Direction direction) {
         return List.of(center, center.above());
     }
 
     @Override
-    public RenderShape getMultiblockRenderShape(BlockState state)
+    public RenderShape getMultiblockRenderShape(BlockState state, boolean c)
     {
         return RenderShape.MODEL;
     }
@@ -83,25 +82,6 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
     }
 
 
-
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state)
-    {
-        return ModBlockEntities.TELESCOPE.get().create(pos, state);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<TelescopePart> TELESCOPE_PART = EnumProperty.create("part", TelescopePart.class);
 
@@ -113,11 +93,10 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult)
-    {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) screen();
 
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return super.use(state, level, pos, player, hand, hit);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -153,9 +132,8 @@ public class TelescopeBlock extends AbstractMultiBlock implements IPreviewableMu
         }
 
         @Override
-        public BlockPos getOffset()
-        {
-            return offset.apply(BlockPos.ZERO);
+        public Function<BlockPos, BlockPos> getOffsetFunction() {
+            return offset;
         }
     }
 }

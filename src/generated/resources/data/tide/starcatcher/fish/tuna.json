@@ -50,10 +50,10 @@
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 200.0,
-    "average_weight_grams": 200000.0,
-    "deviation_size_cm": 100.0,
-    "deviation_weight_grams": 150000.0
+    "average_size_cm": 150.0,
+    "average_weight_grams": 120000.0,
+    "deviation_size_cm": 50.0,
+    "deviation_weight_grams": 60000.0
   },
   "skips_minigame": false,
   "weather": "all",
@@ -74,8 +74,7 @@
       "minecraft:water"
     ],
     "seasons": [
-      "autumn",
-      "winter"
+      "all"
     ]
   }
 }

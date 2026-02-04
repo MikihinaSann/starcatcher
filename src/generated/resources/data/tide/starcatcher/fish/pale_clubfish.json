@@ -1,10 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "tide"
-    }
-  ],
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
@@ -47,6 +41,12 @@
       }
     ]
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tide"
+    }
+  ],
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {

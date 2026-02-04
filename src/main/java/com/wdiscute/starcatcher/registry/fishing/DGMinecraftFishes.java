@@ -78,7 +78,7 @@ public class DGMinecraftFishes
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(overworldSurfaceFish(U.holderItem("minecraft", "rotten_flesh"))
+        register(overworldSurfaceFish(U.locItem("minecraft", "rotten_flesh"))
                 .withEntityToSpawn(U.locItem("minecraft", "drowned"))
                 .withBaseChance(1)
                 .withDaytime(FishProperties.Daytime.NIGHT)

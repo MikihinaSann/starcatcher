@@ -34,7 +34,6 @@ public class DataGenerators
         gen.addProvider(event.includeServer(), new DGTrophyPropertiesProvider(output, registries));
 
         //fish models
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         gen.addProvider(event.includeServer(), new DGModItemModelProvider(output, existingFileHelper));
 
         //block tags

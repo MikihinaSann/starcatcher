@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 public class DisplayBlockEntity extends BlockEntity
 {
@@ -102,12 +103,18 @@ public class DisplayBlockEntity extends BlockEntity
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries)
+    public AABB getRenderBoundingBox() {
+        BlockPos pos = getBlockPos();
+        return new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0F, pos.getY() + 1.5F, pos.getZ() + 1.0F);
+    }
+
+    @Override
+    public void load(CompoundTag tag)
     {
-        super.loadAdditional(tag, registries);
+        super.load(tag);
         if (tag.contains("Book", 10))
         {
-            this.book = ItemStack.parse(registries, tag.getCompound("Book")).orElse(ItemStack.EMPTY);
+            this.book = ItemStack.of(tag.getCompound("Book"));
         } else
         {
             this.book = ItemStack.EMPTY;
@@ -115,12 +122,12 @@ public class DisplayBlockEntity extends BlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries)
+    protected void saveAdditional(CompoundTag tag)
     {
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
         if (!this.getBook().isEmpty())
         {
-            tag.put("Book", this.getBook().save(registries));
+            tag.put("Book", this.getBook().save(new CompoundTag()));
         }
     }
 }

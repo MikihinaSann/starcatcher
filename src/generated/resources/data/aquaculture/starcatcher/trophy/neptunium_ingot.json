@@ -1,10 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:mod_loaded",
-      "modid": "aquaculture"
-    }
-  ],
   "all": {
     "total": 0,
     "unique": 0
@@ -84,6 +78,12 @@
       ]
     }
   },
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "aquaculture"
+    }
+  ],
   "percentage_chance_to_catch": 2.0,
   "progress": {},
   "repeatable": false,

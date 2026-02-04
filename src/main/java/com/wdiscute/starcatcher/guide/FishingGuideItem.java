@@ -22,8 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class FishingGuideItem extends Item
 {
@@ -50,7 +48,9 @@ public class FishingGuideItem extends Item
 
                 if(level.getBlockEntity(clickedPos) instanceof DisplayBlockEntity dbe)
                 {
-                    dbe.setBook(context.getItemInHand().consumeAndReturn(1, context.getPlayer()));
+                    dbe.setBook(context.getItemInHand().copy());
+                    if (context.getPlayer() != null && !context.getPlayer().isCreative())
+                        context.getItemInHand().shrink(1);
                 }
                 return InteractionResult.SUCCESS;
             }

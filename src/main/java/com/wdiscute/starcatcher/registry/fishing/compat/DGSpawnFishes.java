@@ -18,8 +18,8 @@ public class DGSpawnFishes extends FishingPropertiesRegistry
         //`-----'  |  |-'   `--`--' '--'   '--' `--''--'
         //         `--'
 
-        register(fish(U.holderItem("spawn", "angler_fish"))
-                .withBucketedFish(U.holderItem("spawn", "angler_fish_bucket"))
+        register(fish(U.locItem("spawn", "angler_fish"))
+                .withBucketedFish(U.locItem("spawn", "angler_fish_bucket"))
                 .withEntityToSpawn(U.holderEntity("spawn", "angler_fish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DEEP_OCEAN)
@@ -29,8 +29,8 @@ public class DGSpawnFishes extends FishingPropertiesRegistry
                 .withBaseChance(20)
         );
 
-        register(fish(U.holderItem("spawn", "tuna_egg_bucket"))
-                .withBucketedFish(U.holderItem("spawn", "tuna_egg_bucket"))
+        register(fish(U.locItem("spawn", "tuna_egg_bucket"))
+                .withBucketedFish(U.locItem("spawn", "tuna_egg_bucket"))
                 .withEntityToSpawn(U.holderEntity("spawn", "tuna"))
                 .withAlwaysSpawnEntity()
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000))
@@ -39,8 +39,8 @@ public class DGSpawnFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
         );
 
-        register(fish(U.holderItem("spawn", "baby_sunfish_bucket"))
-                .withBucketedFish(U.holderItem("spawn", "baby_sunfish_bucket"))
+        register(fish(U.locItem("spawn", "baby_sunfish_bucket"))
+                .withBucketedFish(U.locItem("spawn", "baby_sunfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("spawn", "sunfish"))
                 .withAlwaysSpawnEntity()
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000))
@@ -51,7 +51,7 @@ public class DGSpawnFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.TWO_THIN.vanishing())
         );
 
-        register(fish(U.holderItem("spawn", "captured_octopus"))
+        register(fish(U.locItem("spawn", "captured_octopus"))
                 .withEntityToSpawn(U.holderEntity("spawn", "octopus"))
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_ALL_OCEANS)
@@ -60,8 +60,8 @@ public class DGSpawnFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
         );
 
-        register(fish(U.holderItem("spawn", "herring"))
-                .withBucketedFish(U.holderItem("spawn", "herring_bucket"))
+        register(fish(U.locItem("spawn", "herring"))
+                .withBucketedFish(U.locItem("spawn", "herring_bucket"))
                 .withEntityToSpawn(U.holderEntity("spawn", "herring"))
                 .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 12000, 7000))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_ALL_OCEANS)

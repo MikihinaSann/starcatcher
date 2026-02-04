@@ -22,10 +22,12 @@ public class ForgeRegistryHelper<T> {
         return new ForgeRegistryHelper<>(key);
     }
 
+    @SuppressWarnings("unchecked")
     public void registerRegistry(Consumer<IForgeRegistry<T>> fieldSetter, IForgeRegistry<?> registeredRegistry){
         fieldSetter.accept((IForgeRegistry<T>) registeredRegistry);
     }
 
+    @SuppressWarnings("unchecked")
     public void create(NewRegistryEvent event, Consumer<IForgeRegistry<T>> fieldSetter, Function<RegistryBuilder<T>, RegistryBuilder<T>> builder){
         event.create(builder.apply((RegistryBuilder<T>) RegistryBuilder.of().setName(key.location())), fieldSetter);
     }

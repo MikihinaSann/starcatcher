@@ -4,20 +4,20 @@
     "correct_bait_chance_added": 0,
     "correct_baits": []
   },
-  "base_chance": 5,
+  "base_chance": 2,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "tide:barracuda",
-    "fish_bucket": "tide:barracuda_bucket",
-    "item": "tide:barracuda",
+    "entity": "tide:windbass",
+    "fish_bucket": "tide:windbass_bucket",
+    "item": "tide:windbass",
     "treasure": "starcatcher:waterlogged_satchel"
   },
-  "daytime": "night",
+  "daytime": "all",
   "difficulty": {
-    "decay": 1.0,
+    "decay": 0.0,
     "missPenalty": 20,
     "modifiers": [],
-    "speed": 10,
+    "speed": 9,
     "sweetspots": [
       {
         "color_as_int": 65280,
@@ -31,12 +31,32 @@
       },
       {
         "color_as_int": 65280,
-        "hitbox_size_in_pixels": 15,
+        "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 1.0,
-        "reward": 20,
+        "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/thin.png",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "moving_rate": 1.0,
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
+        "vanishing_rate": 0.0
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "moving_rate": 1.0,
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
       }
     ]
@@ -48,31 +68,22 @@
     }
   ],
   "has_guide_entry": true,
-  "rarity": "rare",
+  "rarity": "epic",
   "size_and_weight": {
-    "average_size_cm": 150.0,
-    "average_weight_grams": 30000.0,
-    "deviation_size_cm": 50.0,
-    "deviation_weight_grams": 20000.0
+    "average_size_cm": 40.0,
+    "average_weight_grams": 1600.0,
+    "deviation_size_cm": 12.0,
+    "deviation_weight_grams": 1100.0
   },
   "skips_minigame": false,
-  "star": {
-    "connections": [],
-    "debug_color": -1,
-    "name": "",
-    "x": 0,
-    "y": 0
-  },
-  "weather": "rain",
+  "weather": "all",
   "world_restrictions": {
-    "above_y": 50,
-    "below_y": 100,
+    "above_y": 0,
+    "below_y": 50,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
-    "biomes_tags": [
-      "starcatcher:is_ocean"
-    ],
+    "biomes_tags": [],
     "dimensions": [
       "minecraft:overworld"
     ],

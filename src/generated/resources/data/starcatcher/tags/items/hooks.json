@@ -1,11 +1,44 @@
 {
   "values": [
     "starcatcher:hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
+    "starcatcher:crystal_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
     "starcatcher:shiny_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
     "starcatcher:gold_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
     "starcatcher:mossy_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
     "starcatcher:stone_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
     "starcatcher:split_hook",
-    "starcatcher:heavy_hook"
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    },
+    "starcatcher:heavy_hook",
+    {
+      "id": "tide:void_fishing_hook",
+      "required": false
+    }
   ]
 }

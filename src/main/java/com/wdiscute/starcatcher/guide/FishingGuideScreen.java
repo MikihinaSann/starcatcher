@@ -5,10 +5,7 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import com.wdiscute.starcatcher.Config;
-import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.*;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModEntities;
@@ -1108,7 +1105,7 @@ public class FishingGuideScreen extends Screen
             } else
             {
                 if (fp.catchInfo().alwaysSpawnEntity())
-                    components.add(Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")));
+                    components.add(Component.translatable("entity." + fp.catchInfo().entityToSpawn().get().builtInRegistryHolder().key().location().toString().replace(":", ".")));
                 else
                     components.add(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()));
 
@@ -1220,7 +1217,7 @@ public class FishingGuideScreen extends Screen
                 uiX + xOffset + 73, uiY + 93, 0, false);
 
         //render bucketable
-        if (!fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO))
+        if (!fp.catchInfo().bucketedFish().get().equals(ModItems.MISSINGNO.get()))
         {
             guiGraphics.blit(BUCKET, uiX + 77 + xOffset, uiY + 103, 0, 0, 14, 14, 14, 14);
             if (mouseX > uiX + xOffset + 75 && mouseX < uiX + xOffset + 90 && mouseY > uiY + 105 && mouseY < uiY + 115)
@@ -1293,7 +1290,7 @@ public class FishingGuideScreen extends Screen
         {
             MutableComponent compName = Component.translatable(fp.catchInfo().fish().value().getDescriptionId());
             if (fp.catchInfo().alwaysSpawnEntity())
-                compName = Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", "."));
+                compName = Component.translatable("entity." + fp.catchInfo().entityToSpawn().get().builtInRegistryHolder().key().location().toString().replace(":", "."));
             renderItem(is, uiX + xOffset + 26, uiY + 70);
             //todo fix this holy shit this has to be the worse hard coded offset possible omg wd why did you code it like this
             if (xOffset > 200)
@@ -1337,7 +1334,7 @@ public class FishingGuideScreen extends Screen
             if (fp.catchInfo().alwaysSpawnEntity())
             {
                 guiGraphics.renderTooltip(this.font,
-                        Component.translatable("entity." + fp.catchInfo().entityToSpawn().getRegisteredName().replace(":", ".")),
+                        Component.translatable("entity." + fp.catchInfo().entityToSpawn().get().builtInRegistryHolder().key().location().toString().replace(":", ".")),
                         mouseX, mouseY);
             } else
             {

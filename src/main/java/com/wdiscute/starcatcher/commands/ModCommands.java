@@ -46,7 +46,7 @@ public class ModCommands
     );
 
     private static final DynamicCommandExceptionType NOTHING_THERE = new DynamicCommandExceptionType(
-            o -> Component.translatableEscape("commands.starcatcher.nothing_there")
+            o -> Component.translatable("commands.starcatcher.nothing_there")
     );
 
     private static final DynamicCommandExceptionType ERROR_EMPTY = new DynamicCommandExceptionType(
@@ -346,7 +346,7 @@ public class ModCommands
         if(!available.isEmpty())
         {
             FishProperties fpToFish = available.get(U.r.nextInt(available.size()));
-            PacketDistributor.sendToPlayer(player, new FishingStartedPayload(fpToFish, player.getMainHandItem()));
+            ModNetworking.sendToPlayer(player, new FishingStartedPayload(fpToFish, player.getMainHandItem()));
         }
         else
         {

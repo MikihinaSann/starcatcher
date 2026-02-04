@@ -7,15 +7,15 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "starcatcher:fish",
-    "fish_bucket": "starcatcher:missingno",
-    "item": "tide:leafback",
+    "entity": "tide:white_crappie",
+    "fish_bucket": "tide:white_crappie_bucket",
+    "item": "tide:white_crappie",
     "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
-    "decay": 0.0,
-    "missPenalty": 20,
+    "decay": 1.0,
+    "missPenalty": 5,
     "modifiers": [],
     "speed": 9,
     "sweetspots": [
@@ -23,41 +23,21 @@
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 1.0,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
+        "vanishing_rate": 0.1
       },
       {
         "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "moving_rate": 1.0,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
-      },
-      {
-        "color_as_int": 65280,
-        "hitbox_size_in_pixels": 22,
-        "is_flip": false,
-        "moving_rate": 1.0,
-        "reward": 15,
-        "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
-      },
-      {
-        "color_as_int": 65280,
-        "hitbox_size_in_pixels": 22,
-        "is_flip": false,
-        "moving_rate": 1.0,
-        "reward": 15,
-        "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
-        "vanishing_rate": 0.0
+        "vanishing_rate": 0.1
       }
     ]
   },
@@ -68,30 +48,23 @@
     }
   ],
   "has_guide_entry": true,
-  "rarity": "epic",
+  "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 40.0,
-    "average_weight_grams": 3000.0,
-    "deviation_size_cm": 20.0,
-    "deviation_weight_grams": 2000.0
+    "average_size_cm": 35.0,
+    "average_weight_grams": 1600.0,
+    "deviation_size_cm": 8.0,
+    "deviation_weight_grams": 1200.0
   },
   "skips_minigame": false,
-  "star": {
-    "connections": [],
-    "debug_color": -1,
-    "name": "",
-    "x": 0,
-    "y": 0
-  },
   "weather": "all",
   "world_restrictions": {
     "above_y": 50,
-    "below_y": 2147483647,
+    "below_y": 100,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [
-      "minecraft:is_jungle"
+      "starcatcher:is_river"
     ],
     "dimensions": [
       "minecraft:overworld"
@@ -101,8 +74,7 @@
       "minecraft:water"
     ],
     "seasons": [
-      "spring",
-      "autumn"
+      "all"
     ]
   }
 }

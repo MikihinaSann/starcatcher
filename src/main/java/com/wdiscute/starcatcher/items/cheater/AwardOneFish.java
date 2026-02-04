@@ -51,7 +51,7 @@ public class AwardOneFish extends Item
 
             if(player instanceof ServerPlayer sp)
             {
-                ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp), new FishCaughtPayload(fish, false, 0, 0));
+                ModNetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp), new FishCaughtPayload(fish, false, 0,0, 0));
             }
         }
 

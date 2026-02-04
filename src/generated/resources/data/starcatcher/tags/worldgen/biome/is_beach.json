@@ -5,7 +5,7 @@
       "required": false
     },
     {
-      "id": "#c:is_beach",
+      "id": "#minecraft:is_beach",
       "required": false
     }
   ]

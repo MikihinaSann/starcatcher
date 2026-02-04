@@ -33,11 +33,9 @@ public class DGModItemsTagProvider extends ItemTagsProvider
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider)
-    {
+    protected void addTags(HolderLookup.Provider provider) {
         //fishes, cat_food, foods/raw_fish
-        for (var item : ModItems.FISH_REGISTRY.getEntries())
-        {
+        for (var item : ModItems.FISH_REGISTRY.getEntries()) {
             tag(ItemTags.FISHES).add(item.get());
             tag(TagKey.create(Registries.ITEM, new ResourceLocation("forge", "foods/raw_fish"))).add(item.get());
             tag(StarcatcherTags.BUCKETABLE_FISHES).add(item.get());
@@ -46,10 +44,8 @@ public class DGModItemsTagProvider extends ItemTagsProvider
 
         //todo figure out what to do with crabs/eels tags?
 
-        for (FishProperties fp : DGStarcatcherFishes.STARCATCHER_FISHES)
-        {
-            switch (fp.rarity())
-            {
+        for (FishProperties fp : DGStarcatcherFishes.STARCATCHER_FISHES) {
+            switch (fp.rarity()) {
                 case COMMON -> tag(StarcatcherTags.COMMON_FISHES).add(fp.catchInfo().fish().value());
                 case UNCOMMON -> tag(StarcatcherTags.UNCOMMON_FISHES).add(fp.catchInfo().fish().value());
                 case RARE -> tag(StarcatcherTags.RARE_FISHES).add(fp.catchInfo().fish().value());
@@ -60,21 +56,18 @@ public class DGModItemsTagProvider extends ItemTagsProvider
 
 
         //baits tag
-        for (RegistryObject<Item> item : ModItems.BAITS_REGISTRY.getEntries())
-        {
+        for (RegistryObject<Item> item : ModItems.BAITS_REGISTRY.getEntries()) {
             tag(StarcatcherTags.BAITS).add(item.get());
         }
 
         //templates tag
-        for (RegistryObject<Item> item : ModItems.TEMPLATES_REGISTRY.getEntries())
-        {
+        for (RegistryObject<Item> item : ModItems.TEMPLATES_REGISTRY.getEntries()) {
             tag(StarcatcherTags.TEMPLATES).add(item.get());
         }
 
         //Equipment tag
-        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries())
-        {
-            if(!item.is(ModItems.ROD)) tag(StarcatcherTags.EQUIPMENTS).add(item.get());
+        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries()) {
+            if (!item.equals(ModItems.ROD)) tag(StarcatcherTags.EQUIPMENTS).add(item.get());
             //todo add hats and stuff
         }
 
@@ -98,23 +91,22 @@ public class DGModItemsTagProvider extends ItemTagsProvider
         tag(StarcatcherTags.BAITS).addOptional(rl("tfc", "food/tropical_fish"));
 
         //hooks tag
-        for (RegistryObject<Item> item : ModItems.HOOKS_REGISTRY.getEntries())
-        {
+        for (RegistryObject<Item> item : ModItems.HOOKS_REGISTRY.getEntries()) {
             tag(StarcatcherTags.HOOKS).add(item.get());
-        tag(StarcatcherTags.HOOKS).addOptional(rl("tide", "void_fishing_hook"));
+            tag(StarcatcherTags.HOOKS).addOptional(rl("tide", "void_fishing_hook"));
 
-        //bobbers tag
-        for (RegistryObject<Item> item : ModItems.BOBBERS_REGISTRY.getEntries())
-        {
+        }
+            //bobbers tag
+        for (RegistryObject<Item> item : ModItems.BOBBERS_REGISTRY.getEntries()) {
             tag(StarcatcherTags.BOBBERS).add(item.get());
         }
 
         //rods and tools/fishing_rod
-        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries())
-        {
+        for (RegistryObject<Item> item : ModItems.RODS_REGISTRY.getEntries()) {
             tag(Tags.Items.TOOLS_FISHING_RODS).add(item.get());
             tag(StarcatcherTags.RODS).add(item.get());
         }
+
     }
 
 

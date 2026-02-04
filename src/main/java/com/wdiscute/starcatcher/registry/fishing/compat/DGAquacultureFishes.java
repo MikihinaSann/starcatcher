@@ -27,7 +27,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldRiverFish(U.locItem("aquaculture", "bluegill"))
@@ -35,7 +35,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "smallmouth_bass"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 3, 300, 200))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldRiverFish(U.locItem("aquaculture", "brown_trout"))
@@ -45,7 +45,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(45, 15, 3000, 2000))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withWeather(FishProperties.Weather.CLEAR)
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldRiverFish(U.locItem("aquaculture", "carp"))
@@ -56,7 +56,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldMountainFish(U.locItem("aquaculture", "catfish"))
@@ -66,7 +66,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY_NOT_FORGIVING)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         register(overworldMountainFish(U.locItem("aquaculture", "gar"))
@@ -74,14 +74,14 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "gar"))
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sizeWeight(160, 30, 160000, 20000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldLakeFish(U.locItem("aquaculture", "minnow"))
                 .withBucketedFish(U.locItem("aquaculture", "minnow_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquaculture", "minnow"))
                 .withSizeAndWeight(FishProperties.sizeWeight(6, 4, 10, 4))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldLakeFish(U.locItem("aquaculture", "muskellunge"))
@@ -90,7 +90,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 10, 7000, 3000))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldLakeFish(U.locItem("aquaculture", "perch"))
@@ -98,7 +98,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "perch"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(20, 5, 500, 200))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         //arid
@@ -110,7 +110,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDaytime(FishProperties.Daytime.NIGHT)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldWarmLakeFish(U.locItem("aquaculture", "boulti"))
@@ -121,7 +121,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withDifficulty(FishProperties.Difficulty.HARD)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldWarmMountainFish(U.locItem("aquaculture", "capitaine"))
@@ -129,7 +129,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "capitaine"))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sizeWeight(130, 50, 12000, 3000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldWarmMountainFish(U.locItem("aquaculture", "synodontis"))
@@ -138,7 +138,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(35, 15, 1000, 300))
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         //arctic ocean
@@ -148,7 +148,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
                 .withDaytime(FishProperties.Daytime.DAY)
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "blackfish"))
@@ -158,7 +158,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 5000, 3000))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "pacific_halibut"))
@@ -166,7 +166,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "pacific_halibut"))
                 .withSeasons(Seasons.WINTER, Seasons.AUTUMN, Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sizeWeight(150, 50, 80000, 5000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "atlantic_halibut"))
@@ -175,7 +175,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(200, 80, 150000, 10000))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "atlantic_herring"))
@@ -186,7 +186,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "pink_salmon"))
@@ -197,14 +197,14 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withDifficulty(FishProperties.Difficulty.HARD)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "pollock"))
                 .withBucketedFish(U.locItem("aquaculture", "pollock_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquaculture", "pollock"))
                 .withSizeAndWeight(FishProperties.sizeWeight(70, 30, 5000, 4000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldColdOceanFish(U.locItem("aquaculture", "rainbow_trout"))
@@ -214,7 +214,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 2000, 1500))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDaytime(FishProperties.Daytime.DAY)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         //saltwater
@@ -226,7 +226,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withBaseChance(3)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldOceanFish(U.locItem("aquaculture", "red_grouper"))
@@ -234,14 +234,14 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "red_grouper"))
                 .withSeasons(Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         register(overworldOceanFish(U.locItem("aquaculture", "tuna"))
                 .withBucketedFish(U.locItem("aquaculture", "tuna_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquaculture", "tuna"))
                 .withSizeAndWeight(FishProperties.sizeWeight(200, 100, 200000, 150000))
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
         //jungle
@@ -253,7 +253,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldJungleFish(U.locItem("aquaculture", "arrau_turtle"))
@@ -261,7 +261,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "arrau_turtle"))
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 30, 80000, 150000))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
 
@@ -274,7 +274,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
                 .withDaytime(FishProperties.Daytime.NOON)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         register(overworldJungleFish(U.locItem("aquaculture", "tambaqui"))
@@ -283,7 +283,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 30, 150000, 10000))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         //swamp
@@ -294,7 +294,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(10, 5, 5, 3))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD)
-                .withTreasure(U.holderItem("aquaculture", "lockbox"))
+                .withTreasure(U.locItem("aquaculture", "lockbox"))
         );
 
         register(overworldSwampFish(U.locItem("aquaculture", "box_turtle"))
@@ -304,7 +304,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         //mushroom island
@@ -314,7 +314,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 20, 3000, 500))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         register(overworldMushroomFieldsFish(U.locItem("aquaculture", "red_shrooma"))
@@ -323,7 +323,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sizeWeight(100, 20, 3000, 500))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
-                .withTreasure(U.holderItem("aquaculture", "treasure_chest"))
+                .withTreasure(U.locItem("aquaculture", "treasure_chest"))
         );
 
         //anywhere
@@ -333,7 +333,7 @@ public class DGAquacultureFishes extends FishingPropertiesRegistry
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 100, 5))
                 .withBaseChance(1)
-                .withTreasure(U.holderItem("aquaculture", "box"))
+                .withTreasure(U.locItem("aquaculture", "box"))
         );
 
     }

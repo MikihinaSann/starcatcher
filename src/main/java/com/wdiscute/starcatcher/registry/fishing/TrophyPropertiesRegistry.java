@@ -4,10 +4,10 @@ import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.registry.fishing.compat.DGTrophies;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
-import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class TrophyPropertiesRegistry
 
     private static ResourceKey<TrophyProperties> createKey(TrophyProperties tp)
     {
-        return ResourceKey.create(Starcatcher.TROPHY_REGISTRY, tp.fish().getKey().location());
+        return ResourceKey.create(Starcatcher.TROPHY_REGISTRY, tp.fp().catchInfo().fishLoc());
     }
 
     protected static void registerTrophy(TrophyProperties.Builder builder)
@@ -48,7 +48,7 @@ public class TrophyPropertiesRegistry
     }
 
     @SuppressWarnings("deprecation")
-    public static void bootstrap(BootstrapContext<TrophyProperties> context)
+    public static void bootstrap(BootstapContext<TrophyProperties> context)
     {
         PROPERTIES.forEach(p -> context.register(p.getFirst(), p.getSecond()));
     }

@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.storage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
+import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.Holder;
@@ -75,7 +76,7 @@ public record TrophyProperties(
             TrophyType.STREAM_CODEC, TrophyProperties::trophyType,
             RarityProgress.STREAM_CODEC, TrophyProperties::all,
             StreamCodec.map(HashMap::new, FishProperties.Rarity.STREAM_CODEC, RarityProgress.STREAM_CODEC), TrophyProperties::progress, //TODO make better ig
-            StreamCodec.INT, TrophyProperties::chanceToCatch,
+            StreamCodec.FLOAT, TrophyProperties::chanceToCatch,
             StreamCodec.BOOL, TrophyProperties::repeatable,
             TrophyProperties::new
     );

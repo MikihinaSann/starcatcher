@@ -19,21 +19,21 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
 
         registerTrophy(TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_BRONZE.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_BRONZE.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(50, 20))
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_SILVER.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(100, 50))
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder())
+                        .setFish(ModBlocks.TROPHY_GOLD.getId())
                         .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(200, 0))
@@ -51,41 +51,41 @@ public class DGTrophies extends TrophyPropertiesRegistry
         //
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE))
+                        .withFP(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(6, 15))
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldSurfaceLava(ModItems.SCALDING_BOTTLE))
+                        .withFP(overworldSurfaceLava(ModItems.SCALDING_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(0, 27))
                         .withChanceToCatch(33)
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldSurfaceLava(ModItems.BURNING_BOTTLE))
+                        .withFP(overworldSurfaceLava(ModItems.BURNING_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(0, 42))
                         .withChanceToCatch(33)
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE))
+                        .withFP(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .withChanceToCatch(33)
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE))
+                        .withFP(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .withChanceToCatch(33)
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE))
+                        .withFP(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(1, 0))
                         .withChanceToCatch(1)
@@ -93,7 +93,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         registerTrophy(TrophyProperties.builder()
                         .withFP(
-                                fish(ModItems.WITHERED_BOTTLE)
+                                fish(ModItems.WITHERED_BOTTLE.getId())
                                         .withBaseChance(0)
                                         .withBaitRestrictions(
                                                 FishProperties.BaitRestrictions.DEFAULT
@@ -104,7 +104,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
         );
 
         registerTrophy(TrophyProperties.builder()
-                        .withFP(overworldDeepslateFish(ModItems.CRYSTAL_HOOK))
+                        .withFP(overworldDeepslateFish(ModItems.CRYSTAL_HOOK.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(1, 0))
         );
@@ -118,20 +118,20 @@ public class DGTrophies extends TrophyPropertiesRegistry
         //
 
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)))
-                        .setTrophyType(TrophyProperties.TrophyType.EXTRA)
-                        .withProgress(FishProperties.Rarity.RARE, new TrophyProperties.RarityProgress(1, 4))
+                        overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND).unwrapKey().get().location()))
+                .setTrophyType(TrophyProperties.TrophyType.EXTRA)
+                .withProgress(FishProperties.Rarity.RARE, new TrophyProperties.RarityProgress(1, 4))
         );
 
         registerTrophy(TrophyProperties.builder().withFP(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.GOLD_BLOCK)))
+                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.GOLD_BLOCK).unwrapKey().get().location()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(3, 0))
                         .withChanceToCatch(33)
         );
 
         registerTrophy(TrophyProperties.builder().withFP(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)))
+                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP).unwrapKey().get().location()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(0, 10))
                         .withChanceToCatch(5)
@@ -139,7 +139,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
         );
 
         registerTrophy(TrophyProperties.builder().withFP(
-                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
+                                netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE).unwrapKey().get().location()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -148,7 +148,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //naturalist
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldForestFish(ModItems.NATURALIST_ROD))
+                                overworldForestFish(ModItems.NATURALIST_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -156,7 +156,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //magma forged
         registerTrophy(TrophyProperties.builder().withFP(
-                                netherLavaBasaltDeltasFish(ModItems.MAGMAFORGED_ROD))
+                                netherLavaBasaltDeltasFish(ModItems.MAGMAFORGED_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -164,7 +164,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //bamboo rod
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldFish(ModItems.BAMBOO_ROD)
+                                overworldFish(ModItems.BAMBOO_ROD.getId())
                                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                                                 .withBiomes(Biomes.BAMBOO_JUNGLE.location())))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
@@ -174,7 +174,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //bamboo rod
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldSurfaceLava(ModItems.OBSIDIAN_ROD))
+                                overworldSurfaceLava(ModItems.OBSIDIAN_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -182,7 +182,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //boner rod
         registerTrophy(TrophyProperties.builder().withFP(
-                                netherLavaSoulSandValleyFish(ModItems.BONER_ROD))
+                                netherLavaSoulSandValleyFish(ModItems.BONER_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -190,7 +190,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //sky rod
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldFish(ModItems.SKY_ROD)
+                                overworldFish(ModItems.SKY_ROD.getId())
                                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                                                 .withMustBeCaughtAboveY(300)))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
@@ -200,7 +200,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //lush glowberry
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldLushCavesFish(ModItems.LUSH_GLOWBERRY_ROD))
+                                overworldLushCavesFish(ModItems.LUSH_GLOWBERRY_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -208,7 +208,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //humble rod
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldRiverFish(ModItems.HUMBLE_ROD))
+                                overworldRiverFish(ModItems.HUMBLE_ROD.getId()))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(1)
                         .withRepeatable(true)
@@ -216,7 +216,7 @@ public class DGTrophies extends TrophyPropertiesRegistry
 
         //neptunium ingot
         registerTrophy(TrophyProperties.builder().withFP(
-                                overworldColdOceanFish(U.holderItem("aquaculture", "neptunium_ingot")))
+                                overworldColdOceanFish(U.locItem("aquaculture", "neptunium_ingot")))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .withChanceToCatch(2)
                         .withRepeatable(true)

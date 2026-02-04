@@ -22,8 +22,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
         //
 
 
-        register(fish(U.holderItem("fintastic", "minnow_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "minnow_bucket"))
+        register(fish(U.locItem("fintastic", "minnow_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "minnow_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "minnow"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE
@@ -32,8 +32,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
 
-        register(fish(U.holderItem("fintastic", "featherback_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "featherback_bucket"))
+        register(fish(U.locItem("fintastic", "featherback_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "featherback_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "featherback"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SWAMPS)
@@ -41,8 +41,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
         );
 
-        register(fish(U.holderItem("fintastic", "guppy_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "guppy_bucket"))
+        register(fish(U.locItem("fintastic", "guppy_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "guppy_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "guppy"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLES_AND_SWAMPS)
@@ -50,8 +50,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY)
         );
 
-        register(fish(U.holderItem("fintastic", "arapaima_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "arapaima_bucket"))
+        register(fish(U.locItem("fintastic", "arapaima_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "arapaima_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "arapaima"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLE)
@@ -59,8 +59,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(fish(U.holderItem("fintastic", "pleco_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "pleco_bucket"))
+        register(fish(U.locItem("fintastic", "pleco_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "pleco_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "pleco"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_JUNGLES_AND_SWAMPS)
@@ -68,8 +68,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
         );
 
-        register(fish(U.holderItem("fintastic", "moony_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "moony_bucket"))
+        register(fish(U.locItem("fintastic", "moony_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "moony_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "moony"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE
@@ -79,7 +79,7 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA)
         );
 
-        register(fish(U.holderItem("fintastic", "coelacanth_spawn_egg"))
+        register(fish(U.locItem("fintastic", "coelacanth_spawn_egg"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "coelacanth"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE
@@ -88,8 +88,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
         );
 
-        register(fish(U.holderItem("fintastic", "gourami_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "gourami_bucket"))
+        register(fish(U.locItem("fintastic", "gourami_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "gourami_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "gourami"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -98,8 +98,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
         );
 
-        register(fish(U.holderItem("fintastic", "daphnia_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "daphnia_bucket"))
+        register(fish(U.locItem("fintastic", "daphnia_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "daphnia_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "daphnia"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
@@ -107,8 +107,8 @@ public class DGFintasticFishes extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(fish(U.holderItem("fintastic", "artemia_bucket"))
-                .withBucketedFish(U.holderItem("fintastic", "artemia_bucket"))
+        register(fish(U.locItem("fintastic", "artemia_bucket"))
+                .withBucketedFish(U.locItem("fintastic", "artemia_bucket"))
                 .withEntityToSpawn(U.holderEntity("fintastic", "artemia"))
                 .withAlwaysSpawnEntity()
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_WARM_LAKE)

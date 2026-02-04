@@ -1,19 +1,20 @@
 package com.wdiscute.starcatcher.datagen;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.datagen.backport.IDatagenConditionsExtension;
 import com.wdiscute.starcatcher.registry.fishing.TrophyPropertiesRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class DGTrophyPropertiesProvider extends DatapackBuiltinEntriesProvider
+public class DGTrophyPropertiesProvider extends DatapackBuiltinEntriesProvider implements IDatagenConditionsExtension
 {
     static
     {
@@ -24,11 +25,16 @@ public class DGTrophyPropertiesProvider extends DatapackBuiltinEntriesProvider
 
     public DGTrophyPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
     {
-        super(output, registries, REGISTRY, DGTrophyPropertiesProvider::addConditions, Set.of(
+        super(output, registries, REGISTRY, Set.of(
                 Starcatcher.MOD_ID,
                 "minecraft",
                 "aquaculture"
         ));
+    }
+
+    @Override
+    public void registerConditions(BiConsumer<ResourceKey<?>, ICondition> consumer) {
+        addConditions(consumer);
     }
 
     private static void addConditions(final BiConsumer<ResourceKey<?>, ICondition> consumer)

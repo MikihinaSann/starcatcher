@@ -289,19 +289,19 @@ public class FishingPropertiesRegistry
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_FOREST);
     }
 
-    public static FishProperties.Builder overworldVoidFishing(Holder<Item> fish)
+    public static FishProperties.Builder overworldVoidFishing(ResourceLocation fish)
     {
         return FishProperties.builder().withFish(fish)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_VOID);
     }
 
-    public static FishProperties.Builder netherVoidFishing(Holder<Item> fish)
+    public static FishProperties.Builder netherVoidFishing(ResourceLocation fish)
     {
         return FishProperties.builder().withFish(fish)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.NETHER_VOID);
     }
 
-    public static FishProperties.Builder endVoidFishing(Holder<Item> fish)
+    public static FishProperties.Builder endVoidFishing(ResourceLocation fish)
     {
         return FishProperties.builder().withFish(fish)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.END_VOID);

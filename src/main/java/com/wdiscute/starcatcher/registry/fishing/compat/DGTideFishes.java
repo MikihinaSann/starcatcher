@@ -1,11 +1,8 @@
 package com.wdiscute.starcatcher.registry.fishing.compat;
 
-import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
-import net.minecraft.tags.BiomeTags;
 
 public class DGTideFishes extends FishingPropertiesRegistry
 {
@@ -19,539 +16,725 @@ public class DGTideFishes extends FishingPropertiesRegistry
         //  `--'   `--'  `---'   `----'
         //
 
-        register(overworldColdLakeFish(U.locItem("tide", "trout"))
-                .withBucketedFish(U.locItem("tide", "trout_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "trout"))
-                .withSeasons(Seasons.SPRING, Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 2000, 1600))
-                .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
-                .withDaytime(FishProperties.Daytime.DAY)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(overworldLakeFish(U.locItem("tide", "bass"))
-                .withBucketedFish(U.locItem("tide", "bass_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "bass"))
-                .withSeasons(Seasons.SPRING, Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 2000, 1600))
-                .withWeather(FishProperties.Weather.CLEAR)
-        );
-
-        register(overworldLakeFish(U.locItem("tide", "yellow_perch"))
-                .withBucketedFish(U.locItem("tide", "yellow_perch_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "yellow_perch"))
-                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(25, 10, 200, 20))
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-                .withWeather(FishProperties.Weather.RAIN)
-        );
-
-        register(overworldMountainFish(U.locItem("tide", "bluegill"))
-                .withBucketedFish(U.locItem("tide", "bluegill_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "bluegill"))
-                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
-        );
-
-        register(overworldWarmMountainFish(U.locItem("tide", "mint_carp"))
-                .withBucketedFish(U.locItem("tide", "mint_carp_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "mint_carp"))
-                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 10000, 5000))
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-                .withWeather(FishProperties.Weather.RAIN)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(overworldColdRiverFish(U.locItem("tide", "pike"))
-                .withBucketedFish(U.locItem("tide", "pike_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "pike"))
-                .withSeasons(Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 5000))
-        );
-
-        register(overworldWarmLakeFish(U.locItem("tide", "guppy"))
-                .withBucketedFish(U.locItem("tide", "guppy_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "guppy"))
-                .withSizeAndWeight(FishProperties.sizeWeight(4, 1, 2, 1))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-                .withDaytime(FishProperties.Daytime.NIGHT)
-        );
-
-        register(overworldColdLakeFish(U.locItem("tide", "catfish"))
-                .withBucketedFish(U.locItem("tide", "catfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "catfish"))
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 5000))
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(overworldColdLakeFish(U.locItem("tide", "clayfish"))
-                .withBucketedFish(U.locItem("tide", "clayfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "clayfish"))
-                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 100))
-                .withWeather(FishProperties.Weather.RAIN)
-        );
-
-        //tide saltwater
-        register(overworldOceanFish(U.locItem("tide", "tuna"))
-                .withBucketedFish(U.locItem("tide", "tuna_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "tuna"))
-                .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(200, 100, 200000, 150000))
-        );
-
-        register(overworldColdOceanFish(U.locItem("tide", "ocean_perch"))
-                .withBucketedFish(U.locItem("tide", "ocean_perch_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "ocean_perch"))
-                .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 2000, 1600))
-                .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
-                .withDaytime(FishProperties.Daytime.NIGHT)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
+        //freshwater
+        register(
+                overworldRiverFish(U.locItem("tide", "yellow_perch"))
+                        .withBucketedFish(U.locItem("tide", "yellow_perch_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "yellow_perch"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+                        .withDaytime(FishProperties.Daytime.DAY)
+        );
+
+        register(
+                overworldColdLakeFish(U.locItem("tide", "rainbow_trout"))
+                        .withBucketedFish(U.locItem("tide", "rainbow_trout_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "rainbow_trout"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(35, 8, 1600, 1200))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldRiverFish(U.locItem("tide", "largemouth_bass"))
+                        .withBucketedFish(U.locItem("tide", "largemouth_bass_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "largemouth_bass"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldRiverFish(U.locItem("tide", "brook_trout"))
+                        .withBucketedFish(U.locItem("tide", "brook_trout_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "brook_trout"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(35, 8, 1600, 1200))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldRiverFish(U.locItem("tide", "white_crappie"))
+                        .withBucketedFish(U.locItem("tide", "white_crappie_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "white_crappie"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(35, 8, 1600, 1200))
+                        .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldRiverFish(U.locItem("tide", "black_crappie"))
+                        .withBucketedFish(U.locItem("tide", "black_crappie_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "black_crappie"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(35, 8, 1600, 1200))
+                        .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+
+        register(
+                overworldRiverFish(U.locItem("tide", "carp"))
+                        .withBucketedFish(U.locItem("tide", "carp_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "carp"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 6000, 4000))
+                        .withDaytime(FishProperties.Daytime.DAY)
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+
+        register(
+                overworldColdRiverFish(U.locItem("tide", "bluegill"))
+                        .withBucketedFish(U.locItem("tide", "bluegill_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "bluegill"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(20, 5, 400, 100))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+
+        register(
+                overworldWarmLakeFish(U.locItem("tide", "guppy"))
+                        .withBucketedFish(U.locItem("tide", "guppy_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "guppy"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(20, 5, 400, 100))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+
+        register(
+                overworldWarmLakeFish(U.locItem("tide", "walleye"))
+                        .withBucketedFish(U.locItem("tide", "walleye_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "walleye"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 6000, 4000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+        );
+
+
+        register(
+                overworldWarmLakeFish(U.locItem("tide", "catfish"))
+                        .withBucketedFish(U.locItem("tide", "catfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "catfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 6000, 4000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+        );
+
+
+        register(
+                overworldCherryGroveFish(U.locItem("tide", "blossom_bass"))
+                        .withBucketedFish(U.locItem("tide", "blossom_bass_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "blossom_bass"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.TWO_AQUA_ONE_THIN)
+                        .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldOceanFish(U.locItem("tide", "mackerel"))
-                .withBucketedFish(U.locItem("tide", "mackerel_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "mackerel"))
-                .withSeasons(Seasons.AUTUMN)
-                .withSizeAndWeight(FishProperties.sizeWeight(35, 15, 500, 400))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
+
+
+        register(
+                overworldJungleFish(U.locItem("tide", "arapaima"))
+                        .withBucketedFish(U.locItem("tide", "arapaima_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "arapaima"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        register(
+                overworldWarmLakeFish(U.locItem("tide", "mirage_catfish"))
+                        .withBucketedFish(U.locItem("tide", "mirage_catfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "mirage_catfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 10000, 3000))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldColdLakeFish(U.locItem("tide", "frostbite_flounder"))
+                        .withBucketedFish(U.locItem("tide", "frostbite_flounder_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "frostbite_flounder"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldWarmLakeFish(U.locItem("tide", "sand_tiger_shark"))
+                        .withBucketedFish(U.locItem("tide", "sand_tiger_shark_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "sand_tiger_shark"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(400, 120, 16000, 11000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_AQUA_ONE_THIN)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        register(
+                overworldColdRiverFish(U.locItem("tide", "sturgeon"))
+                        .withBucketedFish(U.locItem("tide", "sturgeon_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "sturgeon"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN_NO_DECAY)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        register(
+                overworldSwampFish(U.locItem("tide", "slimy_salmon"))
+                        .withBucketedFish(U.locItem("tide", "slimy_salmon_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "slimy_salmon"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        register(
+                overworldLakeFish(U.locItem("tide", "mooneye"))
+                        .withBucketedFish(U.locItem("tide", "mooneye_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "mooneye"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_THIN_FAST)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
         );
+
 
-        register(overworldWarmOceanFish(U.locItem("tide", "angelfish"))
-                .withBucketedFish(U.locItem("tide", "angelfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "angelfish"))
-                .withSeasons(Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 100, 5))
-                .withWeather(FishProperties.Weather.RAIN)
+        register(
+                overworldRiverFish(U.locItem("tide", "bull_shark"))
+                        .withBucketedFish(U.locItem("tide", "bull_shark_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "bull_shark"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(400, 120, 16000, 11000))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_THIN_FAST)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
         );
+
+
 
-        register(overworldOceanFish(U.locItem("tide", "barracuda"))
-                .withBucketedFish(U.locItem("tide", "barracuda_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "barracuda"))
-                .withSizeAndWeight(FishProperties.sizeWeight(150, 50, 30000, 20000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDaytime(FishProperties.Daytime.NIGHT)
-                .withWeather(FishProperties.Weather.RAIN)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+        //oceans
+        register(
+                overworldOceanFish(U.locItem("tide", "mackerel"))
+                        .withBucketedFish(U.locItem("tide", "mackerel_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "mackerel"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.EASY)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        register(overworldWarmOceanFish(U.locItem("tide", "sailfish"))
-                .withBucketedFish(U.locItem("tide", "sailfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "sailfish"))
-                .withSeasons(Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(250, 50, 100000, 50000))
-                .withWeather(FishProperties.Weather.RAIN)
+        register(
+                overworldOceanFish(U.locItem("tide", "tuna"))
+                        .withBucketedFish(U.locItem("tide", "tuna_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "tuna"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(150, 50, 120000, 60000))
+                        .withDifficulty(FishProperties.Difficulty.EASY)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldOceanFish(U.locItem("tide", "red_snapper"))
+                        .withBucketedFish(U.locItem("tide", "red_snapper_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "red_snapper"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        //tide underground
-        register(overworldCavesFish(U.locItem("tide", "cave_eel"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 5, 3))
-                .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+        register(
+                overworldOceanFish(U.locItem("tide", "snook"))
+                        .withBucketedFish(U.locItem("tide", "snook_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "snook"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27.0f, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        register(overworldCavesFish(U.locItem("tide", "crystal_shrimp"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(10, 5, 2, 1))
+        register(
+                overworldOceanFish(U.locItem("tide", "anchovy"))
+                        .withBucketedFish(U.locItem("tide", "anchovy_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "anchovy"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27.0f, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        register(overworldCavesFish(U.locItem("tide", "iron_tetra"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(4, 1, 2, 1))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
-        );
-
-        register(overworldCavesFish(U.locItem("tide", "glowfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(20, 10, 10, 5))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldCavesFish(U.locItem("tide", "anglerfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 20000, 15000))
+        register(
+                overworldOceanFish(U.locItem("tide", "flounder"))
+                        .withBucketedFish(U.locItem("tide", "flounder_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "flounder"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27.0f, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        register(overworldCavesFish(U.locItem("tide", "cave_crawler"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1000, 500))
-                .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+        register(
+                overworldWarmOceanFish(U.locItem("tide", "angelfish"))
+                        .withBucketedFish(U.locItem("tide", "angelfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "angelfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27.0f, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldMushroomFieldsFish(U.locItem("tide", "spore_stalker"))
+                        .withBucketedFish(U.locItem("tide", "spore_stalker_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "spore_stalker"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
         );
 
-        register(overworldCavesFish(U.locItem("tide", "gilded_minnow"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(5, 2, 10, 6))
-        );
-
-        //tide deepslate
-        register(overworldDeepslateFish(U.locItem("tide", "deep_grouper"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(200, 50, 200000, 100000))
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "shadow_snapper"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 10000, 5000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "abyss_angler"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 20000, 15000))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
-                .withBaseChance(2)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "lapis_lanternfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(20, 10, 100, 5))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "luminescent_jellyfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 30, 5000, 3000))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "crystalline_carp"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 30, 10000, 5000))
-                .withDifficulty(FishProperties.Difficulty.HARD)
-                .withRarity(FishProperties.Rarity.RARE)
-        );
-
-        register(overworldDeepslateFish(U.locItem("tide", "bedrock_tetra"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(4, 1, 2, 1))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        //tide biome specific
-        register(fish(U.locItem("tide", "prarie_pike"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(U.rl("minecraft", "plains")))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(fish(U.locItem("tide", "sandskipper"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1000, 500))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(U.rl("minecraft", "desert")))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
-        );
-
-        register(overworldCherryGroveFish(U.locItem("tide", "blossom_bass"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SPRING)
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 5000, 3000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(overworldFish(U.locItem("tide", "oakfish"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
-                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 3000, 2000))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_FOREST.location()))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldColdLakeFish(U.locItem("tide", "frostbite_flounder"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
-                .withSizeAndWeight(FishProperties.sizeWeight(60, 30, 6000, 4000))
-                .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
-        );
-
-        register(overworldFish(U.locItem("tide", "mirage_catfish"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_BADLANDS.location()))
-        );
-
-        register(overworldDeepDarkFish(U.locItem("tide", "echofin_snapper"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 30, 10000, 5000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
-        );
-
-        register(overworldFish(U.locItem("tide", "sunspike_goby"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 100, 5))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_BADLANDS.location()))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        register(overworldFish(U.locItem("tide", "birch_trout"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 2000, 1700))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(StarcatcherTags.IS_BIRCH_FOREST))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldMountainFish(U.locItem("tide", "stonefish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 2000, 1700))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(overworldDripstoneCavesFish(U.locItem("tide", "dripstone_darter"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(5, 2, 5, 1))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        register(overworldSwampFish(U.locItem("tide", "slimefin_snapper"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 40, 10000, 10000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
-        );
+        register(
+                overworldWarmOceanFish(U.locItem("tide", "mahi_mahi"))
+                        .withBucketedFish(U.locItem("tide", "mahi_mahi_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "mahi_mahi"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_BIG_VANISHING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
 
-        register(overworldMushroomFieldsFish(U.locItem("tide", "sporestalker"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 5000, 3000))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY)
-        );
+        register(
+                overworldWarmOceanFish(U.locItem("tide", "sailfish"))
+                        .withBucketedFish(U.locItem("tide", "sailfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "sailfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_THIN)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
 
-        register(overworldJungleFish(U.locItem("tide", "leafback"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
-                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 3000, 2000))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.FOUR_BIG_MOVING)
+        register(
+                overworldWarmOceanFish(U.locItem("tide", "swordfish"))
+                        .withBucketedFish(U.locItem("tide", "swordfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "swordfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN_NO_DECAY)
+                        .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldLushCavesFish(U.locItem("tide", "fluttergill"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1000, 500))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
+        register(
+                overworldOceanFish(U.locItem("tide", "manta_ray"))
+                        .withBucketedFish(U.locItem("tide", "manta_ray_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "manta_ray"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN_NO_DECAY)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        //todo ocean monument structure restriction
+        register(
+                overworldColdOceanFish(U.locItem("tide", "aquathorn"))
+                        .withBucketedFish(U.locItem("tide", "aquathorn_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "aquathorn"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(70, 50, 4000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA)
+                        .withRarity(FishProperties.Rarity.EPIC)
+                        .withBaseChance(2)
+        );
+
+
+        register(
+                overworldOceanFish(U.locItem("tide", "neptune_koi"))
+                        .withBucketedFish(U.locItem("tide", "neptune_koi_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "neptune_koi"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+
+        register(
+                overworldOceanFish(U.locItem("tide", "pluto_snail"))
+                        .withBucketedFish(U.locItem("tide", "pluto_snail_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "pluto_snail"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.TWO_AQUA)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldOceanFish(U.locItem("tide", "sun_emblem"))
+                        .withBucketedFish(U.locItem("tide", "sun_emblem_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "sun_emblem"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(10, 3, 40, 10))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withDaytime(FishProperties.Daytime.NOON)
+                        .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(overworldTaigaFish(U.locItem("tide", "pine_perch"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
-                .withSizeAndWeight(FishProperties.sizeWeight(25, 10, 500, 300))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
+
+        register(
+                overworldOceanFish(U.locItem("tide", "saturn_cuttlefish"))
+                        .withBucketedFish(U.locItem("tide", "saturn_cuttlefish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "saturn_cuttlefish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withDaytime(FishProperties.Daytime.NOON)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+
+        register(
+                overworldOceanFish(U.locItem("tide", "marstilus"))
+                        .withBucketedFish(U.locItem("tide", "marstilus_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "marstilus"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+
+        register(
+                overworldOceanFish(U.locItem("tide", "uranias_pisces"))
+                        .withBucketedFish(U.locItem("tide", "uranias_pisces_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "uranias_pisces"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldOceanFish(U.locItem("tide", "great_white_shark"))
+                        .withBucketedFish(U.locItem("tide", "great_white_shark_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "great_white_shark"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(400, 120, 16000, 11000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withDaytime(FishProperties.Daytime.DAY)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldDeepOceanFish(U.locItem("tide", "shooting_starfish"))
+                        .withBucketedFish(U.locItem("tide", "shooting_starfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "shooting_starfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(400, 120, 16000, 11000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withDaytime(FishProperties.Daytime.MIDNIGHT)
+                        .withBaseChance(1)
+                        .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldDeepOceanFish(U.locItem("tide", "coelacanth"))
+                        .withBucketedFish(U.locItem("tide", "coelacanth_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "coelacanth"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(400, 120, 16000, 11000))
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_AQUA_MOVING)
+                        .withDaytime(FishProperties.Daytime.NIGHT)
+                        .withWeather(FishProperties.Weather.RAIN)
+                        .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
+                        .withRarity(FishProperties.Rarity.LEGENDARY)
+        );
+
+
+
+
+        //underground
+        register(
+                overworldUndergroundFish(U.locItem("tide", "cave_eel"))
+                        .withBucketedFish(U.locItem("tide", "cave_eel_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "cave_eel"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(500, 150, 10000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.EASY)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldUndergroundFish(U.locItem("tide", "deep_grouper"))
+                        .withBucketedFish(U.locItem("tide", "deep_grouper_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "deep_grouper"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(50, 15, 1000, 200))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldUndergroundFish(U.locItem("tide", "cave_crawler"))
+                        .withBucketedFish(U.locItem("tide", "cave_crawler_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "cave_crawler"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(50, 15, 1000, 200))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "shadow_snapper"))
+                        .withBucketedFish(U.locItem("tide", "shadow_snapper_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "shadow_snapper"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldUndergroundFish(U.locItem("tide", "glowfish"))
+                        .withBucketedFish(U.locItem("tide", "glowfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "glowfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldCavesFish(U.locItem("tide", "anglerfish"))
+                        .withBucketedFish(U.locItem("tide", "anglerfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "anglerfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "abyss_angler"))
+                        .withBucketedFish(U.locItem("tide", "abyss_angler_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "abyss_angler"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldUndergroundFish(U.locItem("tide", "iron_tetra"))
+                        .withBucketedFish(U.locItem("tide", "iron_tetra_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "iron_tetra"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.EIGHT_STONE_SPOTS)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldUndergroundFish(U.locItem("tide", "dripstone_darter"))
+                        .withBucketedFish(U.locItem("tide", "dripstone_darter_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "dripstone_darter"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(6, 2, 7, 6))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "lapis_lanternfish"))
+                        .withBucketedFish(U.locItem("tide", "lapis_lanternfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "lapis_lanternfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "crystal_shrimp"))
+                        .withBucketedFish(U.locItem("tide", "crystal_shrimp_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "crystal_shrimp"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(10, 3, 20, 10))
+                        .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "crystalline_carp"))
+                        .withBucketedFish(U.locItem("tide", "crystalline_carp_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "crystalline_carp"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 6000, 4000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_AQUA)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "luminescent_jellyfish"))
+                        .withBucketedFish(U.locItem("tide", "crystalline_carp_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "crystalline_carp"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldCavesFish(U.locItem("tide", "gilded_minnow"))
+                        .withBucketedFish(U.locItem("tide", "gilded_minnow_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "gilded_minnow"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(6, 4, 5, 3))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_THIN)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldCavesFish(U.locItem("tide", "bedrock_tetra"))
+                        .withBucketedFish(U.locItem("tide", "bedrock_tetra_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "bedrock_tetra"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_STONE_SPOTS)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                overworldCavesFish(U.locItem("tide", "windbass"))
+                        .withBucketedFish(U.locItem("tide", "windbass_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "windbass"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_BIG_MOVING)
+                        .withBaseChance(2)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldDeepDarkFish(U.locItem("tide", "echo_snapper"))
+                        .withBucketedFish(U.locItem("tide", "echo_snapper_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "echo_snapper"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.FOUR_BIG_MOVING)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldDeepDarkFish(U.locItem("tide", "chasm_eel"))
+                        .withBucketedFish(U.locItem("tide", "chasm_eel_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "chasm_eel"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.TWO_THIN)
+                        .withRarity(FishProperties.Rarity.EPIC)
+        );
+
+        register(
+                overworldDeepslateFish(U.locItem("tide", "midas_fish"))
+                        .withBucketedFish(U.locItem("tide", "echo_snapper_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "echo_snapper"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withRarity(FishProperties.Rarity.LEGENDARY)
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_THIN_FAST)
+                        .withBaseChance(1)
+                        .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
+        );
+
+        register(
+                overworldCavesFish(U.locItem("tide", "devils_hole_pupfish"))
+                        .withBucketedFish(U.locItem("tide", "devils_hole_pupfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "devils_hole_pupfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(35, 25, 1000, 700))
+                        .withRarity(FishProperties.Rarity.LEGENDARY)
+                        .withDifficulty(FishProperties.Difficulty.SINGLE_THIN_FAST)
+                        .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
+                        .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_STONE_CAVES
+                                .withMustBeCaughtAboveY(20)
+                                .withMustBeCaughtBelowY(30))
+        );
+
+
+
+        //lava
+        register(
+                overworldLakeFish(U.locItem("tide", "magma_mackerel"))
+                        .withBucketedFish(U.locItem("tide", "magma_mackerel_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "magma_mackerel"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldLakeFish(U.locItem("tide", "ember_koi"))
+                        .withBucketedFish(U.locItem("tide", "ember_koi_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "ember_koi"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 13, 3500, 731))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldLakeFish(U.locItem("tide", "ash_perch"))
+                        .withBucketedFish(U.locItem("tide", "ash_perch_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "ash_perch"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(27.0f, 11, 500, 352))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldUndergroundLava(U.locItem("tide", "obsidian_pike"))
+                        .withBucketedFish(U.locItem("tide", "obsidian_pike_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "obsidian_pike"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(75, 20, 5000, 3000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.COMMON)
+        );
+
+        register(
+                overworldUndergroundLava(U.locItem("tide", "volcano_tuna"))
+                        .withBucketedFish(U.locItem("tide", "volcano_tuna_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "volcano_tuna"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(150, 50, 120000, 60000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
+                        .withRarity(FishProperties.Rarity.UNCOMMON)
+        );
+
+        register(
+                netherLavaCrimsonForestFish(U.locItem("tide", "crimson_fangjaw"))
+                        .withBucketedFish(U.locItem("tide", "crimson_fangjaw_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "crimson_fangjaw"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                netherLavaWarpedForestFish(U.locItem("tide", "warped_guppy"))
+                        .withBucketedFish(U.locItem("tide", "warped_guppy_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "warped_guppy"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+
+        register(
+                netherLavaSoulSandValleyFish(U.locItem("tide", "soulscale"))
+                        .withBucketedFish(U.locItem("tide", "soulscale_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "soulscale"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                netherLavaFish(U.locItem("tide", "witherfin"))
+                        .withBucketedFish(U.locItem("tide", "witherfin_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "witherfin"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                netherLavaFish(U.locItem("tide", "inferno_guppy"))
+                        .withBucketedFish(U.locItem("tide", "inferno_guppy_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "inferno_guppy"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withRarity(FishProperties.Rarity.RARE)
+        );
+
+        register(
+                netherLavaFish(U.locItem("tide", "blazing_swordfish"))
+                        .withBucketedFish(U.locItem("tide", "blazing_swordfish_bucket"))
+                        .withEntityToSpawn(U.holderEntity("tide", "blazing_swordfish"))
+                        .withSizeAndWeight(FishProperties.sizeWeight(60, 20, 7000, 2000))
+                        .withDifficulty(FishProperties.Difficulty.HARD)
+                        .withRarity(FishProperties.Rarity.EPIC)
         );
+
 
-        //missing structure restriction support to add windbass and aquathorn from tide mod
-
-        //tide overworld lava
-        register(overworldSurfaceLava(U.locItem("tide", "ember_koi"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 3000, 2000))
-                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
-                .withRarity(FishProperties.Rarity.EPIC)
-        );
-
-        register(overworldSurfaceLava(U.locItem("tide", "inferno_guppy"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(4, 1, 20, 2))
-                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
-                .withRarity(FishProperties.Rarity.RARE)
-        );
-
-        register(overworldSurfaceLava(U.locItem("tide", "obsidian_pike"))
-                //no bucketed version
-                //no entity version
-                .withSeasons(Seasons.SUMMER)
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 5, 15000, 10000))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        register(overworldSurfaceLava(U.locItem("tide", "volcano_tuna"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(200, 100, 150000, 50000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
-        );
-
-        //tide nether
-        register(netherLavaFish(U.locItem("tide", "magma_mackerel"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(35, 15, 500, 300))
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        register(netherLavaBasaltDeltasFish(U.locItem("tide", "ashen_perch"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(25, 10, 200, 100))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(netherLavaSoulSandValleyFish(U.locItem("tide", "soulscaler"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(80, 30, 10000, 5000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
-        );
-
-        register(netherLavaWarpedForestFish(U.locItem("tide", "warped_guppy"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(4, 1, 4, 1))
-                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
-        );
-
-        register(netherLavaCrimsonForestFish(U.locItem("tide", "crimson_fangjaw"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-        );
-
-        register(netherLavaSoulSandValleyFish(U.locItem("tide", "witherfin"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
-        );
-
-        register(netherLavaFish(U.locItem("tide", "blazing_swordfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(200, 100, 100000, 50000))
-                .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
-        );
-
-        //tide end
-        register(endFish(U.locItem("tide", "endstone_perch"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(25, 10, 500, 300))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
-        );
-
-        register(endFish(U.locItem("tide", "enderfin"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 5000, 3000))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM)
-        );
-
-        register(endFish(U.locItem("tide", "endergazer"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(60, 30, 6000, 4000))
-                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
-                .withRarity(FishProperties.Rarity.EPIC)
-        );
-
-        register(endOuterIslandsFish(U.locItem("tide", "purpur_pike"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
-        );
-
-        register(endOuterIslandsFish(U.locItem("tide", "chorus_cod"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
-                .withRarity(FishProperties.Rarity.EPIC)
-        );
-
-        register(endFish(U.locItem("tide", "elytrout"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(50, 20, 5000, 3000))
-                .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-
-        register(endFish(U.locItem("tide", "voidseeker"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(100, 50, 15000, 10000))
-                .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
-                .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY_NOT_FORGIVING)
-        );
-
-        //TODO put into corresponding category
-        register(overworldLakeFish(U.locItem("tide", "midas_fish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(800, 50, 310000, 120000))
-                .withWeather(FishProperties.Weather.THUNDER)
-                .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
-                .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDifficulty(FishProperties.Difficulty.THREE_BIG_TWO_THIN_VANISHING)
-        );
-
-        register(overworldOceanFish(U.locItem("tide", "shooting_starfish"))
-                //no bucketed version
-                //no entity version
-                .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 1000, 500))
-                .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
-                .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDaytime(FishProperties.Daytime.MIDNIGHT)
-                .withDifficulty(FishProperties.Difficulty.HARD)
-        );
-        
         //void
         register(
                 endVoidFishing(U.locItem("tide", "amber_rockfish"))

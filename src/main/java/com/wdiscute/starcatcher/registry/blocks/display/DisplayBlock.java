@@ -8,7 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,19 +36,12 @@ import javax.annotation.Nullable;
 
 public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
-    public static final MapCodec<DisplayBlock> CODEC = simpleCodec(DisplayBlock::new);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty HAS_BOOK = BlockStateProperties.HAS_BOOK;
     public static final VoxelShape SHAPE_BASE = Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
     public static final VoxelShape SHAPE_POST = Block.box(4.0, 2.0, 4.0, 12.0, 14.0, 12.0);
     public static final VoxelShape SHAPE_TOP_PLATE = Block.box(0.0, 10.0, 0.0, 16.0, 14.0, 16.0);
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_POST, SHAPE_TOP_PLATE);
-
-    @Override
-    public MapCodec<DisplayBlock> codec()
-    {
-        return CODEC;
-    }
 
     public DisplayBlock(BlockBehaviour.Properties properties)
     {
@@ -67,19 +60,19 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected FluidState getFluidState(BlockState state)
+    public FluidState getFluidState(BlockState state)
     {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state)
+    public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
     }
 
     @Override
-    protected boolean useShapeForLightOcclusion(BlockState state)
+    public boolean useShapeForLightOcclusion(BlockState state)
     {
         return true;
     }
@@ -91,7 +84,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         return SHAPE;
     }
@@ -109,7 +102,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving)
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving)
     {
         if (!state.is(newState.getBlock()))
         {
@@ -141,31 +134,31 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected boolean isSignalSource(BlockState state)
+    public boolean isSignalSource(BlockState state)
     {
         return true;
     }
 
     @Override
-    protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side)
+    public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side)
     {
         return blockState.getValue(POWERED) ? 15 : 0;
     }
 
     @Override
-    protected int getDirectSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side)
+    public int getDirectSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side)
     {
         return side == Direction.UP && blockState.getValue(POWERED) ? 15 : 0;
     }
 
     @Override
-    protected boolean hasAnalogOutputSignal(BlockState state)
+    public boolean hasAnalogOutputSignal(BlockState state)
     {
         return true;
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos)
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos)
     {
         if (blockState.getValue(HAS_BOOK))
         {
@@ -180,26 +173,30 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
-    {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         //if has book, open screen
+        ItemStack stack = player.getItemInHand(hand);
+
         if (state.getValue(HAS_BOOK) && !stack.isEmpty())
         {
             //TODO SEND PACKET TO CLIENT TO OPEN SCREEN
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         //place book
-        if (!state.getValue(HAS_BOOK) && stack.is(ModItems.GUIDE))
+        if (!state.getValue(HAS_BOOK) && stack.is(ModItems.GUIDE.get()))
         {
             if (!level.isClientSide && level.getBlockEntity(pos) instanceof DisplayBlockEntity dbe)
             {
-                dbe.setBook(stack.consumeAndReturn(1, player));
+                dbe.setBook(stack.copy());
+                if (!player.isCreative())
+                    stack.shrink(1);
+
                 level.playSound(null, pos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
             level.setBlockAndUpdate(pos, state.setValue(HAS_BOOK, true));
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         //remove book
@@ -209,16 +206,15 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
             player.addItem(dbe.getBook());
             dbe.setBook(ItemStack.EMPTY);
             level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
-
 
     @Nullable
     @Override
-    protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
+    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
     {
         return !state.getValue(HAS_BOOK) ? null : super.getMenuProvider(state, level, pos);
     }
@@ -230,8 +226,7 @@ public class DisplayBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType)
-    {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 }

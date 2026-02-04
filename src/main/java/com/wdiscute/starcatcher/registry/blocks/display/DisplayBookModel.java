@@ -64,13 +64,8 @@ public class DisplayBookModel extends Model
         return LayerDefinition.create(meshdefinition, 64, 32);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-        this.render(poseStack, buffer, packedLight, packedOverlay, color);
-    }
-
-    public void render(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-        this.root.render(poseStack, buffer, packedLight, packedOverlay, color);
+    public void render(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.root.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     public void setupAnim(float time, float rightPageFlipAmount, float leftPageFlipAmount, float bookOpenAmount) {
@@ -87,5 +82,10 @@ public class DisplayBookModel extends Model
         this.rightPages.x = Mth.sin(f) + 0.001f;
         this.flipPage1.x = Mth.sin(f) + 0.001f;
         this.flipPage2.x = Mth.sin(f) + 0.001f;
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

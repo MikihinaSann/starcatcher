@@ -21,7 +21,7 @@
       "required": false
     },
     {
-      "id": "#c:is_cold/overworld",
+      "id": "#forge:is_cold/overworld",
       "required": false
     }
   ]
