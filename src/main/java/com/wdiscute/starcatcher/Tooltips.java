@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher;
 
+import com.wdiscute.starcatcher.minigame.PartialTickHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
@@ -30,8 +31,8 @@ public class Tooltips
     @SubscribeEvent
     public static void renderFrame(TickEvent.LevelTickEvent event)
     {
-        if(event.level.isClientSide)
-            Tooltips.hue += 0.001f * 2f;
+        if(event.level.isClientSide && event.phase ==  TickEvent.Phase.END)
+            Tooltips.hue += 0.001f * PartialTickHelper.INSTANCE.getPartialTicks(event.level) * 5;
     }
 
     @SubscribeEvent
@@ -44,11 +45,22 @@ public class Tooltips
         String namespace = rl.getNamespace();
         String path = rl.getPath();
         String baseTooltip = "tooltip." + namespace + "." + path;
+        String baseTooltipNoShift = "tooltip.always." + namespace + "." + path;
 
         if (I18n.exists(baseTooltip + ".name"))
         {
             tooltipComponents.remove(0);
             tooltipComponents.add(0, decodeTranslationKey(baseTooltip + ".name"));
+        }
+
+        if (I18n.exists(baseTooltipNoShift + ".0"))
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (!I18n.exists(baseTooltipNoShift + "." + i))
+                    break;
+                tooltipComponents.add(decodeTranslationKey(baseTooltipNoShift + "." + i));
+            }
         }
 
         if (I18n.exists(baseTooltip + ".0"))
