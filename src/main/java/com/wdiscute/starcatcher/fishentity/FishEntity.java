@@ -83,7 +83,7 @@ public class FishEntity extends AbstractFish
 
     public static AttributeSupplier.Builder createAttributes()
     {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0F);
     }
 
     //1.20 specific fish because of Bucketable#saveDefaultDataToBucketTag :)

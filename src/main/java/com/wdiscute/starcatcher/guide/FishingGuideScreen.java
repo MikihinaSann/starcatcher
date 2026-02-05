@@ -1745,7 +1745,16 @@ public class FishingGuideScreen extends Screen
                 case "-2147483648, 0" -> Component.translatable("gui.guide.deepslate");
                 case "-2147483648, 2147483647" -> Component.translatable("gui.guide.no_restriction");
 
-                default -> Component.literal("> " + above + ", < " + below);
+                default ->
+                {
+                    if (above == Integer.MIN_VALUE)
+                        yield Component.translatable("gui.guide.below").append(Component.literal(below + ""));
+
+                    if (below == Integer.MAX_VALUE)
+                        yield Component.translatable("gui.guide.above").append(Component.literal(above + ""));
+
+                    yield Component.literal("> " + above + " < " + below);
+                }
             };
 
             //color the text
@@ -1875,7 +1884,8 @@ public class FishingGuideScreen extends Screen
         }
     }
 
-    public static int color(int alpha, int packedColor) {
+    public static int color(int alpha, int packedColor)
+    {
         return alpha << 24 | packedColor & 16777215;
     }
 
@@ -1977,7 +1987,8 @@ public class FishingGuideScreen extends Screen
                 if (e.rarity().equals(FishProperties.Rarity.LEGENDARY)) entriesSorted.add(e);
             });
 
-            if (sort.equals(Sort.RARITY_UP)){
+            if (sort.equals(Sort.RARITY_UP))
+            {
                 Collections.reverse(entriesSorted);
             }
 
@@ -1989,12 +2000,13 @@ public class FishingGuideScreen extends Screen
         {
             List<FishProperties> entriesSorted = new ArrayList<>(entriesToSort.stream().sorted(Comparator.comparing(o -> o.catchInfo().fish().unwrapKey().get().location().getPath())).toList());
 
-            if (sort.equals(Sort.ALPHABETICAL_UP)){
+            if (sort.equals(Sort.ALPHABETICAL_UP))
+            {
                 Collections.reverse(entriesSorted);
             }
 
 
-            return  entriesSorted;
+            return entriesSorted;
         }
 
         //mod
@@ -2024,7 +2036,8 @@ public class FishingGuideScreen extends Screen
             }
 
 
-            if (sort.equals(Sort.MOD_UP)){
+            if (sort.equals(Sort.MOD_UP))
+            {
                 Collections.reverse(entriesSorted);
             }
 
@@ -2054,11 +2067,12 @@ public class FishingGuideScreen extends Screen
                 });
             }
 
-            if (sort.equals(Sort.FLUID_UP)){
+            if (sort.equals(Sort.FLUID_UP))
+            {
                 Collections.reverse(entriesSorted);
             }
 
-            entriesToSort =  entriesSorted;
+            entriesToSort = entriesSorted;
         }
 
         //caught
@@ -2175,7 +2189,8 @@ public class FishingGuideScreen extends Screen
                 if (fp.wr().seasons().contains(Seasons.LATE_WINTER)) entriesSorted.add(fp);
             entriesUnsorted.removeAll(entriesSorted);
 
-            if (sort.equals(Sort.SEASON_UP)){
+            if (sort.equals(Sort.SEASON_UP))
+            {
                 Collections.reverse(entriesSorted);
             }
 
