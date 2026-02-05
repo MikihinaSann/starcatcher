@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.recipe;
 
 import com.google.gson.JsonObject;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.StreamCodec;
 import com.wdiscute.starcatcher.registry.ModRecipeSerializers;
@@ -37,6 +38,7 @@ public record FishingRodSmithingRecipe(
     public boolean matches(Container container, Level level) {
         //netherite upgrade
         if(template(container).is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+                && base(container).is(StarcatcherTags.RODS)
                 && !ModDataComponents.has(base(container), ModDataComponents.NETHERITE_UPGRADE)
                 && addition(container).is(Items.NETHERITE_INGOT)
         ) return true;
