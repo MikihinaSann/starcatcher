@@ -32,7 +32,7 @@ public class Tooltips
     public static void renderFrame(TickEvent.LevelTickEvent event)
     {
         if(event.level.isClientSide && event.phase ==  TickEvent.Phase.END)
-            Tooltips.hue += 0.001f * PartialTickHelper.INSTANCE.getPartialTicks(event.level) * 5;
+            Tooltips.hue += 0.006f;
     }
 
     @SubscribeEvent
