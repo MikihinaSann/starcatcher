@@ -1202,7 +1202,7 @@
 
   "item.starcatcher.sludge_catfish" : "Sludge Catfish",
   "tooltip.starcatcher.sludge_catfish.0" : "A dirty catfish species common to murky swamp",
-  "tooltip.starcatcher.sludge_catfish.1" : "waters. Said to make a great dish if washes properly.",
+  "tooltip.starcatcher.sludge_catfish.1" : "waters. Said to make a great dish if washed properly.",
 
   "item.starcatcher.lily_snapper" : "Lily Snapper",
   "tooltip.starcatcher.lily_snapper.0" : "A thin long rare snapper species common to swamps.",
@@ -1270,13 +1270,13 @@
   "tooltip.starcatcher.icetooth_sturgeon.1" : "uses it's sharp petrified ice teeth to bite down on prey.",
 
   "item.starcatcher.boreal" : "Boreal",
-  "tooltip.starcatcher.boreal.0" : "A <rgb>legendary</rgb>  fish found in icy mountains.",
+  "tooltip.starcatcher.boreal.0" : "A <rgb>legendary</rgb> fish found in icy mountains.",
   "tooltip.starcatcher.boreal.1" : "A real challenge even for skilled anglers, they are",
   "tooltip.starcatcher.boreal.2" : "known for blending into the icy waters making it hard",
   "tooltip.starcatcher.boreal.3" : "follow their quick movements.",
 
   "item.starcatcher.crystalback_boreal" : "Crystalback Boreal",
-  "tooltip.starcatcher.crystalback_boreal.0" : "Although named after the <rgb>legendary</rgb>  fish <rgb>Boreal</rgb>, this",
+  "tooltip.starcatcher.crystalback_boreal.0" : "Although named after the <rgb>legendary</rgb> fish <rgb>Boreal</rgb>, this",
   "tooltip.starcatcher.crystalback_boreal.1" : "fish is not nearly as hard to catch. Its shiny back makes it",
   "tooltip.starcatcher.crystalback_boreal.2" : "easy to keep track and the crystallized back slows down its swimming speed.",
 
@@ -1291,7 +1291,7 @@
   "tooltip.starcatcher.carpenjoe.1" : "It is said anglers eat it for good luck before debugging.",
 
   "item.starcatcher.willow_bream" : "Willow Bream",
-  "tooltip.starcatcher.willow_bream.0" : "A really trick to catch fish which",
+  "tooltip.starcatcher.willow_bream.0" : "A really tricky to catch fish which",
   "tooltip.starcatcher.willow_bream.1" : "only reveals itself during nighttime.",
 
   "item.starcatcher.drifting_bream" : "Drifting Bream",

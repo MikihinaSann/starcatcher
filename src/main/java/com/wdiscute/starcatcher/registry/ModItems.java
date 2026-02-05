@@ -226,7 +226,7 @@ public interface ModItems
     RegistryObject<Item> HOLLOWBELLY_DARTER = FISH_REGISTRY.register("hollowbelly_darter", FishItem::new);
     RegistryObject<Item> MISTBACK_CHUB = FISH_REGISTRY.register("mistback_chub", FishItem::new);
     RegistryObject<Item> BLUEGIGI = FISH_REGISTRY.register("bluegigi", FishItem::new);
-    RegistryObject<Item> DRIED_SEAWEED = TRASH_REGISTRY.register("dried_seaweed", FishItem::new);
+    RegistryObject<Item> DRIED_SEAWEED = TRASH_REGISTRY.register("dried_seaweed", BasicItem::new);
 
     //icy river
     RegistryObject<Item> FROSTGILL_CHUB = FISH_REGISTRY.register("frostgill_chub", FishItem::new);
