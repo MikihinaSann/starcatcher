@@ -490,10 +490,10 @@
   "gui.guide.rarity" : "Rarity:",
 
   "gui.guide.first" : "First Catch:",
-  "gui.guide.fastest" : "Rarity: ",
-  "gui.guide.average" : "Rarity: ",
-  "gui.guide.biggest" : "Rarity: ",
-  "gui.guide.heaviest" : "Rarity: ",
+  "gui.guide.fastest" : "Fastest: ",
+  "gui.guide.average" : "Average: ",
+  "gui.guide.biggest" : "Biggest: ",
+  "gui.guide.heaviest" : "Heaviest: ",
 
   "gui.guide.bucketable" : "Can be caught in a bucket when using one as a bait!",
   "gui.guide.entity" : "Can be caught alive when using an Almighty Worm as a bait!",
