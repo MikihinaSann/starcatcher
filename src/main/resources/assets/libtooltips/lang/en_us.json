@@ -1,4 +1,9 @@
 {
+
+  "dimension.minecraft.overworld" : "Overworld",
+  "dimension.minecraft.the_nether" : "The Nether",
+  "dimension.minecraft.the_end" : "The End",
+
   "tooltip.libtooltips.generic.shift_up": "⏬ §l§3[Shift]§r ⏬",
   "tooltip.libtooltips.generic.shift_down": "⏫ §l§6[Shift]§r ⏫",
   "tooltip.libtooltips.generic.empty" : "",

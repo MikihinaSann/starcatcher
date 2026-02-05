@@ -101,9 +101,9 @@ public class FishRenderer extends EntityRenderer<FishEntity>
 
     private boolean renderCustomModel(Item fish, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
     {
-        if(map.containsKey(fish))
+        if (map.containsKey(fish))
         {
-            renderModel(BuiltInRegistries.ITEM.getKey(fish).getPath(),map.get(fish), buffer, poseStack, packedLight);
+            renderModel(BuiltInRegistries.ITEM.getKey(fish).getPath(), map.get(fish), buffer, poseStack, packedLight);
             return true;
         }
         return false;

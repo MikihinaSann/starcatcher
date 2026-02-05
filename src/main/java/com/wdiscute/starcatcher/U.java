@@ -80,10 +80,6 @@ public class U
                 //add score to tournaments
                 TournamentHandler.addScore(player, fp, perfectCatch, size, weight, percentile);
 
-                //play sound
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT, 1, 1);
-
                 //award exp
                 int exp = fp.rarity().getXp();
 

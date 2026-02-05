@@ -19,7 +19,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -110,6 +112,21 @@ public class FishEntity extends AbstractFish
     }
 
     @Override
+    protected void dropAllDeathLoot(DamageSource damageSource)
+    {
+        super.dropAllDeathLoot(damageSource);
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit)
+    {
+        ItemEntity itementity = this.spawnAtLocation(entityData.get(FISH_ITEM));
+        if (itementity != null) {
+            itementity.setExtendedLifetime();
+        }
+    }
+
+    @Override
     protected boolean shouldDropLoot() {
         return super.shouldDropLoot() && shouldDropItem;
     }
@@ -118,6 +135,7 @@ public class FishEntity extends AbstractFish
     public void setFish(ItemStack is)
     {
         shouldDropItem = true;
+        entityData.set(FISH_ITEM, is);
         setCustomName(is.getDisplayName());
     }
 
