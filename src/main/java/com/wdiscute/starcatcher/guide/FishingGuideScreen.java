@@ -1065,6 +1065,9 @@ public class FishingGuideScreen extends Screen
                 highlightLeftAlpha = 0.5f;
             else
                 highlightRightAlpha = 0.5f;
+
+            clickedX = 0;
+            clickedY = 0;
         }
 
         //render fill
