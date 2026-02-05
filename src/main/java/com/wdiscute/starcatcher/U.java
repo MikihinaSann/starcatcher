@@ -66,7 +66,7 @@ public class U
                 ModTackleSkins.get(level, fbe.rod).onSuccessfulMinigame(player);
 
                 //if should cancel because of modifier, return
-                if(fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
+                if (fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
                         player, time, completedTreasure, perfectCatch, hits))) return;
 
                 //pick size and weight
@@ -114,15 +114,15 @@ public class U
                     }
 
                     //set fish item if it's a starcatcher fish entity
-                    if (entity instanceof FishEntity fe) fe.setFish(getFishedItemstackFromFP(fp, size, weight, percentile));
+                    if (entity instanceof FishEntity fe)
+                        fe.setFish(getFishedItemstackFromFP(fp, size, weight, percentile));
 
                     entity.setPos(fbe.position().add(0, 1.2f, 0));
 
                     Vec3 vec3 = new Vec3(x, 0.7 + y, z);
                     entity.setDeltaMovement(vec3);
                     level.addFreshEntity(entity);
-                }
-                else
+                } else
                 {
                     //SPAWN ITEMSTACK
                     ItemStack bait = ModDataComponents.get(fbe.rod, ModDataComponents.BAIT).stack().copy();
@@ -134,8 +134,7 @@ public class U
                     if (isBucketed)
                     {
                         is = new ItemStack(fp.catchInfo().bucketedFish().get());
-                    }
-                    else
+                    } else
                     {
                         //make fish itemstack
                         is = new ItemStack(fp.catchInfo().fish().get());
@@ -153,7 +152,7 @@ public class U
                         if (isStarcaught)
                         {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish().get());
-                            ModDataComponents.set(starcaughtBucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
+                            ModDataComponents.set(starcaughtBucket, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
                             is = starcaughtBucket;
                         }
                     }
@@ -186,8 +185,7 @@ public class U
                     level.addFreshEntity(treasureFished);
                 }
 
-            }
-            else
+            } else
             {
                 //if fish minigame failed/canceled
                 fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
@@ -422,28 +420,28 @@ public class U
         String finalString = "";
 
         //days
-        if(ticksRemainingToCalculate > 86400)
+        if (ticksRemainingToCalculate > 86400)
         {
             finalString += ticksRemainingToCalculate / 86400 + "d ";
             ticksRemainingToCalculate = ticksRemainingToCalculate % 86400;
         }
 
         //hours
-        if(ticksRemainingToCalculate > 3600)
+        if (ticksRemainingToCalculate > 3600)
         {
             finalString += ticksRemainingToCalculate / 3600 + "h ";
             ticksRemainingToCalculate = ticksRemainingToCalculate % 3600;
         }
 
         //minutes
-        if(ticksRemainingToCalculate > 60)
+        if (ticksRemainingToCalculate > 60)
         {
             finalString += ticksRemainingToCalculate / 60 + "m ";
             ticksRemainingToCalculate = ticksRemainingToCalculate % 60;
         }
 
         //seconds
-        if(ticksRemainingToCalculate > 0)
+        if (ticksRemainingToCalculate > 0)
         {
             finalString += ticksRemainingToCalculate + "s";
         }

@@ -13,10 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -28,7 +25,7 @@ import java.util.function.Supplier;
 
 public class StarcaughtBucket extends BucketItem
 {
-   Supplier<EntityType<FishEntity>> entity;
+    Supplier<EntityType<FishEntity>> entity;
 
     public StarcaughtBucket(Fluid fluid)
     {
@@ -50,18 +47,20 @@ public class StarcaughtBucket extends BucketItem
     private void spawn(ServerLevel serverLevel, ItemStack bucketedMobStack, BlockPos pos)
     {
         FishEntity fishEntity = this.entity.get().spawn(serverLevel, bucketedMobStack, null, pos, MobSpawnType.BUCKET, true, false);
-        if(ModDataComponents.has(bucketedMobStack, ModDataComponents.BUCKETED_FISH))
+        if (ModDataComponents.has(bucketedMobStack, ModDataComponents.BUCKETED_FISH))
             fishEntity.setFish(getFish(bucketedMobStack));
         else
             fishEntity.setFish(ModItems.AURORA.get().getDefaultInstance());
     }
 
-    private static ItemStack getFish(ItemStack bucket) {
-        return ModDataComponents.getOrDefault(bucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(ItemStack.EMPTY)).stack();
+    private static ItemStack getFish(ItemStack bucket)
+    {
+        return ModDataComponents.getOrDefault(bucket, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(ItemStack.EMPTY)).stack();
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced)
+    {
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
         ItemStack fish = getFish(stack);
         if (fish.isEmpty())
@@ -71,25 +70,27 @@ public class StarcaughtBucket extends BucketItem
         }
     }
 
+
+
     @Override
     public Component getName(ItemStack stack)
     {
-        SingleStackContainer ssc = ModDataComponents.get(stack, ModDataComponents.BUCKETED_FISH);
+        SingleStackContainer ssc = ModDataComponents.getOrDefault(stack, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(new ItemStack(Items.DIAMOND)));
 
-        if (ssc == null)
-            return super.getName(stack);
-        else
-        {
-            return Component.translatable("tooltip.starcatcher.starcaught_bucket.before")
-                    .append(ssc.stack().getItem().getName(stack))
-                    .append(Component.translatable("tooltip.starcatcher.starcaught_bucket.after"));
-        }
+        ItemStack fish = getFish(stack);
+
+        return Component.translatable("tooltip.starcatcher.starcaught_bucket.before")
+                .append(ssc.stack().getItem().getName(stack))
+                .append(Component.translatable("tooltip.starcatcher.starcaught_bucket.after"));
     }
 
     @Override
-    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack)
+    {
         return Optional.of(new BucketTooltip(getFish(stack)));
     }
 
-    public record BucketTooltip(ItemStack fish) implements TooltipComponent {}
+    public record BucketTooltip(ItemStack fish) implements TooltipComponent
+    {
+    }
 }

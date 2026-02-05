@@ -86,6 +86,12 @@ public class FishEntity extends AbstractFish
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0F);
     }
 
+    //1.20 specific fish because of Bucketable#saveDefaultDataToBucketTag :)
+    @Override
+    public void saveToBucketTag(ItemStack stack)
+    {
+    }
+
     @Override
     public void tick()
     {
@@ -138,6 +144,7 @@ public class FishEntity extends AbstractFish
         entityData.set(FISH_ITEM, is);
         setCustomName(is.getDisplayName());
     }
+
 
     @Override
     public ItemStack getBucketItemStack()
