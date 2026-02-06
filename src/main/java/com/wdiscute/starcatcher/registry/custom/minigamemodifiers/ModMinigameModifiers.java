@@ -58,6 +58,8 @@ public interface ModMinigameModifiers
     //MultiLayer
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> NIKDO53_MODIFIER = registerMinigameModifier("nikdo53_modifier", Nikdo53Modifier::new);
 
+    //flip on every hit
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> FLIP_EVERY_HIT = registerMinigameModifier("flip_every_hit", FlipEveryHitModifier::new);
 
     static Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> registerMinigameModifier(String name, Supplier<AbstractMinigameModifier> sup)
     {
