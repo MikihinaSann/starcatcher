@@ -45,13 +45,6 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeEvents {
 
     @SubscribeEvent
-    public static void keyPressed(InputEvent.Key event) {
-        if (event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue()) {
-            TournamentOverlay.isExpanded = !TournamentOverlay.isExpanded;
-        }
-    }
-
-    @SubscribeEvent
     public static void addCommand(RegisterCommandsEvent event) {
         ModCommands.register(event.getDispatcher(), event.getBuildContext());
     }

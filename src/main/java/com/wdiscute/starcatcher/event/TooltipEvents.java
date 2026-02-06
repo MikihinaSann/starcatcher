@@ -1,0 +1,186 @@
+package com.wdiscute.starcatcher.event;
+
+import com.wdiscute.starcatcher.Config;
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.Tooltips;
+import com.wdiscute.starcatcher.guide.SettingsScreen;
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.TrophyProperties;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
+public class TooltipEvents {
+
+    @SubscribeEvent
+    public static void tooltipEvent(ItemTooltipEvent event)
+    {
+        List<Component> comp = event.getToolTip();
+        ItemStack stack = event.getItemStack();
+        boolean hasShiftDown = event.getEntity() != null && Screen.hasShiftDown();
+
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS) || ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
+        {
+            List<ResourceLocation> modifiers = new ArrayList<>();
+
+            if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS)));
+            if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS)));
+
+            if (!modifiers.isEmpty())
+            {
+                comp.add(Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
+
+                for (ResourceLocation rl : modifiers)
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        if (I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
+                        {
+                            MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
+                            comp.add(start.append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //size and weight
+        if (ModDataComponents.has(stack, ModDataComponents.SIZE_AND_WEIGHT))
+        {
+            SizeAndWeightInstance sw = ModDataComponents.get(stack, ModDataComponents.SIZE_AND_WEIGHT);
+
+            SettingsScreen.Units units = Config.UNIT.get();
+
+            String size = units.getSizeAsString(sw.sizeInCentimeters());
+            String weight = units.getWeightAsString(sw.weightInGrams());
+            String percentile = " (top " + (int) sw.percentile() + "%)";
+
+            MutableComponent element = Component.literal(size + " - " + weight).withStyle(Style.EMPTY.withColor(0x888888));
+            if(hasShiftDown)
+                element.append(Component.literal(percentile).withStyle(Style.EMPTY.withColor(0x707070)));
+            comp.add(1, element);
+
+        }
+
+        //tackle skin
+        if (ModDataComponents.has(stack, ModDataComponents.TACKLE_SKIN))
+        {
+            ResourceLocation rl = ModDataComponents.get(stack, ModDataComponents.TACKLE_SKIN);
+            comp.add(Component.translatable("tooltip.starcatcher.tackle").withStyle(ChatFormatting.GRAY));
+
+            for (int i = 0; i < 100; i++)
+            {
+                if (I18n.exists("tooltip.tackle." + rl.toLanguageKey() + "." + i))
+                {
+                    MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
+                    comp.add(start.append(Component.translatable("tooltip.tackle." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                }
+                else break;
+            }
+        }
+
+        //Netherite Upgrade
+        if (ModDataComponents.has(stack, ModDataComponents.NETHERITE_UPGRADE))
+        {
+            if (Boolean.TRUE.equals(ModDataComponents.get(stack, ModDataComponents.NETHERITE_UPGRADE)))
+            {
+                comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.rod.netherite"));
+            }
+        }
+
+        //rarity name color
+        if (ModDataComponents.has(stack, ModDataComponents.FISH_PROPERTIES))
+        {
+            FishProperties fp = ModDataComponents.get(stack, ModDataComponents.FISH_PROPERTIES);
+
+            String s = fp.rarity().getPre() + comp.get(0).getString(100) + fp.rarity().getPost();
+
+            comp.remove(0);
+            comp.add(0, Tooltips.decodeString(s));
+        }
+
+        //trophy stuff
+        if (ModDataComponents.has(stack, ModDataComponents.TROPHY))
+        {
+            TrophyProperties tp = ModDataComponents.get(stack, ModDataComponents.TROPHY);
+
+            if (tp.trophyType() == TrophyProperties.TrophyType.TROPHY) {
+                if (hasShiftDown)
+                {
+                    comp.add(Component.translatable("tooltip.libtooltips.generic.shift_down"));
+                    comp.add(Component.translatable("tooltip.libtooltips.generic.empty"));
+                    comp.add(Component.translatable("tooltip.starcatcher.trophy.0"));
+                    comp.add(Component.translatable("tooltip.starcatcher.trophy.1"));
+
+                    List<Component> list = new ArrayList<>();
+
+                    //all
+                    if (tp.all().total() != 0) list.add(Tooltips.decodeString(
+                            I18n.get("tooltip.starcatcher.trophy.total")
+                                    .replace("&", tp.all().total() + "")
+                                    .replace("$", I18n.get("tooltip.starcatcher.trophy.all"))
+                    ));
+
+                    if (tp.all().unique() != 0) list.add(
+                            Tooltips.decodeString(I18n.get("tooltip.starcatcher.trophy.unique")
+                                    .replace("&", tp.all().unique() + "")
+                                    .replace("$", I18n.get("tooltip.starcatcher.trophy.all"))));
+
+                    for (FishProperties.Rarity value : FishProperties.Rarity.values())
+                    {
+                        TrophyProperties.RarityProgress progress = tp.getProgress(value);
+                        if (progress.total() != 0) list.add(
+                                Tooltips.decodeString(I18n.get("tooltip.starcatcher.trophy.total")
+                                        .replace("&", progress.total() + "")
+                                        .replace("$", I18n.get("tooltip.starcatcher.trophy." + value.getSerializedName()))));
+
+                        if (progress.unique() != 0) list.add(
+                                Tooltips.decodeString(I18n.get("tooltip.starcatcher.trophy.unique")
+                                        .replace("&", progress.unique() + "")
+                                        .replace("$", I18n.get("tooltip.starcatcher.trophy." + value.getSerializedName()))));
+                    }
+
+                    if (list.size() == 1)
+                    {
+                        comp.add(Component.translatable("tooltip.starcatcher.trophy.once")
+                                .append(list.get(0))
+                                .append(Component.translatable("tooltip.starcatcher.trophy.have_been_caught")));
+                    }
+                    else
+                    {
+                        comp.add(Component.translatable("tooltip.starcatcher.trophy.2"));
+                        comp.addAll(list);
+                    }
+
+                }
+                else
+                {
+                    comp.add(Component.translatable("tooltip.libtooltips.generic.shift_up"));
+                }
+            }
+
+        }
+    }
+}

@@ -48,9 +48,6 @@ public class Starcatcher
     public static final String MOD_ID = "starcatcher";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    /**
-     * For some reason this now contains entries from ALL mods, meaning you have to filter it first
-     */
     public static final ResourceKey<Registry<FishProperties>> FISH_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("fish"));
 
