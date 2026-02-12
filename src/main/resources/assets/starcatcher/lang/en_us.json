@@ -69,6 +69,7 @@
 
   "entity.starcatcher.fish" : "Starcaught Fish",
 
+  "gui.starcatcher.reel_no_fish" : "There are no fishes available for this area...",
 
 
   "tooltip.minecraft.fishing_rod.0": "A simple fishing rod used for catching",

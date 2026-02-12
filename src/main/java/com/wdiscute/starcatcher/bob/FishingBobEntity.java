@@ -23,6 +23,7 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -235,7 +236,11 @@ public class FishingBobEntity extends Projectile
         }
 
         //if no fish is available, reset player fishing data and award nothing
-        if (available.isEmpty()) this.kill();
+        if (available.isEmpty())
+        {
+            player.displayClientMessage(Component.translatable("gui.starcatcher.reel_no_fish"), true);
+            this.kill();
+        }
 
         //trigger modifiers for which fish to get based on available
         for (AbstractCatchModifier acm : modifiers)
