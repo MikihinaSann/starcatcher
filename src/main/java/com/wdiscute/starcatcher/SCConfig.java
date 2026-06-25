@@ -61,7 +61,7 @@ public class SCConfig
     public static final ForgeConfigSpec.BooleanValue GIVE_GUIDE = BUILDER_SERVER
             .translation("starcatcher.configuration.give_guide")
             .comment("Award guide when joining the world/server once per player")
-            .define("give_guide", true);
+            .define("give_guide", false);
 
     public static final ForgeConfigSpec.BooleanValue SHOW_EXCLAMATION_MARK_PARTICLE = BUILDER_SERVER
             .translation("starcatcher.configuration.show_exclamation_mark_particle")

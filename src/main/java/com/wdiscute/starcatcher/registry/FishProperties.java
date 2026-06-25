@@ -47,6 +47,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -2032,6 +2033,28 @@ public record FishProperties(
 
                 List<ItemStack> items = new ArrayList<>();
 
+                //if drops were overridden by another mod during reel(), use those directly
+                boolean inLava = level.getFluidState(fbe.blockPosition()).is(Fluids.LAVA) || level.getFluidState(fbe.blockPosition()).is(Fluids.FLOWING_LAVA);
+
+                if (fbe.overriddenDrops != null)
+                {
+                    for (ItemStack replacement : fbe.overriddenDrops)
+                    {
+                        if (replacement.isEmpty()) continue;
+                        ItemEntity itemEntity = inLava
+                                ? new LavaProofItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, replacement)
+                                : new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, replacement);
+                        double rx = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
+                        double ry = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
+                        double rz = Mth.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
+                        itemEntity.setDeltaMovement(new Vec3(rx, 0.7 + ry, rz));
+                        level.addFreshEntity(itemEntity);
+                    }
+                    fbe.kill();
+                    SCDataAttachments.remove(player, SCDataAttachments.FISHING_BOB);
+                    return;
+                }
+
                 //if should spawn entity
                 if (fp.catchInfo().alwaysSpawnEntity() ||
                         ModList.get().isLoaded("fishingreal") ||
@@ -2064,6 +2087,7 @@ public record FishProperties(
                         fe.setFish(getFishedItemStackFromFPForStarcatcherFishEntitySpecifically(fp, size, weight, percentile, golden));
 
                     entity.setPos(fbe.position().add(0, 1.2f, 0));
+                    if (inLava) entity.setInvulnerable(true);
 
                     Vec3 vec3 = new Vec3(x, 0.7 + y, z);
                     entity.setDeltaMovement(vec3);
@@ -2089,31 +2113,19 @@ public record FishProperties(
                     items.add(fp.loadTreasure(player).catchInfo.treasureIs);
                 }
 
-                //fire ItemFishedEvent for mod compat (e.g. PMMO). Throwaway FishingHook only exists to satisfy the event constructor.
-                if (!items.isEmpty())
-                {
-                    FishingHook fakeHook = new FishingHook(player, level, 0, 0);
-                    fakeHook.setPos(fbe.position());
-                    ItemFishedEvent event = new ItemFishedEvent(items, 0, fakeHook);
-                    MinecraftForge.EVENT_BUS.post(event);
-                    if (event.isCanceled()) items.clear();
-                    fakeHook.discard();
-                }
-
                 //spawn items from list
                 for (ItemStack itemStackToSpawn : items)
                 {
-                    //make ItemEntities for fish item stack
-                    ItemEntity itemFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, itemStackToSpawn);
+                    ItemEntity itemFished = inLava
+                            ? new LavaProofItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, itemStackToSpawn)
+                            : new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, itemStackToSpawn);
 
-                    //assign delta movement so fish flies towards player
                     double x = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
                     double y = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
                     double z = Mth.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
                     Vec3 vec3 = new Vec3(x, 0.7 + y, z);
                     itemFished.setDeltaMovement(vec3);
 
-                    //add item entity to level
                     level.addFreshEntity(itemFished);
                 }
 

@@ -39,6 +39,9 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
@@ -62,6 +65,7 @@ public class FishingBobEntity extends Projectile {
     public ItemStack rod = ItemStack.EMPTY;
     public final List<AbstractCatchModifier> modifiers;
 
+    public List<ItemStack> overriddenDrops = null;
     public boolean survivesLava = false;
 
     public int minTicksToFish;
@@ -173,32 +177,67 @@ public class FishingBobEntity extends Projectile {
 
         modifiers.forEach(AbstractCatchModifier::onReelStart);
 
-        //if any non-fish is available, select it
-        for (FishProperties fp : FishProperties.getNonFishes(level()))
+        //fire early ItemFishedEvent in lava before available check so other mods can override drops
+        boolean inLava = level().getFluidState(blockPosition()).is(Fluids.LAVA) || level().getFluidState(blockPosition()).is(Fluids.FLOWING_LAVA);
+        boolean lavaHandled = false;
+        if (inLava)
         {
-            int chance = fp.calculateChance(this, level(), rod, AbstractFishRestriction.Context.FISHING);
-
-            if (chance > 0)
+            ItemStack dummyItem = new ItemStack(Items.COD);
+            List<ItemStack> dummyItems = new ArrayList<>();
+            dummyItems.add(dummyItem);
+            FishingHook fakeHook = new FishingHook(player, level(), 0, 0);
+            fakeHook.setPos(this.position());
+            ItemFishedEvent earlyEvent = new ItemFishedEvent(dummyItems, 0, fakeHook);
+            MinecraftForge.EVENT_BUS.post(earlyEvent);
+            fakeHook.discard();
+            if (earlyEvent.isCanceled())
             {
-                fpToFish = fp;
-                rlToFish = FishProperties.getKey(level(), fp);
-                break;
+                List<ItemStack> replacements = new ArrayList<>(earlyEvent.getDrops());
+                replacements.removeIf(ItemStack::isEmpty);
+                overriddenDrops = replacements;
+
+                if (!replacements.isEmpty())
+                {
+                    ItemStack firstDrop = replacements.get(0);
+                    fpToFish = new FishProperties.Builder()
+                            .withFish(firstDrop.getItem().builtInRegistryHolder())
+                            .withRarity(FishProperties.Rarity.COMMON)
+                            .withDifficulty(FishProperties.Difficulty.EASY)
+                            .build();
+                }
+                lavaHandled = true;
             }
         }
 
-        //add available fish to list if no trophy/secret/extra was available
-        for (FishProperties fp : FishProperties.getFishes(level()))
+        if (!lavaHandled)
         {
-            int chance = fp.calculateChance(this, level(), rod, AbstractFishRestriction.Context.FISHING);
-            for (int i = 0; i < chance; i++) available.add(fp);
+            //if any non-fish is available, select it
+            for (FishProperties fp : FishProperties.getNonFishes(level()))
+            {
+                int chance = fp.calculateChance(this, level(), rod, AbstractFishRestriction.Context.FISHING);
+
+                if (chance > 0)
+                {
+                    fpToFish = fp;
+                    rlToFish = FishProperties.getKey(level(), fp);
+                    break;
+                }
+            }
+
+            //add available fish to list if no trophy/secret/extra was available
+            for (FishProperties fp : FishProperties.getFishes(level()))
+            {
+                int chance = fp.calculateChance(this, level(), rod, AbstractFishRestriction.Context.FISHING);
+                for (int i = 0; i < chance; i++) available.add(fp);
+            }
+
+
+            //trigger modifiers to modify available pool
+            for (AbstractCatchModifier acm : modifiers) available = acm.modifyAvailablePool(available);
         }
 
-
-        //trigger modifiers to modify available pool
-        for (AbstractCatchModifier acm : modifiers) available = acm.modifyAvailablePool(available);
-
         //if no fish is available and no non-fish was selected, reset player fishing data and award nothing
-        if (available.isEmpty() && fpToFish == null)
+        if (!lavaHandled && available.isEmpty() && fpToFish == null)
         {
             player.displayClientMessage(Component.translatable("gui.starcatcher.reel_no_fish"), true);
             this.kill();
@@ -217,14 +256,47 @@ public class FishingBobEntity extends Projectile {
         modifiers.forEach(acm -> acm.afterChoosingTheCatch(immutableAvailable));
 
         //should cancel to prevent normal minigame/item fished (vanilla bobber & messages)
-        if (modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))
+        if (!lavaHandled && modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))
         {
             this.kill();
             return;
         }
 
-        //load treasure itemstack
-        fpToFish = fpToFish.loadTreasure(((ServerPlayer) player));
+        if (!lavaHandled)
+        {
+            //load treasure itemstack
+            fpToFish = fpToFish.loadTreasure(((ServerPlayer) player));
+
+            //fire early ItemFishedEvent so other mods can override drops before minigame preview
+            {
+                ItemStack previewItem = FishProperties.makeItemStack(rod, fpToFish, 0, 0, 0, false, player, false);
+                List<ItemStack> previewItems = new ArrayList<>();
+                previewItems.add(previewItem);
+                FishingHook fakeHook = new FishingHook(player, level(), 0, 0);
+                fakeHook.setPos(this.position());
+                ItemFishedEvent earlyEvent = new ItemFishedEvent(previewItems, 0, fakeHook);
+                MinecraftForge.EVENT_BUS.post(earlyEvent);
+                fakeHook.discard();
+                if (earlyEvent.isCanceled())
+                {
+                    List<ItemStack> replacements = new ArrayList<>(earlyEvent.getDrops());
+                    replacements.removeIf(ItemStack::isEmpty);
+                    overriddenDrops = replacements;
+
+                    if (!replacements.isEmpty())
+                    {
+                        //override fpToFish to show first whitelist fish as preview
+                        ItemStack firstDrop = replacements.get(0);
+                        fpToFish = new FishProperties.Builder()
+                                .withFish(firstDrop.getItem().builtInRegistryHolder())
+                                .withRarity(fpToFish.rarity())
+                                .withDifficulty(fpToFish.dif())
+                                .withSkipMinigame(fpToFish.skipMinigame())
+                                .build();
+                    }
+                }
+            }
+        }
 
         //skips minigame if (skipsminigame() or server config of minigame enabled = false) OR any modifier wants to
         if ((fpToFish.skipMinigame() || !SCConfig.ENABLE_MINIGAME.get())
@@ -268,17 +340,12 @@ public class FishingBobEntity extends Projectile {
     @Override
     public boolean fireImmune()
     {
-        return survivesLava;
+        return true;
     }
 
     @Override
     public void lavaHurt()
     {
-        super.lavaHurt();
-        if (!survivesLava && !level().isClientSide)
-        {
-            kill();
-        }
     }
 
     @Override
