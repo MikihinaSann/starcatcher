@@ -11,6 +11,7 @@ import com.wdiscute.starcatcher.registry.FishProperties;
 import com.wdiscute.starcatcher.registry.SCEntities;
 import com.wdiscute.starcatcher.registry.SCParticles;
 import com.wdiscute.starcatcher.registry.catchmodifiers.AbstractCatchModifier;
+import com.wdiscute.starcatcher.registry.minigamemodifiers.SCMinigameModifiers;
 import com.wdiscute.starcatcher.registry.catchmodifiers.FishMessagesModifier;
 import com.wdiscute.starcatcher.registry.catchmodifiers.SCCatchModifiers;
 import com.wdiscute.starcatcher.registry.fishrestrictions.AbstractFishRestriction;
@@ -199,11 +200,17 @@ public class FishingBobEntity extends Projectile {
                 if (!replacements.isEmpty())
                 {
                     ItemStack firstDrop = replacements.get(0);
-                    fpToFish = new FishProperties.Builder()
+                    FishProperties.Builder builder = new FishProperties.Builder()
                             .withFish(firstDrop.getItem().builtInRegistryHolder())
                             .withRarity(FishProperties.Rarity.COMMON)
-                            .withDifficulty(FishProperties.Difficulty.EASY)
-                            .build();
+                            .withDifficulty(FishProperties.Difficulty.MEDIUM)
+                            .addModifier(SCMinigameModifiers.BURN_ON_MISS);
+                    if (replacements.size() > 1)
+                    {
+                        builder.withTreasureHardCoded(replacements.get(1));
+                        replacements.remove(1);
+                    }
+                    fpToFish = builder.build();
                 }
                 lavaHandled = true;
             }
@@ -285,14 +292,18 @@ public class FishingBobEntity extends Projectile {
 
                     if (!replacements.isEmpty())
                     {
-                        //override fpToFish to show first whitelist fish as preview
                         ItemStack firstDrop = replacements.get(0);
-                        fpToFish = new FishProperties.Builder()
+                        FishProperties.Builder builder = new FishProperties.Builder()
                                 .withFish(firstDrop.getItem().builtInRegistryHolder())
                                 .withRarity(fpToFish.rarity())
                                 .withDifficulty(fpToFish.dif())
-                                .withSkipMinigame(fpToFish.skipMinigame())
-                                .build();
+                                .withSkipMinigame(fpToFish.skipMinigame());
+                        if (replacements.size() > 1)
+                        {
+                            builder.withTreasureHardCoded(replacements.get(1));
+                            replacements.remove(1);
+                        }
+                        fpToFish = builder.build();
                     }
                 }
             }

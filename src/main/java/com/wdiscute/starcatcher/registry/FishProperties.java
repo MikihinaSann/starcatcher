@@ -130,9 +130,14 @@ public record FishProperties(
 
         Registry<FishProperties> fishProperties = player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY_KEY);
 
-        Treasure.TreasureInstance data = fishProperties.wrapAsHolder(this).getData(SCDataMaps.TREASURE);
+        Treasure.TreasureInstance data;
+        try {
+            data = fishProperties.wrapAsHolder(this).getData(SCDataMaps.TREASURE);
+        } catch (Exception e) {
+            data = null;
+        }
 
-        if(data == null) return this;
+        if(data == null) data = Treasure.VANILLA_FISHING_LOOT_TABLE;
 
         return new FishProperties(
                 new CatchInfo(catchInfo.fish, catchInfo.bucketedFish, catchInfo.entityToSpawn, catchInfo.alwaysSpawnEntity,
@@ -2038,12 +2043,22 @@ public record FishProperties(
 
                 if (fbe.overriddenDrops != null)
                 {
+                    List<ItemStack> overriddenItems = new ArrayList<>();
                     for (ItemStack replacement : fbe.overriddenDrops)
                     {
-                        if (replacement.isEmpty()) continue;
+                        if (!replacement.isEmpty()) overriddenItems.add(replacement);
+                    }
+
+                    if (completedTreasure || fbe.modifiers.stream().anyMatch(acm -> acm.forceAwardTreasure(fbe, time, completedTreasure, perfectCatch, hits)))
+                    {
+                        overriddenItems.add(fp.loadTreasure(player).catchInfo.treasureIs);
+                    }
+
+                    for (ItemStack itemStackToSpawn : overriddenItems)
+                    {
                         ItemEntity itemEntity = inLava
-                                ? new LavaProofItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, replacement)
-                                : new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, replacement);
+                                ? new LavaProofItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, itemStackToSpawn)
+                                : new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, itemStackToSpawn);
                         double rx = Mth.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
                         double ry = Mth.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
                         double rz = Mth.clamp((player.position().z - fbe.position().z) / 25, -1, 1);
