@@ -2272,5 +2272,9 @@
 
   "item.starcatcher.meka_agave_bream" : "Meka Agave Bream",
   "tooltip.starcatcher.meka_agave_bream.0" : "The mechanical version of an agave bream made for controlling bream population.",
-  "tooltip.starcatcher.meka_agave_bream.1" : "If it's unable to find a suitable agave bream in time it will hibernate until next mating season."
+  "tooltip.starcatcher.meka_agave_bream.1" : "If it's unable to find a suitable agave bream in time it will hibernate until next mating season.",
+
+  "tag.item.trinkets.head.hat" : "Trinket Hat Slot",
+  "tag.item.trinkets.charm.charm" : "Trinket Charm Slot",
+  "tag.item.trinkets.hand.glove" : "Trinket Glove Slot"
 }
