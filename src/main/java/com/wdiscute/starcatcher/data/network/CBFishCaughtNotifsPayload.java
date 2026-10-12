@@ -34,10 +34,17 @@ public record CBFishCaughtNotifsPayload(FishProperties fp, boolean displayToast,
 
     public void handle(IPayloadContext context)
     {
-        context.enqueueWork(() ->
+        context.enqueueWork(() -> Client.handle(this));
+    }
+
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
+    {
+        static void handle(CBFishCaughtNotifsPayload payload)
         {
-            if (fp.hasGuideEntry())
-                FishCaughtToast.newFish(fp(), displayToast, percentile, golden);
-        });
+            if (payload.fp().hasGuideEntry())
+                FishCaughtToast.newFish(payload.fp(), payload.displayToast(), payload.percentile(), payload.golden());
+        }
     }
 }

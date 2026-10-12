@@ -37,6 +37,8 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import net.neoforged.neoforge.common.extensions.MenuHelper;
+import net.minecraft.server.level.ServerPlayer;
 
 public class TackleBoxBoatEntity extends Boat implements HasCustomInventoryScreen, TackleBoxWorldlyContainerHelper, MenuProvider
 {
@@ -196,7 +198,7 @@ public class TackleBoxBoatEntity extends Boat implements HasCustomInventoryScree
         }
         else
         {
-            player.openMenu(this);
+            if (player instanceof ServerPlayer sp) MenuHelper.openMenu(sp, this);
             return !player.level().isClientSide ? InteractionResult.CONSUME : InteractionResult.SUCCESS;
         }
     }
@@ -204,7 +206,7 @@ public class TackleBoxBoatEntity extends Boat implements HasCustomInventoryScree
     @Override
     public void openCustomInventoryScreen(Player player)
     {
-        player.openMenu(this);
+        if (player instanceof ServerPlayer sp) MenuHelper.openMenu(sp, this);
     }
 
     @Override

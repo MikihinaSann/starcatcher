@@ -32,6 +32,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
+import net.neoforged.neoforge.common.extensions.MenuHelper;
+import net.minecraft.server.level.ServerPlayer;
 
 public class StandBlock extends AbstractMultiBlock implements IPreviewableMultiblock
 {
@@ -100,7 +102,7 @@ public class StandBlock extends AbstractMultiBlock implements IPreviewableMultib
             }
             sbe.sync();
 
-            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), center);
+            if (player instanceof ServerPlayer sp) MenuHelper.openMenu(sp, new SimpleMenuProvider(sbe, Component.empty()), center);
         }
 
         return InteractionResult.SUCCESS;

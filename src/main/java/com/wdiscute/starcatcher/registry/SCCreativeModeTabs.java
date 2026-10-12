@@ -137,9 +137,9 @@ public interface SCCreativeModeTabs
                                     {
                                         ItemStack stack = fp.catchInfo().fish().toStack();
 
-                                        if (stack.has(SCDataComponents.MESSAGE))
+                                        if (stack.has(SCDataComponents.MESSAGE.get()))
                                         {
-                                            SCDataComponents.set(stack, SCDataComponents.MESSAGE, stack.get(SCDataComponents.MESSAGE));
+                                            SCDataComponents.set(stack, SCDataComponents.MESSAGE, stack.get(SCDataComponents.MESSAGE.get()));
                                             list.add(stack);
                                         }
                                     }

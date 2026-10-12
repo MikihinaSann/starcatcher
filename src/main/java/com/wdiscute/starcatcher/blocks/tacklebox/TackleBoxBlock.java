@@ -49,6 +49,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+import net.neoforged.neoforge.common.extensions.MenuHelper;
+import net.minecraft.server.level.ServerPlayer;
 
 public class TackleBoxBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
@@ -125,7 +127,7 @@ public class TackleBoxBlock extends BaseEntityBlock implements SimpleWaterlogged
                 }
                 else
                 {
-                    player.openMenu(tbbe, pos);
+                    if (player instanceof ServerPlayer sp) MenuHelper.openMenu(sp, tbbe, pos);
                 }
             }
         }

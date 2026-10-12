@@ -269,7 +269,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         wheels.render(g, centerX - 32, centerY - 32, 0, 0, 64, 64);
 
         //render spacebar
-        boolean bigBar = font.width(SCKeymappings.MINIGAME_HIT.getKey().getDisplayName().getString()) > 18;
+        boolean bigBar = font.width(SCKeymappings.MINIGAME_HIT.key.getDisplayName().getString()) > 18;
 
         int yOffset = (isHoldingKey ? 16 : 0) + (bigBar ? 0 : 32);
         buttons.render(g, centerX - 24, centerY + 40 + (modifiers.stream().anyMatch(Nikdo53Modifier.class::isInstance) ? 10 : 0),
@@ -277,7 +277,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                 48, 16);
 
         //render spacebar keybind name
-        ScreenUtils.centeredText(g, font, SCKeymappings.MINIGAME_HIT.getKey().getDisplayName(),
+        ScreenUtils.centeredText(g, font, SCKeymappings.MINIGAME_HIT.key.getDisplayName(),
                 centerX, centerY + 42 + (modifiers.stream().anyMatch(Nikdo53Modifier.class::isInstance) ? 10 : 0) + (isHoldingKey ? 2 : 0),
                 0xff546170, false);
 
@@ -537,7 +537,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int keyModifiers)
     {
-        if (keyCode == SCKeymappings.MINIGAME_HIT.getKey().getValue())
+        if (keyCode == SCKeymappings.MINIGAME_HIT.key.getValue())
         {
             isHoldingKey = false;
             holdingTicks = 0;
@@ -576,7 +576,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         //closes when pressing E unless keybind is set to E
         InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
-        if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey) && !SCKeymappings.MINIGAME_HIT.getKey().equals(mouseKey))
+        if (this.minecraft.options.keyInventory.key.equals(mouseKey) && !SCKeymappings.MINIGAME_HIT.key.equals(mouseKey))
         {
             //play failed sound
             tackleSkin.onFailedMinigame(Minecraft.getInstance().player);
@@ -585,7 +585,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         }
 
         //hit input
-        if (SCKeymappings.MINIGAME_HIT.isActiveAndMatches(mouseKey))
+        if (SCKeymappings.MINIGAME_HIT.key.equals(mouseKey))
         {
             if (!isHoldingKey) inputPressed();
 
@@ -749,7 +749,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         modifiers.forEach(o -> o.onRemove(this));
 
         PacketDistributor.sendToServer(new SBFishingCompletedPayload(false, tickCount, false, false, consecutiveHits));
-        this.minecraft.popGuiLayer();
+        this.minecraft.setScreen(null);
     }
 
     public void addParticles(float posInDegrees, int count, int color)

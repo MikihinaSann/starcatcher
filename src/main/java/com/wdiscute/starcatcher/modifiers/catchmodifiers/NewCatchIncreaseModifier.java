@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class NewCatchIncreaseModifier extends AbstractCatchModifier
 {
@@ -49,7 +50,7 @@ public class NewCatchIncreaseModifier extends AbstractCatchModifier
         // otherwise FPs with high base chances would disproportionally get increased odds
         Set<FishProperties> set = new HashSet<>();
 
-        Map<ResourceLocation, FishCaughtCounter> fishesCaught = fbe.player.getData(SCDataAttachments.FISHING_GUIDE).fishesCaught;
+        Map<ResourceLocation, FishCaughtCounter> fishesCaught = AttachmentHandler.getData(fbe.player, SCDataAttachments.FISHING_GUIDE).fishesCaught;
 
         for (FishProperties fp : available)
         {

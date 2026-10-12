@@ -53,7 +53,7 @@ public class MessagesSavedData extends SavedData
 
     public static Factory<MessagesSavedData> factory()
     {
-        return new Factory<>(MessagesSavedData::new, MessagesSavedData::load);
+        return new Factory<>(MessagesSavedData::new, MessagesSavedData::load, null);
     }
 
     @Override

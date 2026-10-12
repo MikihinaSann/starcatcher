@@ -92,6 +92,16 @@ public class StandBlockEntity extends AbstractMultiBlockEntity implements MenuPr
         if (tag.contains("preparing_tournament"))
             tournament = NBTCodecHelper.decode(Tournament.CODEC, tag, "preparing_tournament");
 
+        //fabric port: vanilla applies block-entity update packets through
+        //loadWithComponents -> loadAdditional; current_tournament only exists in update tags
+        if (tag.contains("current_tournament"))
+        {
+            Tournament t = NBTCodecHelper.decode(Tournament.CODEC, tag, "current_tournament");
+            tournament = t == null
+                    ? Tournament.empty(UUID.randomUUID(), UUID.randomUUID(), "Unknown Owner")
+                    : t;
+        }
+
     }
 
     @Override
@@ -107,26 +117,6 @@ public class StandBlockEntity extends AbstractMultiBlockEntity implements MenuPr
         //if status is preparing, we need to save the tournament as it's not stored in SavedData yet
         if (tournament != null && tournament.status.equals(Tournament.Status.PREPARING))
             NBTCodecHelper.encode(Tournament.CODEC, tournament, tag, "preparing_tournament");
-
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider)
-    {
-        super.onDataPacket(net, pkt, lookupProvider);
-
-        CompoundTag tag = pkt.getTag();
-        if (!isCenter()) return;
-
-        //client needs to receive current tournament and tournament history
-        Tournament tournament = NBTCodecHelper.decode(Tournament.CODEC, tag, "current_tournament");
-
-        if (tournament == null)
-            this.tournament = Tournament.empty(UUID.randomUUID(), UUID.randomUUID(), "Unknown Owner");
-        else
-            this.tournament = tournament;
-
-        //todo add tournament history
 
     }
 

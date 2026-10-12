@@ -98,7 +98,7 @@ public class FishEntity extends AbstractFish
     public boolean isInWater()
     {
         if (fireImmune())
-            return !this.firstTick && this.forgeFluidTypeHeight.getDouble(net.neoforged.neoforge.common.NeoForgeMod.LAVA_TYPE.value()) > 0.0D;
+            return !this.firstTick && this.isInLava();
         else
             return super.isInWater();
     }

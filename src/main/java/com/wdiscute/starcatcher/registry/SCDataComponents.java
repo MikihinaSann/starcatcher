@@ -92,29 +92,29 @@ public interface SCDataComponents
 
     static <T> void set(ItemStack stack, Supplier<DataComponentType<T>> component, T data)
     {
-        stack.set(component, data);
+        stack.set(component.get(), data);
     }
 
     @Nullable
     static <T> T get(ItemStack stack, Supplier<DataComponentType<T>> component)
     {
-        return stack.get(component);
+        return stack.get(component.get());
     }
 
     static <T> boolean has(ItemStack stack, Supplier<DataComponentType<T>> component)
     {
-        return stack.has(component);
+        return stack.has(component.get());
     }
 
     static <T> void remove(ItemStack stack, Supplier<DataComponentType<T>> component)
     {
-        stack.remove(component);
+        stack.remove(component.get());
     }
 
     @Nonnull
     static <T> T getOrDefault(ItemStack stack, Supplier<DataComponentType<T>> component, T defaultValue)
     {
-        return stack.getOrDefault(component, defaultValue);
+        return stack.getOrDefault(component.get(), defaultValue);
     }
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,

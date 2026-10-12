@@ -22,7 +22,7 @@ public class MoraJaiScreen extends Screen
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
         InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
-        if(Minecraft.getInstance().options.keyInventory.isActiveAndMatches(mouseKey))
+        if(Minecraft.getInstance().options.keyInventory.key.equals(mouseKey))
         {
             onClose();
             return true;

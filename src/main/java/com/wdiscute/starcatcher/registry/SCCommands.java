@@ -242,7 +242,7 @@ public interface SCCommands
 
     private static int placeFishDisplay(ServerPlayer player)
     {
-        List<DeferredHolder<Item, ? extends Item>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
+        List<DeferredHolder<Item, ?>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
 
         player.sendSystemMessage(Component.literal("Placed " + list.size() + " displays"));
         Level level = player.level();
@@ -274,7 +274,7 @@ public interface SCCommands
 
     private static int placeFishPlaques(ServerPlayer player)
     {
-        List<DeferredHolder<Item, ? extends Item>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
+        List<DeferredHolder<Item, ?>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
 
         player.sendSystemMessage(Component.literal("Placed " + list.size() + " fish plaques"));
         Level level = player.level();
@@ -306,7 +306,7 @@ public interface SCCommands
 
     private static int spawnAllEntities(ServerPlayer player)
     {
-        List<DeferredHolder<Item, ? extends Item>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
+        List<DeferredHolder<Item, ?>> list = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().toList();
 
         player.sendSystemMessage(Component.literal("Summoned " + list.size() + " fish"));
 

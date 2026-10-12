@@ -117,7 +117,6 @@ public class AquariumRenderer implements BlockEntityRenderer<AquariumBlockEntity
         poseStack.popPose();
     }
 
-    @Override
     public AABB getRenderBoundingBox(AquariumBlockEntity aquariumBlockEntity)
     {
         BlockPos pos = aquariumBlockEntity.getBlockPos();

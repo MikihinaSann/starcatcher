@@ -190,6 +190,6 @@ public class SettingsScreen extends FishingMinigameScreen
         else
             TournamentLayer.onTournamentReceived(tournamentCached);
 
-        this.minecraft.popGuiLayer();
+        this.minecraft.setScreen(null);
     }
 }

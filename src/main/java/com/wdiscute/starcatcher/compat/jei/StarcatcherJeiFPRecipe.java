@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class StarcatcherJeiFPRecipe extends AbstractRecipeCategory<StarcatcherJeiFPRecipe.Recipe>
 {
@@ -139,7 +140,7 @@ public class StarcatcherJeiFPRecipe extends AbstractRecipeCategory<StarcatcherJe
             List<Component> treasureTooltip = new ArrayList<>();
 
             Holder<FishProperties> holder = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY_KEY).wrapAsHolder(fp);
-            Treasure treasure = holder.getData(SCDataMaps.TREASURE);
+            Treasure treasure = DataMapManager.getData(holder, SCDataMaps.TREASURE);
 
             if (treasure == null) treasure = Treasure.EMPTY;
 

@@ -47,7 +47,7 @@ public class TackleBoxBoatRenderer extends EntityRenderer<TackleBoxBoatEntity>
 
 
                                     return Pair.of(rl,
-                                            type.isRaft() ? new RaftModel(context.bakeLayer(ModelLayers.createBoatModelName(type)))
+                                            type == net.minecraft.world.entity.vehicle.Boat.Type.BAMBOO ? new RaftModel(context.bakeLayer(ModelLayers.createBoatModelName(type)))
                                                     : new BoatModel(context.bakeLayer(ModelLayers.createBoatModelName(type))));
 
 
@@ -89,7 +89,7 @@ public class TackleBoxBoatRenderer extends EntityRenderer<TackleBoxBoatEntity>
         poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
         poseStack.translate(0, -1.32, 0.5);
 
-        if (entity.getVariant().isRaft())
+        if (entity.getVariant() == net.minecraft.world.entity.vehicle.Boat.Type.BAMBOO)
             poseStack.translate(0, -0.31, 0);
 
         boxModel.setupAnim(entity, partialTicks, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);

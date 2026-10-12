@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "DispenserWormBehaviourMixin",
-    "LecternReturnMixin"
+    "FishingHookMixin",
+    "LecternReturnMixin",
+    "PlayerAttributesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

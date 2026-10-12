@@ -27,7 +27,7 @@ public class GoldRenderer implements AutoCloseable
 
         BakedModel model = minecraft.getItemRenderer().getModel(stack, minecraft.level, minecraft.player, 0);
 
-        return model.getParticleIcon(ModelData.EMPTY);
+        return model.getParticleIcon();
     }
 
     public static ResourceLocation getTextureLoc(ResourceLocation resourceLoc)

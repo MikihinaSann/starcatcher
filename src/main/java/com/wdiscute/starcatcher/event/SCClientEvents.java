@@ -38,6 +38,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -99,15 +100,15 @@ public class SCClientEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-        EntityRenderers.register(SCEntities.FISHING_BOB.get(), FishingBobRenderer::new);
-        EntityRenderers.register(SCEntities.BROKEN_BOTTLE.get(), ThrownItemRenderer::new);
-        EntityRenderers.register(SCEntities.BOTTLED_LETTER.get(), ThrownItemRenderer::new);
-        EntityRenderers.register(SCEntities.FISH.get(), FishRenderer::new);
-        EntityRenderers.register(SCEntities.TACKLE_BOX_BOAT_ENTITY.get(), TackleBoxBoatRenderer::new);
+        EntityRendererRegistry.register(SCEntities.FISHING_BOB.get(), FishingBobRenderer::new);
+        EntityRendererRegistry.register(SCEntities.BROKEN_BOTTLE.get(), ThrownItemRenderer::new);
+        EntityRendererRegistry.register(SCEntities.BOTTLED_LETTER.get(), ThrownItemRenderer::new);
+        EntityRendererRegistry.register(SCEntities.FISH.get(), FishRenderer::new);
+        EntityRendererRegistry.register(SCEntities.TACKLE_BOX_BOAT_ENTITY.get(), TackleBoxBoatRenderer::new);
 
         event.enqueueWork(SCItemProperties::addCustomItemProperties);
 
-        if (ModList.get().isLoaded("curios"))
+        if (ModList.get().isLoaded("trinkets"))
             CuriosEvents.registerRenderers();
     }
 
@@ -271,9 +272,9 @@ public class SCClientEvents
     private static final IClientItemExtensions HOLD_ABOVE_HEAD = new IClientItemExtensions()
     {
         @Override
-        public HumanoidModel.ArmPose getArmPose(LivingEntity entity, InteractionHand hand, ItemStack stack)
+        public boolean isHoldAboveHead()
         {
-            return SCArmPoses.HOLD_ABOVE_HEAD.getValue();
+            return true;
         }
     };
 
@@ -290,7 +291,7 @@ public class SCClientEvents
     @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event)
     {
-        for (PlayerSkin.Model skin : event.getSkins())
+        for (PlayerSkin.Model skin : event.getSkins().keySet())
             if (event.getSkin(skin) instanceof PlayerRenderer renderer)
                 renderer.addLayer(new HeldFishLayer(renderer, event.getEntityModels()));
     }

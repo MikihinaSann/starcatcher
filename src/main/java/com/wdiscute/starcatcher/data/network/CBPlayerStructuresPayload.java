@@ -33,7 +33,17 @@ public record CBPlayerStructuresPayload(List<ResourceLocation> structures) imple
         context.enqueueWork(() ->
         {
             StructureRestriction.playerInStructures = structures;
-            FishingGuideScreen.onStructuresReceived();
+            Client.onStructuresReceived();
         });
+    }
+
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
+    {
+        static void onStructuresReceived()
+        {
+            FishingGuideScreen.onStructuresReceived();
+        }
     }
 }

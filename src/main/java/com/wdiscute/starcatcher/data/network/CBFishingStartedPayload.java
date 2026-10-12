@@ -40,19 +40,23 @@ public record CBFishingStartedPayload(FishProperties fp, MaybeStack treasure,
 
     public void handle(IPayloadContext context)
     {
-        context.enqueueWork(() -> client(this, context));
+        context.enqueueWork(() -> Client.client(this, context));
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void client(CBFishingStartedPayload data, IPayloadContext context)
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
     {
-        //get rod
-        ItemStack maybeRod = context.player().getMainHandItem().is(SCTags.RODS) ? context.player().getMainHandItem() : context.player().getOffhandItem();
+        static void client(CBFishingStartedPayload data, IPayloadContext context)
+        {
+            //get rod
+            ItemStack maybeRod = context.player().getMainHandItem().is(SCTags.RODS) ? context.player().getMainHandItem() : context.player().getOffhandItem();
 
-        //get tackle skin, backup of default from registry
-        AbstractTackleSkin tackleSkin = SCDataMaps.getOrDefault(maybeRod, SCDataMaps.TACKLE_SKIN, Starcatcher.TACKLE_SKIN_REGISTRY.get(Starcatcher.rl("base")));
+            //get tackle skin, backup of default from registry
+            AbstractTackleSkin tackleSkin = SCDataMaps.getOrDefault(maybeRod, SCDataMaps.TACKLE_SKIN, Starcatcher.TACKLE_SKIN_REGISTRY.get(Starcatcher.rl("base")));
 
-        //start minigame
-        Minecraft.getInstance().setScreen(new FishingMinigameScreen(data.fp(), data.treasure.toStack(), List.of(), tackleSkin));
+            //start minigame
+            Minecraft.getInstance().setScreen(new FishingMinigameScreen(data.fp(), data.treasure.toStack(), List.of(), tackleSkin));
+        }
     }
 }

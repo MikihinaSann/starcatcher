@@ -119,7 +119,6 @@ public class DisplayBlockRenderer implements BlockEntityRenderer<DisplayBlockEnt
 
     }
 
-    @Override
     public AABB getRenderBoundingBox(DisplayBlockEntity blockEntity)
     {
         BlockPos pos = blockEntity.getBlockPos();

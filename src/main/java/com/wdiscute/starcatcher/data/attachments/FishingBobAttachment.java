@@ -9,6 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.attachment.AttachmentHolder;
 
 import java.util.UUID;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingBobAttachment
 {
@@ -37,7 +38,7 @@ public class FishingBobAttachment
 
     public void setUuid(AttachmentHolder holder, UUID uuid) {
         this.uuid = uuid.toString();
-        holder.syncData(SCDataAttachments.FISHING_BOB);
+        AttachmentHandler.syncData(holder, SCDataAttachments.FISHING_BOB);
     }
 
     public UUID getUuid()

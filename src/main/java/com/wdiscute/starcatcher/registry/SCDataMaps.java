@@ -16,6 +16,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
 import java.util.List;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public interface SCDataMaps
 {
@@ -49,7 +50,7 @@ public interface SCDataMaps
 
     static <T> T getOrDefault(ItemStack stack, DataMapType<Item, T> dataMap, T d)
     {
-        T data = stack.getItemHolder().getData(dataMap);
+        T data = DataMapManager.getData(stack.getItem().builtInRegistryHolder(), dataMap);
         if (data == null) return d;
         return data;
     }

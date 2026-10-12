@@ -25,6 +25,16 @@ public record CBOpenMessagePayload(Message message) implements CustomPacketPaylo
 
     public void handle(IPayloadContext context)
     {
-        context.enqueueWork(() -> MessageScreen.openMessageScreen(message));
+        context.enqueueWork(() -> Client.openMessageScreen(message));
+    }
+
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
+    {
+        static void openMessageScreen(Message message)
+        {
+            MessageScreen.openMessageScreen(message);
+        }
     }
 }

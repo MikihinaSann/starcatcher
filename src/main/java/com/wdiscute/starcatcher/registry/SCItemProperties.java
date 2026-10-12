@@ -37,7 +37,7 @@ public interface SCItemProperties
                     item.get(),
                     Starcatcher.rl("tackle_box_color"),
                     (stack, level, entity, seed) ->
-                            switch (stack.get(SCDataComponents.TACKLE_BOX_COLOR))
+                            switch (stack.get(SCDataComponents.TACKLE_BOX_COLOR.get()))
                             {
                                 case null -> 9;
                                 case WHITE -> 0;

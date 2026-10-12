@@ -113,7 +113,7 @@ public record StarcatcherRodRecipe(Ingredient template, Ingredient rod, Ingredie
     @Override
     public boolean isIncomplete()
     {
-        return Stream.of(this.template, this.rod, this.material).anyMatch(Ingredient::hasNoItems);
+        return Stream.of(this.template, this.rod, this.material).anyMatch(Ingredient::isEmpty);
     }
 
     public static class Serializer implements RecipeSerializer<StarcatcherRodRecipe>

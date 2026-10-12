@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingGuideAttachment
 {
@@ -84,12 +85,12 @@ public class FishingGuideAttachment
 
     public static FishingGuideAttachment get(Entity holder)
     {
-        return holder.getData(SCDataAttachments.FISHING_GUIDE);
+        return AttachmentHandler.getData(holder, SCDataAttachments.FISHING_GUIDE);
     }
 
     public static void sync(Player player)
     {
-        player.syncData(SCDataAttachments.FISHING_GUIDE);
+        AttachmentHandler.syncData(player, SCDataAttachments.FISHING_GUIDE);
     }
 
 }

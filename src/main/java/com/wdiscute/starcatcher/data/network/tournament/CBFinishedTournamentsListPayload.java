@@ -35,7 +35,17 @@ public record CBFinishedTournamentsListPayload(List<Tournament> list) implements
 
     public void handle(IPayloadContext context)
     {
-        StandScreen.finishedTournaments = list;
+        context.enqueueWork(() -> Client.setFinishedTournaments(list));
+    }
+
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
+    {
+        static void setFinishedTournaments(List<Tournament> list)
+        {
+            StandScreen.finishedTournaments = list;
+        }
     }
 
 }

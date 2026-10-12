@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.List;
 import java.util.function.Supplier;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public interface SCDataAttachments
 {
@@ -70,38 +71,38 @@ public interface SCDataAttachments
     static <T> void remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
         if(holder == null) return;
-        holder.removeData(attachmentType);
+        AttachmentHandler.removeData(holder, attachmentType);
     }
 
     // sets the value to default
     static <T> void remove(Entity holder, AttachmentType<T> attachmentType)
     {
         if(holder == null) return;
-        holder.removeData(attachmentType);
+        AttachmentHandler.removeData(holder, attachmentType);
     }
 
     static <T> void set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
     {
         if(holder == null) return;
-        holder.setData(attachmentType, data);
+        AttachmentHandler.setData(holder, attachmentType, data);
     }
 
     static <T> void set(Entity holder, AttachmentType<T> attachmentType, T data)
     {
         if(holder == null) return;
-        holder.setData(attachmentType, data);
+        AttachmentHandler.setData(holder, attachmentType, data);
     }
 
     static <T> T get(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
         if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
-        return holder.getData(attachmentType);
+        return AttachmentHandler.getData(holder, attachmentType);
     }
 
     static <T> T get(Entity holder, AttachmentType<T> attachmentType)
     {
         if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
-        return holder.getData(attachmentType);
+        return AttachmentHandler.getData(holder, attachmentType);
     }
 
     static void register(IEventBus eventBus)

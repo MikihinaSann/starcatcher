@@ -3,17 +3,11 @@ package com.wdiscute.starcatcher.fishentity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.fml.common.asm.enumextension.EnumProxy;
-import net.neoforged.neoforge.client.IArmPoseTransformer;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public interface SCArmPoses
 {
-    EnumProxy<HumanoidModel.ArmPose> HOLD_ABOVE_HEAD = new EnumProxy<>(
-            HumanoidModel.ArmPose.class,
-            false,
-            (IArmPoseTransformer) SCArmPoses::applyHoldAboveHead
-    );
-
     static void applyHoldAboveHead(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm)
     {
         model.rightArm.xRot = -(float) Math.PI * 0.95F;
@@ -23,5 +17,12 @@ public interface SCArmPoses
         model.leftArm.xRot = -(float) Math.PI * 0.95F;
         model.leftArm.yRot = 0.0F;
         model.leftArm.zRot = 0.0F;
+    }
+
+    static boolean shouldHoldAboveHead(LivingEntity entity)
+    {
+        if (!(entity instanceof Player)) return false;
+        return IClientItemExtensions.of(entity.getMainHandItem()).isHoldAboveHead()
+                || IClientItemExtensions.of(entity.getOffhandItem()).isHoldAboveHead();
     }
 }

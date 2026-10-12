@@ -145,7 +145,7 @@ public class FishingBobEntity extends Projectile
         this.xRotO = this.getXRot();
 
         if (!level.isClientSide)
-            SCDataAttachments.get(player, SCDataAttachments.FISHING_BOB).setUuid(player, this.uuid);
+            SCDataAttachments.get(player, SCDataAttachments.FISHING_BOB).setUuid((net.neoforged.neoforge.attachment.AttachmentHolder) player, this.uuid);
 
         currentState = FishHookState.FLYING;
     }

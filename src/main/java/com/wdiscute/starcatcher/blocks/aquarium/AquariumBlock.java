@@ -142,9 +142,13 @@ public class AquariumBlock extends BaseEntityBlock implements SimpleWaterloggedB
     }
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid)
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player)
     {
-        return level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        // NeoForge port: original onDestroyedByPlayer forced air instead of the
+        // fluid's legacy block; vanilla captures the fluid AFTER this hook so
+        // replacing with air here keeps that behaviour.
+        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     private static final VoxelShape BOTTOM_SHAPE = Block.box(-2, -2, -2, 18, 2, 18);
@@ -226,7 +230,6 @@ public class AquariumBlock extends BaseEntityBlock implements SimpleWaterloggedB
         return shape;
     }
 
-    @Override
     public boolean shouldDisplayFluidOverlay(BlockState state, BlockAndTintGetter level, BlockPos pos, FluidState fluidState)
     {
         return false;

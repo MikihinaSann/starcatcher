@@ -22,11 +22,10 @@ public class BottledLetterItem extends Item implements ProjectileItem
         super(new Properties().stacksTo(1));
     }
 
-    @Override
     public boolean onDroppedByPlayer(ItemStack item, Player player)
     {
         player.displayClientMessage(Component.translatable("item.starcatcher.bottled_letter.dropped"), true);
-        return super.onDroppedByPlayer(item, player);
+        return true;
     }
 
     @Override

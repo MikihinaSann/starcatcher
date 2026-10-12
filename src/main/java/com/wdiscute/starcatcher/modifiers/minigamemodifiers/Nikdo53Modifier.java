@@ -70,10 +70,10 @@ public class Nikdo53Modifier extends AbstractMinigameModifier
     @Override
     public void onKeyReleased(FishingMinigameScreen instance, int key, int scanCode, int keyModifiers)
     {
-        if (key == getOptions().keyLeft.getKey().getValue())
+        if (key == getOptions().keyLeft.key.getValue())
             isHoldingLeft = false;
 
-        if (key == getOptions().keyRight.getKey().getValue())
+        if (key == getOptions().keyRight.key.getValue())
             isHoldingRight = false;
     }
 
@@ -109,14 +109,14 @@ public class Nikdo53Modifier extends AbstractMinigameModifier
     @Override
     public void onKeyPress(FishingMinigameScreen instance, int key, int scanCode, int keyModifiers)
     {
-        if (key == getOptions().keyLeft.getKey().getValue())
+        if (key == getOptions().keyLeft.key.getValue())
         {
             Minecraft.getInstance().player.playSound(SoundEvents.BAMBOO_WOOD_BUTTON_CLICK_ON, 0.6f, 1f);
             handleLayer--;
             isHoldingLeft = true;
         }
 
-        if (key == getOptions().keyRight.getKey().getValue())
+        if (key == getOptions().keyRight.key.getValue())
         {
             Minecraft.getInstance().player.playSound(SoundEvents.BAMBOO_WOOD_BUTTON_CLICK_ON, 0.6f, 1f);
             handleLayer++;

@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.registry;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.core.particles.ParticleType;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.IEventBus;
@@ -16,13 +17,13 @@ public interface SCParticles
 
 
     Supplier<SimpleParticleType> VALLEY_NOTIFICATION =
-            PARTICLE_TYPES.register("valley_notification", () -> new SimpleParticleType(true));
+            PARTICLE_TYPES.register("valley_notification", () -> FabricParticleTypes.simple(true));
 
     Supplier<SimpleParticleType> FISHING_BITING =
-            PARTICLE_TYPES.register("fishing_biting", () -> new SimpleParticleType(true));
+            PARTICLE_TYPES.register("fishing_biting", () -> FabricParticleTypes.simple(true));
 
     Supplier<SimpleParticleType> FISHING_BITING_LAVA =
-            PARTICLE_TYPES.register("fishing_biting_lava", () -> new SimpleParticleType(true));
+            PARTICLE_TYPES.register("fishing_biting_lava", () -> FabricParticleTypes.simple(true));
 
     static void register(IEventBus eventBus)
     {

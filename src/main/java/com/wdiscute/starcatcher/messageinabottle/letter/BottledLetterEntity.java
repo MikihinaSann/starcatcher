@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class BottledLetterEntity extends ThrowableItemProjectile
 {
@@ -64,7 +65,7 @@ public class BottledLetterEntity extends ThrowableItemProjectile
                     {
                         sp.displayClientMessage(Component.translatable("item.starcatcher.bottled_letter.thrown"), true);
 
-                        ResourceLocation data = level().dimensionTypeRegistration().getData(SCDataMaps.MESSAGE_BACKGROUND);
+                        ResourceLocation data = DataMapManager.getData(level().dimensionTypeRegistration(), SCDataMaps.MESSAGE_BACKGROUND);
 
                         if(data == null)
                             data = Message.BACKGROUND_OVERWORLD;

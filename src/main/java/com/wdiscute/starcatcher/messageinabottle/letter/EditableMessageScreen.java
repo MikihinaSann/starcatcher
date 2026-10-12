@@ -60,7 +60,6 @@ public class EditableMessageScreen extends Screen
             box.setTextColor(0x635040);
             box.setBordered(false);
             box.setMaxLength(40);
-            box.setTextShadow(false);
             box.setEditable(true);
             if (text.size() > i)
                 box.setValue(text.get(i));
@@ -75,7 +74,6 @@ public class EditableMessageScreen extends Screen
         nameBox.setBordered(false);
         nameBox.setMaxLength(17);
         nameBox.setValue(sender);
-        nameBox.setTextShadow(false);
         nameBox.setEditable(true);
         addWidget(nameBox);
     }
@@ -111,7 +109,7 @@ public class EditableMessageScreen extends Screen
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
         InputConstants.Key key = InputConstants.getKey(keyCode, scanCode);
-        if (this.minecraft.options.keyInventory.isActiveAndMatches(key) && boxes.stream().noneMatch(EditBox::canConsumeInput) && !nameBox.canConsumeInput())
+        if (this.minecraft.options.keyInventory.key.equals(key) && boxes.stream().noneMatch(EditBox::canConsumeInput) && !nameBox.canConsumeInput())
         {
             this.onClose();
             return true;

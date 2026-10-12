@@ -123,11 +123,11 @@ public class TackleBoxBlockEntity extends BlockEntity implements MenuProvider, T
 
         //apply fishes
         container.fishes.clear();
-        for (MaybeStack fish : componentInput.getOrDefault(SCDataComponents.TACKLE_BOX_FISHES, List.of()))
+        for (MaybeStack fish : componentInput.getOrDefault(SCDataComponents.TACKLE_BOX_FISHES.get(), List.<MaybeStack>of()))
             container.fishes.add(fish.toStack());
 
         //apply items
-        for (Utils.Duo<Integer, MaybeStack> duo : componentInput.getOrDefault(SCDataComponents.TACKLE_BOX_ITEMS, List.of()))
+        for (Utils.Duo<Integer, MaybeStack> duo : componentInput.getOrDefault(SCDataComponents.TACKLE_BOX_ITEMS.get(), List.<Utils.Duo<Integer, MaybeStack>>of()))
             container.items.put(duo.first(), duo.second().toStack());
 
         //apply name
@@ -141,13 +141,13 @@ public class TackleBoxBlockEntity extends BlockEntity implements MenuProvider, T
         components.set(DataComponents.CUSTOM_NAME, this.name);
 
         //store fishes
-        components.set(SCDataComponents.TACKLE_BOX_FISHES, container.fishes.stream().map(MaybeStack::new).toList());
+        components.set(SCDataComponents.TACKLE_BOX_FISHES.get(), container.fishes.stream().map(MaybeStack::new).toList());
 
         //store items
         List<Utils.Duo<Integer, MaybeStack>> list = new ArrayList<>();
         for (Map.Entry<Integer, ItemStack> entry : container.items.entrySet())
             list.add(new Utils.Duo<>(entry.getKey(), new MaybeStack(entry.getValue())));
-        components.set(SCDataComponents.TACKLE_BOX_ITEMS, list);
+        components.set(SCDataComponents.TACKLE_BOX_ITEMS.get(), list);
     }
 
     @Override

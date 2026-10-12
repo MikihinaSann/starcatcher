@@ -28,7 +28,7 @@ public class BottledLetterRecipe implements CraftingRecipe
         this.category = category;
         this.result = result;
         this.ingredients = ingredients;
-        this.isSimple = ingredients.stream().allMatch(Ingredient::isSimple);
+        this.isSimple = ingredients.stream().allMatch(i -> i.getItems().length == 1);
     }
 
     @Override

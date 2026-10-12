@@ -40,7 +40,7 @@ public class QualityFoodModifier extends AbstractCatchModifier
         //get actual stack to modify (if it's a bucket, get the fish inside bucket)
         ItemStack is = itemStack;
         if (itemStack.is(SCItems.STARCAUGHT_BUCKET) || itemStack.is(SCItems.STARCAUGHT_LAVA_BUCKET))
-            is = itemStack.getOrDefault(SCDataComponents.BUCKETED_FISH, new MaybeStack(itemStack)).toStack();
+            is = itemStack.getOrDefault(SCDataComponents.BUCKETED_FISH.get(), new MaybeStack(itemStack)).toStack();
 
         RandomSource r = fbe.level().getRandom();
         List<Modify> rollModifiers = fbe.modifiers
@@ -71,7 +71,7 @@ public class QualityFoodModifier extends AbstractCatchModifier
 
         if (itemStack.is(SCItems.STARCAUGHT_BUCKET) || itemStack.is(SCItems.STARCAUGHT_LAVA_BUCKET))
         {
-            itemStack.set(SCDataComponents.BUCKETED_FISH, new MaybeStack(is));
+            itemStack.set(SCDataComponents.BUCKETED_FISH.get(), new MaybeStack(is));
             return itemStack;
         }
 

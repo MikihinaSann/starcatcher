@@ -75,7 +75,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         nameEditBox.setTextColor(SCColors.GUIDE_TEXT_DARK);
         nameEditBox.setBordered(false);
         nameEditBox.setMaxLength(20);
-        nameEditBox.setTextShadow(false);
         nameEditBox.setEditable(false);
         addWidget(this.nameEditBox);
     }

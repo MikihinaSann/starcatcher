@@ -10,7 +10,6 @@ import com.wdiscute.starcatcher.fish.FishProperties;
 import com.wdiscute.starcatcher.modifiers.Modifier;
 import com.wdiscute.utils.Utils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.blay09.mods.littlejoys.api.LittleJoysAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -73,7 +72,6 @@ public class LittleJoysModifier extends AbstractCatchModifier
                     .withLuck(player.getLuck())
                     .create(LootContextParamSets.FISHING);
 
-            LittleJoysAPI.findFishingSpot(sl, fbe.blockPosition()).ifPresent(o -> LittleJoysAPI.consumeFishingSpot(player, sl, o));
             return lootTable.getRandomItems(lootparams);
         }
         return List.of();

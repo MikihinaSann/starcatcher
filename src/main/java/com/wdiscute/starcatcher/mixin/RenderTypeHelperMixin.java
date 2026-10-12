@@ -5,17 +5,18 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.fish.Rarity;
 import com.wdiscute.starcatcher.shaders.GoldRenderer;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.RenderTypeHelper;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(RenderTypeHelper.class)
+// NeoForge port: original wrapped NeoForge's RenderTypeHelper#getFallbackItemRenderType;
+// vanilla's equivalent fallback is ItemBlockRenderTypes#getRenderType(ItemStack, boolean).
+@Mixin(ItemBlockRenderTypes.class)
 public class RenderTypeHelperMixin
 {
-    @WrapMethod(method = "getFallbackItemRenderType")
-    private static RenderType getFallbackItemRenderType(ItemStack stack, BakedModel model, boolean cull, Operation<RenderType> original)
+    @WrapMethod(method = "getRenderType(Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/client/renderer/RenderType;")
+    private static RenderType getFallbackItemRenderType(ItemStack stack, boolean cull, Operation<RenderType> original)
     {
         if (Rarity.isGolden(stack))
         {
@@ -28,7 +29,7 @@ public class RenderTypeHelperMixin
                 e.printStackTrace(); // more robust logging is for pussies
             }
         }
-        return original.call(stack, model, cull);
+        return original.call(stack, cull);
     }
 
 }

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.mcexpanded.fancytabsections.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CreativeModeTabAccessor",
+    "CreativeModeTabMixin"
+  ],
+  "client": [
+    "client.CreativeModeInventoryScreenMixin",
+    "client.CustomCreativeSlotMixin",
+    "client.ItemPickerMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

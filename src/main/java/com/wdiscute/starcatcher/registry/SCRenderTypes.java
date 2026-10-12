@@ -100,8 +100,8 @@ public class SCRenderTypes
 
 
     @SubscribeEvent
-    static void registerShaders(RegisterShadersEvent event) throws IOException
+    public static void registerShaders(RegisterShadersEvent event) throws IOException
     {
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), Starcatcher.rl("gold_item"), DefaultVertexFormat.NEW_ENTITY), (shader) -> goldItemShader = shader);
+        event.registerShader(Starcatcher.rl("gold_item"), DefaultVertexFormat.NEW_ENTITY, (shader) -> goldItemShader = shader);
     }
 }

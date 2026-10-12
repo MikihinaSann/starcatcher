@@ -38,6 +38,7 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishTrackerLayer implements LayeredDraw.Layer
 {
@@ -73,8 +74,8 @@ public class FishTrackerLayer implements LayeredDraw.Layer
         lastRefreshMS = System.currentTimeMillis();
 
         LocalPlayer player = Minecraft.getInstance().player;
-        cachedRL = player.getData(SCDataAttachments.TRACKED_FISH);
-        cachedCaughtFish = player.getData(SCDataAttachments.FISHING_GUIDE).fishesCaught.containsKey(cachedRL);
+        cachedRL = AttachmentHandler.getData(player, SCDataAttachments.TRACKED_FISH);
+        cachedCaughtFish = AttachmentHandler.getData(player, SCDataAttachments.FISHING_GUIDE).fishesCaught.containsKey(cachedRL);
 
         //chances
         cachedChance = 0;
@@ -133,7 +134,7 @@ public class FishTrackerLayer implements LayeredDraw.Layer
 
         boolean shouldShow = player.getMainHandItem().is(SCTags.HAS_TRACKER_LAYER) || player.getOffhandItem().is(SCTags.HAS_TRACKER_LAYER);
 
-        ResourceLocation trackedRL = Minecraft.getInstance().player.getData(SCDataAttachments.TRACKED_FISH);
+        ResourceLocation trackedRL = AttachmentHandler.getData(Minecraft.getInstance().player, SCDataAttachments.TRACKED_FISH);
         shouldShow = shouldShow && !trackedRL.equals(Starcatcher.MISSINGNO);
 
         if (Minecraft.getInstance().screen instanceof SettingsScreen)

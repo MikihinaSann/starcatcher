@@ -57,6 +57,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingGuideScreen extends Screen
 {
@@ -230,7 +231,6 @@ public class FishingGuideScreen extends Screen
         this.signedNameEditBox.setTextColor(0xff937d70);
         this.signedNameEditBox.setBordered(false);
         this.signedNameEditBox.setMaxLength(20);
-        this.signedNameEditBox.setTextShadow(false);
         this.signedNameEditBox.setCanLoseFocus(false);
         this.signedNameEditBox.setValue(signedGuide == null ? "" : signedGuide.signature());
         this.addWidget(this.signedNameEditBox);
@@ -314,7 +314,7 @@ public class FishingGuideScreen extends Screen
     public void resolveTrackedFP()
     {
         //if needs refresh
-        ResourceLocation newTrackedRL = player.getData(SCDataAttachments.TRACKED_FISH);
+        ResourceLocation newTrackedRL = AttachmentHandler.getData(player, SCDataAttachments.TRACKED_FISH);
         if (cachedFp == null || !newTrackedRL.equals(cachedRL) && player != null && level != null)
         {
             //set page to tracked fished when opening
@@ -333,7 +333,7 @@ public class FishingGuideScreen extends Screen
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
         InputConstants.Key key = InputConstants.getKey(keyCode, scanCode);
-        if (this.minecraft.options.keyInventory.isActiveAndMatches(key) && !signedNameEditBox.canConsumeInput())
+        if (this.minecraft.options.keyInventory.key.equals(key) && !signedNameEditBox.canConsumeInput())
         {
             if (menu.equals(MenuEntry.INDEX))
                 this.onClose();
@@ -1565,7 +1565,7 @@ public class FishingGuideScreen extends Screen
 
     private void renderEntry(GuiGraphics guiGraphics, int mouseX, int mouseY, int xOffset, int entry)
     {
-        if (level == null) level = getMinecraft().level;
+        if (level == null) level = minecraft.level;
 
         if (entries.size() <= entry) return;
 

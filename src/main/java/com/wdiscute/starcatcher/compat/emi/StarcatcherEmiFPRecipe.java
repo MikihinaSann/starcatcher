@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class StarcatcherEmiFPRecipe implements EmiRecipe
 {
@@ -54,7 +55,7 @@ public class StarcatcherEmiFPRecipe implements EmiRecipe
         this.is = fp.catchInfo().fish().toStack();
 
         Holder<FishProperties> holder = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY_KEY).wrapAsHolder(fp);
-        Treasure treasure = holder.getData(SCDataMaps.TREASURE);
+        Treasure treasure = DataMapManager.getData(holder, SCDataMaps.TREASURE);
 
         if (treasure == null) treasure = Treasure.EMPTY;
 

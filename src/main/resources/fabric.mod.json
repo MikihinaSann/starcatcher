@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "starcatcher",
+  "provides": [
+    "libtooltips",
+    "selling_bin",
+    "fancytabsections",
+    "wdutils"
+  ],
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "A fishing mod with lots of fishes to collect!",
+  "authors": [
+    "wdiscute",
+    "Nikdo53",
+    "ScribbleDemon",
+    "DayTheMagpie",
+    "Spring",
+    "Kapitencraft",
+    "DuckXYZ",
+    "Identidade470",
+    "HappyMeek",
+    "Pure"
+  ],
+  "contact": {
+    "issues": "https://discord.gg/WsuFsGSegD"
+  },
+  "license": "${mod_license}",
+  "icon": "icon.png",
+  "environment": "*",
+  "accessWidener": "starcatcher.accesswidener",
+  "entrypoints": {
+    "main": [
+      "com.wdiscute.starcatcher.StarcatcherFabric"
+    ],
+    "client": [
+      "com.wdiscute.starcatcher.StarcatcherFabricClient"
+    ]
+  },
+  "mixins": [
+    "starcatcher.mixins.json",
+    "fabric.mixins.json",
+    "libtooltips.mixins.json",
+    "fancytabsections.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "breaks": {
+    "starcatcher_delight": "<3.0"
+  }
+}

@@ -59,9 +59,9 @@ public enum Rarity implements StringRepresentable
 
     public static boolean isGolden(ItemStack stack)
     {
-        if (stack.has(SCDataComponents.CAUGHT_FISH_INFO))
+        if (stack.has(SCDataComponents.CAUGHT_FISH_INFO.get()))
         {
-            CaughtFishInfo caughtFishInfo = stack.get(SCDataComponents.CAUGHT_FISH_INFO);
+            CaughtFishInfo caughtFishInfo = stack.get(SCDataComponents.CAUGHT_FISH_INFO.get());
             return caughtFishInfo != null && caughtFishInfo.rarity().equals(GOLDEN);
         }
         return false;

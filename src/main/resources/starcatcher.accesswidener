@@ -1,0 +1,18 @@
+accessWidener	v2	named
+
+accessible	class	net/minecraft/client/renderer/RenderType$CompositeRenderType
+accessible	field	net/minecraft/client/gui/Gui	overlayMessageTime	I
+accessible	method	net/minecraft/client/renderer/texture/TextureAtlas	getWidth	()I
+accessible	method	net/minecraft/client/renderer/texture/TextureAtlas	getHeight	()I
+accessible	field	net/minecraft/client/KeyMapping	key	Lcom/mojang/blaze3d/platform/InputConstants$Key;
+
+accessible	method	net/minecraft/client/renderer/entity/LivingEntityRenderer	addLayer	(Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
+accessible	field	net/minecraft/client/renderer/entity/EntityRenderDispatcher	playerRenderers	Ljava/util/Map;
+accessible	field	net/minecraft/client/renderer/entity/EntityRenderDispatcher	entityModels	Lnet/minecraft/client/model/geom/EntityModelSet;
+accessible	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	leftPos	I
+accessible	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	topPos	I
+accessible	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	imageHeight	I
+accessible	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	imageWidth	I
+accessible	method	net/minecraft/core/MappedRegistry	getOrCreateHolderOrThrow	(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;
+accessible	method	net/minecraft/commands/synchronization/ArgumentTypeInfos	register	(Lnet/minecraft/core/Registry;Ljava/lang/String;Ljava/lang/Class;Lnet/minecraft/commands/synchronization/ArgumentTypeInfo;)Lnet/minecraft/commands/synchronization/ArgumentTypeInfo;
+accessible	field	net/minecraft/world/entity/ai/attributes/AttributeSupplier	instances	Ljava/util/Map;

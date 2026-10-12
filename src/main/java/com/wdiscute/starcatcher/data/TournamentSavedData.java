@@ -49,7 +49,7 @@ public class TournamentSavedData extends SavedData
 
     public static SavedData.Factory<TournamentSavedData> factory()
     {
-        return new SavedData.Factory<>(TournamentSavedData::new, TournamentSavedData::load);
+        return new SavedData.Factory<>(TournamentSavedData::new, TournamentSavedData::load, null);
     }
 
     @Override

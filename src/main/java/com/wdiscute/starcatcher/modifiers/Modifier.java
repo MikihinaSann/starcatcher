@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public interface Modifier
 {
@@ -53,11 +54,11 @@ public interface Modifier
 
     static void addModifierToItem(ItemStack stack, Modifier modifier)
     {
-        List<Modifier> modifiers = new ArrayList<>(stack.getOrDefault(SCDataComponents.MODIFIERS, List.of()));
+        List<Modifier> modifiers = new ArrayList<>(stack.getOrDefault(SCDataComponents.MODIFIERS.get(), List.of()));
 
         modifiers.add(modifier);
 
-        stack.set(SCDataComponents.MODIFIERS, modifiers);
+        stack.set(SCDataComponents.MODIFIERS.get(), modifiers);
     }
 
     List<Component> getDescription(boolean shift);
@@ -110,7 +111,7 @@ public interface Modifier
         player.getInventory().armor.forEach(o -> modifiers.addAll(getModifiers(o)));
 
         //curios
-        if (ModList.get().isLoaded("curios"))
+        if (ModList.get().isLoaded("trinkets"))
             CuriosCompat.getItems(player).forEach(o -> modifiers.addAll(getModifiers(o)));
 
         //data attachments
@@ -119,7 +120,7 @@ public interface Modifier
         //potion effects
         for (MobEffectInstance activeEffect : player.getActiveEffects())
         {
-            List<Modifier> list = activeEffect.getEffect().getData(SCDataMaps.EFFECT_MODIFIERS);
+            List<Modifier> list = DataMapManager.getData(activeEffect.getEffect(), SCDataMaps.EFFECT_MODIFIERS);
 
             if (list != null && !list.isEmpty())
                 for (int i = 0; i < activeEffect.getAmplifier(); i++)
@@ -142,9 +143,9 @@ public interface Modifier
         //enchants
         if (itemStack.isEnchanted())
         {
-            for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getTagEnchantments().entrySet())
+            for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getEnchantments().entrySet())
             {
-                List<Modifier> list = entry.getKey().getData(SCDataMaps.ENCHANTMENT_MODIFIERS);
+                List<Modifier> list = DataMapManager.getData(entry.getKey(), SCDataMaps.ENCHANTMENT_MODIFIERS);
                 if (list != null && !list.isEmpty())
                 {
                     for (int i = 0; i < entry.getIntValue(); i++)

@@ -25,6 +25,16 @@ public record CBOpenEditableMessagePayload(EditableMessage message) implements C
 
     public void handle(IPayloadContext context)
     {
-        context.enqueueWork(() -> EditableMessageScreen.openEditableMessageScreen(message));
+        context.enqueueWork(() -> Client.openEditableMessageScreen(message));
+    }
+
+    //fabric port: NeoForge strips @OnlyIn methods on dedicated servers; keeping
+    //the client refs in a nested class gives the same lazy-loading guarantee
+    private static class Client
+    {
+        static void openEditableMessageScreen(EditableMessage message)
+        {
+            EditableMessageScreen.openEditableMessageScreen(message);
+        }
     }
 }

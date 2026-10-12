@@ -34,10 +34,12 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
+import com.wdiscute.starcatcher.event.SCEvents;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class FishApi
 {
@@ -196,7 +198,7 @@ public class FishApi
 
                 //check if it can spawn entity
                 boolean canSpawnEntity;
-                ResourceLocation location = fp.catchInfo().entityToSpawn().getKey().location();
+                ResourceLocation location = fp.catchInfo().entityToSpawn().unwrapKey().orElseThrow().location();
                 if (location.getNamespace().equals("starcatcher"))
                     //if entity is from starcatcher, can only spawn if it's a bucketable fish (aka has a model)
                     canSpawnEntity = SCItems.BUCKETABLE_FISHES_REGISTRY.getEntries().stream().map(
@@ -313,7 +315,7 @@ public class FishApi
                     FishingHook fakeHook = new FishingHook(player, level, 0, 0);
                     fakeHook.setPos(fbe.position());
                     ItemFishedEvent event = new ItemFishedEvent(items, 0, fakeHook);
-                    NeoForge.EVENT_BUS.post(event);
+                    SCEvents.itemFished(event);
                     if (event.isCanceled()) items.clear();
                     fakeHook.discard();
                 }
@@ -448,7 +450,7 @@ public class FishApi
         if (fishProperties.getKey(fp) == null)
             return ItemStack.EMPTY;
 
-        Treasure data = fishProperties.wrapAsHolder(fp).getData(SCDataMaps.TREASURE);
+        Treasure data = DataMapManager.getData(fishProperties.wrapAsHolder(fp), SCDataMaps.TREASURE);
 
         if (data == null) return ItemStack.EMPTY;
 

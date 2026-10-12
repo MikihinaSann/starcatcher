@@ -15,6 +15,7 @@ import com.wdiscute.starcatcher.registry.SCDataMaps;
 import com.wdiscute.starcatcher.registry.SCItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -44,7 +45,7 @@ public class SCTooltipEvents
     {
         List<Component> comp = new ArrayList<>();
         ItemStack stack = event.getItemStack();
-        boolean hasShiftDown = event.getFlags().hasShiftDown();
+        boolean hasShiftDown = Screen.hasShiftDown();
 
         //cache check
         if (stack == cachedItem && cachedTimer > 0 && hasShiftDown == cachedShift)

@@ -36,7 +36,7 @@ public class StarcatcherFishingRodItem extends Item
                 .component(SCDataComponents.BOBBER.get(), new MaybeStack(SCItems.BOBBER.get()))
                 .component(SCDataComponents.BAIT.get(), MaybeStack.EMPTY)
                 .component(SCDataComponents.HOOK.get(), new MaybeStack(SCItems.HOOK.get()))
-                .setNoRepair()
+                
         );
     }
 
@@ -81,7 +81,7 @@ public class StarcatcherFishingRodItem extends Item
             tackleSkin.onCast(player);
 
             //set player <> bobber link
-            fishingBobAttachment.setUuid(player, entity.getUUID());
+            fishingBobAttachment.setUuid((net.neoforged.neoforge.attachment.AttachmentHolder) player, entity.getUUID());
             SCDataAttachments.set(entity, SCDataAttachments.TACKLE_SKIN.get(), Starcatcher.TACKLE_SKIN_REGISTRY.getKey(tackleSkin));
         }
         //if player is fishing
@@ -107,13 +107,13 @@ public class StarcatcherFishingRodItem extends Item
     }
 
     @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack)
+    public boolean hasCraftingRemainingItem()
     {
         return true;
     }
 
     @Override
-    public ItemStack getCraftingRemainingItem(ItemStack itemStack)
+    public ItemStack getRecipeRemainder(ItemStack itemStack)
     {
         return itemStack.copy();
     }

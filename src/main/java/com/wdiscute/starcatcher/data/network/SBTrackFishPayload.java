@@ -7,6 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.attachment.AttachmentHandler;
 
 public record SBTrackFishPayload(ResourceLocation fp) implements CustomPacketPayload
 {
@@ -29,10 +30,10 @@ public record SBTrackFishPayload(ResourceLocation fp) implements CustomPacketPay
     {
         context.enqueueWork(() ->
         {
-            if (context.player().getData(SCDataAttachments.TRACKED_FISH).equals(fp))
-                context.player().setData(SCDataAttachments.TRACKED_FISH, Starcatcher.MISSINGNO);
+            if (AttachmentHandler.getData(context.player(), SCDataAttachments.TRACKED_FISH).equals(fp))
+                AttachmentHandler.setData(context.player(), SCDataAttachments.TRACKED_FISH, Starcatcher.MISSINGNO);
             else
-                context.player().setData(SCDataAttachments.TRACKED_FISH, fp);
+                AttachmentHandler.setData(context.player(), SCDataAttachments.TRACKED_FISH, fp);
         });
     }
 }

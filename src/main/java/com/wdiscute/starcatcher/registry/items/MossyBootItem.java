@@ -12,13 +12,13 @@ public class MossyBootItem extends Item
     }
 
     @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack)
+    public boolean hasCraftingRemainingItem()
     {
         return true;
     }
 
     @Override
-    public ItemStack getCraftingRemainingItem(ItemStack itemStack)
+    public ItemStack getRecipeRemainder(ItemStack itemStack)
     {
         return SCItems.BOOT.toStack();
     }

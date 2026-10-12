@@ -26,8 +26,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
@@ -81,12 +79,15 @@ public class Starcatcher
     public Starcatcher(IEventBus modEventBus, ModContainer modContainer)
     {
         SCCreativeModeTabs.register(modEventBus);
-        SCItems.register(modEventBus);
+        //fabric port: NeoForge fires RegisterEvents in registry-name order, so
+        //entity types bind before items; keep that order or item suppliers that
+        //capture entity types (StarcaughtBucket) hit unbound holders
+        SCEntities.register(modEventBus);
         SCBlocks.register(modEventBus);
+        SCItems.register(modEventBus);
         SCBlockEntities.register(modEventBus);
         SCDataComponents.register(modEventBus);
         SCSounds.register(modEventBus);
-        SCEntities.register(modEventBus);
         SCParticles.register(modEventBus);
         SCRecipes.register(modEventBus);
         SCMenuTypes.register(modEventBus);
@@ -117,7 +118,7 @@ public class Starcatcher
     {
         public Client(ModContainer modContainer)
         {
-            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+            //fabric port: config screens go through FCAP/ModMenu, not this extension point
 
             //register tooltip tag processors
             Tooltips.registerProcessor("scgolden",
