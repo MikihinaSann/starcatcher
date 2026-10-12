@@ -3,9 +3,9 @@ package com.wdiscute.starcatcher.registry;
 import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 public interface SCStats
 {

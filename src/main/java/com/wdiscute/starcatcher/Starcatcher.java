@@ -21,12 +21,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.Dist;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.fml.ModContainer;
+import com.wdiscute.starcatcher.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.registries.RegistryBuilder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.RegistryBuilder;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 

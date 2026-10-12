@@ -7,11 +7,11 @@ import com.wdiscute.sellingbin.processors.AbstractProcessor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.registries.datamaps.DataMapType;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public interface SBDataMaps
 {

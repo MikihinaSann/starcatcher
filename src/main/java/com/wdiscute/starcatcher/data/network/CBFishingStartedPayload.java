@@ -12,9 +12,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.Dist;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.OnlyIn;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 

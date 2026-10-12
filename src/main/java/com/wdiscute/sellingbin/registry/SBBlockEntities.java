@@ -4,8 +4,8 @@ import com.wdiscute.sellingbin.SellingBin;
 import com.wdiscute.sellingbin.bin.SellingBinBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 

@@ -20,8 +20,8 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.neoforged.fml.loading.FMLLoader;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.fml.loading.FMLLoader;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.BufferedReader;
 import java.util.*;

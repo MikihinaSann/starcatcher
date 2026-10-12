@@ -6,7 +6,7 @@ import net.mcexpanded.fancytabsections.Section.SectionColored;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
 
 import java.util.ArrayList;
 import java.util.List;

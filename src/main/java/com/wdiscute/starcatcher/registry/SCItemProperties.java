@@ -7,7 +7,7 @@ import com.wdiscute.utils.MaybeStack;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
 
 public interface SCItemProperties
 {

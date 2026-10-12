@@ -10,7 +10,7 @@ import com.wdiscute.starcatcher.modifiers.Modifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.loading.FMLLoader;
+import com.wdiscute.starcatcher.neoforged.fml.loading.FMLLoader;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -73,7 +73,7 @@ public class BottledLetterRecipe implements CraftingRecipe
             for (var item : input.items())
                 if (!item.isEmpty())
                     nonEmptyItems.add(item);
-            return net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(nonEmptyItems, this.ingredients) != null;
+            return com.wdiscute.starcatcher.neoforged.neoforge.common.util.RecipeMatcher.findMatches(nonEmptyItems, this.ingredients) != null;
         }
         else
         {

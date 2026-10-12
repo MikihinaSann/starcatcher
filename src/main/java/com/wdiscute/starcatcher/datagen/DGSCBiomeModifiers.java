@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class DGSCBiomeModifiers
 {

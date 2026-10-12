@@ -7,12 +7,12 @@ import com.wdiscute.sellingbin.registry.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.Dist;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.fml.ModContainer;
+import com.wdiscute.starcatcher.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.registries.RegistryBuilder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.RegistryBuilder;
 import org.slf4j.Logger;
 
 import java.util.Random;

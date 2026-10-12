@@ -15,9 +15,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

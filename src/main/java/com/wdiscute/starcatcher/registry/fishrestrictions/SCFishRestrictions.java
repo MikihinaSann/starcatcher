@@ -1,9 +1,9 @@
 package com.wdiscute.starcatcher.registry.fishrestrictions;
 
 import com.wdiscute.starcatcher.Starcatcher;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 import java.util.Map;

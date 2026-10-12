@@ -17,7 +17,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.Tags;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 

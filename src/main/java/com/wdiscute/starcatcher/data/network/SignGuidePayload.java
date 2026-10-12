@@ -20,7 +20,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.time.Instant;
 import java.util.Date;

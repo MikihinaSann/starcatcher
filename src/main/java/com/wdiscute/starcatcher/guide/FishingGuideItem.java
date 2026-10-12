@@ -37,7 +37,7 @@ import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 import java.time.Instant;
 import java.util.*;

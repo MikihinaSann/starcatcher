@@ -4,8 +4,8 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.recipe.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 

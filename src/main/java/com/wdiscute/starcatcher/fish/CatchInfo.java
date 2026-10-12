@@ -13,7 +13,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public record CatchInfo(
         MaybeStack fish,

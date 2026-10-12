@@ -8,10 +8,10 @@ import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.Dist;
+import com.wdiscute.starcatcher.neoforged.bus.api.SubscribeEvent;
+import com.wdiscute.starcatcher.neoforged.fml.common.EventBusSubscriber;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.event.RegisterShadersEvent;
 import org.joml.Matrix4f;
 
 import java.io.IOException;

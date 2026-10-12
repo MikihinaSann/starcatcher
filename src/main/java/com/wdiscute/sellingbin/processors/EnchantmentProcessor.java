@@ -12,7 +12,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Map;

@@ -11,15 +11,15 @@ import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.event.AddPackFindersEvent;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
-import net.neoforged.neoforge.registries.NewRegistryEvent;
-import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import com.wdiscute.starcatcher.neoforged.bus.api.SubscribeEvent;
+import com.wdiscute.starcatcher.neoforged.fml.common.EventBusSubscriber;
+import com.wdiscute.starcatcher.neoforged.neoforge.capabilities.Capabilities;
+import com.wdiscute.starcatcher.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.AddPackFindersEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.NewRegistryEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 @EventBusSubscriber(modid = SellingBin.MOD_ID)
 public class SBevents

@@ -9,7 +9,7 @@ import com.wdiscute.utils.Utils;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
 
 import java.util.List;
 import java.util.Map;

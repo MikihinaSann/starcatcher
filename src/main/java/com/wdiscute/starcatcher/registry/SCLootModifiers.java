@@ -3,10 +3,10 @@ package com.wdiscute.starcatcher.registry;
 import com.mojang.serialization.MapCodec;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.loot.AddItemModifier;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
 

@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 import java.time.Instant;
 import java.time.ZoneId;

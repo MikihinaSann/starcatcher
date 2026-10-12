@@ -15,7 +15,7 @@ import net.mcexpanded.fancytabsections.Section.SectionColored;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
 
 import java.util.ArrayList;
 import java.util.List;

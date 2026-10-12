@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.Tags;
 
 public class AquariumRenderer implements BlockEntityRenderer<AquariumBlockEntity>
 {

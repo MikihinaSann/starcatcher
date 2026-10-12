@@ -81,7 +81,7 @@ public class StarcatcherFishingRodItem extends Item
             tackleSkin.onCast(player);
 
             //set player <> bobber link
-            fishingBobAttachment.setUuid((net.neoforged.neoforge.attachment.AttachmentHolder) player, entity.getUUID());
+            fishingBobAttachment.setUuid((com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHolder) player, entity.getUUID());
             SCDataAttachments.set(entity, SCDataAttachments.TACKLE_SKIN.get(), Starcatcher.TACKLE_SKIN_REGISTRY.getKey(tackleSkin));
         }
         //if player is fishing

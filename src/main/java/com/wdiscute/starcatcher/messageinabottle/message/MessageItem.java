@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 public class MessageItem extends Item
 {

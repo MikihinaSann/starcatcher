@@ -13,10 +13,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.neoforged.neoforge.registries.datamaps.DataMapType;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapType;
 
 import java.util.List;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public interface SCDataMaps
 {

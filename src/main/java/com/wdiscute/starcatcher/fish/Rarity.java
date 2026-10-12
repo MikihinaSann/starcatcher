@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public enum Rarity implements StringRepresentable
 {

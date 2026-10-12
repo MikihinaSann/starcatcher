@@ -48,7 +48,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.time.Instant;
@@ -57,7 +57,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingGuideScreen extends Screen
 {

@@ -31,15 +31,15 @@ import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.Tags;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.NeoForge;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.Tags;
 import com.wdiscute.starcatcher.event.SCEvents;
-import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class FishApi
 {

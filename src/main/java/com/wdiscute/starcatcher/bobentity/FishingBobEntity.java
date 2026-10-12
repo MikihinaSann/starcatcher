@@ -34,8 +34,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.Tags;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -145,7 +145,7 @@ public class FishingBobEntity extends Projectile
         this.xRotO = this.getXRot();
 
         if (!level.isClientSide)
-            SCDataAttachments.get(player, SCDataAttachments.FISHING_BOB).setUuid((net.neoforged.neoforge.attachment.AttachmentHolder) player, this.uuid);
+            SCDataAttachments.get(player, SCDataAttachments.FISHING_BOB).setUuid((com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHolder) player, this.uuid);
 
         currentState = FishHookState.FLYING;
     }

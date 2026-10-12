@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
 import net.satisfy.vinery.core.component.WineYearComponent;
 import net.satisfy.vinery.core.registry.DataComponentRegistry;
 import net.satisfy.vinery.core.wine.WineYears;

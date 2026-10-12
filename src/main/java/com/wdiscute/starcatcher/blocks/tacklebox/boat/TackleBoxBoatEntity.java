@@ -37,7 +37,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.neoforged.neoforge.common.extensions.MenuHelper;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.extensions.MenuHelper;
 import net.minecraft.server.level.ServerPlayer;
 
 public class TackleBoxBoatEntity extends Boat implements HasCustomInventoryScreen, TackleBoxWorldlyContainerHelper, MenuProvider

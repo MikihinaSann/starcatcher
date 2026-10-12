@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public class BottledLetterEntity extends ThrowableItemProjectile
 {

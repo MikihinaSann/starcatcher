@@ -16,13 +16,13 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 
 public interface Modifier
 {

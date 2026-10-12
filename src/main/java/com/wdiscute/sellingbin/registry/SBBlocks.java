@@ -5,10 +5,10 @@ import com.wdiscute.sellingbin.bin.SellingBinBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredBlock;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredItem;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 public interface SBBlocks
 {

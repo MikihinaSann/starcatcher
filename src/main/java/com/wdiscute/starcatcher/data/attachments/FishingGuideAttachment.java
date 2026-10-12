@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingGuideAttachment
 {

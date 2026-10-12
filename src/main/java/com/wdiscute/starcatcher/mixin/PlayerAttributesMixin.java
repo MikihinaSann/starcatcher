@@ -2,7 +2,7 @@ package com.wdiscute.starcatcher.mixin;
 
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

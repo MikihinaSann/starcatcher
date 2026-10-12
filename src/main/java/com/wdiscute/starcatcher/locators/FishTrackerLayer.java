@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishTrackerLayer implements LayeredDraw.Layer
 {

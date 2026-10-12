@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.neoforged.neoforge.attachment.mixin",
+  "package": "com.wdiscute.starcatcher.neoforged.neoforge.attachment.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EntityAttachmentMixin"

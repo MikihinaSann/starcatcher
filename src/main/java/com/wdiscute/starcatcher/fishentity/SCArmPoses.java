@@ -4,7 +4,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public interface SCArmPoses
 {

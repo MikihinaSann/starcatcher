@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class NewCatchIncreaseModifier extends AbstractCatchModifier
 {

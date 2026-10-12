@@ -4,7 +4,7 @@ import dev.ryanhcode.sable.Sable;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
 
 public class SableCompat {
     public static boolean isLoaded() {

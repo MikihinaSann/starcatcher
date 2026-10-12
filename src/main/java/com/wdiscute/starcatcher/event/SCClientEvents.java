@@ -49,15 +49,15 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import com.wdiscute.starcatcher.neoforged.api.distmarker.Dist;
+import com.wdiscute.starcatcher.neoforged.bus.api.SubscribeEvent;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.fml.common.EventBusSubscriber;
+import com.wdiscute.starcatcher.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.event.*;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 

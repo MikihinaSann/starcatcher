@@ -6,10 +6,10 @@ import com.wdiscute.starcatcher.registry.SCDataAttachments;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.neoforge.attachment.AttachmentHolder;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHolder;
 
 import java.util.UUID;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
 
 public class FishingBobAttachment
 {

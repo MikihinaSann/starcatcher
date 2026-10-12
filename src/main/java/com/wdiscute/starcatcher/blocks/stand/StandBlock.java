@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
-import net.neoforged.neoforge.common.extensions.MenuHelper;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.extensions.MenuHelper;
 import net.minecraft.server.level.ServerPlayer;
 
 public class StandBlock extends AbstractMultiBlock implements IPreviewableMultiblock

@@ -12,8 +12,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.CommonColors;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.tick.ServerTickEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;

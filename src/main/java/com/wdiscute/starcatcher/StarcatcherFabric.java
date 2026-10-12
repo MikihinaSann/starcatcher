@@ -21,27 +21,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.InteractionResult;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.attachment.AttachmentHandler;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.common.loot.GlobalLootModifierManager;
-import net.neoforged.neoforge.event.*;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
-import net.neoforged.neoforge.event.server.ServerStoppingEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.registries.DataPackRegistryEvent;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NewRegistryEvent;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
-import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.fml.ModContainer;
+import com.wdiscute.starcatcher.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler;
+import com.wdiscute.starcatcher.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.loot.GlobalLootModifierManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.*;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.PlayerEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.server.ServerStartedEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.server.ServerStoppingEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.event.tick.ServerTickEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DataPackRegistryEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.NewRegistryEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -165,8 +165,8 @@ public class StarcatcherFabric implements ModInitializer
         net.minecraft.commands.synchronization.ArgumentTypeInfos.register(
                 net.minecraft.core.registries.BuiltInRegistries.COMMAND_ARGUMENT_TYPE,
                 "starcatcher:enum",
-                (Class) net.neoforged.neoforge.server.command.EnumArgument.class,
-                new net.neoforged.neoforge.server.command.EnumArgument.EnumArgumentInfo());
+                (Class) com.wdiscute.starcatcher.neoforged.neoforge.server.command.EnumArgument.class,
+                new com.wdiscute.starcatcher.neoforged.neoforge.server.command.EnumArgument.EnumArgumentInfo());
     }
 
     private static IdentifiableResourceReloadListener wrap(ResourceLocation id, PreparableReloadListener listener)

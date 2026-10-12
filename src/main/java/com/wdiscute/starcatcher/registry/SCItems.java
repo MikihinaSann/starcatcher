@@ -16,11 +16,11 @@ import com.wdiscute.utils.item.SingleStackBasicItem;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.data.loading.DatagenModLoader;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.wdiscute.starcatcher.neoforged.bus.api.IEventBus;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.neoforge.data.loading.DatagenModLoader;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredItem;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredRegister;
 
 public interface SCItems
 {

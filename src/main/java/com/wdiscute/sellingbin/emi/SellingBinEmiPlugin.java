@@ -1,7 +1,7 @@
 package com.wdiscute.sellingbin.emi;
 
 import com.wdiscute.sellingbin.SellingBin;
-import net.neoforged.neoforge.registries.datamaps.DataMapManager;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.datamaps.DataMapManager;
 import com.wdiscute.sellingbin.bin.Currency;
 import com.wdiscute.sellingbin.registry.SBBlocks;
 import com.wdiscute.sellingbin.registry.SBDataMaps;

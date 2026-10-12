@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.compat;
 
 import com.wdiscute.starcatcher.bobentity.FishingBobEntity;
-import net.neoforged.fml.ModList;
+import com.wdiscute.starcatcher.neoforged.fml.ModList;
 
 // Little Joys has no Fabric 1.21.1 build; fishing spots are never detected.
 public class LittleJoysCompat

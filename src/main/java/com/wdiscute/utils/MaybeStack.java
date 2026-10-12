@@ -10,8 +10,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredBlock;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredItem;
 
 public record MaybeStack(ResourceLocation identifier, int count, DataComponentPatch patch)
 {

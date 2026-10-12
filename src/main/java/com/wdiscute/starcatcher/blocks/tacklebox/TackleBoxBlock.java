@@ -44,12 +44,12 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import com.wdiscute.starcatcher.neoforged.neoforge.registries.DeferredBlock;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
-import net.neoforged.neoforge.common.extensions.MenuHelper;
+import com.wdiscute.starcatcher.neoforged.neoforge.common.extensions.MenuHelper;
 import net.minecraft.server.level.ServerPlayer;
 
 public class TackleBoxBlock extends BaseEntityBlock implements SimpleWaterloggedBlock

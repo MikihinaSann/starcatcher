@@ -5,8 +5,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.neoforged.fml.ModLoadingException;
-import net.neoforged.fml.ModLoadingIssue;
+import com.wdiscute.starcatcher.neoforged.fml.ModLoadingException;
+import com.wdiscute.starcatcher.neoforged.fml.ModLoadingIssue;
 
 import java.util.List;
 

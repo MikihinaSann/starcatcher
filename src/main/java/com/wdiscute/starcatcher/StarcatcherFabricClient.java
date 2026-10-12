@@ -22,10 +22,10 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import com.wdiscute.starcatcher.neoforged.fml.ModContainer;
+import com.wdiscute.starcatcher.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.event.*;
+import com.wdiscute.starcatcher.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 import java.io.IOException;
 
@@ -39,11 +39,11 @@ public class StarcatcherFabricClient implements ClientModInitializer
     {
         ModContainer container = new ModContainer(Starcatcher.MOD_ID);
 
-        net.neoforged.neoforge.attachment.AttachmentHandler.initClient();
+        com.wdiscute.starcatcher.neoforged.neoforge.attachment.AttachmentHandler.initClient();
 
         // vendored client inits
         new Starcatcher.Client(container);
-        new Tooltips.Client(new ModContainer(Tooltips.MOD_ID), net.neoforged.bus.api.IEventBus.NOOP);
+        new Tooltips.Client(new ModContainer(Tooltips.MOD_ID), com.wdiscute.starcatcher.neoforged.bus.api.IEventBus.NOOP);
         new SellingBin.Client(new ModContainer(SellingBin.MOD_ID));
         new FTSInternal.Client(new ModContainer("fancytabsections"));
 
@@ -88,8 +88,8 @@ public class StarcatcherFabricClient implements ClientModInitializer
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) ->
         {
             Player player = Minecraft.getInstance().player;
-            net.neoforged.neoforge.event.entity.player.ItemTooltipEvent event =
-                    new net.neoforged.neoforge.event.entity.player.ItemTooltipEvent(
+            com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.ItemTooltipEvent event =
+                    new com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.ItemTooltipEvent(
                             stack, player, lines, tooltipType, tooltipContext);
             Tooltips.modifyItemTooltip(event);
             SCTooltipEvents.tooltipEvent(event);
