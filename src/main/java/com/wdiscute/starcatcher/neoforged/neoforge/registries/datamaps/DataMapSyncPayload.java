@@ -10,16 +10,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * S2C payload carrying resolved data-map values. Keys starting with '#' are
- * tag entries ({@code #namespace:tag}); the rest are plain registry keys.
+ * S2C payload carrying resolved data-map values. Outer keys are composite type
+ * keys ({@code "<registryDir>/<mapId>"}, e.g. {@code "item/starcatcher:modifiers"})
+ * since several data-map types can share one id. Inner keys starting with '#'
+ * are tag entries ({@code #namespace:tag}); the rest are plain registry keys.
  */
-public record DataMapSyncPayload(Map<ResourceLocation, Map<String, byte[]>> values) implements CustomPacketPayload
+public record DataMapSyncPayload(Map<String, Map<String, byte[]>> values) implements CustomPacketPayload
 {
     public static final Type<DataMapSyncPayload> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath("neoforge", "data_map_sync"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DataMapSyncPayload> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC,
+            ByteBufCodecs.map(HashMap::new, ByteBufCodecs.STRING_UTF8,
                     ByteBufCodecs.map(HashMap::new, ByteBufCodecs.STRING_UTF8, ByteBufCodecs.BYTE_ARRAY)),
             DataMapSyncPayload::values,
             DataMapSyncPayload::new

@@ -65,22 +65,29 @@ public class DataMapManager
     }
 
     private static final Gson GSON = new GsonBuilder().create();
-    private static final Map<ResourceLocation, DataMapType<?, ?>> TYPES = new HashMap<>();
+    // keyed by "<registryDir>/<mapId>" — multiple types may share an id
+    // (e.g. starcatcher:modifiers on item/enchantment/mob_effect registries)
+    private static final Map<String, DataMapType<?, ?>> TYPES = new HashMap<>();
     private static final Map<DataMapType<?, ?>, Map<ResourceKey<?>, Object>> SERVER_DATA = new IdentityHashMap<>();
     private static final Map<DataMapType<?, ?>, List<Map.Entry<TagKey<?>, Object>>> SERVER_TAGS = new IdentityHashMap<>();
     private static final Map<DataMapType<?, ?>, Map<ResourceKey<?>, Object>> CLIENT_DATA = new IdentityHashMap<>();
     private static final Map<DataMapType<?, ?>, List<Map.Entry<TagKey<?>, Object>>> CLIENT_TAGS = new IdentityHashMap<>();
     private static MinecraftServer server;
 
+    private static String typeKey(DataMapType<?, ?> type)
+    {
+        return type.directory() + "/" + type.id();
+    }
+
     public static void registerType(DataMapType<?, ?> type)
     {
-        TYPES.put(type.id(), type);
+        TYPES.put(typeKey(type), type);
     }
 
     @Nullable
-    public static DataMapType<?, ?> typeOf(ResourceLocation id)
+    public static DataMapType<?, ?> typeOf(String key)
     {
-        return TYPES.get(id);
+        return TYPES.get(key);
     }
 
     public static <R, T> T get(Holder<R> holder, DataMapType<R, T> type)
@@ -165,9 +172,9 @@ public class DataMapManager
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
         RegistryAccess access = mc.level != null ? mc.level.registryAccess()
                 : RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
-        payload.values().forEach((typeId, entries) ->
+        payload.values().forEach((typeKey, entries) ->
         {
-            DataMapType<?, ?> raw = TYPES.get(typeId);
+            DataMapType<?, ?> raw = TYPES.get(typeKey);
             if (raw == null) return;
             DataMapType<R, T> type = (DataMapType<R, T>) raw;
             Map<ResourceKey<?>, Object> direct = new HashMap<>();
@@ -226,12 +233,12 @@ public class DataMapManager
 
     public static void sendToClient(ServerPlayer player)
     {
-        Map<ResourceLocation, Map<String, byte[]>> values = new HashMap<>();
+        Map<String, Map<String, byte[]>> values = new HashMap<>();
         RegistryAccess access = player.registryAccess();
         SERVER_DATA.forEach((type, direct) ->
         {
             if (type.networkCodec() == null) return;
-            values.put(type.id(), encodeEntries(type, direct, SERVER_TAGS.get(type), access));
+            values.put(typeKey(type), encodeEntries(type, direct, SERVER_TAGS.get(type), access));
         });
         if (!values.isEmpty())
             ServerPlayNetworking.send(player, new DataMapSyncPayload(values));
@@ -328,9 +335,7 @@ public class DataMapManager
                 String mapName = stripped.substring(slash + 1);
                 ResourceLocation mapId = ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), mapName);
 
-                DataMapType<Object, Object> type = (DataMapType<Object, Object>) TYPES.values().stream()
-                        .filter(t -> t.id().equals(mapId) && t.directory().equals(registryDir))
-                        .findFirst().orElse(null);
+                DataMapType<Object, Object> type = (DataMapType<Object, Object>) TYPES.get(registryDir + "/" + mapId);
                 if (type == null) return;
 
                 // resource stacks are ordered lowest -> highest priority
@@ -339,12 +344,15 @@ public class DataMapManager
                     try (InputStreamReader reader = new InputStreamReader(resource.open()))
                     {
                         JsonElement json = GSON.fromJson(reader, JsonElement.class);
-                        DataMapFile.codec(type.registryKey(), type.codec()).parse(JsonOps.INSTANCE, json)
-                                .result()
+                        var parsed = DataMapFile.codec(type.registryKey(), type.codec()).parse(JsonOps.INSTANCE, json);
+                        if (parsed.result().isEmpty())
+                            com.mojang.logging.LogUtils.getLogger().error("Failed to parse data map " + rl + ": " + parsed.error().map(Object::toString).orElse("unknown"));
+                        parsed.result()
                                 .ifPresent(file -> merge(type, file.replace(), file.values()));
                     }
-                    catch (Exception ignored)
+                    catch (Exception e)
                     {
+                        com.mojang.logging.LogUtils.getLogger().error("Failed to read data map " + rl, e);
                     }
                 }
             });
