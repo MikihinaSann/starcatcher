@@ -87,6 +87,11 @@ public class StarcatcherFabricClient implements ClientModInitializer
         // ---- item tooltips ----
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) ->
         {
+            // tooltip callbacks also fire on worker threads (creative search
+            // index); the handlers below call GLFW input polling which asserts
+            // on the render thread
+            if (!com.mojang.blaze3d.systems.RenderSystem.isOnRenderThread()) return;
+
             Player player = Minecraft.getInstance().player;
             com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.ItemTooltipEvent event =
                     new com.wdiscute.starcatcher.neoforged.neoforge.event.entity.player.ItemTooltipEvent(
